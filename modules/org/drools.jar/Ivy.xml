@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+  <info organisation="org.drools" module="drools" />
+  <dependencies>
+  	<dependency org="org.eclipse.jdt.core.compiler" name="ecj" rev="4.4.2" />
+  	<dependency org="org.mvel" name="mvel2" rev="2.1.0.drools16" />
+    <dependency org="org.drools" name="drools-compiler" rev="5.4.0.Final" />
+    <dependency org="org.drools" name="drools-core" rev="5.4.0.Final" />
+    <dependency org="org.drools" name="drools-decisiontables" rev="5.4.0.Final" />
+    <dependency org="org.drools" name="drools-jsr94" rev="5.4.0.Final" />
+    <dependency org="org.drools" name="drools-templates" rev="5.4.0.Final" />
+    <dependency org="org.drools" name="knowledge-api" rev="5.4.0.Final" />
+	<exclude org="antlr" />
+    <exclude org="com.sun.xml.bind" />
+    <exclude org="javax.activation" />
+    <exclude org="javax.jms" />
+    <exclude org="javax.xml.bind" />
+    <exclude org="log4j" />
+    <exclude org="org.codehaus.janino" />
+  </dependencies>
+</ivy-module>

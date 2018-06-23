@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+
+<workflow-definition
+	xmlns="urn:liferay.com:liferay-workflow_6.2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:liferay.com:liferay-workflow_6.2.0 http://www.liferay.com/dtd/liferay-workflow-definition_6_2_0.xsd"
+>
+	<name>Referral</name>
+	<description>Referral workflow</description>
+	<version>1</version>
+	<state>
+		<name>created</name>
+		<metadata>
+			<![CDATA[{"xy":[36,51]}]]>
+		</metadata>
+		<initial>true</initial>
+		<transitions>
+			<transition>
+				<name>review</name>
+				<target>review</target>
+			</transition>
+		</transitions>
+	</state>
+	<task>
+		<name>review</name>
+		<metadata>
+			<![CDATA[{"xy":[168,36]}]]>
+		</metadata>
+		<assignments>
+			<roles>
+				<role>
+					<role-type>organization</role-type>
+					<name>Organization Administrator</name>
+				</role>
+				<role>
+					<role-type>organization</role-type>
+					<name>Organization Content Reviewer</name>
+				</role>
+				<role>
+					<role-type>organization</role-type>
+					<name>Organization Owner</name>
+				</role>
+				<role>
+					<role-type>regular</role-type>
+					<name>Administrator</name>
+				</role>
+				<role>
+					<role-type>regular</role-type>
+					<name>Portal Content Reviewer</name>
+				</role>
+				<role>
+					<role-type>site</role-type>
+					<name>Site Administrator</name>
+				</role>
+				<role>
+					<role-type>site</role-type>
+					<name>Site Content Reviewer</name>
+				</role>
+				<role>
+					<role-type>site</role-type>
+					<name>Site Owner</name>
+				</role>
+			</roles>
+		</assignments>
+		<transitions>
+			<transition>
+				<name>done</name>
+				<target>completed</target>
+			</transition>
+		</transitions>
+	</task>
+	<state>
+		<name>completed</name>
+		<metadata>
+			<![CDATA[
+				{"xy":[380,51]}
+			]]>
+		</metadata>
+		<actions>
+			<action>
+				<name>done</name>
+				<script>
+					<![CDATA[
+						Packages.com.liferay.portal.kernel.workflow.WorkflowStatusManagerUtil.updateStatus(Packages.com.liferay.portal.kernel.workflow.WorkflowConstants.toStatus("approved"), workflowContext);
+					]]>
+				</script>
+				<script-language>javascript</script-language>
+				<execution-type>onEntry</execution-type>
+			</action>
+		</actions>
+	</state>
+</workflow-definition>

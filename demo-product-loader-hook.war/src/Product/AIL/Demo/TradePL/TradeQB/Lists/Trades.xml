@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<choice id="trades" xsi:type="java:com.ail.pageflow.util.Choice" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <choice name="?">
+        <choice name="?"/>
+    </choice>
+    <choice name="Administrative and Clerical"><attribute id="id" format="string" value="1"/>
+        <choice name="Administrative Services"><attribute id="id" format="string" value="6"/></choice>
+        <choice name="Archivist"><attribute id="id" format="string" value="0"/></choice>
+        <choice name="Clerical Services"><attribute id="id" format="string" value="51"/></choice>
+        <choice name="Copywriter"><attribute id="id" format="string" value="0"/></choice>
+        <choice name="Desktop Publishing Services"><attribute id="id" format="string" value="64"/></choice>
+        <choice name="Interpreter"><attribute id="id" format="string" value="111"/></choice>
+        <choice name="Journalist"><attribute id="id" format="string" value="0"/></choice>
+        <choice name="Linguistics"><attribute id="id" format="string" value="125"/></choice>
+        <choice name="Notary"><attribute id="id" format="string" value="0"/></choice>
+        <choice name="Proof Reader"><attribute id="id" format="string" value="0"/></choice>
+        <choice name="Secretarial Services"><attribute id="id" format="string" value="179"/></choice>
+        <choice name="Telephone Answering Service"><attribute id="id" format="string" value="196"/></choice>
+        <choice name="Telesales"><attribute id="id" format="string" value="198"/></choice>
+        <choice name="Telex Bureau"><attribute id="id" format="string" value="200"/></choice>
+        <choice name="Typing and Copying Bureau"><attribute id="id" format="string" value="210"/></choice>
+        <choice name="Word Processing"><attribute id="id" format="string" value="223"/></choice>
+    </choice>    
+    <choice name="Advertising and Marketing"><attribute id="id" format="string" value="2"/>
+        <choice name="Advertising Agency"><attribute id="id" format="string" value="8"/></choice>
+        <choice name="Advertising Consultants"><attribute id="id" format="string" value="9"/></choice>
+        <choice name="Advertising Contractors"><attribute id="id" format="string" value="0"/></choice>
+        <choice name="Canvassers"><attribute id="id" format="string" value="0"/></choice>
+        <choice name="Exhibition Design"><attribute id="id" format="string" value="0"/></choice>
+        <choice name="Exhibition Organiser"><attribute id="id" format="string" value="0"/></choice>
+        <choice name="Exhibition Stand Erectors"><attribute id="id" format="string" value="80"/></choice>
+        <choice name="Graphic Designers"><attribute id="id" format="string" value="100"/></choice>
+        <choice name="Hoarding Erectors"><attribute id="id" format="string" value="0"/></choice>
+        <choice name="Leaflet Distribution"><attribute id="id" format="string" value="0"/></choice>
+        <choice name="Market Researcher"><attribute id="id" format="string" value="128"/></choice>
+        <choice name="Marketing"><attribute id="id" format="string" value="130"/></choice>
+        <choice name="Marketing Consultants"><attribute id="id" format="string" value="131"/></choice>
+        <choice name="Promotional Consultants"><attribute id="id" format="string" value="0"/></choice>
+        <choice name="Public Relation Consultants"><attribute id="id" format="string" value="167"/></choice>
+        <choice name="Public Relations Officer"><attribute id="id" format="string" value="168"/></choice>
+        <choice name="Publicity Management"><attribute id="id" format="string" value="169"/></choice>
+        <choice name="Telemarketing"><attribute id="id" format="string" value="195"/></choice>
+        <choice name="Translator"><attribute id="id" format="string" value="207"/></choice>
+    </choice>
+    <choice name="Architectural and Engineering"><attribute id="id" format="string" value="3"/>
+        <choice name="Acoustic Engineers"><attribute id="id" format="string" value="2"/></choice>
+        <choice name="Architects"><attribute id="id" format="string" value="16"/></choice>
+        <choice name="Audio Engineers"><attribute id="id" format="string" value="0"/></choice>
+        <choice name="Audio Visual Engineers"><attribute id="id" format="string" value="0"/></choice>
+        <choice name="Civil Engineers"><attribute id="id" format="string" value="0"/></choice>
+        <choice name="Construction Plant Repairers"><attribute id="id" format="string" value="0"/></choice>
+        <choice name="Drain Repairers"><attribute id="id" format="string" value="0"/></choice>
+        <choice name="Draughtsman"><attribute id="id" format="string" value="71"/></choice>
+        <choice name="Engravers"><attribute id="id" format="string" value="0"/></choice>
+        <choice name="Garage Plant Installers"><attribute id="id" format="string" value="0"/></choice>
+        <choice name="Hydraulic Engineers"><attribute id="id" format="string" value="0"/></choice>
+        <choice name="Lift Installation"><attribute id="id" format="string" value="123"/></choice>
+        <choice name="Lift Maintenance"><attribute id="id" format="string" value="124"/></choice>
+        <choice name="Machinery Dismantling"><attribute id="id" format="string" value="0"/></choice>
+        <choice name="Machinery Installation &amp; Servicing Contractors"><attribute id="id" format="string" value="0"/></choice>
+        <choice name="Roller Shutter Door Installation"><attribute id="id" format="string" value="174"/></choice>
+        <choice name="Sound Engineer"><attribute id="id" format="string" value="0"/></choice>
+        <choice name="Stair Lift Installers/Repairers"><attribute id="id" format="string" value="0"/></choice>
+        <choice name="Swimming Pool Installers"><attribute id="id" format="string" value="189"/></choice>
+        <choice name="Swimming Pool Maintenance"><attribute id="id" format="string" value="234"/></choice>
+        <choice name="Vending Machine Engineer"><attribute id="id" format="string" value="0"/></choice>
+        <choice name="Water Treatment Plant Service &amp; Maintenance Contractors        "><attribute id="id" format="string" value="0"/></choice>
+    </choice>
+    <choice name="Building and Construction"><attribute id="id" format="string" value="4"/>
+      <choice name="Awning Erectors"><attribute id="id" format="string" value="225"/></choice>
+      <choice name="Bricklayers"><attribute id="id" format="string" value="25"/></choice>
+      <choice name="Builders"><attribute id="id" format="string" value="29"/></choice>
+      <choice name="Builders - New house building up to 10 metres only"><attribute id="id" format="string" value="227"/></choice>
+      <choice name="Builders - Private Dwellings, Shops, Offices, Hotels, and Public Houses only"><attribute id="id" format="string" value="28"/></choice>
+      <choice name="Builders - Work on Private Dwellings up to 10 metres only"><attribute id="id" format="string" value="228"/></choice>
+      <choice name="Building Maintenance"><attribute id="id" format="string" value="162"/></choice>
+      <choice name="Building Maintenance - Excluding Roofing, Guttering, Plumbing, Heating &amp; Ventilation"><attribute id="id" format="string" value="233"/></choice>
+      <choice name="Building Management"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Cladding Contractors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Concrete Pourers "><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Concrete Repair &amp; Drilling"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Conservatory and Porch Erectors"><attribute id="id" format="string" value="56"/></choice>
+      <choice name="Dry Stone Wall Contractors"><attribute id="id" format="string" value="75"/></choice>
+      <choice name="Excavation"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Formwork &amp; Shuttering Contractors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Garage &amp; Shed Erectors"><attribute id="id" format="string" value="95"/></choice>
+      <choice name="Garage Door &amp; Gate Fitters"><attribute id="id" format="string" value="96"/></choice>
+      <choice name="Hod Carrier"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Monumental Masons"><attribute id="id" format="string" value="134"/></choice>
+      <choice name="Non-Manual Site Supervisor"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Pebble Dashing Contractors"><attribute id="id" format="string" value="154"/></choice>
+      <choice name="Property Maintenance"><attribute id="id" format="string" value="162"/></choice>
+      <choice name="Property Maintenance - Excluding Hazardous Activities"><attribute id="id" format="string" value="233"/></choice>
+      <choice name="Roofing Contractors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Roughcasters"><attribute id="id" format="string" value="175"/></choice>
+      <choice name="Scaffolding Contractors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Shed &amp; Garage Erectors"><attribute id="id" format="string" value="95"/></choice>
+      <choice name="Shuttering &amp; Formwork Contractors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Steel Erectors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Steel Fabricators"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Steel Reinforcing Rod Installers"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Stonemasons"><attribute id="id" format="string" value="187"/></choice>
+    </choice>
+    <choice name="Catering and Food Delivery"><attribute id="id" format="string" value="5"/>
+      <choice name="Cake Making &amp; Decorating"><attribute id="id" format="string" value="32"/></choice>
+      <choice name="Catering Contractors"><attribute id="id" format="string" value="42"/></choice>
+      <choice name="Chef"><attribute id="id" format="string" value="46"/></choice>
+      <choice name="Cooking Services"><attribute id="id" format="string" value="59"/></choice>
+      <choice name="Fast Food Delivery Service"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Ice Cream Vendor"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Milk Delivery Roundsmen"><attribute id="id" format="string" value="133"/></choice>
+      <choice name="Mobile Shop"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Pizza Delivery"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Sandwich Delivery"><attribute id="id" format="string" value="0"/></choice>
+    </choice>
+    <choice name="Cleaning and Domestic Services"><attribute id="id" format="string" value="6"/>
+      <choice name="Car Valeters"><attribute id="id" format="string" value="33"/></choice>
+      <choice name="Carpet &amp; Upholstery Cleaners"><attribute id="id" format="string" value="36"/></choice>
+      <choice name="Carpet Cleaners"><attribute id="id" format="string" value="36"/></choice>
+      <choice name="Chimney Sweeps"><attribute id="id" format="string" value="47"/></choice>
+      <choice name="Cleaners"><attribute id="id" format="string" value="49"/></choice>
+      <choice name="Curtain &amp; Upholstery Cleaners"><attribute id="id" format="string" value="36"/></choice>
+      <choice name="Domestic Help"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Drain Cleaners"><attribute id="id" format="string" value="70"/></choice>
+      <choice name="High Pressure Water Washing Contractors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Home Help"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Home Laundry &amp; Ironing Service"><attribute id="id" format="string" value="117"/></choice>
+      <choice name="House Sitters"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Ironing  &amp; Home Laundry Services"><attribute id="id" format="string" value="117"/></choice>
+      <choice name="Pressure Washing Contractors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Steam Cleaning"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Wheelie Bin Cleaners"><attribute id="id" format="string" value="219"/></choice>
+      <choice name="Window Cleaners"><attribute id="id" format="string" value="221"/></choice>
+      <choice name="Window Cleaners - Ground Floor and Internal"><attribute id="id" format="string" value="222"/></choice>
+    </choice>
+    <choice name="Computing and IT"><attribute id="id" format="string" value="7"/>
+      <choice name="Computer Repairs &amp; Maintenance"><attribute id="id" format="string" value="54"/></choice>
+      <choice name="Computer Software Developers and Consultants"><attribute id="id" format="string" value="55"/></choice>
+      <choice name="IT Consultants"><attribute id="id" format="string" value="107"/></choice>
+      <choice name="Software Consultants"><attribute id="id" format="string" value="53"/></choice>
+      <choice name="Software Engineers"><attribute id="id" format="string" value="55"/></choice>
+      <choice name="Web Site Designer"><attribute id="id" format="string" value="218"/></choice>
+    </choice>
+    <choice name="Consultants"><attribute id="id" format="string" value="8"/>
+      <choice name="Acoustic Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Agricultural Consultants"><attribute id="id" format="string" value="11"/></choice>
+      <choice name="Arbitrator"><attribute id="id" format="string" value="15"/></choice>
+      <choice name="Art Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Art Valuation"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Audio Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Business Consultants or Advisors"><attribute id="id" format="string" value="30"/></choice>
+      <choice name="Career Consultancy"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Catering Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Computer Consultants"><attribute id="id" format="string" value="53"/></choice>
+      <choice name="Consultant Engineers"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Consultant Surgeon"><attribute id="id" format="string" value="57"/></choice>
+      <choice name="Consultants (Non medical/surgical)"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Consulting Optician"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Corrosion Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Design Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Editorial Consultancy"><attribute id="id" format="string" value="77"/></choice>
+      <choice name="Employment Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Export Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Fashion Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Feng Shui Consultants"><attribute id="id" format="string" value="82"/></choice>
+      <choice name="Fisheries Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Food Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Fuel Efficiency Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Health and Safety Consultants"><attribute id="id" format="string" value="104"/></choice>
+      <choice name="Horticultural Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Hotel Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Image Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Import Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Industrial Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Insurance Agents &amp; Consultants "><attribute id="id" format="string" value="109"/></choice>
+      <choice name="Interior Designers"><attribute id="id" format="string" value="110"/></choice>
+      <choice name="Jewellery Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Licensing Consultants"><attribute id="id" format="string" value="121"/></choice>
+      <choice name="Lifestyle Consultants"><attribute id="id" format="string" value="122"/></choice>
+      <choice name="Lighting Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Management Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Pension Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Personnel Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Planning Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Plastics Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Political Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Safety Consultants"><attribute id="id" format="string" value="104"/></choice>
+      <choice name="Surface Coating Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Textile Consultants"><attribute id="id" format="string" value="201"/></choice>
+      <choice name="Traffic Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Training Consultants"><attribute id="id" format="string" value="206"/></choice>
+      <choice name="Zoology Consultants"><attribute id="id" format="string" value="0"/></choice>
+    </choice>
+    <choice name="Electrical and Communications"><attribute id="id" format="string" value="9"/>
+      <choice name="Aerial &amp; Satellite Dish Erectors"><attribute id="id" format="string" value="10"/></choice>
+      <choice name="Alarm Installers - Excluding CCTV"><attribute id="id" format="string" value="14"/></choice>
+      <choice name="Alarm Installers - Including CCTV"><attribute id="id" format="string" value="224"/></choice>
+      <choice name="Broadband Installers"><attribute id="id" format="string" value="226"/></choice>
+      <choice name="CCTV Installers"><attribute id="id" format="string" value="224"/></choice>
+      <choice name="Data Cable Installers"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Domestic Electrical Appliances Servicers"><attribute id="id" format="string" value="68"/></choice>
+      <choice name="Electrical Appliance Servicing"><attribute id="id" format="string" value="78"/></choice>
+      <choice name="Electrical Contractors"><attribute id="id" format="string" value="79"/></choice>
+      <choice name="Electricians"><attribute id="id" format="string" value="79"/></choice>
+      <choice name="Electronic Engineers"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Electronics Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Lighting Contractors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Lighting Technician"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Meter Reader"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Satellite and TV Installer"><attribute id="id" format="string" value="176"/></choice>
+      <choice name="Telecommunications Consultants"><attribute id="id" format="string" value="194"/></choice>
+      <choice name="Telecommunications Engineers"><attribute id="id" format="string" value="193"/></choice>
+      <choice name="Telephone Point/Extension Installers"><attribute id="id" format="string" value="197"/></choice>
+      <choice name="Television Repairing"><attribute id="id" format="string" value="199"/></choice>
+      <choice name="TV and Video Installation"><attribute id="id" format="string" value="208"/></choice>
+      <choice name="TV and Video Repairing"><attribute id="id" format="string" value="209"/></choice>
+      <choice name="Vacuum Cleaner Repairs and Service"><attribute id="id" format="string" value="213"/></choice>
+      <choice name="Vehicle Audio &amp; Telephone Installer"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Washing Machine and Dishwasher Repairs and Servicing"><attribute id="id" format="string" value="217"/></choice>
+    </choice>
+    <choice name="Entertainment, Arts and Leisure"><attribute id="id" format="string" value="10"/>
+      <choice name="Actor"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Aerobics Instructor"><attribute id="id" format="string" value="232"/></choice>
+      <choice name="After Dinner Speaker"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Animator"><attribute id="id" format="string" value="41"/></choice>
+      <choice name="Artist"><attribute id="id" format="string" value="19"/></choice>
+      <choice name="Auctioneer"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Author"><attribute id="id" format="string" value="21"/></choice>
+      <choice name="Balloon Artist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Band"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Body Art"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Bookmakers - On Course"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Busker"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Cabaret Artist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Calligraphist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Cameraman"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Caricaturist"><attribute id="id" format="string" value="41"/></choice>
+      <choice name="Cartoonist"><attribute id="id" format="string" value="41"/></choice>
+      <choice name="Childrens Entertainer"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Choir"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Classical Musician"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Clown"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Comedian"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Compere"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Composer"><attribute id="id" format="string" value="52"/></choice>
+      <choice name="Contortionist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Dance Teacher/Instructor"><attribute id="id" format="string" value="232"/></choice>
+      <choice name="Dancer"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="DJ/Disco"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Drama Teacher"><attribute id="id" format="string" value="235"/></choice>
+      <choice name="Entertainer"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Escapologist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Face Painter"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Fashion Designer"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Fitness Instructors"><attribute id="id" format="string" value="232"/></choice>
+      <choice name="Guitar Teacher"><attribute id="id" format="string" value="235"/></choice>
+      <choice name="Guitarist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Gym and Fitness Instructors"><attribute id="id" format="string" value="232"/></choice>
+      <choice name="Illusionist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Illustrator"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Jester"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Juggler"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Karaoke"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Keyboard Player"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Kissogram"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Magician"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Make-up Artist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Master of Ceremonies"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Mime Artist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Mobile DJ/Disco"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Morris Dancer"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Music Publisher"><attribute id="id" format="string" value="137"/></choice>
+      <choice name="Music Teacher"><attribute id="id" format="string" value="138"/></choice>
+      <choice name="Musicians"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Party Planner"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Performance Artist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Photographer"><attribute id="id" format="string" value="155"/></choice>
+      <choice name="Pianist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Piano Teacher"><attribute id="id" format="string" value="235"/></choice>
+      <choice name="Piano Tuning and Servicing"><attribute id="id" format="string" value="158"/></choice>
+      <choice name="Picture Framing"><attribute id="id" format="string" value="159"/></choice>
+      <choice name="Pilates Instructor"><attribute id="id" format="string" value="232"/></choice>
+      <choice name="Poet"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Potter"><attribute id="id" format="string" value="19"/></choice>
+      <choice name="Public Speaker"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Puppeteer"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Salsa Teacher/Instructor"><attribute id="id" format="string" value="232"/></choice>
+      <choice name="Screenwriter"><attribute id="id" format="string" value="177"/></choice>
+      <choice name="Script Writer"><attribute id="id" format="string" value="178"/></choice>
+      <choice name="Sculptor"><attribute id="id" format="string" value="19"/></choice>
+      <choice name="Singer"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Singing Teacher"><attribute id="id" format="string" value="235"/></choice>
+      <choice name="Songwriter"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Stage Technician"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Tap Dance Teacher"><attribute id="id" format="string" value="232"/></choice>
+      <choice name="Teachers &amp; Tutors - Excluding Manual Activities"><attribute id="id" format="string" value="235"/></choice>
+      <choice name="Teachers &amp; Tutors - Excluding Sports, Woodworking and Metalworking"><attribute id="id" format="string" value="236"/></choice>
+      <choice name="Theatre &amp; Ticket Agency"><attribute id="id" format="string" value="202"/></choice>
+      <choice name="Ticket Agency"><attribute id="id" format="string" value="203"/></choice>
+      <choice name="Toastmaster"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Tour Guide"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Ventriloquist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Vocalist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Voice Coach"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Yoga Instructor"><attribute id="id" format="string" value="232"/></choice>
+    </choice>
+    <choice name="General Tradesmen"><attribute id="id" format="string" value="11"/>
+      <choice name="Artexers"><attribute id="id" format="string" value="18"/></choice>
+      <choice name="Bathroom Installers"><attribute id="id" format="string" value="23"/></choice>
+      <choice name="Blind Fitters"><attribute id="id" format="string" value="62"/></choice>
+      <choice name="Carpenters"><attribute id="id" format="string" value="35"/></choice>
+      <choice name="Carpet Fitters"><attribute id="id" format="string" value="39"/></choice>
+      <choice name="Cavity Wall Insulation Contractors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Ceiling and Partitioning Contractors"><attribute id="id" format="string" value="43"/></choice>
+      <choice name="Curtain &amp; Blind Fitters"><attribute id="id" format="string" value="62"/></choice>
+      <choice name="Curtain Walling &amp; Architectural Glass Contractor"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Damp Proofing &amp; Control Services"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Decorators - Excluding Use of Heat"><attribute id="id" format="string" value="149"/></choice>
+      <choice name="Decorators - Including Use of Heat"><attribute id="id" format="string" value="150"/></choice>
+      <choice name="Double Glazing Installers"><attribute id="id" format="string" value="69"/></choice>
+      <choice name="Draught Proofing Contractor"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Drilling Contractors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Dry Lining Contractors"><attribute id="id" format="string" value="230"/></choice>
+      <choice name="Dry Rot Control Services"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Fireplace Installation"><attribute id="id" format="string" value="86"/></choice>
+      <choice name="Fitted Furniture Installers"><attribute id="id" format="string" value="87"/></choice>
+      <choice name="Fitted Kitchen Installers"><attribute id="id" format="string" value="88"/></choice>
+      <choice name="Flooring Contractors"><attribute id="id" format="string" value="90"/></choice>
+      <choice name="French Polishers"><attribute id="id" format="string" value="92"/></choice>
+      <choice name="Furniture Assembly and Repair"><attribute id="id" format="string" value="94"/></choice>
+      <choice name="Furniture Restoration"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Glaziers"><attribute id="id" format="string" value="99"/></choice>
+      <choice name="Grit Blasters"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Guttering &amp; Fascia Board Installation"><attribute id="id" format="string" value="102"/></choice>
+      <choice name="Insulation Contractors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Joiners"><attribute id="id" format="string" value="118"/></choice>
+      <choice name="Kitchen Installers and Fitters"><attribute id="id" format="string" value="119"/></choice>
+      <choice name="Locksmiths"><attribute id="id" format="string" value="126"/></choice>
+      <choice name="Loft Conversion Contractors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Loft Insulation Contractors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Mastic Sealant Contractors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Office Equipment Installers and Repairers"><attribute id="id" format="string" value="143"/></choice>
+      <choice name="Office Fitters"><attribute id="id" format="string" value="144"/></choice>
+      <choice name="Painters &amp; Decorators - Excluding Use of Heat"><attribute id="id" format="string" value="149"/></choice>
+      <choice name="Painters &amp; Decorators - Including Use of Heat"><attribute id="id" format="string" value="150"/></choice>
+      <choice name="Partitioning Contractors"><attribute id="id" format="string" value="151"/></choice>
+      <choice name="Plasterers"><attribute id="id" format="string" value="160"/></choice>
+      <choice name="Racking &amp; Shelving Installers"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Shelving &amp; Racking Installers"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Shopfitters"><attribute id="id" format="string" value="180"/></choice>
+      <choice name="Shot Blasting Contractors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Sign Writers and Erectors"><attribute id="id" format="string" value="182"/></choice>
+      <choice name="Tilers"><attribute id="id" format="string" value="204"/></choice>
+      <choice name="Timber Decking Contractors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Timber Treatment Contractors "><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Upholsterers"><attribute id="id" format="string" value="212"/></choice>
+      <choice name="Welding Contractors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Window Fitters"><attribute id="id" format="string" value="99"/></choice>
+    </choice>
+    <choice name="Health and Beauty"><attribute id="id" format="string" value="12"/>
+      <choice name="Acupuncturist"><attribute id="id" format="string" value="5"/></choice>
+      <choice name="Aromatherapist"><attribute id="id" format="string" value="17"/></choice>
+      <choice name="Barber"><attribute id="id" format="string" value="103"/></choice>
+      <choice name="Beauticians"><attribute id="id" format="string" value="24"/></choice>
+      <choice name="Hair &amp; Beauty Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Hairdressers"><attribute id="id" format="string" value="103"/></choice>
+      <choice name="Henna Tattoos"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Herbalist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Make-up Consultant"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Manicurist &amp; Pedicurist"><attribute id="id" format="string" value="127"/></choice>
+      <choice name="Nail Technician"><attribute id="id" format="string" value="139"/></choice>
+    </choice>
+    <choice name="Landscaping and Gardening"><attribute id="id" format="string" value="13"/>
+      <choice name="Arborist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Drainage Contractors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Fencing Contractors"><attribute id="id" format="string" value="81"/></choice>
+      <choice name="Flower &amp; Plant Arrangers"><attribute id="id" format="string" value="91"/></choice>
+      <choice name="Forestry Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Garden &amp; Lawn Services"><attribute id="id" format="string" value="97"/></choice>
+      <choice name="Garden Designers"><attribute id="id" format="string" value="231"/></choice>
+      <choice name="Gardeners"><attribute id="id" format="string" value="97"/></choice>
+      <choice name="Landscape Gardening"><attribute id="id" format="string" value="97"/></choice>
+      <choice name="Treefellers/Tree Surgeons"><attribute id="id" format="string" value="0"/></choice>
+   </choice>
+   <choice name="Legal, Financial and Statistical"><attribute id="id" format="string" value="14"/>
+      <choice name="Accountants"><attribute id="id" format="string" value="1"/></choice>
+      <choice name="Actuarial Consultants"><attribute id="id" format="string" value="3"/></choice>
+      <choice name="Actuary"><attribute id="id" format="string" value="4"/></choice>
+      <choice name="Auditors"><attribute id="id" format="string" value="20"/></choice>
+      <choice name="Barrister"><attribute id="id" format="string" value="22"/></choice>
+      <choice name="Bookkeepers"><attribute id="id" format="string" value="1"/></choice>
+      <choice name="Claims Adjuster"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Claims Assessor"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Financial Advisory Service"><attribute id="id" format="string" value="83"/></choice>
+      <choice name="Financial Consultants"><attribute id="id" format="string" value="85"/></choice>
+      <choice name="Financial Market Trading"><attribute id="id" format="string" value="84"/></choice>
+      <choice name="Financial Services"><attribute id="id" format="string" value="85"/></choice>
+      <choice name="Investment Banking"><attribute id="id" format="string" value="114"/></choice>
+      <choice name="Investment Consultants"><attribute id="id" format="string" value="115"/></choice>
+      <choice name="Investment Management"><attribute id="id" format="string" value="116"/></choice>
+      <choice name="Lawyers"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Legal Services"><attribute id="id" format="string" value="120"/></choice>
+      <choice name="Loss Adjuster"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Loss Assessor"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Mortgage Brokers"><attribute id="id" format="string" value="135"/></choice>
+      <choice name="Solicitors"><attribute id="id" format="string" value="183"/></choice>
+      <choice name="Statisticians"><attribute id="id" format="string" value="185"/></choice>
+      <choice name="Stockbroker"><attribute id="id" format="string" value="186"/></choice>
+      <choice name="Tax Consultants"><attribute id="id" format="string" value="190"/></choice>
+      <choice name="Underwriting Agency"><attribute id="id" format="string" value="211"/></choice>
+      <choice name="Will Writer"><attribute id="id" format="string" value="220"/></choice>
+     </choice>
+     <choice name="Medical, Therapy and Advisory"><attribute id="id" format="string" value="15"/>
+      <choice name="Chiropodist"><attribute id="id" format="string" value="48"/></choice>
+      <choice name="Counsellor"><attribute id="id" format="string" value="60"/></choice>
+      <choice name="Dentist"><attribute id="id" format="string" value="63"/></choice>
+      <choice name="Dietician"><attribute id="id" format="string" value="65"/></choice>
+      <choice name="Doctor - Medical"><attribute id="id" format="string" value="66"/></choice>
+      <choice name="Homeopathy"><attribute id="id" format="string" value="106"/></choice>
+      <choice name="Hypnotherapist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Marriage Guidance Counsellor"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Masseurs"><attribute id="id" format="string" value="132"/></choice>
+      <choice name="Neurologist"><attribute id="id" format="string" value="140"/></choice>
+      <choice name="Nutritionist"><attribute id="id" format="string" value="141"/></choice>
+      <choice name="Occupational Therapist"><attribute id="id" format="string" value="142"/></choice>
+      <choice name="Optician"><attribute id="id" format="string" value="145"/></choice>
+      <choice name="Optometrist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Orthopaedic"><attribute id="id" format="string" value="146"/></choice>
+      <choice name="Osteopath"><attribute id="id" format="string" value="147"/></choice>
+      <choice name="Paediatrician"><attribute id="id" format="string" value="148"/></choice>
+      <choice name="Physiologist"><attribute id="id" format="string" value="156"/></choice>
+      <choice name="Physiotherapist"><attribute id="id" format="string" value="157"/></choice>
+      <choice name="Psychiatrist"><attribute id="id" format="string" value="163"/></choice>
+      <choice name="Psychoanalyst"><attribute id="id" format="string" value="164"/></choice>
+      <choice name="Psychologist"><attribute id="id" format="string" value="165"/></choice>
+      <choice name="Psychotherapist"><attribute id="id" format="string" value="166"/></choice>
+      <choice name="Reflexologist"><attribute id="id" format="string" value="171"/></choice>
+      <choice name="Reiki"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Shiatsu Practitioners"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Social Worker"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Speech Therapist"><attribute id="id" format="string" value="184"/></choice>
+    </choice>
+    <choice name="Miscellaneous"><attribute id="id" format="string" value="16"/>
+      <choice name="Abseiling Contractors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Agricultural Contractors"><attribute id="id" format="string" value="12"/></choice>
+      <choice name="Bath Resurfacer"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Butler"><attribute id="id" format="string" value="31"/></choice>
+      <choice name="Car Window Etching"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Caretaker"><attribute id="id" format="string" value="34"/></choice>
+      <choice name="Childminder - Registered"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Commissioner for Oaths"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Dog and Pet Walkers, Sitters or Carers"><attribute id="id" format="string" value="67"/></choice>
+      <choice name="Dressmakers, Tailors or Curtain Makers"><attribute id="id" format="string" value="72"/></choice>
+      <choice name="Driving Instructor"><attribute id="id" format="string" value="74"/></choice>
+      <choice name="Embalmers"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Farrier"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Fire Extinguisher Service Engineers"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Funeral Celebrants"><attribute id="id" format="string" value="93"/></choice>
+      <choice name="Funeral Director"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Grave Digger"><attribute id="id" format="string" value="101"/></choice>
+      <choice name="Gym Equipment Installers"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Lecturer"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Lightning Conductor Contractors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Manual Handling Instructors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Non-Destructive Tester"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Pest Controller"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Playground Equipment Installers"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Safe Installation And Removal"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Security Guards"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Sprinkler Installers"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Town Planner"><attribute id="id" format="string" value="205"/></choice>
+      <choice name="Water Treatment Contractors "><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Windscreen Fitters/ Etchers"><attribute id="id" format="string" value="0"/></choice>
+    </choice>
+    <choice name="Paving, Groundworks and Roads"><attribute id="id" format="string" value="17"/>
+      <choice name="Asphalt/Road Surface Contractors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Drive Laying"><attribute id="id" format="string" value="73"/></choice>
+      <choice name="Groundworkers"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Kerbing Contractors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Path, Patio and Drive Laying"><attribute id="id" format="string" value="152"/></choice>
+      <choice name="Road Surfacing &amp; Marking"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Road Sweepers"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Street Furniture Installers"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Street Lighting &amp; Telegraph Pole Installers"><attribute id="id" format="string" value="0"/></choice>
+    </choice>
+    <choice name="Plumbing, Heating and Ventilation"><attribute id="id" format="string" value="18"/>
+      <choice name="Air Conditioning Engineers"><attribute id="id" format="string" value="13"/></choice>
+      <choice name="Boiler Services"><attribute id="id" format="string" value="161"/></choice>
+      <choice name="Ductwork Installers"><attribute id="id" format="string" value="76"/></choice>
+      <choice name="Gas Fitters"><attribute id="id" format="string" value="98"/></choice>
+      <choice name="Heating &amp; Plumbing Contractors"><attribute id="id" format="string" value="161"/></choice>
+      <choice name="Heating Engineers"><attribute id="id" format="string" value="105"/></choice>
+      <choice name="Plumbers"><attribute id="id" format="string" value="161"/></choice>
+      <choice name="Plumbing &amp; Heating Engineers"><attribute id="id" format="string" value="161"/></choice>
+      <choice name="Refrigeration Engineers"><attribute id="id" format="string" value="172"/></choice>
+      <choice name="Ventilation Engineers"><attribute id="id" format="string" value="215"/></choice>
+    </choice>
+    <choice name="Research and Scientific Analysis"><attribute id="id" format="string" value="19"/>
+      <choice name="Analytical Chemist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Anthropologist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Archaeologist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Astrologist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Astronomer"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Biologist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Botanist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Dendrochronologist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Ecologist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Forensic Scientist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Genealogists"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Geologists"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Graphologists"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Hydro Geologist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Marine Geologist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Meteorologist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Microbiologist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Mineralogist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Ornithologist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Palaeobotanist"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Pathologist"><attribute id="id" format="string" value="153"/></choice>
+      <choice name="Research Consultants"><attribute id="id" format="string" value="173"/></choice>
+      <choice name="Researchers"><attribute id="id" format="string" value="128"/></choice>
+      <choice name="Weather Forecaster"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Zoologist"><attribute id="id" format="string" value="0"/></choice>
+    </choice>
+    <choice name="Surveying and Property"><attribute id="id" format="string" value="20"/>
+      <choice name="Cartographer"><attribute id="id" format="string" value="40"/></choice>
+      <choice name="Chartered Surveyor"><attribute id="id" format="string" value="188"/></choice>
+      <choice name="Conveyancing"><attribute id="id" format="string" value="58"/></choice>
+      <choice name="Property Consultants"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Property Management"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Quantity Surveyors"><attribute id="id" format="string" value="170"/></choice>
+      <choice name="Surveyor"><attribute id="id" format="string" value="188"/></choice>
+      <choice name="Valuation - Real Estate"><attribute id="id" format="string" value="214"/></choice>
+    </choice>
+    <choice name="Transport, Haulage and Removals"><attribute id="id" format="string" value="21"/>
+      <choice name="Chauffeur"><attribute id="id" format="string" value="45"/></choice>
+      <choice name="Coach Operator"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Coal Merchant"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Couriers"><attribute id="id" format="string" value="61"/></choice>
+      <choice name="Fork Lift Truck Servicing"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Fork Lift Truck Training Instructors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Furniture Removal"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Haulage Contractors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="House Clearance and Rubbish Removal"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Mini Cab Operator"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Motor Cycle Courier"><attribute id="id" format="string" value="136"/></choice>
+      <choice name="Office Removers"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Removal Contractors"><attribute id="id" format="string" value="0"/></choice>
+      <choice name="Taxi Drivers"><attribute id="id" format="string" value="191"/></choice>
+    </choice>
+</choice>

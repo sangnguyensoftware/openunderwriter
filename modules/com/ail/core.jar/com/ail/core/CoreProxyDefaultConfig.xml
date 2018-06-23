@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ This file defines the CoreProxy classes factory default configuration.
+-->
+<configuration xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Core Proxy Configuration</name>
+    <timeout>-1</timeout>
+    <who>factory</who>
+    <version>1.0</version>
+</configuration>

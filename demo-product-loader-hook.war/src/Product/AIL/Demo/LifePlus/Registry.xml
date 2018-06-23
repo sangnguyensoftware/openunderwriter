@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd">
+    <name>Life Plus product registry</name>
+    <timeout>-1</timeout>
+    <who>Applied Industrial Logic </who>
+    <version>1.4</version>
+    <manager>com.ail.core.product.resetproduct.ResetProductService</manager>
+    <parentNamespace>AIL.Base.Registry</parentNamespace>
+
+    <types>
+        <service name="InitialiseQuotation" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/InitialiseQuotation.java</parameter>
+        </service>
+
+        <service name="AssessBankPaymentOptionsService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/AssessBankPaymentOptionsService.java</parameter>
+        </service>
+        
+        <service name="AssessIWinPayPaymentOptionsService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/AssessIWinPayPaymentOptionsService.java</parameter>
+        </service>
+        
+        <!-- TODO: Delete this when iWinPay requests can be made using mobile numbers -->
+        <service name="PopulateIWinPayUserService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/PopulateIWinPayUserService.java</parameter>
+        </service>
+        
+        <service name="AssessPolicyRiskRule" builder="CachingClassBuilder" key="com.ail.core.command.DroolsDecisionTableAccessor" >
+            <!--uncomment the following parameter to get a full dump of the rules (drl) and rule facts written to -->
+            <!--the console during risk assessment                                                                -->
+            <!--parameter name="LoggingIndicatorAsString">FULL</parameter-->
+            <parameter name="Url">~/Rules/PolicyRating.xls</parameter>
+        </service>
+
+        <command name="InitialiseQuotationCommand" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">InitialiseQuotation</parameter>
+        </command>
+
+        <command name="AssessSectionRisk/Section" key="com.ail.insurance.quotation.AssessSectionRiskCommandImpl">
+            <!-- There are no risk assessment rules at the section level for this product, all risk assessment -->
+            <!-- is done at the policy level. The NullService has the effect of saying 'do nothing'.           -->
+            <parameter name="Service">com.ail.core.NullService</parameter>
+        </command>
+
+        <command name="AssessBankPaymentOptions" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">AssessBankPaymentOptionsService</parameter>
+        </command>
+        
+        <command name="AssessIWinPayPaymentOptions" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">AssessIWinPayPaymentOptionsService</parameter>
+        </command>
+        
+        <!-- TODO: Delete this when iWinPay requests can be made using mobile numbers -->
+        <command name="PopulateIWinPayUser" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">PopulateIWinPayUserService</parameter>
+        </command>
+
+
+        <type name="Policy" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Policy">
+            <parameter name="Url">~/Model/Policy.xml</parameter>
+        </type>
+        
+        <type name="QuotationPageFlow" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.PageFlow">
+            <parameter name="extends">super.QuotationPageFlow</parameter>
+            <parameter name="Url">~/PageFlows/QuotationPageFlow.xml</parameter>
+        </type>
+        
+        <type name="QuotationDocument" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.document.model.DocumentDefinition">
+			<parameter name="extends">super.QuotationDocument</parameter>
+            <parameter name="Url">~/Documents/QuotationDocument.xml</parameter>
+        </type>
+
+        <type name="CertificateDocument" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.document.model.DocumentDefinition">
+			<parameter name="extends">super.CertificateDocument</parameter>
+            <parameter name="Url">~/Documents/CertificateDocument.xml</parameter>
+        </type>
+
+        <type name="WordingDocument" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.document.model.DocumentDefinition">
+			<parameter name="extends">super.WordingDocument</parameter>
+            <parameter name="Url">~/Documents/WordingDocument.xml</parameter>
+        </type>
+        
+    </types>
+</configuration>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Default Test Quotation Configuration</name>
+    <timeout>600000</timeout>
+    <who>factory</who>
+    <version>$Revision: 1.3 $</version>
+
+    <group name="KeyGenerators">
+        <group name="QuoteNumber">
+            <parameter name="ID">Base.QuoteNumber</parameter>
+            <parameter name="Range">1000-*</parameter>
+        </group>
+        <group name="PolicyNumber">
+            <parameter name="ID">Base.PolicyNumber</parameter>
+            <parameter name="Range">1000-*</parameter>
+        </group>
+        <group name="InvoiceNumber">
+            <parameter name="ID">Base.InvoiceNumber</parameter>
+            <parameter name="Range">1000-*</parameter>
+        </group>
+    </group>
+
+    <types>
+        <!--==================================== -->
+        <!-- Define the component's services -->
+        <!--==================================== -->
+        <service name="AcceptanceComponent" key="com.ail.core.command.EJBAccessor">
+            <parameter name="JndiName">Acceptance</parameter>
+        </service>
+
+        <!--======================================================================= -->
+        <!-- Bind the default core services (above) to Commands used by Core.class -->
+        <!--======================================================================= -->
+        <command name="PutOnRiskService" key="com.ail.insurance.acceptance.PutOnRiskCommandImpl">
+            <parameter name="Service">AcceptanceComponent</parameter>
+        </command>
+        <command name="ProduceDocumentationService" key="com.ail.insurance.acceptance.ProduceDocumentationCommandImpl">
+            <parameter name="Service">AcceptanceComponent</parameter>
+        </command>
+        <command name="CollectPremiumService" key="com.ail.insurance.acceptance.CollectPremiumCommandImpl">
+            <parameter name="Service">AcceptanceComponent</parameter>
+        </command>
+        <command name="AddPolicyNumber" key="com.ail.insurance.quotation.addpolicynumber.AddPolicyNumberCommandImpl">
+            <parameter name="Service">AcceptanceComponent</parameter>
+        </command>
+    </types>
+</configuration>

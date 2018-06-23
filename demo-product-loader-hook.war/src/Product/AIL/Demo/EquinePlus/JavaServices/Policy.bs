@@ -1,0 +1,44 @@
+type=new com.ail.insurance.policy.Policy();
+
+type.setProductTypeId("AIL.Demo.EquinePlus");
+type.setProductName("Equine Plus");
+
+/* Add a personal lines proposer */
+type.setProposer(core.newProductType("AIL.Base", "PersonalProposer"));
+
+/* Set the quotation date. This date will tie us to a specific version of pageflow, rules etc. */
+type.setQuotationDate(new Date());
+
+/* Set the policy inception date to today */
+type.setInceptionDate(new Date());
+
+/* Set the policy's expiry date to yesterday + 1 year */
+date=Calendar.getInstance();
+date.add(Calendar.DATE, -1);
+date.add(Calendar.YEAR, 1);
+type.setExpiryDate(date.getTime());
+
+/* Set the quote expiry date to today + 30 days */
+date=Calendar.getInstance();
+date.add(Calendar.DATE, 30);
+type.setQuotationExpiryDate(date.getTime());
+
+/* Add the horse Asset */
+horse=core.newProductType("AIL.Demo.EquinePlus", "HorseAsset");
+horse.setId("horse1");
+type.addAsset(horse);
+
+/* Add the Coverage Asset */
+coverage=core.newProductType("AIL.Demo.EquinePlus", "CoverageAsset");
+coverage.setId("cover1");
+type.addAsset(coverage);
+
+/* Add excesses */
+type.addExcess(core.newProductType("AIL.Demo.EquinePlus", "SaddleryAndTackExcess"));
+
+/* Build the equine section - only one section is used for equine insurance */
+section=core.newProductType("AIL.Demo.EquinePlus", "EquinePlusSection");
+section.addAssetId("horse1");
+type.addSection(section);
+
+type.setBroker(core.newProductType("AIL.Demo.EquinePlus", "AilDemoBroker"));

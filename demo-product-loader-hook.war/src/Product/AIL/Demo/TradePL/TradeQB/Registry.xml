@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd">
+
+  <name>Trade Quote and Buy</name>
+  <timeout>-1</timeout>
+  <who>OpenUnderwriter</who>
+  <version>1.0</version>
+  <manager>com.ail.core.product.resetproduct.ResetProductService</manager>
+  <parentNamespace>AIL.Demo.TradePL.GenericQB.Registry</parentNamespace>
+
+  <types>
+
+    <service name="AssessPolicyRiskRule" builder="CachingClassBuilder" key="com.ail.core.command.DroolsDecisionTableAccessor" >
+      <!--uncomment the following parameter to get a full dump of the rules (drl) and rule facts written to -->
+      <!--the console during risk assessment                                                                -->
+      <!-- parameter name="LoggingIndicatorAsString">FULL</parameter-->
+      <parameter name="Url">~/Rules/PolicyRating.xls</parameter>
+    </service>
+
+    <service name="TradeFactorLookupService" builder="CachingClassBuilder" key="com.ail.core.command.DroolsDecisionTableAccessor" >
+      <parameter name="Url">~/Rules/TradeFactorLookup.xls</parameter>
+    </service>
+
+    <service name="TradeEndorsementLookupService" builder="CachingClassBuilder" key="com.ail.core.command.DroolsDecisionTableAccessor" >
+      <parameter name="Url">~/Rules/TradeEndorsementLookup.xls</parameter>
+    </service>
+
+    <service name="LimitAndExcessLookupService" builder="CachingClassBuilder" key="com.ail.core.command.DroolsDecisionTableAccessor" >
+      <parameter name="Url">~/Rules/LimitAndExcessLookup.xls</parameter>
+    </service>
+
+    <service name="EnforceCoveragesService" builder="CachingClassBuilder" key="com.ail.core.command.DroolsDecisionTableAccessor" >
+      <parameter name="Url">~/Rules/EnforceCoverages.xls</parameter>
+    </service>
+
+    <service name="PeopleCountService" builder="CachingClassBuilder" key="com.ail.core.command.DroolsDecisionTableAccessor" >
+      <parameter name="Url">~/Rules/PeopleCount.xls</parameter>
+    </service>
+
+    <service name="BusinessPageValidationService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor" >
+      <parameter name="Url">~/JavaServices/BusinessPageValidationService.java</parameter>
+    </service>
+
+    <service name="WorkingPracticesPageValidationService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor" >
+      <parameter name="Url">~/JavaServices/WorkingPracticesPageValidationService.java</parameter>
+    </service>
+
+    <service name="PersonnelPageValidationService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor" >
+      <parameter name="Url">~/JavaServices/PersonnelPageValidationService.java</parameter>
+    </service>
+
+    <command name="AssessSectionRisk/Section" key="com.ail.insurance.quotation.AssessSectionRiskCommandImpl">
+      <!-- There are no risk assessment rules at the section level for this product, all risk assessment -->
+      <!-- is done at the policy level. The NullService has the effect of saying 'do nothing'.           -->
+      <parameter name="Service">com.ail.core.NullService</parameter>
+    </command>
+
+    <command name="TradeFactorLookup" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+      <parameter name="Service">TradeFactorLookupService</parameter>
+    </command>
+
+    <command name="TradeEndorsementLookup" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+      <parameter name="Service">TradeEndorsementLookupService</parameter>
+    </command>
+
+    <command name="LimitAndExcessLookup" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+      <parameter name="Service">LimitAndExcessLookupService</parameter>
+    </command>
+
+    <command name="EnforceCoverages" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+      <parameter name="Service">EnforceCoveragesService</parameter>
+    </command>
+
+    <command name="PeopleCount" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+      <parameter name="Service">PeopleCountService</parameter>
+    </command>
+
+    <command name="PersonnelPageValidation" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+      <parameter name="Service">PersonnelPageValidationService</parameter>
+    </command>
+
+    <command name="BusinessPageValidation" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+      <parameter name="Service">BusinessPageValidationService</parameter>
+    </command>
+
+    <command name="WorkingPracticesPageValidation" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+      <parameter name="Service">WorkingPracticesPageValidationService</parameter>
+    </command>
+
+    <type name="Policy" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Policy">
+      <parameter name="extends">super.Policy</parameter>
+      <parameter name="Url">~/Model/Policy.xml</parameter>
+    </type>
+
+    <type name="QuotationPageFlow" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.PageFlow">
+      <parameter name="extends">super.QuotationPageFlow</parameter>
+      <parameter name="Url">~/QuotationPageFlow.xml</parameter>
+    </type>
+
+    <type name="TradeAsset" builder="CastorXMLBuilder" singleInstance="false" key="com.ail.insurance.policy.Asset">
+      <parameter name="Url">~/Model/TradeAsset.xml</parameter>
+    </type>
+
+    <type name="Trades" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.util.Choice">
+      <parameter name="Url">~/Lists/Trades.xml</parameter>
+    </type>
+
+    <type name="PartnerAsset" builder="CastorXMLBuilder" singleInstance="false" key="com.ail.insurance.policy.Asset">
+      <parameter name="Url">~/Model/PartnerAsset.xml</parameter>
+    </type>
+
+  </types>
+
+</configuration>

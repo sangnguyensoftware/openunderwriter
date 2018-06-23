@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mstns:ImportDataSet xmlns:mstns="http://tempuri.org/ImportDataSet.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://tempuri.org/ImportDataSet.xsd Schema0806.xsd">
+    <mstns:Document mstns:ModuleType="B" mstns:LastUpdatedDate="2015-09-28">
+        <mstns:BindingAuthorityDetails>
+            <mstns:BARefDate>2015-09-01</mstns:BARefDate>
+            <mstns:BARefNo>1234</mstns:BARefNo>
+            <mstns:BABrokersRef>1</mstns:BABrokersRef>
+            <mstns:BAPseudonym>BDB</mstns:BAPseudonym>
+            <mstns:BANumber>312</mstns:BANumber>
+            <mstns:BAcorr_Pin1>112880</mstns:BAcorr_Pin1>
+            <mstns:BAcorr_Pin2>IUL</mstns:BAcorr_Pin2>
+            <mstns:BAUniqueMarketReference>B01231</mstns:BAUniqueMarketReference>
+        </mstns:BindingAuthorityDetails>
+        <mstns:DocumentReferences>
+            <mstns:CertificateICNumber>DJ100000067</mstns:CertificateICNumber>
+            <mstns:ICNumber />
+            <mstns:ICStatus>1</mstns:ICStatus>
+            <mstns:ICType>
+                <mstns:DocumentType>0</mstns:DocumentType>
+            </mstns:ICType>
+            <mstns:CoverholderPrintableReference>APP00736</mstns:CoverholderPrintableReference>
+            <mstns:RenewedICNumber />
+            <mstns:OriginalICNumber />
+            <mstns:RelatedInceptionDate>0001-01-01</mstns:RelatedInceptionDate>
+            <mstns:RelatedInceptionTime>00:00</mstns:RelatedInceptionTime>
+            <mstns:RelatedExpiryDate>0001-01-01</mstns:RelatedExpiryDate>
+            <mstns:RelatedExpiryTime>00:00</mstns:RelatedExpiryTime>
+        </mstns:DocumentReferences>
+        <mstns:PolicyholderDetails>
+            <mstns:FiscalCode>07585850584</mstns:FiscalCode>
+            <mstns:GenderType>C</mstns:GenderType>
+            <mstns:CompanyName>Llloyd's</mstns:CompanyName>
+            <mstns:AddressLine1>Corso Garibaldi 86</mstns:AddressLine1>
+            <mstns:AddressLine2 />
+            <mstns:City>Milano</mstns:City>
+            <mstns:PostCode>20121</mstns:PostCode>
+            <mstns:Region>MI</mstns:Region>
+            <mstns:Country>Italia</mstns:Country>
+        </mstns:PolicyholderDetails>
+        <mstns:CertificateSecurityDetails>
+            <mstns:SecurityType>1</mstns:SecurityType>
+            <mstns:LloydsPercentage>100</mstns:LloydsPercentage>
+            <mstns:LloydsSecurityDetails>
+                <mstns:SyndicateCode>1414</mstns:SyndicateCode>
+                <mstns:SyndicateShare>100</mstns:SyndicateShare>
+            </mstns:LloydsSecurityDetails>
+        </mstns:CertificateSecurityDetails>
+        <mstns:CertificateDateTimeDetails>
+            <mstns:InceptionDate>2015-09-28</mstns:InceptionDate>
+            <mstns:InceptionTime>24:00</mstns:InceptionTime>
+            <mstns:ExpiryDate>2016-06-28</mstns:ExpiryDate>
+            <mstns:ExpiryTime>24:00</mstns:ExpiryTime>
+            <mstns:ProposalDate>2015-09-28</mstns:ProposalDate>
+            <mstns:TacitRenewal>false</mstns:TacitRenewal>
+        </mstns:CertificateDateTimeDetails>
+        <mstns:RiskPremiumDetails>
+            <mstns:BusinessType>5</mstns:BusinessType>
+            <mstns:RiskReference>5.100</mstns:RiskReference>
+            <mstns:Premium>900</mstns:Premium>
+            <mstns:Accessori>100</mstns:Accessori>
+            <mstns:Tax>25.0</mstns:Tax>
+            <mstns:Gross>1025.0</mstns:Gross>
+        </mstns:RiskPremiumDetails>
+        <mstns:TotalPremiumDetails>
+            <mstns:Currency>Euro</mstns:Currency>
+            <mstns:Premium>900</mstns:Premium>
+            <mstns:Accessori>100</mstns:Accessori>
+            <mstns:Tax>25.0</mstns:Tax>
+            <mstns:Gross>1025.0</mstns:Gross>
+            <mstns:NumberOfInstalments>1</mstns:NumberOfInstalments>
+        </mstns:TotalPremiumDetails>
+        <mstns:CertificateConditions>
+            <mstns:PolicyDescription>Infortuni</mstns:PolicyDescription>
+            <mstns:GeneralConditions>ALLEGATE</mstns:GeneralConditions>
+            <mstns:SpecialConditions>ALLEGATE</mstns:SpecialConditions>
+            <mstns:PaymentPlanDescription>Unica soluzione</mstns:PaymentPlanDescription>
+        </mstns:CertificateConditions>
+        <mstns:CertificateAttachments>
+            <mstns:FrontJacket>S</mstns:FrontJacket>
+            <mstns:RisksDescriptionAttachment>
+                <mstns:FileRef />
+                <mstns:FileHash />
+            </mstns:RisksDescriptionAttachment>
+<!--             <mstns:ProposalFormAttachment> -->
+<!--                 <mstns:FileRef /> -->
+<!--                 <mstns:FileHash /> -->
+<!--             </mstns:ProposalFormAttachment> -->
+<!--             <mstns:OtherAttachment> -->
+<!--                 <mstns:FileRef /> -->
+<!--                 <mstns:FileHash /> -->
+<!--             </mstns:OtherAttachment> -->
+            <mstns:RearJacket>S</mstns:RearJacket>
+        </mstns:CertificateAttachments>
+    </mstns:Document>
+</mstns:ImportDataSet>

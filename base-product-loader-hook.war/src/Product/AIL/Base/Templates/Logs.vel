@@ -1,0 +1,131 @@
+## Copyright Applied Industrial Logic Limited 2017. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+#set( $policy = $args.ModelArgRet)
+#set( $pageElement = $args.PageElementArg )
+#set( $core = $args.CoreArg )
+#set( $logList = ${core.query("get.record.by.policy.id", $policy.getExternalSystemId())} )
+##
+<script type='text/javascript'>
+    function showJsonDetail(callingButton, jsonDataId) {
+        $(':button').attr('style', 'color:darkgrey; font-weight:normal;');
+        callingButton.style.color='blue';
+        callingButton.style.fontWeight='bold';
+        YUI().use('aui-ace-editor',
+            function(Y) {
+                var textarea=$('#' + jsonDataId);
+                var editor=new Y.AceEditor({
+                    boundingBox: '#textAreajson',
+                    width: '100%',
+                    height: '500px',
+                    mode: 'json',
+                    useWrapMode: 'false',
+                    readonly: 'true',
+                    showPrintMargin: false
+                });
+                var jsonNode = JSON.parse(textarea.val());
+                var jsonString = JSON.stringify(jsonNode, null, '  ');
+                editor.set('value', jsonString);
+                editor.render();
+            }
+        );
+    }
+</script>
+<div class='pf-logs'>
+    <table width="100%">
+        <tr>
+            <td class='pf-logs-index-panel' style="border: 1px solid #e5e5e5; text-align: left; vertical-align: top;" width="60%">
+                #render
+            </td>
+            <td class='pf-logs-pageflow-panel' style="border: 1px solid #e5e5e5; text-align: left; vertical-align: top;" width="40%">
+                <div id='textAreajson' style='width: 100%;'></div>
+            </td>
+        </tr>
+    </table>
+</div>
+##
+#macro(render)
+<div style="width:100%; height:500px; overflow-y:auto; overflow-x:hidden">
+    <div class='pf-row-scroller-table' style="width:100%;">
+        <div class='pf-row-scroller-table-header-row'>
+            <div class='pf-row-scroller-table-header-cell'>
+                   <div class='pf-row-scroller-header-title'>Time</div>
+            </div>
+            <div class='pf-row-scroller-table-header-cell'>
+                   <div class='pf-row-scroller-header-title'>Name</div>
+            </div>
+            <div class='pf-row-scroller-table-header-cell'>
+                   <div class='pf-row-scroller-header-title'>Seconds</div>
+            </div>
+            <div class='pf-row-scroller-table-header-cell'>
+                   <div class='pf-row-scroller-header-title'>Status</div>
+            </div>
+            <div class='pf-row-scroller-table-header-cell'>
+                   <div class='pf-row-scroller-header-title'>Data</div>
+            </div>
+        </div>
+         #foreach( $record in $logList)
+             <div class='pf-row-scroller-table-data-row'>
+                 <div class='pf-row-scroller-table-data-cell'>
+                     $record.EntryTimestamp
+                 </div>
+                 <div class='pf-row-scroller-table-data-cell'>
+                     #if( $record.Command )
+                         $record.Command
+                     #end
+                 </div>
+                 <div class='pf-row-scroller-table-data-cell'>
+                 	 #if( $record.ExitTimestamp && $record.EntryTimestamp)
+	                     #set( $exTime = ($record.ExitTimestamp.getTime() - $record.EntryTimestamp.getTime()) / 1000 )
+	                     #if( $exTime == 0)
+	                         &lt; 1
+	                     #else
+	                         $exTime
+	                     #end
+	                 #else
+	                    -
+	                 #end
+                 </div>
+                 <div class='pf-row-scroller-table-data-cell'>
+                     #if( !$record.Response )
+                         UNKNOWN
+                     #elseif( $record.Response.contains('"success" : true'))
+                         SUCCESS
+                     #else
+                         <div class="gui-error-label">
+                         #set( $msgStart = $record.Response.indexOf('i18n')  )
+                             #if( $msgStart != -1 )
+                                 ${record.Response.substring($msgStart, $record.Response.indexOf('"', $msgStart) )} 
+                             #else
+                                 FAIL
+                             #end
+                         </div>
+                     #end
+                 </div>
+                 <div class='pf-row-scroller-table-data-cell'>
+                     #set( $reqId = "reqTestArea" + $foreach.count)
+                     <textarea id='$reqId' name='$reqId' data-editor='json' style='display: none;'>$!{record.Request}</textarea>
+                     <button type="button" style='color:darkgrey;' onclick="showJsonDetail(this, '$reqId');">--&gt;</button>
+                     #set( $resId = "resTestArea" + $foreach.count)
+                     <textarea id='$resId' name='$resId' data-editor='json' style='display: none;'>$!{record.Response}</textarea>
+                     <button type="button" style='color:darkgrey;' onclick="showJsonDetail(this, '$resId');">&lt;--</button>
+                 </div>
+             </div>
+         #end
+    </div>
+</div>
+#end

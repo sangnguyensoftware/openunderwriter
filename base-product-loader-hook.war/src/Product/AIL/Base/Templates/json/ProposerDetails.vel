@@ -1,0 +1,243 @@
+## Copyright Applied Industrial Logic Limited 2017. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+#set( $model = $args.ModelArgRet)
+#set( $proposerDetails = $args.PageElementArg )
+#set( $renderId = $args.RenderIdArg )
+##
+#set( $proposer = $model.xpathGet($proposerDetails.getBinding()) )
+##
+##
+{
+    "type": "$proposerDetails.Class.SimpleName",
+    "id": "$renderId",
+    "title": "#i18n('i18n_proposer_details_contact_title')",
+    #if( !$proposer )
+        "error": "#i18n('i18n_proposer_details_proposer_error')",
+    #elseif( !$proposer.Address )
+        "error": "#i18n('i18n_proposer_details_proposer_address_error')",
+    #else
+        "fields": [  
+            #if( $proposer.Class.Name == "com.ail.insurance.policy.PersonalProposer" )
+                #proposerName(),
+            #elseif( $proposer.Class.Name == "com.ail.insurance.policy.CommercialProposer" )
+                #companyName(),
+            #end
+            #address(),
+            #if( $proposer.Class.Name == "com.ail.insurance.policy.CommercialProposer" )
+                #proposerName(),
+            #end
+            #emailAndPhone()    
+        ]    
+    #end   
+}
+##
+#macro( proposerName )
+{
+    "type": "Field",
+    "id": "title",
+    "title": "#i18n('i18n_proposer_details_title_label')",
+    "value": "${proposer.getTitle().longName()}",
+    "format": {
+       "type": "choice",
+       "options": [
+            #foreach( $option in ${proposer.getTitle().values()} )
+                #if(${foreach.index} !=0),#end
+                {
+                    "id": "${foreach.index}", 
+                    "value": "${option.longName()}"
+                    #if(${proposer.getTitle().longName()} == ${option.longName()})
+                        ,"selected": true
+                    #end
+                }
+            #end
+       ]
+    }
+    #error("title" $proposer.Instance $proposerDetails)
+},{
+    "type": "Field",
+    "id": "otherTitle",
+    "title": "#i18n('i18n_proposer_details_other_title_label')",
+    "value": "$!proposer.OtherTitle",
+    "format": {
+       "type": "string",
+       "required": false
+    }
+    #error("otherTitle" $proposer.Instance $proposerDetails)
+},{
+    "type": "Field",
+    "id": "firstname",
+    "title": "#i18n('i18n_proposer_details_first_name_label')",
+    "value": "$proposer.FirstName", 
+    "format": {
+       "type": "string",
+       "pattern": "^[\\p{L}\\p{N}-,. &()]*$"
+    }
+    #error("surname" $proposer.Instance $proposerDetails)
+},{
+    "type": "Field",
+    "id": "surname",
+    "title": "#i18n('i18n_proposer_details_surname_label')",
+    "value": "$proposer.Surname",
+    "format": {
+       "type": "string",
+       "pattern": "^[\\p{L}\\p{N}-,. &()]*$"
+    }
+    #error("firstName" $proposer.Instance $proposerDetails)
+    #renderHint
+}
+#end
+##
+#macro( companyName )
+{
+    "type": "Field",
+    "id": "companyName",
+    "title": "#i18n('i18n_proposer_details_company_label')",
+    "value": "$proposer.CompanyName",
+    "format": {
+       "type": "string",
+       "pattern": "^[\\p{L}\\p{N}-,. &()]*$"
+    }
+    #error("companyName" $proposer.Instance $proposerDetails)
+}
+#end
+##
+#macro( address )
+{
+    "type": "Field",
+    "id": "address1",
+    "title": "#i18n('i18n_proposer_details_address_label')",
+    "value": "$proposer.Address.Line1",
+    "format": {
+       "type": "string",
+       "required": #if(${proposerDetails.isFieldMandatory('address1')})"yes"#else"no"#end,
+       "placeholder": "#i18n( 'i18n_proposer_details_address_line_1_placeholder' )"
+    }
+    #error("address1" $proposer.Instance $proposerDetails)
+},{
+    "type": "Field",
+    "id": "address2",
+    "value": "$proposer.Address.Line2",
+    "format": {
+       "type": "string",
+       "required": #if(${proposerDetails.isFieldMandatory('address2')})"yes"#else"no"#end,
+       "placeholder": "#i18n( 'i18n_proposer_details_address_line_2_placeholder' )"
+    }
+    #error("address2" $proposer.Instance $proposerDetails)
+},{
+    "type": "Field",
+    "id": "address3",
+    "value": "$proposer.Address.Line3",
+    "format": {
+       "type": "string",
+       "required": #if(${proposerDetails.isFieldMandatory('address3')})"yes"#else"no"#end,
+       "placeholder": "#i18n( 'i18n_proposer_details_address_line_3_placeholder' )"
+    }
+    #error("address3" $proposer.Instance $proposerDetails)
+},{
+    "type": "Field",
+    "id": "address4",
+    "value": "$proposer.Address.Line4",
+    "format": {
+       "type": "string",
+       "required": #if(${proposerDetails.isFieldMandatory('address4')})"yes"#else"no"#end,
+       "placeholder": "#i18n( 'i18n_proposer_details_address_line_4_placeholder' )"
+    }
+    #error("address4" $proposer.Instance $proposerDetails)
+},{
+    "type": "Field",
+    "id": "town",
+    "value": "$proposer.Address.Town",
+    "format": {
+       "type": "string",
+       "required": #if(${proposerDetails.isFieldMandatory('town')})"yes"#else"no"#end,
+       "placeholder": "#i18n( 'i18n_proposer_details_address_town_placeholder' )"
+    }
+    #error("town" $proposer.Instance $proposerDetails)
+},{
+    "type": "Field",
+    "id": "county",
+    "value": "$proposer.Address.County",
+    "format": { 
+       "type": "string",
+       "required": #if(${proposerDetails.isFieldMandatory('county')})"yes"#else"no"#end,
+       "placeholder": "#i18n( 'i18n_proposer_details_address_county_placeholder' )"
+    }
+    #error("county" $proposer.Instance $proposerDetails)
+},{
+    "type": "Field",
+    "id": "postcode",
+    "title": "#i18n( 'i18n_proposer_details_postcode_label' )",
+    "value": "$proposer.Address.Postcode",
+    "format": {
+       "type": "string",
+       "pattern": "^[a-zA-Z0-9 -]*$",
+       "required": #if(${proposerDetails.isFieldMandatory('postcode')})"yes"#else"no"#end,
+       "placeholder": "#i18n( 'i18n_proposer_details_address_postcode_placeholder' )"
+    }
+    #error("postcode" $proposer.Instance $proposerDetails)
+}
+#end
+##
+#macro( emailAndPhone )
+{
+    "type": "Field",
+    "id": "phone",
+    "title": "#i18n('i18n_proposer_details_telephone_label')",
+    "value": "$proposer.TelephoneNumber",
+    "format": {
+       "type": "string",
+       "pattern": "(^[+()0-9 -]*$)"
+      }
+    #error("phone" $proposer.Instance $proposerDetails)
+},{
+    "type": "Field",
+    "id": "mobile",
+    "title": "#i18n('i18n_proposer_details_mobilephone_label')",
+    "value": "$proposer.MobilephoneNumber",
+    "format": { 
+       "type": "string",
+       "pattern": "(^[+()0-9 -]*$)"
+    }
+    #error("mobile" $proposer.Instance $proposerDetails)
+},{
+    "type": "Field",
+    "id": "email",
+    "title": "#i18n('i18n_proposer_details_email_label')",
+    "value": "$proposer.EmailAddress",
+    "format": {
+       "type": "string",
+       "pattern": "^[0-9a-zA-Z.-]*@[0-9a-zA-Z.-]*[.][0-9a-zA-Z.-]*$",
+       "placeholder": "#i18n( 'i18n_proposer_details_address_line_1_placeholder' )"
+    }
+    #error("email" $proposer.Instance $proposerDetails)
+}
+#end
+##
+#macro( error $filter $model $element )
+     #if( $element.hasErrorMarker($filter, $model) )
+         ,"error": "$element.findError($filter, $model, $element)"
+     #end
+#end
+##
+#macro( i18n $id )$proposerDetails.i18n("$id")#end
+##
+#macro(renderHint)
+    #if( $args.RenderHintArg )       
+        ,"clientHint": "$args.RenderHintArg"
+    #end
+#end

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE display PUBLIC "-//Liferay//DTD Display 6.1.0//EN" "http://www.liferay.com/dtd/liferay-display_6_1_0.dtd">
+
+<display>
+	<category name="category.reportwidget">
+		<portlet id="reportWidget" />
+		<portlet id="policiesByProductQtr" />
+		<portlet id="premiumsByProductQtr" />
+		<portlet id="quotesPerWeekQtr" />
+		<portlet id="quotesVsTakenUpPerWeekQtr" />
+		<portlet id="quotedVsTakenPremiumPerMonthYear" />
+		<portlet id="quotesVsTakenUpPerMonthYear" />
+	</category>
+</display>

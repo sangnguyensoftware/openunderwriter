@@ -1,0 +1,22 @@
+<proposer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="java:com.ail.insurance.policy.CommercialProposer">
+	<id>commercial proposer</id>
+    <title>UNDEFINED</title>
+	<otherTitle />
+	<firstName />
+	<surname />
+	<legalName />
+	<address>
+		<line1 />
+		<line2 />
+		<line3 />
+		<line4 />
+		<line5 />
+		<town />
+		<county />
+		<postcode />
+		<country />
+	</address>
+	<telephoneNumber />
+	<mobilephoneNumber />
+	<emailAddress />
+</proposer>

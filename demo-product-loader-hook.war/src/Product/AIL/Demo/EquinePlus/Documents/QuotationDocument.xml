@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documentDefinition xsi:type="java:com.ail.core.document.model.DocumentDefinition" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+    <documentData>
+        <chapterData id="c1" title="Basic Details">
+            <blockData pd="prop" placement="body" applicability="all" title="Proposer" border="true">
+                <modelData id='pn' title="Proposer&apos;s name" class='string'>${/proposer/actualTitle} ${/proposer/firstName} ${proposer/surname}</modelData>
+                <modelData id="line2" class="line" binding="/proposer/address/line2"/>
+                <modelData id="line3" class="line" binding="/proposer/address/line3"/>
+                <modelData id="line4" class="line" binding="/proposer/address/line4"/>
+                <modelData id="line5" class="line" binding="/proposer/address/line5"/>
+                <modelData id="town" class="town" binding="/proposer/address/town"/>
+                <modelData id="county" class="county" binding="/proposer/address/county"/>
+                <modelData id="country" class="country" binding="/proposer/address/country"/>
+                <modelData id="postcode" class="postcode" binding="/proposer/address/postcode"/>
+
+                <modelData id='pn' title='Phone number' class='phone' binding="/proposer/telephoneNumber"/>
+                <modelData id='em' title='Email address' class='email' binding="/proposer/emailAddress"/>
+            </blockData>
+            
+            <blockData id="qs" placement="body" applicability="all" title="Quotation summary" border="true">
+                <modelData id='qn' title='Quotation number' class='string' binding='/quotationNumber'/>
+                <modelData id='pm' title='Total premium' class='string' binding="/assessmentSheet/line[id='total premium']/amountAsString"/>
+                <modelData id='qd' title='Quotation date' class='date' binding='c:format(/quotationDate,"d MMMMM, yyyy")'/>
+                <modelData id="qx" title='Quotation expiry date' class='date' binding='c:format(/quotationExpiryDate,"d MMMMM, yyyy")'/>    
+            </blockData>
+            
+            <blockData placement="body" applicability="all" title="Information about your horse" border="true">
+                <repeatingData binding="asset[assetTypeId='HorseAsset']">
+                    <blockData placement="header">
+                        <modelData>Name</modelData>
+                        <modelData>Age</modelData>
+                        <modelData>Colour</modelData>
+                        <modelData>Sex</modelData>
+                        <modelData>Value</modelData>
+                    </blockData>
+                    <blockData placement="body">
+                        <modelData binding="attribute[id='name']/formattedValue"/>
+                        <modelData binding="attribute[id='ageDescription']/formattedValue"/>
+                        <modelData binding="attribute[id='colour']/formattedValue"/>
+                        <modelData binding="attribute[id='gender']/formattedValue"/>
+                        <modelData binding="attribute[id='currentvalue']/formattedValue"/>
+                    </blockData>
+                </repeatingData>
+            </blockData>            
+
+            <blockData applicability="all" placement="body" title="Terms and Conditions" border="true">
+                <urlData class="wording" title="Terms and Conditions" url="product://localhost:8080/AIL/Demo/EquinePlus/HTML/TermsAndConditions.html"/> 
+            </blockData>
+        </chapterData>
+    </documentData> 
+</documentDefinition>

@@ -1,0 +1,9 @@
+<asset assetTypeId='DriverAsset' type="java:com.ail.insurance.policy.Asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Model-1.0.xsd">
+    <attribute id="name" value="" format="string,size=15,pattern=[A-Za-z -.]*"/>
+    <attribute id="dob" value="" format="date,pattern=dd/MM/yyyy"/>
+    <attribute id="sex" value="?" format="choice,options=-1#?|1#Male|2#Female"/>
+    <attribute id="occupation" value="?" format="choice,type=Occupations"/>
+    <attribute id="licenseType" value="?"  format="choice,options=-1#?|1#Full|2#Automatic|3#Provisional"/>
+    <attribute id="yearsLicenseHeld" value="0" format="number,min=0,max=70,pattern=##"/>
+    <attribute id="mainDriver" value="No" format="yesorno"/>
+</asset>

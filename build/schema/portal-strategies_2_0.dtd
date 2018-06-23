@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT portal-strategies (set+)>
+<!ELEMENT set (strategy)>
+<!ATTLIST set name CDATA #REQUIRED>
+<!ELEMENT strategy (implementation)>
+<!ATTLIST strategy content-type CDATA #REQUIRED>
+<!ELEMENT implementation (#PCDATA)>

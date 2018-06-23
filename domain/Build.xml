@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project default="build" name="openunderwriter:domain">
+  <import file="../BuildSettings.xml" />
+
+  <target name="clean" description="delete everything that the build can generate">
+  </target>
+
+  <target name="_build">
+  </target>
+
+  <target name="build" description="compile (generate, copy, etc) all build outputs">
+    <antcall target="_build" />
+  </target>
+
+  <target name="setup" description="run all the one-time-only steps - like copying libs into place">
+
+    <_initialise-ant-contribs-macro />
+
+    <install-liferay-macro version="${liferay.version}" />
+
+    <!-- copy text based domain files with variables expanded -->
+    <copy todir="${liferay.dir}" overwrite="true">
+      <filterset refid="copy.filterset" />
+      <fileset dir="liferay" includes="${text.filetypes}" />
+    </copy>
+
+    <!-- copy binary domain files without variables expanded -->
+    <copy todir="${liferay.dir}">
+      <fileset dir="liferay" includes="${binary.filetypes}" />
+    </copy>
+
+    <!-- copy package files with variables expanded -->
+    <mkdir dir="${package.lib.dir}" />
+    <copy todir="${package.lib.dir}">
+      <filterset refid="copy.filterset.sql" />
+      <fileset dir="." includes="*.sql" />
+    </copy>
+  	
+    <update-dependencies-macro todir="${tmp.dir}" pattern="[artifact](-[classifier]).[ext]" />
+  	<move file="${tmp.dir}/ecj.jar" todir="${module.dir}/org/jboss/as/web/main" />
+    <move file="${tmp.dir}/jboss-modules.jar" todir="${jboss.dir}" overwrite="yes" />
+    <move file="${tmp.dir}/mysql-connector-java.jar" tofile="${module.dir}/com/liferay/portal/main/mysql.jar" overwrite="yes" />
+    <move file="${tmp.dir}/talend-portlet.war" todir="${deploy.dir}" />
+    <move file="${tmp.dir}/web-form-ce.lpkg" todir="${liferay.dir}/deploy" />
+    <move file="${tmp.dir}/wsrp-portlet.war" todir="${deploy.dir}" />
+    <move file="${tmp.dir}/portal-impl.jar" todir="${deploy.dir}/ROOT.war/WEB-INF/lib" />
+  	
+  	<mkdir dir="${deploy.dir}/jbpm-console.war" />
+  	<unzip src="${tmp.dir}/jbpm-console.war" dest="${deploy.dir}/jbpm-console.war"/>
+  	<touch file="${deploy.dir}/jbpm-console.war.dodeploy" />
+    <copy todir="${buildlib.dir}">
+        <fileset dir="${deploy.dir}/jbpm-console.war/runtime" includes="*" />
+    </copy>
+      
+    <!-- delete javassist - we need a newer version than the one bundled with Liferay, see {ou.home}/modules/org/javassist -->
+    <delete dir="${module.dir}/org/javassist" />
+
+    <chmod dir="${jboss.dir}/bin" includes="*.sh" perm="755"/>
+</target>
+
+  <target name="teardown" description="undo whatever setup did">
+    <uninstall-liferay-macro version="${liferay.version}" />
+  </target>
+</project>

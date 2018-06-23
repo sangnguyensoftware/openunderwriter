@@ -1,0 +1,101 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+#set( $model = $args.ModelArgRet)
+#set( $pageElement = $args.PageElementArg )
+#set( $renderId = $args.RenderIdArg )
+#set( $title = ${pageElement.formattedTitle($args)} )
+#set( $response = $args.ResponseArgRet )
+#set( $dateFormat = '%1$tY-%1$tm-%1$td' )
+#set( $string = '' )
+##
+{
+	"type": "$pageElement.Class.SimpleName",
+	"id": "$id",
+	#if($title)"title": "$title",#end
+	#renderPaymentHolidays
+	#renderAddAction
+	#renderHint
+	#readOnly
+}
+##
+#macro(renderClaimHistory)
+	"claimHistory": [
+     #foreach($claim in $model.Claim)
+          #set ( $include="#filter($pageElement.ExcludeStatuses,$claim.status)")
+          #if ("true" == "$include.trim()" )
+          			"claimNumber": {
+						#set($encodedId="/claim[$velocityCount]/#getId('claimNumber')")
+						"title": "$pageElement.i18n("i18n_claim_history_claim_id")",
+						"value": "$!claim.claimNumber",
+						"valueId": "${pageElement.encodeId($encodedId)}",
+					    "format": {
+					       "type": "string",
+					       "required": false
+  						}
+					},          
+          			"startDate": {
+						#set($encodedId="/claim[$velocityCount]/#getId('startDate')")
+						"title": "$pageElement.i18n("i18n_claim_history_start_date")",
+						"value": "#formatDate($claim.StartDate)",
+						"valueId": "${pageElement.encodeId($encodedId)}",
+						"format": {
+							"type": "date",
+							"pattern": "yyyy-MM-dd"
+	   					}
+					},
+					"endDate": {
+						#set($encodedId="/claim[$velocityCount]/#getId('endDate')")
+						"title": "$pageElement.i18n("i18n_claim_history_end_date")",
+						"value": "#formatDate($claim.EndDate)",
+						"valueId": "${pageElement.encodeId($encodedId)}",
+						"format": {
+							"type": "date",
+							"pattern": "yyyy-MM-dd",
+							"required": "no"
+						}
+					},
+          			"endDate": {
+						#set($encodedId="/claim[$velocityCount]/#getId('outstandingTotal')")
+						"title": "$pageElement.i18n("i18n_claim_history_total_paid")",
+						"value": "${claim.outstandingTotal.amount}",
+						"valueId": "${pageElement.encodeId($encodedId)}",
+			            "format": {
+			                "type": "currency",
+			                "unit": "${claim.outstandingTotal.amount.Currency}"
+			            }
+					}
+			#end
+	#end
+#end	
+#macro(formatDate $date)
+#if($date)${string.format($dateFormat, $date)}#end
+#end
+##
+#macro(i18n $id)$pageElement.i18n("$id")#end
+##
+#macro(getId $name)$name#end
+##
+#macro(filter $excludeStatuses, $status)
+#if( $!excludeStatuses && $!excludeStatuses.length() > 0 )
+#foreach( $exclude in $excludeStatuses.split(",") )
+#if( $exclude == $status )false#end
+#end
+#end
+true
+#end
+##

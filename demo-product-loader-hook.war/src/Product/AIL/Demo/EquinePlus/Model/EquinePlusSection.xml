@@ -1,0 +1,59 @@
+<section id='section1' sectionTypeId='EquinePlusSection' xsi:type="java:com.ail.insurance.policy.Section" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <coverage id="deathOfHorse" enabled="true">
+        <description>Death of Horse</description>
+        <limit amount="2000.00" currency="GBP"/>
+    </coverage>
+
+    <coverage id="publicLiability" enabled="true">
+        <description>Public Liability</description>
+        <limit amount="1250000.00" currency="GBP"/>
+    </coverage>
+
+    <coverage id="theft" enabled="true">
+        <description>Theft or straying</description>
+        <limit amount="2000.00" currency="GBP"/>
+    </coverage>    
+
+    <coverage id="personalInjury" enabled="true">
+        <description>Personal Injury to Third Parties </description>
+        <limit amount="12500.00" currency="GBP"/>
+    </coverage>
+
+    <coverage id="dental" enabled="true">
+        <description>Dental Treatment</description>
+        <limit amount="300.00" currency="GBP"/>
+        <deductible amount="140.00" currency="GBP"/>
+    </coverage>
+
+    <coverage id="stables" enabled="true">
+        <description>Stables cover</description>
+        <limit amount="1250.00" currency="GBP"/>
+        <deductible amount="140.00" currency="GBP"/>
+    </coverage>
+
+    <coverage id="vetFees" enabled="true">
+        <description>Vet Fees</description>
+        <deductible  amount="100.00" currency="GBP"/>
+    </coverage>
+
+    <coverage id="saddlery" enabled="true">
+        <description>Saddlery and tack</description>
+        <limit amount="1750.00" currency="GBP"/>
+    </coverage>
+
+    <coverage id="lossOfUse" enabled="true">
+        <description>Loss of Use</description>
+        <limit amount="2000.00" currency="GBP"/>
+    </coverage>
+
+    <coverage id="lossOfEntryFees" enabled="true">
+        <description>Loss of Entry Fees</description>
+        <limit amount="625.00" currency="GBP"/>
+    </coverage>
+
+    <coverage id="liabilityOfUse" enabled="true">
+        <description>Liability of Use</description>
+        <limit amount="1250000.00" currency="GBP"/>
+    </coverage>
+</section>

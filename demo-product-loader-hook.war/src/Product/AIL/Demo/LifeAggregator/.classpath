@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="JavaServices"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/openunderwriter"/>
+	<classpathentry kind="lib" path="/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/javax/servlet/api/main/jboss-servlet-api_3.0_spec-1.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/lang/main/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/javax/ws/rs/api/main/jboss-jaxrs-api_1.1_spec-1.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/jboss/resteasy/resteasy-jaxrs/main/resteasy-jaxrs-2.3.2.Final.jar" sourcepath="/Users/richarda/.m2/repository/org/jboss/resteasy/resteasy-jaxrs/2.3.2.Final/resteasy-jaxrs-2.3.2.Final-sources.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

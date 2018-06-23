@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ This file defines a test product for use in the core system. This product configuration is
+ not required in live deployments and is only used for testing purposes.
+-->
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd">
+    <name>Configuration for Test Product 4</name>
+    <timeout>60000</timeout>
+    <who>factory</who>
+    <version>1.0</version>
+    <manager>com.ail.core.product.resetproduct.ResetProductService</manager>
+    <parentNamespace>com.ail.core.product.Product.Registry</parentNamespace>
+    
+    <group name="KeyGenerators">
+        <group name="Key">
+            <parameter name="ID">Test.Product00.ID</parameter>
+            <parameter name="Range">999-*</parameter>
+        </group>
+        <group name="PolicyNumber">
+            <parameter name="ID">Test.PolicyNumber.ID</parameter>
+            <parameter name="Range">111-*</parameter>
+        </group>
+    </group>
+
+    <types>
+        <service name="PolicyRule" key="com.ail.core.command.BeanShellAccessor" >
+            <parameter name="Script"><![CDATA[
+                import com.ail.financial.CurrencyAmount;
+                import com.ail.financial.Currency;
+                import com.ail.insurance.policy.*;
+                
+                /* get hold of the as */
+                as=args.getAssessmentSheetArgRet();
+                
+                /* add a 'flag' - just to show that this rule has been run */
+                line=new FixedSum();
+                line.setId("flag");
+                line.setAmount(new CurrencyAmount(0.0, Currency.GBP));
+                as.addLine(line);
+            ]]></parameter>
+        </service>
+        
+        <service name="AssessRiskRules" key="com.ail.core.command.BeanShellAccessor">
+            <parameter name="Script"><![CDATA[
+                import com.ail.financial.CurrencyAmount;
+                import com.ail.financial.Currency;
+                import com.ail.util.Rate;
+                import com.ail.insurance.policy.*;
+                
+                /* get hold of the as */
+                as=args.getAssessmentSheetArgRet();
+                
+                /* add a 'sum insured' for 500.00 GBP*/
+                line=new FixedSum();
+                line.setId("sum insured");
+                line.setAmount(new CurrencyAmount(500.00, Currency.GBP));
+                as.addLine(line);
+                
+                /* add a loading of 5% for no reason! */
+                line=new RateBehaviour();
+                line.setId("loading1");
+                line.setDependsOn("sum insured");
+                line.setContributesTo("policy.total premium");
+                line.setRate(new Rate("50%"));;
+                line.setType(BehaviourType.LOAD);
+                line.setReason("No reason what so ever!");
+                as.addLine(line);
+            ]]></parameter>
+        </service>
+
+        <service name="TaxCalcRules" key="com.ail.core.command.BeanShellAccessor" >
+            <parameter name="Script"><![CDATA[
+                import com.ail.util.*;
+                import com.ail.insurance.policy.*;
+                
+                /* get hold of the as */
+                as=args.getAssessmentSheetArgRet();
+                
+                /* add a 15% tax line */
+                line=new RateBehaviour("tax", "Insurance Tax", null, "policy.total premium", "sec1.sum insured", BehaviourType.TAX, new Rate("15%"));
+                as.addLine(line);
+            ]]></parameter>
+        </service>        
+
+        <service name="CommissionCalcRules" key="com.ail.core.command.BeanShellAccessor" >
+            <parameter name="Script"><![CDATA[
+                import com.ail.util.*;
+                import com.ail.insurance.policy.*;
+                
+                /* get hold of the as */
+                as=args.getAssessmentSheetArgRet();
+                
+                /* add a 1% commission */
+                line=new RateBehaviour("commission1", "Commission", null, "policy.total premium", "sec1.sum insured", BehaviourType.COMMISSION, new Rate("1%"));
+                as.addLine(line);
+            ]]></parameter>
+        </service>
+        
+        <service name="BrokerageCalcRules" key="com.ail.core.command.BeanShellAccessor">
+            <parameter name="Script"><![CDATA[
+                import com.ail.util.*;
+                import com.ail.insurance.policy.*;
+                
+                /* get hold of the as */
+                as=args.getAssessmentSheetArgRet();
+                
+                /* add a 15% tax line */
+                line=new RateBehaviour("brokerage", "Brokerage", null, "policy.total premium", "sec1.sum insured", BehaviourType.BROKERAGE, new Rate("0.5%"));
+                as.addLine(line);
+            ]]></parameter>
+        </service>
+                
+        <service name="ManagementChargeRules" key="com.ail.core.command.BeanShellAccessor">
+            <parameter name="Script"><![CDATA[
+                import com.ail.util.*;
+                import com.ail.insurance.policy.*;
+                
+                as=args.getAssessmentSheetArgRet();
+                line=new RateBehaviour("charge", "Management charge", null, "policy.total premium", "sec1.sum insured", BehaviourType.MANAGEMENT_CHARGE, new Rate("0.025%"));
+                as.addLine(line);
+            ]]></parameter>
+        </service>
+
+        <service name="GeneratePolicyNumberService" key="com.ail.core.command.BeanShellAccessor">
+            <parameter name="Script"><![CDATA[
+                args.setPolicyNumberRet("POL"+args.getUniqueNumberArg());
+             ]]></parameter>
+        </service>
+        
+        <service name="GenerateQuoteNumberService" key="com.ail.core.command.BeanShellAccessor">
+            <parameter name="Script"><![CDATA[
+                args.setQuoteNumberRet("QF"+args.getUniqueNumberArg());
+         ]]></parameter>
+        </service>
+
+        <!-- Risk assessment rules (command & service) for all products unless they override -->
+        <command name="AssessPolicyRisk" key="com.ail.insurance.quotation.AssessPolicyRiskCommandImpl">
+            <parameter name="Service">PolicyRule</parameter>
+        </command>
+
+        <!-- Risk assessment rules (command & service) for this product -->
+        <command name="AssessSectionRisk/TestSectionID" key="com.ail.insurance.quotation.AssessSectionRiskCommandImpl">
+            <parameter name="Service">AssessRiskRules</parameter>
+        </command>
+
+        <!-- Tax calc rules (command & service) for this product -->
+        <command name="CalculatePolicyTax" key="com.ail.insurance.quotation.CalculatePolicyTaxCommandImpl">
+            <parameter name="Service">TaxCalcRules</parameter>
+        </command>
+
+        <!-- Commission calc rules (command & service) for this product -->
+        <command name="CalculatePolicyCommission" key="com.ail.insurance.quotation.CalculatePolicyCommissionCommandImpl">
+            <parameter name="Service">CommissionCalcRules</parameter>
+        </command>
+
+        <!-- Brokerage calc rules (command & service) for this product -->
+        <command name="CalculatePolicyBrokerage" key="com.ail.insurance.quotation.CalculatePolicyBrokerageCommandImpl">
+            <parameter name="Service">BrokerageCalcRules</parameter>
+        </command>
+
+        <!-- Management charge rules (command & service) for this product -->
+        <command name="CalculatePolicyManagementCharge" key="com.ail.insurance.quotation.CalculatePolicyManagementChargeCommandImpl">
+            <parameter name="Service">ManagementChargeRules</parameter>
+        </command>
+
+        <!-- Generate policy number default command & service. -->
+        <command name="GeneratePolicyNumber" key="com.ail.insurance.quotation.GeneratePolicyNumberCommandImpl">
+            <parameter name="Service">GeneratePolicyNumberService</parameter>
+        </command>
+        <!-- Generate quote number default command & service. -->
+        <command name="GenerateQuoteNumber" key="com.ail.insurance.quotation.GenerateQuoteNumberCommandImpl">
+            <parameter name="Service">GenerateQuoteNumberService</parameter>
+        </command>
+
+        <!-- Enforce compliance rules (command & service). By default, no rules are applied -->
+        <command name="EnforcePolicyCompliance" key="com.ail.insurance.quotation.EnforcePolicyComplianceCommandImpl">
+            <parameter name="Service">com.ail.core.NullService</parameter>
+        </command>   
+        
+        <!-- Tax calc rules (command & service) for this product. By default, no taxes are applied -->
+        <command name="CalculatePolicyTax" key="com.ail.insurance.quotation.CalculatePolicyTaxCommandImpl">
+            <parameter name="Service">com.ail.core.NullService</parameter>
+        </command>
+        
+        <type name="TestProduct04" key="com.ail.core.Type" builder="BeanShellBuilder">
+            <parameter name="Script"><![CDATA[
+                import com.ail.insurance.policy.*;
+                
+                policy=new Policy();
+                policy.setProductTypeId("com.ail.core.product.TestProduct04");
+                section=new Section();
+                section.setId("sec1");
+                section.setSectionTypeId("TestSectionID");
+                policy.addSection(section);
+                policy.setStatus(PolicyStatus.APPLICATION);
+                type=policy;
+            ]]></parameter>
+        </type>
+    </types>
+</configuration>

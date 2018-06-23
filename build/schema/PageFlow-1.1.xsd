@@ -1,0 +1,896 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <xs:element name="pageFlow" type="PageFlow">
+        <xs:key name="pageNameKey">
+            <xs:selector xpath="page|questionPage|informationPage" />
+            <xs:field xpath="@id" />
+        </xs:key>
+        <xs:keyref name="pageNameKeyRef" refer="pageNameKey">
+            <xs:selector xpath=".//commandButtonAction" />
+            <xs:field xpath="@destinationPageId" />
+        </xs:keyref>
+        <xs:unique name="pageSectionNameKey">
+            <xs:selector xpath=".//pageSection" />
+            <xs:field xpath="@id" />
+        </xs:unique>
+        <xs:keyref name="pageSectionNameKeyRef" refer="pageSectionNameKey">
+            <xs:selector xpath=".//*" />
+            <xs:field xpath="@submitTarget" />
+        </xs:keyref>
+    </xs:element>
+
+    <xs:complexType name="PageFlow">
+        <xs:complexContent>
+            <xs:extension base="PageElement">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="page" type="Page" />
+                    </xs:choice>
+                </xs:sequence>
+                <xs:attribute name="javaType" type="xs:string" />
+                <xs:attribute name="type" type="xs:string" />
+                <xs:attribute name="progressBar" type="xs:string" />
+                <xs:attribute name="rollbackOnValidationFailure" type="xs:boolean" />
+                <xs:attribute name="startPage" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="PageElement">
+        <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="errorText" type="ErrorText" />
+                <xs:element name="action" type="Action" />
+                <xs:element name="quitAction" type="QuitAction" />
+                <xs:element name="pageForwardAction" type="PageForwardAction" />
+                <xs:element name="triggerNewBusinessReferralWorkflow" type="TriggerNewBusinessReferralWorkflow" />
+                <xs:element name="startWorkflowAction" type="StartWorkflowAction" />
+                <xs:element name="signalWorkflowAction" type="SignalWorkflowAction" />
+            </xs:choice>
+            <xs:element name="helpText" type="HelpText" minOccurs="0" maxOccurs="1" />
+            <xs:element name="hintText" type="HelpText" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+        <xs:attribute name="id" use="optional" type="xs:NCName" />
+        <xs:attribute name="order" use="optional" type="xs:string" />
+        <xs:attribute name="binding" use="optional" type="xs:string" />
+        <xs:attribute name="styleClass" use="optional" type="xs:string" />
+        <xs:attribute name="renderHint" use="optional" type="xs:string" />
+        <xs:attribute name="ref" use="optional" type="xs:string" />
+        <xs:attribute name="condition" use="optional" type="xs:string" />
+        <xs:attribute name="title" use="optional" type="xs:string" />
+        <xs:attribute name="permissions" use="optional" type="xs:string" />
+        <xs:attribute name="submitTarget" use="optional" type="xs:string" />
+    </xs:complexType>
+
+    <xs:complexType name="HelpText">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="renderHint" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="ErrorText">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="renderHint" use="optional" type="xs:string" />
+                <xs:attribute name="error" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:simpleType name="ActionType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="onStartProcessAction" />
+            <xs:enumeration value="onBeforeApplyRequestValues" />
+            <xs:enumeration value="onApplyRequestValues" />
+            <xs:enumeration value="onProcessValidations" />
+            <xs:enumeration value="onProcessActions" />
+            <xs:enumeration value="onRenderResponse" />
+            <xs:enumeration value="onPageEntry" />
+            <xs:enumeration value="onPageExit" />
+            <xs:enumeration value="onPageFlowEntry" />
+            <xs:enumeration value="onError" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="Action">
+        <xs:complexContent>
+            <xs:extension base="PageElement">
+                <xs:sequence>
+                    <xs:element name="attribute" type="Attribute" minOccurs="0" maxOccurs="unbounded" />
+                </xs:sequence>
+                <xs:attribute name="when" use="optional" type="ActionType" />
+                <xs:attribute name="commandName" use="optional" type="xs:string" />
+                <xs:attribute name="executeInAggregated" use="optional" type="xs:boolean" />
+            </xs:extension>
+
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Alerts">
+        <xs:complexContent>
+            <xs:extension base="PageElement">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:group name="PageElementTypesGroup">
+        <xs:sequence>
+            <xs:choice>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="actionSwitch" type="ActionSwitch" />
+                    <xs:element name="accountDetails" type="AccountDetails" />
+                    <xs:element name="aggregatorQuotationSelector" type="AggregatorQuotationSelector" />
+                    <xs:element name="alerts" type="Alerts" />
+                    <xs:element name="answer" type="Answer" />
+                    <xs:element name="answerScroller" type="AnswerScroller" />
+                    <xs:element name="assessmentSheetDetails" type="AssessmentSheetDetails" />
+                    <xs:element name="attributeField" type="AttributeField" />
+                    <xs:element name="auditDetails" type="AuditDetails" />
+                    <xs:element name="blank" type="Blank" />
+                    <xs:element name="brokerQuotationSummary" type="BrokerQuotationSummary" />
+                    <xs:element name="buyNowWithEwayButtonAction" type="BuyNowWithEwayButtonAction" />
+                    <xs:element name="buyNowWithIWinPayButtonAction" type="BuyNowWithIWinPayButtonAction" />
+                    <xs:element name="buyNowWithPayPalButtonAction" type="BuyNowWithPayPalButtonAction" />
+                    <xs:element name="buyNowWithSagePayButtonAction" type="BuyNowWithSagePayButtonAction" />
+                    <xs:element name="claimHistoryDetails" type="ClaimHistoryDetails" />
+                    <xs:element name="clauseDetails" type="ClauseDetails" />
+                    <xs:element name="commandButtonAction" type="CommandButtonAction" />
+                    <xs:element name="contactSystemDetails" type="ContactSystemDetails" />
+                    <xs:element name="coverageDetails" type="CoverageDetails" />
+                    <xs:element name="documentManager" type="DocumentManager" />
+                    <xs:element name="documentUpload" type="DocumentUpload" />
+                    <xs:element name="exceptionDetails" type="ExceptionDetails" />
+                    <xs:element name="if" type="If" />
+                    <xs:element name="imageViewer" type="ImageViewer" />
+                    <xs:element name="labelDetails" type="LabelDetails" />
+                    <xs:element name="loginSection" type="LoginSection" />
+                    <xs:element name="logs" type="Logs" />
+                    <xs:element name="navigationSection" type="NavigationSection" />
+                    <xs:element name="noteDetails" type="NoteDetails" />
+                    <xs:element name="noteRecorder" type="NoteRecorder" />
+                    <xs:element name="pageElementScroller" type="PageElementScroller" />
+                    <xs:element name="paymentMethodDetails" type="PaymentMethodDetails" />
+                    <xs:element name="pageScript" type="PageScript" />
+                    <xs:element name="pageSection" type="PageSection" />
+                    <xs:element name="parsedUrlContent" type="ParsedUrlContent" />
+                    <xs:element name="paymentDetails" type="PaymentDetails" />
+                    <xs:element name="paymentHolidayDetails" type="PaymentHolidayDetails" />
+                    <xs:element name="paymentOptionSelector" type="PaymentOptionSelector" />
+                    <xs:element name="paymentRecorder" type="PaymentRecorder" />
+                    <xs:element name="paymentScheduleDetails" type="PaymentScheduleDetails" />
+                    <xs:element name="policyAdmin" type="PolicyAdmin" />
+                    <xs:element name="policyDetail" type="PolicyDetail" />
+                    <xs:element name="policyDocuments" type="PolicyDocuments" />
+                    <xs:element name="policyPayments" type="PolicyPayments" />
+                    <xs:element name="policySummary" type="PolicySummary" />
+                    <xs:element name="proposerDetails" type="ProposerDetails" />
+                    <xs:element name="proposerQuotationSummary" type="ProposerQuotationSummary" />
+                    <xs:element name="question" type="Question" />
+                    <xs:element name="questionSeparator" type="QuestionSeparator" />
+                    <xs:element name="questionWithDetails" type="QuestionWithDetails" />
+                    <xs:element name="questionWithSubSection" type="QuestionWithSubSection" />
+                    <xs:element name="quitButtonAction" type="QuitButtonAction" />
+                    <xs:element name="quotationSummary" type="QuotationSummary" />
+                    <xs:element name="quoteToOnRisk" type="QuoteToOnRisk" />
+                    <xs:element name="redirectButtonAction" type="RedirectButtonAction" />
+                    <xs:element name="referralOverride" type="ReferralOverride" />
+                    <xs:element name="referralSummary" type="ReferralSummary" />
+                    <xs:element name="requoteButtonAction" type="RequoteButtonAction" />
+                    <xs:element name="rowScroller" type="RowScroller" />
+                    <xs:element name="saveButtonAction" type="SaveButtonAction" />
+                    <xs:element name="savedQuotations" type="SavedQuotations" />
+                    <xs:element name="sectionScroller" type="SectionScroller" />
+                    <xs:element name="subjectivityManager" type="SubjectivityManager" />
+                    <xs:element name="viewCertificateButtonAction" type="ViewCertificateButtonAction" />
+                    <xs:element name="viewInvoiceButtonAction" type="ViewInvoiceButtonAction" />
+                    <xs:element name="viewPolicyButtonAction" type="ViewPolicyButtonAction" />
+                    <xs:element name="viewQuotationButtonAction" type="ViewQuotationButtonAction" />
+                    <xs:element name="viewScheduleButtonAction" type="ViewScheduleButtonAction" />
+                    <xs:element name="viewWordingButtonAction" type="ViewWordingButtonAction" />
+                </xs:choice>
+            </xs:choice>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:complexType name="PageContainer">
+        <xs:complexContent>
+            <xs:extension base="PageElement">
+                <xs:group ref="PageElementTypesGroup" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="AbstractPage">
+        <xs:complexContent>
+            <xs:extension base="PageContainer">
+                <xs:attribute name="stage" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="AccountDetails">
+        <xs:complexContent>
+            <xs:extension base="PageElement">
+                <xs:attribute name="binding" use="prohibited" type="xs:string" />
+                <xs:attribute name="accountBinding" use="optional" type="xs:string" />
+                <xs:attribute name="scheduleBinding" use="optional" type="xs:string" />
+                <xs:attribute name="period" use="optional" type="xs:string" />
+                <xs:attribute name="showSummary" use="optional" type="xs:boolean" />
+                <xs:attribute name="showStatement" use="optional" type="xs:boolean" />
+                <xs:attribute name="showNormalizedSchedule" use="optional" type="xs:boolean" />
+                <xs:attribute name="showActualizedSchedule" use="optional" type="xs:boolean" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Page">
+        <xs:complexContent>
+            <xs:extension base="AbstractPage">
+                <xs:attribute name="showPageError" use="optional" type="xs:boolean" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ParsedUrlContent">
+        <xs:complexContent>
+            <xs:extension base="PageElement">
+                <xs:attribute name="url" use="required" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:simpleType name="MoneyProvisionPurpose">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="PREMIUM" />
+            <xs:enumeration value="ARREARS" />
+            <xs:enumeration value="CLAIM" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="PaymentScheduleDetails">
+        <xs:complexContent>
+            <xs:extension base="PageElement">
+                <xs:attribute name="binding" use="prohibited" type="xs:string" />
+                <xs:attribute name="accountBinding" use="optional" type="xs:string" />
+                <xs:attribute name="amountBinding" use="optional" type="xs:string" />
+                <xs:attribute name="amount" use="optional" type="xs:string" />
+                <xs:attribute name="type" use="optional" type="xs:string" />
+                <xs:attribute name="allowablePaymentMethods" use="optional" type="xs:string" />
+                <xs:attribute name="purpose" use="required" type="MoneyProvisionPurpose" />
+                <xs:attribute name="frequencyOptions" use="optional" type="xs:string" />
+                <xs:attribute name="minimumNumberOfPayments" use="optional" type="xs:int" />
+                <xs:attribute name="maximumNumberOfPayments" use="optional" type="xs:int" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="PolicyDetail">
+        <xs:complexContent>
+            <xs:extension base="PageElement" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="PageSection">
+        <xs:complexContent>
+            <xs:extension base="PageContainer">
+                <xs:attribute name="columns" use="optional" type="xs:positiveInteger" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="CustomLetterBuilder">
+        <xs:complexContent>
+            <xs:extension base="PageContainer">
+                <xs:attribute name="validRecipientTypes" use="optional" type="xs:string" />
+                <xs:attribute name="validDocumentTypes" use="optional" type="xs:string" />
+                <xs:attribute name="saveDestinationPageId" use="optional" type="xs:string" />
+                <xs:attribute name="signatureBaseUrl" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Answer">
+        <xs:complexContent>
+            <xs:extension base="PageElement" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="AnswerScroller">
+        <xs:complexContent>
+            <xs:extension base="Answer">
+                <xs:sequence>
+                    <xs:choice maxOccurs="unbounded">
+                        <xs:element name="answer" type="Answer" />
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="NavigationSection">
+        <xs:complexContent>
+            <xs:extension base="PageContainer">
+                <xs:attribute name="quitDisabled" use="optional" type="xs:boolean" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="CommandButtonAction">
+        <xs:complexContent>
+            <xs:extension base="PageElement">
+                <xs:attribute name="label" use="optional" type="xs:string" />
+                <xs:attribute name="destinationPageId" use="optional" type="xs:NCName" />
+                <xs:attribute name="destinationPageFlow" use="optional" type="xs:string" />
+                <xs:attribute name="immediate" use="optional" type="xs:boolean" />
+                <xs:attribute name="template" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="AggregatorQuotationSelector">
+        <xs:complexContent>
+            <xs:extension base="PageContainer">
+                <xs:attribute name="featureHtml" use="optional" type="xs:string" />
+                <xs:attribute name="destinationPageId" use="optional" type="xs:NCName" />
+                <xs:attribute name="hideReferrals" use="optional" type="xs:boolean" />
+                <xs:attribute name="hideDeclines" use="optional" type="xs:boolean" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="AssessmentSheetDetails">
+        <xs:complexContent>
+            <xs:extension base="PageElement" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="BrokerQuotationSummary">
+        <xs:complexContent>
+            <xs:extension base="PageContainer" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="BuyNowButtonActionCommon">
+        <xs:complexContent>
+            <xs:extension base="CommandButtonAction">
+                <xs:attribute name="destinationOnSuccessPageId" use="required" type="xs:NCName" />
+                <xs:attribute name="destinationOnFailurePageId" use="required" type="xs:NCName" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="BuyNowWithEwayButtonAction">
+        <xs:complexContent>
+            <xs:extension base="BuyNowButtonActionCommon" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="BuyNowWithPayPalButtonAction">
+        <xs:complexContent>
+            <xs:extension base="BuyNowButtonActionCommon" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="BuyNowWithSagePayButtonAction">
+        <xs:complexContent>
+            <xs:extension base="BuyNowButtonActionCommon" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="BuyNowWithIWinPayButtonAction">
+        <xs:complexContent>
+            <xs:extension base="BuyNowButtonActionCommon" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ClauseDetails">
+        <xs:complexContent>
+            <xs:extension base="PageElement">
+                <xs:attribute name="groupBy" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="AttributeField">
+        <xs:complexContent>
+            <xs:extension base="PageElement">
+                <xs:attribute name="subTitle" use="optional" type="xs:string" />
+                <xs:attribute name="onLoad" use="optional" type="xs:string" />
+                <xs:attribute name="onChange" use="optional" type="xs:string" />
+                <xs:attribute name="columnCondition" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Question">
+        <xs:complexContent>
+            <xs:extension base="AttributeField">
+                <xs:attribute name="template" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="QuitButtonAction">
+        <xs:complexContent>
+            <xs:extension base="CommandButtonAction" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="RequoteButtonAction">
+        <xs:complexContent>
+            <xs:extension base="CommandButtonAction" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="SaveButtonAction">
+        <xs:complexContent>
+            <xs:extension base="CommandButtonAction" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="RedirectButtonAction">
+        <xs:complexContent>
+            <xs:extension base="CommandButtonAction">
+                <xs:attribute name="target" use="optional" type="xs:string" />
+                <xs:attribute name="destinationUrl" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="QuitAction">
+        <xs:complexContent>
+            <xs:extension base="Action" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="If">
+        <xs:complexContent>
+            <xs:extension base="PageContainer" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Repeater">
+        <xs:complexContent>
+            <xs:extension base="PageElement">
+                <xs:attribute name="type" use="optional" type="xs:string" />
+                <xs:attribute name="addAndDeleteEnabled" use="optional" type="xs:boolean" />
+                <xs:attribute name="minRows" use="optional" type="xs:nonNegativeInteger" />
+                <xs:attribute name="maxRows" use="optional" type="xs:positiveInteger" />
+                <xs:attribute name="repeatedTitle" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="RowScroller">
+        <xs:complexContent>
+            <xs:extension base="Repeater">
+                <xs:sequence>
+                    <xs:choice maxOccurs="unbounded">
+                        <xs:element name="attributeField" type="AttributeField" />
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="PageElementScroller">
+        <xs:complexContent>
+            <xs:extension base="PageElement">
+                <xs:group ref="PageElementTypesGroup" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="CoverageDetails">
+        <xs:complexContent>
+            <xs:extension base="PageElement" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ContactSystemDetails">
+        <xs:complexContent>
+            <xs:extension base="PageElement">
+                <xs:attribute name="types" use="optional" type="xs:string" />
+                <xs:attribute name="classes" use="optional" type="xs:string" />
+                <xs:attribute name="mandatoryAddressFields" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ViewDocumentButtonAction">
+        <xs:complexContent>
+            <xs:extension base="CommandButtonAction" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ViewQuotationButtonAction">
+        <xs:complexContent>
+            <xs:extension base="ViewDocumentButtonAction" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ViewCertificateButtonAction">
+        <xs:complexContent>
+            <xs:extension base="ViewDocumentButtonAction" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ViewInvoiceButtonAction">
+        <xs:complexContent>
+            <xs:extension base="ViewDocumentButtonAction" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ViewWordingButtonAction">
+        <xs:complexContent>
+            <xs:extension base="ViewDocumentButtonAction" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ViewScheduleButtonAction">
+        <xs:complexContent>
+            <xs:extension base="ViewDocumentButtonAction" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ViewPolicyButtonAction">
+        <xs:complexContent>
+            <xs:extension base="ViewDocumentButtonAction" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="DocumentManager">
+        <xs:complexContent>
+            <xs:extension base="PageSection">
+                <xs:attribute name="fileTypes" use="optional" type="xs:string" />
+                <xs:attribute name="validDocumentTypes" use="optional" type="xs:string" />
+                <xs:attribute name="validLabels" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="DocumentUpload">
+        <xs:complexContent>
+            <xs:extension base="PageElement">
+                <xs:attribute name="documentType" use="optional" type="xs:string" />
+                <xs:attribute name="fileTypes" use="optional" type="xs:string" />
+                <xs:attribute name="fileTitle" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ImageViewer">
+        <xs:complexContent>
+            <xs:extension base="PageElement">
+                <xs:attribute name="documentId" use="optional" type="xs:string" />
+                <xs:attribute name="fileTitle" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="LoginSection">
+        <xs:complexContent>
+            <xs:extension base="PageContainer">
+                <xs:attribute name="invitationMessageText" use="optional" type="xs:string" />
+                <xs:attribute name="invitationLinkText" use="optional" type="xs:string" />
+                <xs:attribute name="destinationOnSuccessPageId" use="optional" type="xs:NCName" />
+                <xs:attribute name="loginButtonLabel" use="optional" type="xs:string" />
+                <xs:attribute name="hiddenByDefault" use="optional" type="xs:boolean" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="PageScript">
+        <xs:complexContent>
+            <xs:extension base="PageElement">
+                <xs:attribute name="pageHeader" use="optional" type="xs:boolean" />
+                <xs:attribute name="url" use="optional" type="xs:string" />
+                <xs:attribute name="script" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="NoteDetails">
+        <xs:complexContent>
+            <xs:extension base="PageElement">
+                <xs:attribute name="readOnly" use="optional" type="xs:boolean" />
+                <xs:attribute name="addAndDeleteEnabled" use="optional" type="xs:boolean" />
+                <xs:attribute name="typeDiscriminator" use="optional" type="xs:string" />
+                <xs:attribute name="validNoteTypes" use="optional" type="xs:string" />
+                <xs:attribute name="validLabels" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="NoteRecorder">
+        <xs:complexContent>
+            <xs:extension base="PageElement">
+                <xs:attribute name="typeDiscriminator" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="PaymentMethodDetails">
+        <xs:complexContent>
+            <xs:extension base="PageElement">
+                <xs:attribute name="addAndDeleteEnabled" use="optional" type="xs:boolean" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="SectionScroller">
+        <xs:complexContent>
+            <xs:extension base="Repeater">
+                <xs:sequence>
+                    <xs:choice maxOccurs="unbounded">
+                        <xs:element name="question" type="Question" />
+                        <xs:element name="questionWithDetails" type="QuestionWithDetails" />
+                        <xs:element name="questionSeparator" type="QuestionSeparator" />
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="QuestionWithDetails">
+        <xs:complexContent>
+            <xs:extension base="Question">
+                <xs:attribute name="detailsTitle" use="optional" type="xs:string" />
+                <xs:attribute name="detailsBinding" use="optional" type="xs:string" />
+                <xs:attribute name="detailsRenderHint" use="optional" type="xs:string" />
+                <xs:attribute name="detailsOnChange" use="optional" type="xs:string" />
+                <xs:attribute name="detailsOnLoad" use="optional" type="xs:string" />
+                <xs:attribute name="detailsEnabledFor" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="QuestionWithSubSection">
+        <xs:complexContent>
+            <xs:extension base="Question">
+                <xs:group ref="PageElementTypesGroup" />
+                <xs:attribute name="detailsEnabledFor" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="PaymentDetails">
+        <xs:complexContent>
+            <xs:extension base="PageElement" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="PaymentRecorder">
+        <xs:complexContent>
+            <xs:extension base="PageElement" >
+                <xs:attribute name="sourceBinding" use="required" type="xs:string" />
+                <xs:attribute name="targetBinding" use="required" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="PaymentOptionSelector">
+        <xs:complexContent>
+            <xs:extension base="PageElement" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ProposerDetails">
+        <xs:complexContent>
+            <xs:extension base="PageElement" >
+                <xs:attribute name="mandatoryAddressFields" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ProposerQuotationSummary">
+        <xs:complexContent>
+            <xs:extension base="PageContainer" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="QuestionSeparator">
+        <xs:complexContent>
+            <xs:extension base="Question" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="PageForwardAction">
+        <xs:complexContent>
+            <xs:extension base="Action">
+                <xs:attribute name="destinationPageId" use="optional" type="xs:NCName" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="QuotationSummary">
+        <xs:complexContent>
+            <xs:extension base="PageContainer">
+                <xs:attribute name="wordingsUrl" use="optional" type="xs:string" />
+                <xs:attribute name="termsAndConditionsUrl" use="optional" type="xs:string" />
+                <xs:attribute name="requoteDestinationPageId" use="optional" type="xs:NCName" />
+                <xs:attribute name="saveDestinationPageId" use="optional" type="xs:NCName" />
+                <xs:attribute name="confirmAndPayDestinationPageId" use="optional" type="xs:NCName" />
+                <!-- TODO: private PageSection premiumSummaryFooter; -->
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ReferralSummary">
+        <xs:complexContent>
+            <xs:extension base="PageContainer">
+                <xs:attribute name="referralNotificationUrl" use="optional" type="xs:string" />
+                <xs:attribute name="requoteDestinationPageId" use="optional" type="xs:NCName" />
+                <xs:attribute name="saveDestinationPageId" use="optional" type="xs:NCName" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ReferralOverride">
+        <xs:complexContent>
+            <xs:extension base="PageContainer" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="SavedQuotations">
+        <xs:complexContent>
+            <xs:extension base="PageContainer">
+                <xs:attribute name="requoteDisabled" use="optional" type="xs:boolean" />
+                <xs:attribute name="confirmAndPayDisabled" use="optional" type="xs:boolean" />
+                <xs:attribute name="viewQuotationDisabled" use="optional" type="xs:boolean" />
+                <xs:attribute name="requoteDestinationPageId" use="optional" type="xs:NCName" />
+                <xs:attribute name="confirmAndPayDestinationPageId" use="optional" type="xs:NCName" />
+                <xs:attribute name="confirmAndPayLabel" use="optional" type="xs:string" />
+                <xs:attribute name="requoteLabel" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="SubjectivityManager">
+        <xs:complexContent>
+            <xs:extension base="PageElement" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="TriggerWorkflow">
+        <xs:complexContent>
+            <xs:extension base="Action" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="TriggerNewBusinessReferralWorkflow">
+        <xs:complexContent>
+            <xs:extension base="TriggerWorkflow" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Logs">
+        <xs:complexContent>
+            <xs:extension base="PageContainer" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ExceptionDetails">
+        <xs:complexContent>
+            <xs:extension base="PageElement" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="PolicyPayments">
+        <xs:complexContent>
+            <xs:extension base="PageContainer" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="PolicyAdmin">
+        <xs:complexContent>
+            <xs:extension base="PageContainer" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="PolicySummary">
+        <xs:complexContent>
+            <xs:extension base="PageContainer" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="PolicyDocuments">
+        <xs:complexContent>
+            <xs:extension base="PageContainer" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="QuoteToOnRisk">
+        <xs:complexContent>
+            <xs:extension base="PageContainer" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Blank">
+        <xs:complexContent>
+            <xs:extension base="PageElement" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="AuditDetails">
+        <xs:complexContent>
+            <xs:extension base="PageElement" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ActionSwitch">
+        <xs:complexContent>
+            <xs:extension base="Action" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ClaimHistoryDetails">
+        <xs:complexContent>
+            <xs:extension base="PageElement">
+                <xs:attribute name="excludeStatuses" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="PaymentHolidayDetails">
+        <xs:complexContent>
+            <xs:extension base="PageElement">
+                <xs:attribute name="addAndDeleteEnabled" use="optional" type="xs:boolean" />
+                <xs:attribute name="type" use="optional" type="xs:string" />
+                <xs:attribute name="readOnly" use="optional" type="xs:boolean" />
+                <xs:attribute name="showCurrent" use="optional" type="xs:boolean" />
+                <xs:attribute name="showHistory" use="optional" type="xs:boolean" />
+                <xs:attribute name="initialiseNotes" use="optional" type="xs:boolean" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Attribute">
+        <xs:attribute name="id" use="optional" type="xs:string" />
+        <xs:attribute name="value" use="optional" type="xs:string" />
+        <xs:attribute name="format" use="optional" type="xs:string" />
+        <xs:attribute name="unit" use="optional" type="xs:string" />
+        <xs:attribute name="source" use="optional" type="xs:string" />
+    </xs:complexType>
+
+    <xs:complexType name="StartWorkflowAction">
+        <xs:complexContent>
+            <xs:extension base="Action">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="onChangeField" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+                    </xs:choice>
+                </xs:sequence>
+                <xs:attribute name="workflowId" type="xs:string" />
+                <xs:attribute name="abortExisting" use="optional" type="xs:boolean" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="SignalWorkflowAction">
+        <xs:complexContent>
+            <xs:extension base="Action">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="onChangeField" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+                    </xs:choice>
+                </xs:sequence>
+                <xs:attribute name="signalName" type="xs:string" />
+                <xs:attribute name="signalValue" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="LabelDetails">
+        <xs:complexContent>
+            <xs:extension base="PageElement">
+                <xs:attribute name="discriminator" use="optional" type="xs:string" />
+                <xs:attribute name="addAndDeleteEnabled" use="optional" type="xs:boolean" />
+                <xs:attribute name="readOnly" use="optional" type="xs:boolean" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documentDefinition xsi:type="java:com.ail.core.document.model.DocumentDefinition" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+    <mergeCommand>MergeDocumentDataCommand</mergeCommand>
+    <styleCommand></styleCommand>
+    <renderCommand>RenderIndustrialStyleDocumentCommand</renderCommand>
+    
+    <documentData>
+        <watermark>product://localhost:8080/AIL/Base/Documents/OpenUnderwriterWatermark.png</watermark>
+    
+        <headerData applicability="all">
+            <modelData id='head' class='string'>${/productName} Schedule</modelData>
+        </headerData>
+    </documentData> 
+</documentDefinition>

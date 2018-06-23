@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>Test Service integrator.policy.html</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Test Service integrator.policy.html</td></tr>
+</thead><tbody>
+<tr>
+	<td>click</td>
+	<td>link=Authentication</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Basic Authentication</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>katie@openunderwriter.org</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>katie</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=input.btn.btn-inverse</td>
+	<td></td>
+</tr>
+<!--============================================-->
+<!--Test policies service-->
+<!--============================================-->
+<!--Reset to an error page-->
+<tr>
+	<td>type</td>
+	<td>name=request-url</td>
+	<td>http://localhost:8080/servicethatdoesnotexist</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=request-button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>//span[@class=&quot;header-value&quot;]</td>
+	<td>404 Not Found</td>
+</tr>
+<!--Run test-->
+<tr>
+	<td>click</td>
+	<td>link=GET</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=request-url</td>
+	<td>http://localhost:8080/integrator/policies?includeTestCases=true</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=request-button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>//span[@class=&quot;header-value&quot;]</td>
+	<td>200 OK</td>
+</tr>
+<tr>
+	<td>storeText</td>
+	<td>css=#response-body-raw &gt; pre</td>
+	<td>response</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>JSON.parse(storedVars['response'])[0].quotationNumber</td>
+	<td>quotationNumber</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>JSON.parse(storedVars['response'])[0].systemId</td>
+	<td>systemId</td>
+</tr>
+<!--============================================-->
+<!--Test policy service-->
+<!--============================================-->
+<!--Reset to an error page-->
+<tr>
+	<td>type</td>
+	<td>name=request-url</td>
+	<td>http://localhost:8080/servicethatdoesnotexist</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=request-button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>//span[@class=&quot;header-value&quot;]</td>
+	<td>404 Not Found</td>
+</tr>
+<!--Run test-->
+<tr>
+	<td>click</td>
+	<td>link=GET</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=request-url</td>
+	<td>http://localhost:8080/integrator/policy/${systemId}</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=request-button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>//span[@class=&quot;header-value&quot;]</td>
+	<td>200 OK</td>
+</tr>
+<tr>
+	<td>storeText</td>
+	<td>css=#response-body-raw &gt; pre</td>
+	<td>response</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>JSON.parse(storedVars['response']).systemId</td>
+	<td>returnedSystemId</td>
+</tr>
+<tr>
+	<td>verifyEval</td>
+	<td>storedVars['systemId'] == storedVars['returnedSystemId']</td>
+	<td>true</td>
+</tr>
+</tbody></table>
+</body>
+</html>

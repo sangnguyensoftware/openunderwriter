@@ -1,0 +1,36 @@
+<package name="com.ail.core" 
+         xmlns="http://drools.org/drools-5.0"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+         xs:schemaLocation="http://drools.org/drools-5.0 drools-5.0.xsd">
+         
+  <import name="com.ail.core.dummyservice.DummyService.DummyArgument" />
+
+  <rule name="Add numbers when X less than 100">
+    <lhs>
+      <pattern identifier="args" object-type="DummyArgument">
+        <field-constraint field-name="x">
+          <literal-restriction evaluator="&lt;" value="100" />
+        </field-constraint>
+      </pattern>
+    </lhs>
+
+    <rhs>
+      args.setR(args.getX() + args.getY());
+    </rhs>
+  </rule>
+
+  <rule name="Add numbers when X more than 100">
+    <lhs>
+      <pattern identifier="args" object-type="DummyArgument">
+        <field-constraint field-name="x">
+          <literal-restriction evaluator="&gt;=" value="100" />
+        </field-constraint>
+      </pattern>
+    </lhs>
+
+    <rhs>
+      args.setR( (2*args.getX())+args.getY() );
+    </rhs>
+  </rule>
+
+</package>

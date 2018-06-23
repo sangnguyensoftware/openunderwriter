@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageFlow id="QuotationPageFlow" type="java:com.ail.pageflow.PageFlow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/PageFlow-1.0.xsd">
+    <questionPage id="QuotationSelected" title="Thank you for selecting Infinity">
+        <parsedUrlContent url="~/HTML/ThankYouForSelecting.html" />
+        <proposerDetails />
+        <navigationSection>
+            <commandButtonAction label="Next" destinationPageId="ConfirmQuotation" />
+        </navigationSection>
+    </questionPage>
+
+    <informationPage id="ConfirmQuotation">
+        <quotationSummary termsAndConditionsUrl="~/HTML/TermsAndConditions.html" requoteDestinationPageId="QuestionPage" saveDestinationPageId="SavedQuotes"
+            confirmAndPayDestinationPageId="Proposer">
+            <answerSection title="Summary of your cover">
+                <answer title="Start date" binding="/inceptionDate" />
+                <answer title="End date" binding="/expiryDate" />
+            </answerSection>
+            <answerSection title="Summary of answers">
+                <answerScroller binding="/asset[id='asset']">
+                    <answer title="Age" binding="attribute[id='age']" />
+                    <answer title="Gender" binding="attribute[id='gender']" />
+                    <answer title="Are you a smoker" binding="attribute[id='smoker']" />
+                    <answer title="Do you take regular exercise" binding="attribute[id='exercise']" />
+                </answerScroller>
+            </answerSection>
+            <navigationSection>
+                <commandButtonAction label="i18n_confirm_and_pay_button_label" destinationPageId="CollectPaymentDetails">
+                    <action when="onProcessActions" commandName="AssessPaymentOptions" />
+                </commandButtonAction>
+            </navigationSection>
+        </quotationSummary>
+    </informationPage>
+
+    <questionPage id="Finish">
+        <blank id="Navigation" />
+    </questionPage>
+
+    <questionPage id="CollectPaymentDetails" />
+</pageFlow>

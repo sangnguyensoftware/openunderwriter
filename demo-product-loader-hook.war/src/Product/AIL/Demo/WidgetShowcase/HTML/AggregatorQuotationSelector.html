@@ -1,0 +1,33 @@
+<p>The AggregatorQuotationSelection widget allows a user to select
+	one of the quotations offered by an aggregator to move forward with.</p>
+<p>A quote aggregator product is on that is designed to ask the user
+	one set of questions and to use that one set of common questions to
+	prepare quotations for a number of products - generally from competing
+	insurers.</p>
+<p>Once the quotation have been prepared, they are displayed to the
+	user using this widget. The user can then decide to move forward with
+	one of quotations.</p>
+<p>As the system is quoting for a number of products, the widget
+	allows for some of those quotations to end in referrals or declines as
+	well as resulting in a premium. All results are listed.</p>
+<u>PageFlow</u>
+<pre>
+	&lt;aggregatorQuotationSelector [featureHtml="<i>path to feature content</i>"] [hideDeclines="<i>true/false</i>"] [hideReferrals="<i>true/false</i>" [destinationPageId="<i>page id</i>">]] /&gt;
+</pre>
+<ul>
+	<li><i>featureHtml</i> The offset path to be used to locate the
+		feature content for each product. This path will be appended to the
+		product's home folder to locate the HTML content to be rendered in the
+		feature panels for each product. Default value is
+		"HTML/ProductFeatures.html</li>
+	<li><i>hideDeclines</i> Exclude quotations that result in a decline. Default is "true".</li>
+	<li><i>hideReferrals</i> Exclude quotations that result in a referral. Default is "true".</li>
+	<li><i>destinationPageId</i> The page ID in the selected product's
+		QuotationPageFlow that the user should be taken to on selecting one of
+		the quotation options. Default is "QuotationSelected".</li>
+</ul>
+<div class="alert info-alert">Use the buttons at the bottom of the
+	page to switch the current quote between "normal" (i.e. non-aggregator)
+	and aggregator. In "normal" mode the widget will display a warning to
+	indicate that it cannot be rendered.</div>
+<hr />

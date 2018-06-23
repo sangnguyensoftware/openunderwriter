@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+This is an example of a document definition. It is a bit bogus because the core project
+doesn't contain any types (classes) which you'd really want to generate a document for, 
+so it uses the Configuration type - which is at least reasonably complex.
+-->
+<documentDefinition xsi:type="java:com.ail.core.document.model.DocumentDefinition" 
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <mergeCommand>MergeDocumentDataCommand</mergeCommand>
+    <styleCommand>StyleCommand</styleCommand>
+    <renderCommand>TransclassionCommand</renderCommand>
+    
+    <documentData>
+        <watermark>http://someplace/image.gif</watermark>
+        
+        <headerData applicability="ALL">
+            <!-- bound item data without a default -->
+            <modelData id='nm1' title='Configuration Name' class='string' binding="/name"/>
+        </headerData>
+                
+        <!-- This chapter shows how title/value (aka question/anwser) data is represented. -->
+        <!-- It also has a watermark, and a chapter header.                                -->
+        <chapterData id="section1" title="Section One: Basic Details">
+
+            <blockData placement="BODY" applicability="ALL">
+                <modelData id='nm1' title='Timeout' class='integer' binding="/timeout"/>
+                <modelData id='nm1' title='Who' class='string' binding="/who"/>
+                <modelData id='nm1' title='Version' class='string' binding="/version"/>
+                
+                <!-- bound item data with a default (used if the binding xpath fails or returns null) -->
+                <modelData id='nm2' title='Not configuration Name' class='string' binding="/nname">Default</modelData>
+                <!-- unbound item data - i.e. no binding, so default is always used -->
+                <modelData id='nm3' title='Default configuration Name' class='string'>Default</modelData>
+                <!-- bound to a bad expression, and no default -->
+                <modelData id='nm4' title='Bad configuration Name' class='string' binding="/niim"/>
+            </blockData>
+        </chapterData>
+
+        <chapterData id="chapter2" title="Section Two: Parameter Values">
+            <blockData placement="HEADER" applicability="ALL">
+                <modelData id='nm1' title='Configuration Name' class='string' binding="/name"/>
+            </blockData>
+            <blockData placement="BODY" applicability="ALL">
+                <repeatingData binding="onlyGroups[name='ListOfThings']/parameter">
+                    <blockData placement="HEADER">
+                        <modelData>Parameter Name</modelData>
+                        <modelData>Parameter Value</modelData>
+                    </blockData>
+                    <blockData placement="BODY">
+                        <modelData binding="name" class="string"/>
+                        <modelData binding="value" class="string"/>
+                    </blockData>
+                </repeatingData>
+            </blockData>            
+        </chapterData>
+
+        <chapterData id="chapter3" title="Terms and Conditions">
+            <blockData placement="HEADER" applicability="ALL">
+                <modelData id='nm1' title='Configuration Name' class='string' binding="/name"/>
+            </blockData>
+            <blockData applicability="ALL" placement="BODY">
+                <urlData title="Terms &amp; Conditions" url="classpath://com.ail.core.document/TestGenerateDocumentTC.html"/> 
+            </blockData>
+        </chapterData>
+    </documentData> 
+</documentDefinition>
+    

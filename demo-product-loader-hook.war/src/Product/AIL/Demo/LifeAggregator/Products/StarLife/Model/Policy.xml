@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quotation xsi:type="java:com.ail.insurance.policy.Policy" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <productName>StarLife</productName>
+
+    <xi:include href="product://localhost:8080/AIL/Base/Model/PersonalProposer.xml" />
+    
+    <broker xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="java:com.ail.insurance.policy.Broker">
+        <legalName>Star Insurance Company</legalName>
+        <address>
+            <line1>Insurance House</line1>
+            <line2>Darwin Way</line2>
+            <town>Pulstone</town>
+            <county>Rutland</county>
+            <postcode>RT9 1WP</postcode>
+        </address>
+        <telephoneNumber>04112 611599</telephoneNumber>
+        <emailAddress>contact@star.madeup.uk</emailAddress>
+        <quoteEmailAddress>quotes@star.madeup.uk</quoteEmailAddress>
+        <policyEmailAddress>policy@star.madeup.uk</policyEmailAddress>
+        <paymentTelephoneNumber>04112 611599</paymentTelephoneNumber>
+        <quoteTelephoneNumber>04112 611599</quoteTelephoneNumber>
+        <contactName>David Green</contactName>
+        <directDebitIdentificationNumber>66226622</directDebitIdentificationNumber>
+    </broker>
+</quotation>

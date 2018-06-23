@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project default="build" name="openunderwriter:modules/org/apache/commons/httpclient">
+	<import file="../../../../../BuildSettings.xml" />
+
+	<target name="clean" description="delete everything that the build can generate" />
+
+	<target name="build" description="compile (generate, copy, etc) all build outputs" />
+	
+	<target name="setup" description="run all the one-time-only steps - like copying libs into place">
+		<update-module-dependencies-macro dependencies="org.apache.commons.logging, org.apache.commons.codec"/>
+	</target>
+
+	<target name="teardown" description="undo whatever setup did">
+		<delete-module-macro />
+	</target>
+</project>

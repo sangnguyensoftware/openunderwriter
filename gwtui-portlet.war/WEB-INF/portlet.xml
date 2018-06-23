@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd"
+    version="2.0">
+    <portlet>
+        <portlet-name>quicksearch</portlet-name>
+        <display-name>Quick Search</display-name>
+        <portlet-class>com.liferay.util.bridges.mvc.MVCPortlet</portlet-class>
+        <init-param>
+            <name>view-template</name>
+            <value>/jsp/quicksearch/view.jsp</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>
+        </supports>
+        <resource-bundle>gwtui-resources</resource-bundle>
+        <portlet-info>
+            <title>Quick Search</title>
+            <short-title>Search</short-title>
+            <keywords>GWT Quick Search</keywords>
+        </portlet-info>
+        <security-role-ref>
+            <role-name>administrator</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>guest</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>power-user</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>user</role-name>
+        </security-role-ref>
+    </portlet>
+    <portlet>
+        <portlet-name>policysearch</portlet-name>
+        <display-name>Policy Search</display-name>
+        <portlet-class>com.liferay.util.bridges.mvc.MVCPortlet</portlet-class>
+        <init-param>
+            <name>view-template</name>
+            <value>/jsp/policysearch/view.jsp</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>
+        </supports>
+        <resource-bundle>gwtui-resources</resource-bundle>
+        <portlet-info>
+            <title>Policy Search</title>
+            <short-title>Policy Search</short-title>
+            <keywords>GWT Policy Search</keywords>
+        </portlet-info>
+        <security-role-ref>
+            <role-name>administrator</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>guest</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>power-user</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>user</role-name>
+        </security-role-ref>
+    </portlet>
+
+    <filter>
+        <filter-name>HibernateSessionFilter</filter-name>
+        <filter-class>com.ail.core.persistence.hibernate.HibernateSessionPortletFilter</filter-class>
+        <lifecycle>RENDER_PHASE</lifecycle>
+        <lifecycle>RESOURCE_PHASE</lifecycle>
+        <lifecycle>EVENT_PHASE</lifecycle>
+        <lifecycle>ACTION_PHASE</lifecycle>
+        <init-param>
+            <name>readonly</name>
+            <value>true</value>
+        </init-param>
+    </filter>
+
+    <filter>
+        <filter-name>PageFlowContextFilter</filter-name>
+        <filter-class>com.ail.pageflow.portlet.PageflowContextPortletFilter</filter-class>
+        <lifecycle>RENDER_PHASE</lifecycle>
+        <lifecycle>RESOURCE_PHASE</lifecycle>
+        <lifecycle>EVENT_PHASE</lifecycle>
+        <lifecycle>ACTION_PHASE</lifecycle>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>HibernateSessionFilter</filter-name>
+        <portlet-name>quicksearch</portlet-name>
+        <portlet-name>policysearch</portlet-name>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>PageFlowContextFilter</filter-name>
+        <portlet-name>quicksearch</portlet-name>
+        <portlet-name>policysearch</portlet-name>
+    </filter-mapping>
+</portlet-app>

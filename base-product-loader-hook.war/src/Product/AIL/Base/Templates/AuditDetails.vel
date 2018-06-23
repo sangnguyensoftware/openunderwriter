@@ -1,0 +1,49 @@
+## Copyright Applied Industrial Logic Limited 2018. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+#set( $request = $args.RequestArg )
+#set( $pageElement = $args.PageElementArg )
+#set( $revisions =  ${pageElement.getPolicyRevisions()} )
+#set( $dateFormat = '%1$ta %1$tb %1$te %1$tY %1$tR' )
+#set( $string = "" )
+##
+<div class='pf-audit-details pf-page-section'>
+	<div class='pf-row-scroller-table-header-row'>
+		<div class='pf-row-scroller-table-header-cell'>Revision</div>
+		<div class='pf-row-scroller-table-header-cell'>Updated date</div>
+		<div class='pf-row-scroller-table-header-cell'>Operation</div>
+		<div class='pf-row-scroller-table-header-cell'>Affected</div>
+		<div class='pf-row-scroller-table-header-cell'>Type</div>
+	</div>
+	#foreach($revision in ${revisions})
+		<div class='pf-row-scroller-table-data-row'>
+			<div class='pf-row-scroller-table-data-cell'>${revision.Details.Id}</div>
+			<div class='pf-row-scroller-table-data-cell'>#date($revision)</div>
+			<div class='pf-row-scroller-table-data-cell'>#operation($revision)</div>
+			<div class='pf-row-scroller-table-data-cell'>#affected($revision)</div>
+			<div class='pf-row-scroller-table-data-cell'>#i18n(${revision.Type.longName})</div>
+		</div>
+	#end
+</div>
+##
+#macro(affected $rev)${pageElement.getAffectedEntities($rev)}#end
+##
+#macro(date $rev)${dateFormat.format(${dateFormat}, ${DateTimeUtils.longToDate(${rev.Details.Timestamp})})}#end
+##
+#macro(operation $rev)$!{rev.Details.ServiceRequestRecord.Command}#end
+##
+#macro(i18n $id)$pageElement.i18n("$id")#end

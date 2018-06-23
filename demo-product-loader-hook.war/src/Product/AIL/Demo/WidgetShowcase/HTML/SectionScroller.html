@@ -1,0 +1,48 @@
+
+<p>
+	A Section scroller displays repeating blocks of questions. The data for
+	the questions is selected from the model by the scroller's
+	<code>binding</code>
+	property.
+</p>
+<p>
+	<img src="doc-files/SectionScroller.png" />
+</p>
+<p>
+	The screenshot above shows a SectionScroller which is bound to assets -
+	in this case vehicle assets. The binding has selected two of these
+	assets (as Records) from the
+	<code>Policy</code>
+	being processed, and for each of those assets it renders a section
+	built up from the page elements contained in the SectionScroller. In
+	this example, the SectionScroller contains 8 page elements, two of
+	which have detail associated with them.
+</p>
+<p>
+	A SectionScroller also has an optional
+	<code>repeatedTitle</code>
+	property which is rendered at the top of each section. The text of this
+	attribute may be static, or as in this case dynamic. Dynamic titles are
+	rendered using the context of the selected record, and may therefore be
+	bound to fields in the record. In this case, the title is bound to the
+	vehicle asset's make, model, and registrationNumber attributes.
+</p>
+<p>The remainder of this page gives examples of each attribute type
+	bound into single row section scrollers. In each case an outline is
+	given of how the pageflow and model can be configured including
+	optional fields.
+</p>
+<pre>
+	&lt;sectionScroller binding="<i>xpath</i>" [type="<i>type name</i>"] [minRows="<i>min</i>"] [maxRows="<i>max</i>"] [repeatedTitle="<i>title</i>"]&gt;
+	    &lt;question .../&gt;
+	    ...
+	&lt;/sectionScroller&gt;
+</pre>
+<ul>
+    <li><i>xpath</i> Binding to identify the objects to be represented in the scroller.</li>
+    <li><i>type</i> The name of a type (defined in the product's Registy.xml) which should be instantiated when the user adds an element to the list.</li>
+    <li><i>min</i> The minimum number of items that may appear in the scroller.</li>
+    <li><i>max</i> The maximum number of items that may appear in the scroller</li>
+    <li><i>repeatedTitle</i> The title to appear before each item in the scroller. This may include embedded &#36;{} references to values within the policy or bound item.</li>
+</ul>
+<hr />

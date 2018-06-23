@@ -1,0 +1,5 @@
+<asset assetTypeId='ConvictionHistoryAsset' type="java:com.ail.insurance.policy.Asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Model-1.0.xsd">
+    <attribute id="driver" value="?" format="choice"/>
+    <attribute id="date" value="" format="date,pattern=dd/MM/yyyy"/>
+    <attribute id="type" value="?" format="choice,options=-1#?|1#Minor offence|2#Driving without due care and attention|3#Serious offence, but no disqualification|4#Serious offence resulting in disqualification"/>
+</asset>

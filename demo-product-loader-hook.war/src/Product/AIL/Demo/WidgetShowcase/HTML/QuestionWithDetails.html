@@ -1,0 +1,29 @@
+<p>A question widget that prompts for additional details if the user makes specific selections.</p>
+<p>This widget handles the common situation where a form requires additional textual information 
+	depending on the answer given to a question. In a motor quotation for example, the question 
+	"Has the vehicle been modified in any way" could prompt for modification details.<p>
+<p>This widget is shorthand version of QuestionWithSubSection. While that widget allows
+	for any number and type of sub questions to be asked; this widget only prompts for additional
+	text.</p>
+<p>The default behaviour of QuestionWithDetails is to enable to detail field when the user 
+	answers the base question with "Yes". However, this behaviour can be controlled by 
+	specifying the "detailsEnabledFor" property. This defines a semicolon separated list of 
+	values for which the details should be enabled.</p>
+<u>Pageflow</u>
+<pre>
+    &lt;questionWithDetails title="<i>title</i>"
+                            binding="<i>binding</i>"
+                            [detailsTitle="<i>details title</i>"]
+                            detailsBinding="<i>details binding</i>" 
+                            [detailsEnabledFor="<i>details enabled for</i>"]
+                            [renderHint="<i>radio|checkbox</i>"] /&gt;
+</pre>
+<ul>
+    <li><i>title</i> Title text for the base question.</li>
+    <li><i>binding</i> Binding applied to the answer to the base question&apos;s field.</li>
+    <li><i>details title</i> Title text for the detail question.</li>
+    <li><i>details binding</i> Binding applied to the answer to the detail field.</li>
+    <li><i>details enabled for</i> Semicolon separated list of options to enable to details for. Defaults to "Yes".</li>
+    <li><i>render hint</i> Style of display. Defaults to drop down list.</li>
+</ul>
+<hr/>

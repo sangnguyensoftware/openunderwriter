@@ -1,0 +1,142 @@
+## Copyright Applied Industrial Logic Limited 2016. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+#set( $pageElement = $args.PageElementArg )
+#set( $policy = $args.PolicyArg )
+#set( $response = $args.ResponseArgRet )
+#set( $renderId = $args.RenderIdArg )
+#set( $subjectivityTypeOptions = $pageElement.SubjectivityTypeOptions )
+#set( $string = '' )
+#set( $q = '"' )
+#set( $dateFormat = '%1$ta %1$tb %1$te %1$tY %1$tR' )
+##
+<div class='pf-document-manager' id='$!{renderId}'>
+	<div class='pf-page-section'>
+		
+		<div class='pf-section-title'> Subjectivities </div>
+
+		<div id="tab-content">
+			<div class='pf-row-scroller-table' style="width:100%">
+				#renderTableHeaders
+				#renderTableBody($policy.Clause)
+			</div>
+			<div id="pf-multi-upload" style="width:95%;margin:auto;"></div>
+		</div>
+	</div>
+</div>
+
+##
+#macro( renderTableHeaders )
+	<div class='pf-row-scroller-table-header-row'>
+		<div class='pf-row-scroller-table-header-cell'>
+           	<div class='pf-row-scroller-header-title'><div class='pf-input-required'></div>#i18n("i18n_document_manager_type_column_heading")</div>
+        </div>
+		<div class='pf-row-scroller-table-header-cell'>
+           	<div class='pf-row-scroller-header-title'>#i18n("i18n_document_manager_title_column_heading")</div>
+        </div>
+		<div class='pf-row-scroller-table-header-cell'>
+           	<div class='pf-row-scroller-header-title'>#i18n("i18n_document_manager_required_date_column_heading")</div>
+        </div>
+		<div class='pf-row-scroller-table-header-cell'>
+           	<div class='pf-row-scroller-header-title'>#i18n("i18n_document_manager_requires_signing_column_heading")</div>
+        </div>
+        <div class='pf-row-scroller-table-header-cell'>
+           	<div class='pf-row-scroller-header-title'>#i18n("i18n_document_manager_delete_column_heading")</div>
+        </div>
+	</div>
+#end
+##
+#macro( renderTableBody $subjectivities)
+	#foreach( $subjectivity in $subjectivities )
+		#if( $subjectivity.Type == 'SUBJECTIVITY' )
+		
+			#set( $documentType = '' )
+			#set( $documentName = '' )
+			#set( $requiredByDate = '' )
+			#set( $requiresSigning = '' )
+			#set( $ref = ${subjectivity.xpathGet("/reference")} )
+			
+			#if( ${subjectivity.xpathGet("i:test(attribute[id='documentType'])")} )  
+				#set( $documentType = ${subjectivity.xpathGet("attribute[id='documentType']/value")} )
+			#end
+			#if( ${subjectivity.xpathGet("i:test(attribute[id='documentName'])")} )
+				#set( $documentName = ${subjectivity.xpathGet("attribute[id='documentName']/value")} )
+			#end
+			#if( ${subjectivity.xpathGet("i:test(attribute[id='requiredByDate'])")} )
+				#set( $requiredByDate = ${subjectivity.xpathGet("attribute[id='requiredByDate']/value")} )
+			#end
+			#if( ${subjectivity.xpathGet("i:test(attribute[id='requiresSigning'])")} )
+				#set( $requiresSigning = ${subjectivity.xpathGet("attribute[id='requiresSigning']/value")} )
+			#end
+		
+			#if( $ref )
+				#renderTableRow( $ref $documentType $documentName $requiredByDate $requiresSigning )
+			#end
+		#end
+	#end
+	
+	#renderTableRow( '' '' '' '' '' )
+#end
+##
+#macro( renderTableRow $ref $type $title $requiredDate $requiresSigning )
+
+	#set($binding="clause[reference='$ref']/attribute[id='documentType']/value")
+	
+	<div class='pf-row-scroller-table-data-row'>
+	
+		<div class='pf-row-scroller-table-data-cell'>
+			
+	        <select class='pf-choice' name="$binding" >
+	        	#if( $type=='' )
+	        		<option value='none' selected='selected'>[New]</option>
+	        	#end
+	            #foreach( $opt in ${subjectivityTypeOptions} )
+	                <option value='${opt}' #if( ${opt} == $type )selected='selected'#end>#i18n($opt)</option>
+	            #end 
+	        </select> 
+		</div>
+		
+		<div class='pf-row-scroller-table-data-cell'>
+			<input name="clause[reference='$ref']/attribute[id='documentName']/value" 
+				class="pf-string pf-tooltip" type="text" value="$!{title}"/>
+		</div>
+
+		<div class='pf-row-scroller-table-data-cell'>
+			<input name="clause[reference='$ref']/attribute[id='requiredByDate']/value" 
+				class="pf-string pf-tooltip" type="text" placeholder="MMDDYYYY" value="$!{requiredDate}"/>
+		</div>
+		
+		<div class='pf-row-scroller-table-data-cell'>
+			<input name="clause[reference='$ref']/attribute[id='requiresSigning']/value" 
+				class="pf-string pf-tooltip" type="checkbox" value="Yes" #if($requiresSigning=='Yes')checked="checked"#end />
+		</div>
+		
+	    <div class='pf-row-scroller-table-data-cell'> 
+	    	<div class='pf-delete'>
+	   			<input class="pf-delete-button" id="delete" type="button" 
+	   				onclick="if (confirm('Delete clause?')) callServeResource('${response.createResourceURL()}', 'op=deleteClause:id=${renderId}:row=${ref}:immediate=true:'); return false;" #if($ref=='')disabled="disabled"#end/>
+	        </div>
+	    </div>
+	    
+	</div>
+	<script type="text/javascript">
+		$(".pf-choice").sortOptions();
+		$("input[name=\"clause[reference='$ref']/attribute[id='requiredByDate']/value\"]").datepicker({dateFormat:'mmddyy',changeMonth:true,changeYear:true});
+	</script>
+#end
+##
+#macro( i18n $id )$pageElement.i18n("$id")#end

@@ -1,0 +1,95 @@
+## Copyright Applied Industrial Logic Limited 2016. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the Policy Admin widget.
+## ------------------------------------------------------------------------------
+## Extract the argument values into variables to make them more easily accessible
+##
+#set( $policy = $args.ModelArgRet)
+#set( $pageElement = $args.PageElementArg )
+#set( $resourceURL = $args.ResponseArgRet.createResourceURL() )
+##
+<div class='pf-policy-admin'>
+		#render
+</div>
+##
+#macro(render)
+
+	#set( $validationAttribute = $policy.getAttributeById('validation.error') )
+	#if ( $validationAttribute )
+		<div class='pf-input-error'>Validation error: $validationAttribute.Value </div>
+	#end
+	#policyAdmin
+#end
+##
+#macro(policyAdmin)
+	<div class='pf-body'>
+	    <div class='pf-assessment-sheet-details'>
+	    	#renderPolicyDetails
+	    </div>
+	</div>
+	
+#end
+##
+#macro(renderPolicyDetails )
+
+	    <div class='pf-policy-admin-body pf-body'>
+	        <div class='pf-section-description'>
+	            $pageElement.i18n("i18n_policy_admin_dates_title")
+	        </div>
+	        
+	        #adminRow($pageElement.i18n("i18n_policy_admin_inception_date") "<input class='pf-date hasDatepicker' name='inceptionDate' type='text' value='#getFormattedDate( $!{policy.inceptionDate} )' placeholder='YYYY-MM-DD' title='YYYY-MM-DD' size='10' style='width:8em'/>")
+	        #adminRow($pageElement.i18n("i18n_policy_admin_expiry_date") "<input class='pf-date hasDatepicker' name='expiryDate' type='text' value='#getFormattedDate( $!{policy.expiryDate} )' placeholder='YYYY-MM-DD' title='YYYY-MM-DD' size='10' style='width:8em'/>")
+	        
+	    </div>
+	    
+	    <script type="text/javascript">
+	    	$("input[name='inceptionDate']").datepicker({dateFormat:'yyyy-mm-dd',maxDate:0,changeMonth:true,changeYear:true});
+	    	$("input[name='expiryDate']").datepicker({dateFormat:'yyyy-mm-dd',maxDate:0,changeMonth:true,changeYear:true});
+	    </script>
+#end
+##
+#macro(getFormattedDate $dateToFormat)
+#if( $dateToFormat )${date.format("yyyy-MM-dd", $dateToFormat)}#end
+#end
+##
+#macro(adminRow $label $value $class $style)
+	
+	#if( !$class )
+		#set( $class = 'pf-item' )
+	#end	
+	#if( !$style )
+		#set( $style = '' )
+	#end
+    <div class='$class'>
+        <div style='$style' class='pf-item-label'>
+        	#if ( $label )
+        		$label
+       		#end
+       	</div>
+        <div style='$style' class='pf-item-value'>
+        	#if ($value && $value.startsWith("i18n_"))
+        		$policyDetail.i18n($value)
+        	#elseif($value)
+        		$value
+        	#end
+        </div>
+    </div>
+#end
+##
+

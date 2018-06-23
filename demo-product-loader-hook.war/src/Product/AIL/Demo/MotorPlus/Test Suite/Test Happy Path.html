@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="" />
+<title>Happy Path</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Happy Path</td></tr>
+</thead><tbody>
+<tr>
+	<td>setTimeout</td>
+	<td>300000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Get A Quote']</td>
+	<td></td>
+</tr>
+<!--About You - The Proposer-->
+<tr>
+	<td>waitForTextPresent</td>
+	<td>About You - The Proposer</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-now&quot; and contains(text(),&quot;Proposer&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-todo&quot; and contains(text(),&quot;Vehicles&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-todo&quot; and contains(text(),&quot;Drivers&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-todo&quot; and contains(text(),&quot;Quotation&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-todo&quot; and contains(text(),&quot;Payment&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-todo&quot; and contains(text(),&quot;Finished&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>title</td>
+	<td>label=Mr.</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>firstname</td>
+	<td>Jim</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>surname</td>
+	<td>Clackton</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>address1</td>
+	<td>Test Hall</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>address2</td>
+	<td>Test Road</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>town</td>
+	<td>Testtown</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>county</td>
+	<td>Testingtonshire</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>postcode</td>
+	<td>CL1 3PX</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>phone</td>
+	<td>0800 123929</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>email</td>
+	<td>cluck@cluck.com</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<!--About Your Car(s)-->
+<tr>
+	<td>waitForTextPresent</td>
+	<td>About Your Car(s)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-done&quot; and contains(text(),&quot;Proposer&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-now&quot; and contains(text(),&quot;Vehicles&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-todo&quot; and contains(text(),&quot;Drivers&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-todo&quot; and contains(text(),&quot;Quotation&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-todo&quot; and contains(text(),&quot;Payment&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-todo&quot; and contains(text(),&quot;Finished&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>VmVoaWNsZVswXVZlaGljbGUubWFrZQ</td>
+	<td>label=AC</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>VmVoaWNsZVswXVZlaGljbGUubW9kZWw</td>
+	<td>label=ACE</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>VmVoaWNsZVswXVZlaGljbGUuQ0M</td>
+	<td>2000</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>VmVoaWNsZVswXVZlaGljbGUuQm9keSBUeXBl</td>
+	<td>label=Coupe</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>VmVoaWNsZVswXVZlaGljbGUuWWVhcg</td>
+	<td>2009</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>VmVoaWNsZVswXVZlaGljbGUuUmVnaXN0cmF0aW9u</td>
+	<td>CLU CK1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>VmVoaWNsZVswXVZlaGljbGUuQ3VycmVudCBWYWx1ZQ</td>
+	<td>5000</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<!--Details Of Your Car(s)-->
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-done&quot; and contains(text(),&quot;Proposer&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-now&quot; and contains(text(),&quot;Vehicles&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-todo&quot; and contains(text(),&quot;Drivers&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-todo&quot; and contains(text(),&quot;Quotation&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-todo&quot; and contains(text(),&quot;Payment&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-todo&quot; and contains(text(),&quot;Finished&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Details Of Your Car(s)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<!--About The Drivers-->
+<tr>
+	<td>waitForTextPresent</td>
+	<td>About The Drivers</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-done&quot; and contains(text(),&quot;Proposer&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-done&quot; and contains(text(),&quot;Vehicles&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-now&quot; and contains(text(),&quot;Drivers&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-todo&quot; and contains(text(),&quot;Quotation&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-todo&quot; and contains(text(),&quot;Payment&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-todo&quot; and contains(text(),&quot;Finished&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>L2Fzc2V0W2Fzc2V0VHlwZUlkPSdEcml2ZXJBc3NldCddWzBdYXR0cmlidXRlW2lkPSdkb2InXQ</td>
+	<td>01/09/1967</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>L2Fzc2V0W2Fzc2V0VHlwZUlkPSdEcml2ZXJBc3NldCddWzBdYXR0cmlidXRlW2lkPSdvY2N1cGF0aW9uJ10</td>
+	<td>label=Accountant</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>L2Fzc2V0W2Fzc2V0VHlwZUlkPSdEcml2ZXJBc3NldCddWzBdYXR0cmlidXRlW2lkPSdsaWNlbnNlVHlwZSdd</td>
+	<td>label=Full</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>L2Fzc2V0W2Fzc2V0VHlwZUlkPSdEcml2ZXJBc3NldCddWzBdYXR0cmlidXRlW2lkPSd5ZWFyc0xpY2Vuc2VIZWxkJ10</td>
+	<td>20</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<!--About Your Driving History-->
+<tr>
+	<td>waitForTextPresent</td>
+	<td>About Your Driving History</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-done&quot; and contains(text(),&quot;Proposer&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-done&quot; and contains(text(),&quot;Vehicles&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-now&quot; and contains(text(),&quot;Drivers&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-todo&quot; and contains(text(),&quot;Quotation&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-todo&quot; and contains(text(),&quot;Payment&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-todo&quot; and contains(text(),&quot;Finished&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>L2Fzc2V0W2lkPSdkcml2ZXJzSGlzdG9yeSddL2F0dHJpYnV0ZVtpZD0ncmVmdXNlZE1vdG9ySW5zdXJhbmNlJ10</td>
+	<td>label=No</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>L2Fzc2V0W2lkPSdkcml2ZXJzSGlzdG9yeSddL2F0dHJpYnV0ZVtpZD0nY2xhaW1BY2NpZGVudE9yTG9zcydd</td>
+	<td>label=No</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>L2Fzc2V0W2lkPSdkcml2ZXJzSGlzdG9yeSddL2F0dHJpYnV0ZVtpZD0ndGhlZnQnXQ</td>
+	<td>label=No</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>L2Fzc2V0W2lkPSdkcml2ZXJzSGlzdG9yeSddL2F0dHJpYnV0ZVtpZD0nbW90b3JDb252aWN0aW9uJ10</td>
+	<td>label=No</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>L2Fzc2V0W2lkPSdkcml2ZXJzSGlzdG9yeSddL2F0dHJpYnV0ZVtpZD0nb3RoZXJDb252aWN0aW9uJ10</td>
+	<td>label=No</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>L2Fzc2V0W2lkPSdkcml2ZXJzSGlzdG9yeSddL2F0dHJpYnV0ZVtpZD0ncHJldmlvdXNseUluc3VyZWQnXQ</td>
+	<td>label=No</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>L2Fzc2V0W2lkPSdkcml2ZXJzSGlzdG9yeSddL2F0dHJpYnV0ZVtpZD0nY2xhaW1pbmdOb0NsYWltc0JvbnVzJ10</td>
+	<td>label=No</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<!--Quotation screen-->
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Your Quotation: £152.12</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-done&quot; and contains(text(),&quot;Proposer&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-done&quot; and contains(text(),&quot;Vehicles&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-done&quot; and contains(text(),&quot;Drivers&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-now&quot; and contains(text(),&quot;Quotation&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-todo&quot; and contains(text(),&quot;Payment&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//li[@class=&quot;progtrckr-todo&quot; and contains(text(),&quot;Finished&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>This quote is inclusive of IPT at 5%</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Policy Cancellation</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Comprehensive</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>50.00</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Jim Clackton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>01/09/1967</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Accountant</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>AC</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>ACE</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>CLU CK1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Quit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Motor Plus - Online Motor Insurance</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

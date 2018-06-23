@@ -1,0 +1,41 @@
+<choice id="Countries" xsi:type="java:com.ail.pageflow.util.Choice" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <choice name="?" />
+  <choice name="UK" />
+  <choice name="European Union" />
+  <choice name="Norway" />
+  <choice name="Switzerland" />
+  <choice name="Australia " />
+  <choice name="New Zealand" />
+  <choice name="USA" />
+  <choice name="Canada" />
+  <choice name="South Africa" />
+  <choice name="Hong Kong" />
+  <choice name="Singapore" />
+  <choice name="Japan" />
+  <choice name="Abkhazia" />
+  <choice name="Afghanistan" />
+  <choice name="Angola" />
+  <choice name="Armenia" />
+  <choice name="Azerbaijan" />
+  <choice name="Burundi" />
+  <choice name="Eritrea" />
+  <choice name="Ethiopia" />
+  <choice name="Haiti" />
+  <choice name="Indonesia" />
+  <choice name="Iran" />
+  <choice name="Iraq" />
+  <choice name="Nigeria" />
+  <choice name="Pakistan" />
+  <choice name="The Palestinian Authority" />
+  <choice name="Rwanda" />
+  <choice name="Sierra Leone" />
+  <choice name="Somalia Sri Lanka" />
+  <choice name="Sudan" />
+  <choice name="Syria" />
+  <choice name="Uganda" />
+  <choice name="Yemen" />
+  <choice name="Zimbabwe" />
+  <choice name="Other" />
+</choice>
+
+

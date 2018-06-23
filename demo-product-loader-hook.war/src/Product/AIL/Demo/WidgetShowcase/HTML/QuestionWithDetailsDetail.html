@@ -1,0 +1,27 @@
+<u>Sample Pageflow</u>
+<pre>
+        &lt;questionWithDetails title="Simple yesorno question with details" binding="asset[id='questionWithDetailsAssetData']/attribute[id='enabled']" 
+                             detailsTitle="Details title" detailsBinding="asset[id='questionWithDetailsAssetData']/attribute[id='enabledString']"/ &gt;
+        &lt;questionWithDetails title="Radio button yesorno question with details" binding="asset[id='questionWithDetailsAssetData']/attribute[id='checkboxEnabled']" 
+                             detailsTitle="Details title" detailsBinding="asset[id='questionWithDetailsAssetData']/attribute[id='checkboxEnabledString']" 
+                             renderHint="checkbox"/ &gt;
+        &lt;questionWithDetails title="Checkbox yesorno question with details" binding="asset[id='questionWithDetailsAssetData']/attribute[id='radioEnabled']" 
+                             detailsTitle="Details title" detailsBinding="asset[id='questionWithDetailsAssetData']/attribute[id='radioEnabledString']" 
+                             renderHint="radio"/ &gt;
+        &lt;questionWithDetails title="Choice question with details" binding="asset[id='questionWithDetailsAssetData']/attribute[id='choiceEnabled']" 
+                             detailsTitle="Details title" detailsBinding="asset[id='questionWithDetailsAssetData']/attribute[id='choiceEnabledString']" 
+                             detailsEnabledFor="Blue;Green"/ &gt;
+</pre>
+<u>Sample Model</u>
+<pre>
+    &lt;asset id="questionWithDetailsAssetData" assetTypeId="QuestionWithDetailsSeparatorAssetData"&gt;
+        &lt;attribute id="enabled" value="No" format="yesorno" /&gt;
+        &lt;attribute id="enabledString" value="" format="string" /&gt;
+        &lt;attribute id="checkboxEnabled" value="No" format="yesorno" /&gt;
+        &lt;attribute id="checkboxEnabledString" value="" format="string" /&gt;
+        &lt;attribute id="radioEnabled" value="No" format="yesorno" /&gt;
+        &lt;attribute id="radioEnabledString" value="" format="string" /&gt;
+        &lt;attribute id="choiceEnabled" value="No" format="choice,options=-1#?|1#Red|2#Green|3#Blue|4#Cyan|5#Magenta|6#Yellow" /&gt;
+        &lt;attribute id="choiceEnabledString" value="" format="string" /&gt;
+    &lt;/asset&gt;
+</pre>

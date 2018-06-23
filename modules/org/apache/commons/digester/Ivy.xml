@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+  <info organisation="org.apache.commons.digester" module="digester" />
+  <dependencies>
+    <dependency org="commons-digester" name="commons-digester" rev="1.8" />
+    <exclude org="commons-beanutils" />
+    <exclude org="commons-logging" />
+    <exclude org="javax.servlet" />
+    <exclude org="xml-apis" />
+  </dependencies>
+</ivy-module>

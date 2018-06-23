@@ -1,0 +1,147 @@
+<assessmentSheet product="Inshur.FHV.OwnerDriver.Products.Maya with Kingstone FTC">
+<!--     <sheet lock="false" serialVersion="4" systemId="3693" externalSystemId="fde8d120-c691-4f62-a092-7c00a09a0ce4"> -->
+        <assessmentLines lock="false" serialVersion="0" systemId="-1">
+            <line name="calculated premium">
+                <detail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lock="false" serialVersion="0" systemId="-1" xsi:type="totalizer">
+                    <id>calculated premium</id>
+                    <reason>collision + comprehensive + base premium</reason>
+                    <priority>50</priority>
+                    <processedOrder>10</processedOrder>
+                    <origin>AssessRisk</origin>
+                    <disabled>false</disabled>
+                    <contributesTo>total premium</contributesTo>
+                    <amount amount="190.00" currency="USD" />
+                    <dependsOn>collision, comprehensive, base premium</dependsOn>
+                </detail>
+            </line>
+            <line name="vehicle value">
+                <detail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lock="false" serialVersion="0" systemId="-1" xsi:type="fixedSum">
+                    <id>vehicle value</id>
+                    <reason>value of vehicle</reason>
+                    <priority>100</priority>
+                    <processedOrder>2</processedOrder>
+                    <origin>AssessRisk</origin>
+                    <disabled>false</disabled>
+                    <amount amount="20000.00" currency="USD" />
+                </detail>
+            </line>
+            <line name="App quote summary">
+                <detail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lock="false" serialVersion="0" systemId="-1" xsi:type="assessmentNote">
+                    <id>App quote summary</id>
+                    <reason>Fire</reason>
+                    <priority>4</priority>
+                    <processedOrder>0</processedOrder>
+                    <origin>AssessRisk</origin>
+                    <disabled>false</disabled>
+                </detail>
+            </line>
+            <line name="Minimum Premium">
+                <detail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lock="false" serialVersion="0" systemId="-1" xsi:type="constrainValueOutOfBounds">
+                    <id>Minimum Premium</id>
+                    <reason>Minimum Premium 500</reason>
+                    <priority>5</priority>
+                    <processedOrder>0</processedOrder>
+                    <origin>AssessRisk</origin>
+                    <disabled>false</disabled>
+                    <relatesTo id="total premium" type="ASSESSMENT_LINE" />
+                    <assessmentStage>After rating</assessmentStage>
+                    <controlLineType>OUTSIDE</controlLineType>
+                    <minimum amount="500.00" currency="USD" />
+                    <maximum amount="9999999.00" currency="USD" />
+                </detail>
+            </line>
+            <line name="#20BED8D8">
+                <detail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lock="false" serialVersion="0" systemId="-1" xsi:type="rateBehaviour">
+                    <id>#20BED8D8</id>
+                    <reason>Driving Defense Course discount collision</reason>
+                    <priority>78</priority>
+                    <processedOrder>8</processedOrder>
+                    <origin>AssessRisk</origin>
+                    <disabled>false</disabled>
+                    <contributesTo>collision</contributesTo>
+                    <amount amount="10.00" currency="USD" />
+                    <type>DISCOUNT</type>
+                    <dependsOn>collision</dependsOn>
+                    <rate lock="false" serialVersion="0" systemId="-1">
+                        <rate>0.1</rate>
+                    </rate>
+                </detail>
+            </line>
+            <line name="collision base">
+                <detail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lock="false" serialVersion="0" systemId="-1" xsi:type="rateBehaviour">
+                    <id>collision base</id>
+                    <reason>Black Car</reason>
+                    <priority>90</priority>
+                    <processedOrder>4</processedOrder>
+                    <origin>AssessRisk</origin>
+                    <disabled>false</disabled>
+                    <contributesTo>collision</contributesTo>
+                    <amount amount="100.00" currency="USD" />
+                    <type>LOAD</type>
+                    <dependsOn>vehicle value</dependsOn>
+                    <rate lock="false" serialVersion="0" systemId="-1">
+                        <rate>0.005</rate>
+                    </rate>
+                </detail>
+            </line>
+            <line name="Type of coverage">
+                <detail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lock="false" serialVersion="0" systemId="-1" xsi:type="assessmentNote">
+                    <id>Type of coverage</id>
+                    <reason>Fire</reason>
+                    <priority>2</priority>
+                    <processedOrder>0</processedOrder>
+                    <origin>AssessRisk</origin>
+                    <disabled>false</disabled>
+                </detail>
+            </line>
+            <line name="Insurance Company">
+                <detail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lock="false" serialVersion="0" systemId="-1" xsi:type="assessmentNote">
+                    <id>Insurance Company</id>
+                    <reason>Kingstone Insurance Company</reason>
+                    <priority>1</priority>
+                    <processedOrder>0</processedOrder>
+                    <origin>AssessRisk</origin>
+                    <disabled>false</disabled>
+                </detail>
+            </line>
+            <line name="comprehensive base">
+                <detail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lock="false" serialVersion="0" systemId="-1" xsi:type="rateBehaviour">
+                    <id>comprehensive base</id>
+                    <reason>Black Car</reason>
+                    <priority>90</priority>
+                    <processedOrder>6</processedOrder>
+                    <origin>AssessRisk</origin>
+                    <disabled>false</disabled>
+                    <contributesTo>comprehensive</contributesTo>
+                    <amount amount="100.00" currency="USD" />
+                    <type>LOAD</type>
+                    <dependsOn>vehicle value</dependsOn>
+                    <rate lock="false" serialVersion="0" systemId="-1">
+                        <rate>0.005</rate>
+                    </rate>
+                </detail>
+            </line>
+            <line name="App quote title">
+                <detail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lock="false" serialVersion="0" systemId="-1" xsi:type="assessmentNote">
+                    <id>App quote title</id>
+                    <reason>Kinstone FTC</reason>
+                    <priority>3</priority>
+                    <processedOrder>0</processedOrder>
+                    <origin>AssessRisk</origin>
+                    <disabled>false</disabled>
+                </detail>
+            </line>
+            <line name="base premium">
+                <detail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lock="false" serialVersion="0" systemId="-1" xsi:type="fixedSum">
+                    <id>base premium</id>
+                    <reason />
+                    <priority>100</priority>
+                    <processedOrder>3</processedOrder>
+                    <origin>AssessRisk</origin>
+                    <disabled>false</disabled>
+                    <amount amount="0.00" currency="USD" />
+                </detail>
+            </line>
+        </assessmentLines>
+<!--     </sheet> -->
+</assessmentSheet>

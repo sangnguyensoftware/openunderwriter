@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>InformationPage</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">InformationPage</td></tr>
+</thead><tbody>
+<tr>
+	<td>setTimeout</td>
+	<td>300000</td>
+	<td></td>
+</tr>
+<!--Open AccountDetails page-->
+<tr>
+	<td>clickAndWait</td>
+	<td>name=resetPageflow</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectAndWait</td>
+	<td>name=selectedPage</td>
+	<td>label=AccountDetails</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>class=pf-page-title</td>
+	<td>AccountDetails</td>
+</tr>
+<!--Create test accounts and payment schedule-->
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Create payment schedule and accounts&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>xpath=(//div[@class=&quot;pf-section-title&quot;])[2]</td>
+	<td>Account summary</td>
+</tr>
+<!--Verify test accounts and payment schedule-->
+<tr>
+	<td>verifyText</td>
+	<td>xpath=((//div[contains(@class, &quot;pf-account-summary&quot;)][1])//td[@class=&quot;pf-item-value&quot;])[2]</td>
+	<td>CASH</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=((//div[contains(@class, &quot;pf-account-summary&quot;)][1])//td[@class=&quot;pf-item-value&quot;])[3]</td>
+	<td>01/01/2000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=((//div[contains(@class, &quot;pf-account-summary&quot;)][1])//td[@class=&quot;pf-item-value&quot;])[5]</td>
+	<td>GBP</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=((//div[contains(@class, &quot;pf-account-summary&quot;)][1])//td[@class=&quot;pf-item-value&quot;])[6]</td>
+	<td>OPEN</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=((//div[contains(@class, &quot;pf-account-summary&quot;)][1])//td[@class=&quot;pf-item-value&quot;])[8]</td>
+	<td>£0.00</td>
+</tr>
+<!---->
+<tr>
+	<td>verifyText</td>
+	<td>xpath=((//div[contains(@class, &quot;pf-account-summary&quot;)])[2]//td[@class=&quot;pf-item-value&quot;])[2]</td>
+	<td>CASH</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=((//div[contains(@class, &quot;pf-account-summary&quot;)])[2]//td[@class=&quot;pf-item-value&quot;])[3]</td>
+	<td>01/01/2000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=((//div[contains(@class, &quot;pf-account-summary&quot;)])[2]//td[@class=&quot;pf-item-value&quot;])[5]</td>
+	<td>GBP</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=((//div[contains(@class, &quot;pf-account-summary&quot;)])[2]//td[@class=&quot;pf-item-value&quot;])[6]</td>
+	<td>OPEN</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=((//div[contains(@class, &quot;pf-account-summary&quot;)])[2]//td[@class=&quot;pf-item-value&quot;])[8]</td>
+	<td>£0.00</td>
+</tr>
+<!---->
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[2]/div[1]</td>
+	<td>regexp:05/[0-9]{2}/[0-9]{4}</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[2]/div[2]</td>
+	<td>regexp:05/[0-9]{2}/[0-9]{4}</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[2]/div[3]</td>
+	<td>DirectDebit</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[2]/div[4]</td>
+	<td>0</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[2]/div[5]</td>
+	<td>DirectDebit of £50.00 for Monthly payment</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[2]/div[6]</td>
+	<td>ONE_TIME</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[2]/div[7]</td>
+	<td>-1</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[2]/div[8]</td>
+	<td>NEW</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[2]/div[10]</td>
+	<td>£50.00</td>
+</tr>
+<!---->
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[2]/div[1]</td>
+	<td>regexp:05/[0-9]{2}/[0-9]{4}</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[2]/div[2]</td>
+	<td>regexp:05/[0-9]{2}/[0-9]{4}</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[2]/div[3]</td>
+	<td>DirectDebit</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[2]/div[4]</td>
+	<td>0</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[2]/div[5]</td>
+	<td>DirectDebit of £50.00 for Monthly payment</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[2]/div[6]</td>
+	<td>ONE_TIME</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[2]/div[7]</td>
+	<td>-1</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[2]/div[8]</td>
+	<td>NEW</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[2]/div[10]</td>
+	<td>£50.00</td>
+</tr>
+<!---->
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[3]/div[1]</td>
+	<td>regexp:05/[0-9]{2}/[0-9]{4}</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[3]/div[2]</td>
+	<td>regexp:05/[0-9]{2}/[0-9]{4}</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[3]/div[3]</td>
+	<td>DirectDebit</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[3]/div[4]</td>
+	<td>0</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[3]/div[5]</td>
+	<td>DirectDebit of £50.00 for Monthly payment</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[3]/div[6]</td>
+	<td>ONE_TIME</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[3]/div[7]</td>
+	<td>-1</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[3]/div[8]</td>
+	<td>NEW</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[3]/div[10]</td>
+	<td>£50.00</td>
+</tr>
+<!---->
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[4]/div[1]</td>
+	<td>regexp:05/[0-9]{2}/[0-9]{4}</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[4]/div[2]</td>
+	<td>regexp:05/[0-9]{2}/[0-9]{4}</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[4]/div[3]</td>
+	<td>DirectDebit</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[4]/div[4]</td>
+	<td>0</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[4]/div[5]</td>
+	<td>DirectDebit of £50.00 for Monthly payment</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[4]/div[6]</td>
+	<td>ONE_TIME</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[4]/div[7]</td>
+	<td>-1</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[4]/div[8]</td>
+	<td>NEW</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[4]/div[9]</td>
+	<td>PREMIUM</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[1]/div[3]/div[4]/div[10]</td>
+	<td>£50.00</td>
+</tr>
+<!---->
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[2]/div[3]/div[2]/div[1]</td>
+	<td>regexp:[0-9]{2}/[0-9]{2}/[0-9]{4}</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[2]/div[3]/div[2]/div[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[2]/div[3]/div[2]/div[3]</td>
+	<td>DirectDebit</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[2]/div[3]/div[2]/div[4]</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[2]/div[3]/div[2]/div[5]</td>
+	<td>Monthly payment</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[2]/div[3]/div[2]/div[6]</td>
+	<td>MONTHLY</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[2]/div[3]/div[2]/div[7]</td>
+	<td>5</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[2]/div[3]/div[2]/div[8]</td>
+	<td>NEW</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-payment-schedule&quot;)])[2]/div[3]/div[2]/div[10]</td>
+	<td>£50.00</td>
+</tr>
+<!--Create two transactions: 1) client -> broker; 2) broker -> client-->
+<tr>
+	<td>storeEval</td>
+	<td>var d=new Date(); d.getDate() + '/' + ((d.getMonth()-1)) + '/' + d.getFullYear().toString();</td>
+	<td>paymentOneDate</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>var d=new Date(); (d.getDate()+1)+ '/' + (d.getMonth()-1) + '/' + d.getFullYear().toString();</td>
+	<td>paymentTwoDate</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Post transaction&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>class=pf-page-title</td>
+	<td>AccountDetails-PostTransaction</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=L2Fzc2V0W2lkPSdhY2NvdW50RGV0YWlscyddL2F0dHJpYnV0ZVtpZD0nYW1vdW50J10</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L2Fzc2V0W2lkPSdhY2NvdW50RGV0YWlscyddL2F0dHJpYnV0ZVtpZD0nYW1vdW50J10</td>
+	<td>250.00</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=L2Fzc2V0W2lkPSdhY2NvdW50RGV0YWlscyddL2F0dHJpYnV0ZVtpZD0nZGlyZWN0aW9uJ10</td>
+	<td>label=Client to Broker</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L2Fzc2V0W2lkPSdhY2NvdW50RGV0YWlscyddL2F0dHJpYnV0ZVtpZD0nZGF0ZSdd</td>
+	<td>${paymentOneDate}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L2Fzc2V0W2lkPSdhY2NvdW50RGV0YWlscyddL2F0dHJpYnV0ZVtpZD0nZGVzY3JpcHRpb24nXQ</td>
+	<td>Premium Payment</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Post transaction&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>class=pf-page-title</td>
+	<td>AccountDetails</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Post transaction&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>class=pf-page-title</td>
+	<td>AccountDetails-PostTransaction</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L2Fzc2V0W2lkPSdhY2NvdW50RGV0YWlscyddL2F0dHJpYnV0ZVtpZD0nYW1vdW50J10</td>
+	<td>50.00</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=L2Fzc2V0W2lkPSdhY2NvdW50RGV0YWlscyddL2F0dHJpYnV0ZVtpZD0nZGlyZWN0aW9uJ10</td>
+	<td>label=Broker to Client</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L2Fzc2V0W2lkPSdhY2NvdW50RGV0YWlscyddL2F0dHJpYnV0ZVtpZD0nZGF0ZSdd</td>
+	<td>${paymentTwoDate}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L2Fzc2V0W2lkPSdhY2NvdW50RGV0YWlscyddL2F0dHJpYnV0ZVtpZD0nZGVzY3JpcHRpb24nXQ</td>
+	<td>Premium Refund</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Post transaction&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>class=pf-page-title</td>
+	<td>AccountDetails</td>
+</tr>
+<!--Verify statements-->
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[1]/div[2]/div[1]</td>
+	<td>regexp:[0-9]{2}/[0-9]{2}/[0-9]{4}</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[1]/div[2]/div[2]</td>
+	<td>regexp:[0-9]*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[1]/div[2]/div[3]</td>
+	<td>regexp:[0-9]*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[1]/div[2]/div[4]</td>
+	<td>Premium Payment</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[1]/div[2]/div[5]</td>
+	<td>PREMIUM</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[1]/div[2]/div[6]</td>
+	<td>CREDIT</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[1]/div[2]/div[7]</td>
+	<td>250.00</td>
+</tr>
+<!---->
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[1]/div[3]/div[1]</td>
+	<td>regexp:[0-9]{2}/[0-9]{2}/[0-9]{4}</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[1]/div[3]/div[2]</td>
+	<td>regexp:[0-9]*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[1]/div[3]/div[3]</td>
+	<td>regexp:[0-9]*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[1]/div[3]/div[4]</td>
+	<td>Premium Refund</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[1]/div[3]/div[5]</td>
+	<td>PREMIUM</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[1]/div[3]/div[6]</td>
+	<td>DEBIT</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[1]/div[3]/div[7]</td>
+	<td>50.00</td>
+</tr>
+<!---->
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[2]/div[2]/div[1]</td>
+	<td>regexp:[0-9]{2}/[0-9]{2}/[0-9]{4}</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[2]/div[2]/div[2]</td>
+	<td>regexp:[0-9]*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[2]/div[2]/div[3]</td>
+	<td>regexp:[0-9]*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[2]/div[2]/div[4]</td>
+	<td>Premium Payment</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[2]/div[2]/div[5]</td>
+	<td>PREMIUM</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[2]/div[2]/div[6]</td>
+	<td>DEBIT</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[2]/div[2]/div[7]</td>
+	<td>250.00</td>
+</tr>
+<!---->
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[2]/div[3]/div[1]</td>
+	<td>regexp:[0-9]{2}/[0-9]{2}/[0-9]{4}</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[2]/div[3]/div[2]</td>
+	<td>regexp:[0-9]*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[2]/div[3]/div[3]</td>
+	<td>regexp:[0-9]*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[2]/div[3]/div[4]</td>
+	<td>Premium Refund</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[2]/div[3]/div[5]</td>
+	<td>PREMIUM</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[2]/div[3]/div[6]</td>
+	<td>CREDIT</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[contains(@class, &quot;pf-account-statement&quot;)])[2]/div[3]/div[7]</td>
+	<td>50.00</td>
+</tr>
+<!--Verify final balances-->
+<tr>
+	<td>verifyText</td>
+	<td>xpath=((//div[contains(@class, &quot;pf-account-summary&quot;)][1])//td[@class=&quot;pf-item-value&quot;])[8]</td>
+	<td>£200.00</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=((//div[contains(@class, &quot;pf-account-summary&quot;)])[2]//td[@class=&quot;pf-item-value&quot;])[8]</td>
+	<td>-£200.00</td>
+</tr>
+</tbody></table>
+</body>
+</html>

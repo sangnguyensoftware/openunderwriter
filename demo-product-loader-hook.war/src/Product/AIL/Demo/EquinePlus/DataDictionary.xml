@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataDictionary type="java:com.ail.core.data.DataDictionary" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/DataDictionary-1.0.xsd">
+
+	<definition name="Horse" description="A Horse Asset" binding="/asset[assetTypeId='HorseAsset']">
+		<!-- These definitions inherit the name of the parent, so will be 'Horse/Name', 'Horse/Age', 'Horse/Gender'.
+			This is because these attributes could conceivably belong to the Proposer too. -->
+			
+		<!-- 'Horse/Name' bound to '/asset[assetTypeId='HorseAsset']/attribute[id='name']' and 'Horse.Name' bound to 'attribute[id='name']' -->
+		<definition name="Name" description="The horse's name" binding="attribute[id='name']" />
+		
+		<!-- 'Horse/Age' bound to '/asset[assetTypeId='HorseAsset']/attribute[id='ageDescription']' and 'Horse.Age' bound to 'attribute[id='ageDescription']' -->
+		<definition name="Age" description="The horse's age" binding="attribute[id='ageDescription']" />
+		
+		<!-- 'Horse/Gender' bound to '/asset[assetTypeId='HorseAsset']/attribute[id='gender']' and 'Horse.Gender' bound to 'attribute[id='gender']' -->
+		<definition name="Gender" description="The horse's gender" binding="attribute[id='gender']" />
+		
+		
+		<!-- These definitions retain their absolute name, so 'Horse ' will not be prepended to them.
+			This is because these attributes, in the context of an Equine insurance policy are likely to definitely be Horse attributes only. -->
+			
+		<!-- 'Colour' bound to '/asset[assetTypeId='HorseAsset']/attribute[id='colour']' and 'Horse.Colour' bound to 'attribute[id='colour']' -->
+		<definition name="Colour" nameAbsolute="true" description="The horse's colour" binding="attribute[id='colour']" />
+		
+		<!-- 'Height' bound to '/asset[assetTypeId='HorseAsset']/attribute[id='height']' and 'Horse.Height' bound to 'attribute[id='height']' -->
+		<definition name="Height" nameAbsolute="true" description="The horse's height (in hands and inches)" binding="attribute[id='height']" />
+		
+		<!-- 'Freeze Brand' bound to '/asset[assetTypeId='HorseAsset']/attribute[id='freezebrand']' and 'Horse.Freeze Brand' bound to 'attribute[id='freezebrand']' -->
+		<definition name="Freeze Brand" nameAbsolute="true" description="The horse's freeze brand" binding="attribute[id='freezebrand']" />
+		
+		<!-- 'Passport Number' bound to '/asset[assetTypeId='HorseAsset']/attribute[id='passport']' and 'Horse.Passport Number' bound to 'attribute[id='passport']' -->
+		<definition name="Passport Number" nameAbsolute="true" description="The horse's passport number" binding="attribute[id='passport']" />
+		
+		<!-- 'Ownership' bound to '/asset[assetTypeId='HorseAsset']/attribute[id='owned']' and 'Horse.Ownership' bound to 'attribute[id='owned']' -->
+		<definition name="Ownership" nameAbsolute="true" description="The horse's ownership basis" binding="attribute[id='owned']" />
+		
+		<!-- 'Purchase Date' bound to '/asset[assetTypeId='HorseAsset']/attribute[id='datebought']' and 'Horse.Purchase Date' bound to 'attribute[id='datebought']' -->
+		<definition name="Purchase Date" nameAbsolute="true" description="The date on which the was bought or loaned" binding="attribute[id='datebought']" />
+		
+		<!-- 'Value' bound to '/asset[assetTypeId='HorseAsset']/attribute[id='currentvalue']' and 'Horse.Value' bound to 'attribute[id='currentvalue']' -->
+		<definition name="Value" nameAbsolute="true" description="The current value of the horse" binding="attribute[id='currentvalue']" />
+		
+		<!-- 'Type of Use' bound to '/asset[assetTypeId='HorseAsset']/attribute[id='typeOfUse']' and 'Horse.Type of Use' bound to 'attribute[id='typeOfUse']' -->
+		<definition name="Type of Use" nameAbsolute="true" description="The current value of the horse" binding="attribute[id='typeOfUse']" />
+	</definition>
+
+</dataDictionary>

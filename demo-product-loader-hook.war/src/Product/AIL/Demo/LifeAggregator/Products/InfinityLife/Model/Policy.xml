@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quotation xsi:type="java:com.ail.insurance.policy.Policy" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <productName>InfinityLife</productName>
+
+    <xi:include href="product://localhost:8080/AIL/Base/Model/PersonalProposer.xml" />
+    
+    <broker xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="java:com.ail.insurance.policy.Broker">
+        <legalName>Infinity Insurance</legalName>
+        <address>
+            <line1>Infinity Insurance</line1>
+            <line2>Crackthorn Road</line2>
+            <town>Chasston</town>
+            <county>Bucks.</county>
+            <postcode>BF13 1PXL</postcode>
+        </address>
+        <telephoneNumber>08712 662663</telephoneNumber>
+        <emailAddress>contact@infinity.madeup.uk</emailAddress>
+        <quoteEmailAddress>quotes@infinity.madeup.uk</quoteEmailAddress>
+        <policyEmailAddress>policy@infinity.madeup.uk</policyEmailAddress>
+        <paymentTelephoneNumber>08712 662663</paymentTelephoneNumber>
+        <quoteTelephoneNumber>08712 662663</quoteTelephoneNumber>
+        <contactName>Jamie Johnson</contactName>
+        <directDebitIdentificationNumber>992991</directDebitIdentificationNumber>
+    </broker>
+</quotation>

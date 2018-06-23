@@ -1,0 +1,22 @@
+<p>By default when a PageFlow encounters validation errors the
+	details of the errors are persisted along with the object being worked
+	on. If, for example, the user is working on a Policy object and an
+	answer they have given does not pass validation then the Policy will be
+	persisted along with the answer given and an error marker identifying
+	the problem.</p>
+<p>For public facing PageFlows this makes sense since it allows the
+	user to return to the page days or weeks later and find it in the same
+	state that they left it in. More importantly it means that support
+	staff can view the policy and see exactly the errors the user has seen,
+	making it easier for them to assist the user.</p>
+<p>However, this behaviour is not ideal for all circumstances. In
+	some PageFlows, especially those used by back office staff, the user
+	would expect values to be persisted only when the whole page has passed
+	validation. This can be achieved by setting rollbackOnValidationFailure
+	to true.</p>
+<p>This PageFlow is configured in that way.</p>
+<pre>
+    &lt;pageflow [rollbackOnValidationFailure="<i>true/false</i>"] ... /&gt;
+</pre>
+
+<hr />

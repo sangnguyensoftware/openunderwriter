@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageFlow id="PolicySummaryPageFlow" progressBar="false" startPage="Main" type="java:com.ail.pageflow.PageFlow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/PageFlow-1.1.xsd">
+    <page id="Main">
+        <policySummary />
+        <policyDocuments />
+    </page>
+</pageFlow>

@@ -1,0 +1,124 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-863 Add financials tables" author="richard">
+        <sql dbms="mysql">
+			CREATE TABLE `accAccount` (
+			  `accUID` bigint(20) NOT NULL,
+			  `accAttribute` longtext,
+			  `accCreatedBy` bigint(20) DEFAULT NULL,
+			  `accCreatedDate` datetime DEFAULT NULL,
+			  `accExternalSystemId` varchar(255) NOT NULL,
+			  `accForeignSystemId` varchar(255) DEFAULT NULL,
+			  `accLock` bit(1) DEFAULT NULL,
+			  `accSerialVersion` bigint(20) NOT NULL,
+			  `accUpdatedBy` bigint(20) DEFAULT NULL,
+			  `accUpdatedDate` datetime DEFAULT NULL,
+			  `accCurrency` varchar(255) DEFAULT NULL,
+			  `accDescription` longtext,
+			  `accName` varchar(255) DEFAULT NULL,
+			  `accOpeningBalance` decimal(19,2) DEFAULT NULL,
+			  `accOpeningCurrency` varchar(255) DEFAULT NULL,
+			  `accOpeningDate` datetime DEFAULT NULL,
+			  `accType` varchar(255) DEFAULT NULL,
+			  `accAccountHolderUIDpty` bigint(20) DEFAULT NULL,
+			  PRIMARY KEY (`accUID`),
+			  UNIQUE KEY `accExternalSystemId` (`accExternalSystemId`),
+			  KEY `FK2F6B466C6917B84` (`accAccountHolderUIDpty`),
+			  CONSTRAINT `FK2F6B466C6917B84` FOREIGN KEY (`accAccountHolderUIDpty`) REFERENCES `parParty` (`parUID`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+			
+			CREATE TABLE `ledLedger` (
+			  `ledUID` bigint(20) NOT NULL,
+			  `ledAttribute` longtext,
+			  `ledCreatedBy` bigint(20) DEFAULT NULL,
+			  `ledCreatedDate` datetime DEFAULT NULL,
+			  `ledExternalSystemId` varchar(255) NOT NULL,
+			  `ledForeignSystemId` varchar(255) DEFAULT NULL,
+			  `ledLock` bit(1) DEFAULT NULL,
+			  `ledSerialVersion` bigint(20) NOT NULL,
+			  `ledUpdatedBy` bigint(20) DEFAULT NULL,
+			  `ledUpdatedDate` datetime DEFAULT NULL,
+			  `ledDescription` longtext,
+			  `ledName` varchar(255) DEFAULT NULL,
+			  `ledAccountUIDacc` bigint(20) DEFAULT NULL,
+			  PRIMARY KEY (`ledUID`),
+			  UNIQUE KEY `ledExternalSystemId` (`ledExternalSystemId`),
+			  KEY `FKBA134754E3967B7` (`ledAccountUIDacc`),
+			  CONSTRAINT `FKBA134754E3967B7` FOREIGN KEY (`ledAccountUIDacc`) REFERENCES `accAccount` (`accUID`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+			
+			CREATE TABLE `jliJournalLine` (
+			  `jliUID` bigint(20) NOT NULL,
+			  `jliAttribute` longtext,
+			  `jliCreatedBy` bigint(20) DEFAULT NULL,
+			  `jliCreatedDate` datetime DEFAULT NULL,
+			  `jliExternalSystemId` varchar(255) NOT NULL,
+			  `jliForeignSystemId` varchar(255) DEFAULT NULL,
+			  `jliLock` bit(1) DEFAULT NULL,
+			  `jliSerialVersion` bigint(20) NOT NULL,
+			  `jliUpdatedBy` bigint(20) DEFAULT NULL,
+			  `jliUpdatedDate` datetime DEFAULT NULL,
+			  `jliAmount` decimal(19,2) DEFAULT NULL,
+			  `jliCurrency` varchar(255) DEFAULT NULL,
+			  `jliDescription` longtext,
+			  `jliTransactionType` varchar(255) DEFAULT NULL,
+			  `jliType` varchar(255) DEFAULT NULL,
+			  `jliLedgerUIDled` bigint(20) DEFAULT NULL,
+			  `jliPaymentMethodUIDpme` bigint(20) DEFAULT NULL,
+			  PRIMARY KEY (`jliUID`),
+			  UNIQUE KEY `jliExternalSystemId` (`jliExternalSystemId`),
+			  KEY `FKAF0315E4BF7A0EBD` (`jliLedgerUIDled`),
+			  KEY `FKAF0315E44759D643` (`jliPaymentMethodUIDpme`),
+			  CONSTRAINT `FKAF0315E44759D643` FOREIGN KEY (`jliPaymentMethodUIDpme`) REFERENCES `pmePaymentMethod` (`pmeUID`),
+			  CONSTRAINT `FKAF0315E4BF7A0EBD` FOREIGN KEY (`jliLedgerUIDled`) REFERENCES `ledLedger` (`ledUID`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+			
+			CREATE TABLE `jouJournal` (
+			  `jouUID` bigint(20) NOT NULL,
+			  `jouAttribute` longtext,
+			  `jouCreatedBy` bigint(20) DEFAULT NULL,
+			  `jouCreatedDate` datetime DEFAULT NULL,
+			  `jouExternalSystemId` varchar(255) NOT NULL,
+			  `jouForeignSystemId` varchar(255) DEFAULT NULL,
+			  `jouLock` bit(1) DEFAULT NULL,
+			  `jouSerialVersion` bigint(20) NOT NULL,
+			  `jouSubjectId` varchar(255) DEFAULT NULL,
+			  `jouSubjectType` varchar(255) DEFAULT NULL,
+			  `jouUpdatedBy` bigint(20) DEFAULT NULL,
+			  `jouUpdatedDate` datetime DEFAULT NULL,
+			  `jouPostedDate` datetime DEFAULT NULL,
+			  `jouTransactionDate` datetime DEFAULT NULL,
+			  `jouType` varchar(255) DEFAULT NULL,
+			  `jouContraOfUIDjou` bigint(20) DEFAULT NULL,
+			  PRIMARY KEY (`jouUID`),
+			  UNIQUE KEY `jouExternalSystemId` (`jouExternalSystemId`),
+			  KEY `FKF89BC147D478FC16` (`jouContraOfUIDjou`),
+			  CONSTRAINT `FKF89BC147D478FC16` FOREIGN KEY (`jouContraOfUIDjou`) REFERENCES `jouJournal` (`jouUID`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+			
+			CREATE TABLE `jJouJliJli` (
+			  `UIDjou` bigint(20) NOT NULL,
+			  `journalLineUIDjli` bigint(20) NOT NULL,
+			  UNIQUE KEY `journalLineUIDjli` (`journalLineUIDjli`),
+			  KEY `FKBE75DD265F0D7FE4` (`journalLineUIDjli`),
+			  KEY `FKBE75DD26F010F3CE` (`UIDjou`),
+			  CONSTRAINT `FKBE75DD265F0D7FE4` FOREIGN KEY (`journalLineUIDjli`) REFERENCES `jliJournalLine` (`jliUID`),
+			  CONSTRAINT `FKBE75DD26F010F3CE` FOREIGN KEY (`UIDjou`) REFERENCES `jouJournal` (`jouUID`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+			
+			CREATE TABLE `jLedJliJli` (
+			  `UIDled` bigint(20) NOT NULL,
+			  `journalLineUIDjli` bigint(20) NOT NULL,
+			  UNIQUE KEY `journalLineUIDjli` (`journalLineUIDjli`),
+			  KEY `FK54E90B21D18F1B2D` (`UIDled`),
+			  KEY `FK54E90B215F0D7FE4` (`journalLineUIDjli`),
+			  CONSTRAINT `FK54E90B215F0D7FE4` FOREIGN KEY (`journalLineUIDjli`) REFERENCES `jliJournalLine` (`jliUID`),
+			  CONSTRAINT `FK54E90B21D18F1B2D` FOREIGN KEY (`UIDled`) REFERENCES `ledLedger` (`ledUID`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+</databaseChangeLog>

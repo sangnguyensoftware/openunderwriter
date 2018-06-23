@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.0">
+  <deployment>
+    <exclusions>
+      <module name="javaee.api" />
+      <module name="org.apache.log4j" />
+    </exclusions>
+    <dependencies>
+      <module name="com.ail.pageflow" />
+      <module name="com.ail.insurance" />
+      <module name="com.ail.commercial" />
+      <module name="com.ail.core" />
+      <module name="org.apache.commons.jxpath" />
+      <module name="org.apache.xalan" />
+      <module name="org.codehaus.castor" />
+      <module name="org.hibernate" />
+      <module name="org.javassist" />
+      <module name="org.jboss.modules" />
+      <module name="com.liferay.portal" />
+      <module name="com.ail.gwtui" />
+      <module name="javax.jms.api" />
+      <module name="javax.mail.api" />
+      <module name="javax.servlet.jsp.api" />
+    </dependencies>
+  </deployment>
+</jboss-deployment-structure>

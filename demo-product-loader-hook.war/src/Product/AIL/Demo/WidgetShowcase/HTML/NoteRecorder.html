@@ -1,0 +1,23 @@
+<p>This widget that gives the user the opportunity to record a note.</p>
+
+<u>PageFlow</u>
+<pre>
+&lt;noteRecorder [typeDescriminator="<i>discriminator</i>""]
+                 [binding="<i>object binding</i>"]
+                 [renderHint="<i>render hint</i>"]/&gt;
+</pre>
+<ul>
+	<li><i>render hint</i> - Render hint to be included in the widget
+		generated output.</li>
+	<li><i>typeDiscriminator</i> - Defines a discriminator which
+		refines the types of note that can be added.</li>
+</ul>
+<u>Examples</u>
+<p>Record a note against the current Policy.</p>
+<pre>&lt;noteRecorder /&gt;</pre>
+
+<p>Allow the user to record a note but restrict the note types to
+	'cancellation reason' types.</p>
+<pre>&lt;noteRecorder typeDiscriminator="cancellation_reason" /&gt; </pre>
+
+<hr />

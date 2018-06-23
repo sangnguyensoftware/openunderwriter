@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ This file defines a test product for use in the core system. This product configuration is
+ required in live deployments and is only used for testing purposes.
+
+-->
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd">
+    <name>Configuration for Test Product 3</name>
+    <timeout>60000</timeout>
+    <who>factory</who>
+    <version>$Revision$</version>
+    <manager>com.ail.core.product.resetproduct.ResetProductService</manager>
+    <parentNamespace>com.ail.core.product.TestProduct02.Registry</parentNamespace>
+    
+    <parameter name="TestPropertyD">D's Value</parameter>
+    
+    <group name="KeyGenerators">
+        <group name="Key">
+            <parameter name="ID">Test.Product03.ID</parameter>
+            <parameter name="Range">1000-*</parameter>
+        </group>
+    </group>
+
+    <types>
+        <type name="TestProduct03" key="com.ail.core.Attribute" builder="CastorXMLBuilder">
+            <parameter name="Extends">TestProduct02</parameter>
+            <parameter name="Script"><![CDATA[
+               <attribute xsi:type='java:com.ail.core.Attribute' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+                  <attribute id="name" value="TestProduct3"/>
+                  <attribute id="productname" value="TestProduct3"/>
+               </attribute>
+            ]]></parameter>
+        </type>
+        
+        <type name="TestTypeB" key="com.ail.core.Attribute" builder="CastorXMLBuilder">
+            <parameter name="Script"><![CDATA[
+            <attribute xsi:type='java:com.ail.core.Attribute' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+                <attribute id="name" format="string" value="TestTypeB"/>
+                <attribute id="productname" format="string" value="TestProduct3"/>
+                <attribute id="age" format="number" value="34"/>
+                <attribute id="colour" format="string" value="orange"/>
+            </attribute>
+                ]]></parameter>
+        </type>
+    </types>
+    
+</configuration>

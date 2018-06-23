@@ -1,0 +1,91 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+#set( $model = $args.ModelArgRet)
+#set( $pageElement = $args.PageElementArg )
+#set( $id = $args.RenderIdArg )
+#set( $title = ${pageElement.formattedTitle($args)} )
+#set( $context = $model )
+##
+{
+	"type": "$pageElement.Class.SimpleName",
+	"id": "$id",
+	#if($title)"title": "$title",#end
+    #renderContactSystems
+}
+##
+#macro(renderContactSystems)
+	"contactSystem": [
+		#foreach( $cs in ${pageElement.fetchContactSystems($model)} )
+			{
+				"type": "$cs.Type",
+				"class": "$cs.Class.Name",
+				"title": "#i18n($cs.Type)",
+				"fields": [
+					#if( ${cs.Class.SimpleName} == "Address" )
+						#renderAddress($cs)
+					#elseif( ${cs.Class.SimpleName} == "PhoneNumber")
+						#renderPhoneNumber($cs)
+					#elseif( ${cs.Class.SimpleName} == "EmailAddress")
+						#renderEmailAddress($cs)
+					#end
+				]
+			}#if($foreach.HasNext),#end		
+		#end
+	]
+#end
+##
+#macro(renderAddress $cs)
+	#renderField($cs "address1" "i18n_proposer_details_address_line_1_placeholder" $cs.Line1 ),
+	#renderField($cs "address2" "i18n_proposer_details_address_line_2_placeholder" $cs.Line2 ),
+	#renderField($cs "address3" "i18n_proposer_details_address_line_3_placeholder" $cs.Line3 ),
+	#renderField($cs "address4" "i18n_proposer_details_address_line_4_placeholder" $cs.Line4 ),
+	#renderField($cs "town" "i18n_proposer_details_address_town_placeholder" $cs.Town ),
+	#renderField($cs "county" "i18n_proposer_details_address_county_placeholder" $cs.County ),
+	#renderField($cs "country" "i18n_proposer_details_address_country_placeholder" $cs.Country ),
+	#renderField($cs "postcode" "i18n_proposer_details_address_postcode_placeholder" $cs.Postcode )
+#end
+##
+#macro(renderPhoneNumber $cs)
+	#renderField($cs "phone" "" $cs.PhoneNumber )
+#end
+##
+#macro(renderEmailAddress $cs)
+	#renderField($cs "email" "" $cs.EmailAddress )
+#end
+##
+#macro(renderField $cs $id $placeholder $value)
+{
+    "id": "$id",
+    "value": "$!value",
+    "valueId": "$pageElement.fieldId($cs, $id)",
+    "format": {
+       "type": "string",
+       "required": #if(${pageElement.isFieldMandatory($id)})"yes"#else"no"#end,
+       "placeholder": "#i18n( $placeholder )"
+    }
+    #error($id $cs $pageElement)
+}
+#end
+##
+#macro( error $filter $model $element )
+     #if( $element.hasErrorMarker($filter, $model) )
+         ,"error": "$element.findError($filter, $model, $element)"
+     #end
+#end
+##
+#macro(i18n $id)$pageElement.i18n("$id")#end

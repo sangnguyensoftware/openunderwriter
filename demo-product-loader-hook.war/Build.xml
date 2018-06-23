@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project default="build" name="openunderwriter:demo-product-loader-hook.war">
+	<import file="../BuildSettings.xml" />
+
+	<target name="clean" description="delete everything that the build can generate">
+		<delete-war-macro />
+	</target>
+
+	<target name="_build">
+		<_initialise-ant-contribs-macro />
+
+		<if>
+			<not>
+				<istrue value="${nodemo}" />
+			</not>
+			<then>
+				<compile-war-macro>
+					<javac-classpath>
+						<fileset dir="${output.dir}/WEB-INF/lib" includes="*.jar" />
+						<dirset dir="${module.dir}/com/ail" includes="**/*.jar" />
+						<fileset dir="${module.dir}/com/ail" includes="**/*.jar" />
+						<fileset dir="${module.dir}/com/liferay/portal" includes="**/*.jar" />
+					</javac-classpath>
+					<additional-resources>
+						<!-- install text files (properties, xml, etc) with the filter turned on -->
+						<copy todir="${output.dir}/WEB-INF/classes">
+							<filterset refid="copy.filterset" />
+							<fileset dir="src" includes="**/*.java, ${text.filetypes}" />
+						</copy>
+
+						<!-- copy binary files with the filter turned off -->
+						<copy todir="${output.dir}/WEB-INF/classes">
+							<fileset dir="src" includes="${binary.filetypes}" />
+						</copy>
+					</additional-resources>
+				</compile-war-macro>
+			</then>
+		</if>
+	</target>
+
+	<target name="build" description="compile (generate, copy, etc) all build outputs">
+		<antcall target="_build" />
+	    <upload-product-content-macro src="./src" />
+	</target>
+
+	<target name="setup" description="run all the one-time-only steps - like copying libs into place">
+		<update-dependencies-macro todir="${output.dir}/WEB-INF/lib" />
+	</target>
+
+	<target name="teardown" description="undo whatever setup did">
+	</target>
+</project>

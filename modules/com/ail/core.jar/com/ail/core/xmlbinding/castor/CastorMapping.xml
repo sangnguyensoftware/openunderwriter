@@ -1,0 +1,2102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Object Mapping DTD Version 1.0//EN" "http://castor.exolab.org/mapping.dtd">
+<mapping>
+    <class name="com.ail.core.Type">
+        <map-to xml="abstracttype" />
+        <field name="lock" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="serialVersion" type="long">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="systemId" type="long">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="foreignSystemId" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="externalSystemId" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="attribute" type="com.ail.core.Attribute" collection="arraylist" />
+    </class>
+
+    <class name="com.ail.core.Version" extends="com.ail.core.Type">
+        <field name="version" type="string" />
+        <field name="date" type="string" />
+        <field name="copyright" type="string" />
+        <field name="author" type="string" />
+        <field name="state" type="string" />
+        <field name="source" type="string" />
+        <field name="comment" type="string" />
+    </class>
+
+    <class name="com.ail.core.ForeignSystemReference" extends="com.ail.core.Type">
+        <field name="type" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="reference" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.core.Attribute" extends="com.ail.core.Type">
+        <map-to xml="attribute" />
+        <field name="unit" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="format" type="string" handler="com.ail.core.xmlbinding.castor.CastorXMLStringFieldHandler">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="id" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="value" type="string" set-method="setValueForXmlAttribute" get-method="getValueForXmlAttribute">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="valueForXmlText" type="string" handler="com.ail.core.xmlbinding.castor.CastorCDataFieldHandler">
+            <bind-xml name="value" node="element" />
+        </field>
+        <field name="source" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.core.VersionEffectiveDate">
+        <map-to xml="versionEffectiveDate" />
+        <field name="time" type="long">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="date" type="date">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.core.product.ProductUpgradeLog" extends="com.ail.core.Type">
+        <map-to xml="productUpgradeLog" />
+    </class>
+
+    <class name="com.ail.core.ThreadLocale" extends="com.ail.core.Type">
+        <map-to xml="locale" />
+        <field name="language" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="country" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="variant" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.core.language.Translation" extends="com.ail.core.Type">
+        <map-to xml="translation" />
+        <field name="language" type="string" set-method="%1">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="extendsLanguage" type="string" set-method="%2">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="key" collection="map">
+            <bind-xml name="element">
+                <class name="org.exolab.castor.mapping.MapItem">
+                    <field name="key" type="string">
+                        <bind-xml node="attribute" name="key" />
+                    </field>
+                    <field name="value" type="string">
+                        <bind-xml name="value" node="text" handler="com.ail.core.xmlbinding.castor.CastorCDataFieldHandler" />
+                    </field>
+                </class>
+            </bind-xml>
+        </field>
+    </class>
+
+    <class name="com.ail.core.language.Translations" extends="com.ail.core.Type">
+        <map-to xml="translations" />
+        <field name="defaultLanguage" type="string" set-method="%1">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="translation" type="com.ail.core.language.Translation" collection="arraylist" />
+    </class>
+    
+    <class name="com.ail.core.label.Label" extends="com.ai.core.Type" verify-constructable="false">
+        <map-to xml="label"/>
+        <field name="text" type="string" set-method="%1">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="discriminator" type="string" set-method="%2">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="condition" type="string" set-method="%3">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.core.label.Labels" extends="com.ai.core.Type" verify-constructable="false">
+        <map-to xml="labels"/>
+        <field name="target" type="string" set-method="%1">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="discriminator" type="string" set-method="%2">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="condition" type="string" set-method="%3">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="labels" type="com.ail.core.label.Labels" collection="arraylist" />
+        <field name="label" type="com.ail.core.label.Label" collection="arraylist"/>
+    </class>
+
+    <class name="com.ail.core.data.Definition" extends="com.ail.core.Type">
+        <map-to xml="definition" />
+        <field name="name" type="string" required="true">
+            <bind-xml node="attribute" name="name" />
+        </field>
+        <field name="nameAbsolute" type="boolean">
+            <bind-xml node="attribute" name="nameAbsolute" />
+        </field>
+        <field name="description" type="string">
+            <bind-xml node="attribute" name="description" />
+        </field>
+        <field name="binding" type="string" required="true">
+            <bind-xml node="attribute" name="binding" />
+        </field>
+        <field name="definitions" type="com.ail.core.data.Definition" collection="arraylist" />
+    </class>
+
+    <class name="com.ail.core.data.DataDictionary" extends="com.ail.core.Type">
+        <map-to xml="dataDictionary" />
+        <field name="definitions" type="com.ail.core.data.Definition" collection="arraylist" required="true" get-method="listDefinitions" set-method="addDefinition" />
+    </class>
+
+    <class name="com.ail.core.CoreUserImpl">
+        <map-to xml="coreuser" />
+        <field name="versionEffectiveDate" type="com.ail.core.VersionEffectiveDate" />
+        <field name="configurationNamespace" type="string" />
+    </class>
+
+    <class name="com.ail.core.CoreProxy">
+        <map-to xml="coreproxy" />
+        <field name="versionEffectiveDate" type="com.ail.core.VersionEffectiveDate" />
+        <field name="configurationNamespace" type="string" />
+    </class>
+
+    <class name="com.ail.core.ExceptionElement">
+        <field name="stack" type="string" handler="com.ail.core.xmlbinding.castor.CastorXMLStringFieldHandler">
+            <bind-xml node="text" />
+        </field>
+    </class>
+
+    <class name="com.ail.core.ExceptionRecord" extends="com.ail.core.Type">
+        <field name="date" type="date">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="reason" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="catchingClassName" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="stack" type="com.ail.core.ExceptionElement" collection="collection" />
+    </class>
+
+    <class name="com.ail.core.command.ArgumentImpl" extends="com.ail.core.Type">
+        <field name="callersCore" type="com.ail.core.CoreUserImpl" />
+    </class>
+
+    <class name="com.ail.core.logging.LoggingArgumentImpl" extends="com.ail.core.command.ArgumentImpl">
+        <field name="date" type="date" />
+        <field name="message" type="string" />
+    </class>
+
+    <class name="com.ail.core.product.ListProductsArgumentImpl" extends="com.ail.core.command.ArgumentImpl">
+        <field name="productsRet" type="string" collection="collection" />
+    </class>
+
+    <class name="com.ail.core.document.StyleDocumentArgumentImpl" extends="com.ail.core.command.ArgumentImpl">
+        <field name="mergedDataArg" type="org.exolab.castor.types.AnyNode" handler="com.ail.core.xmlbinding.castor.CastorEmbeddedXMLFieldHandler">
+            <bind-xml type="any" node="element" />
+        </field>
+        <field name="styledDocumentRet" type="org.exolab.castor.types.AnyNode" handler="com.ail.core.xmlbinding.castor.CastorEmbeddedXMLFieldHandler">
+            <bind-xml type="any" node="element" />
+        </field>
+    </class>
+
+    <class name="com.ail.insurance.quotation.AssessRiskArgumentImpl" extends="com.ail.core.command.ArgumentImpl">
+        <field name="policyArgRet" type="com.ail.insurance.policy.Policy" />
+    </class>
+
+    <class name="com.ail.core.configure.Component" extends="com.ail.core.Type">
+        <map-to xml="component" />
+        <field name="name" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.core.configure.Parameter" extends="com.ail.core.configure.Component">
+        <map-to xml="parameter" />
+        <field name="value" type="string" handler="com.ail.core.xmlbinding.castor.CastorCDataFieldHandler">
+            <bind-xml node="text" />
+        </field>
+    </class>
+
+    <class name="com.ail.core.configure.Group" extends="com.ail.core.configure.Component">
+        <map-to xml="group" />
+        <field name="attribute" type="com.ail.core.Attribute" collection="arraylist" />
+        <field name="parameter" type="com.ail.core.configure.Parameter" collection="arraylist" />
+        <field name="group" type="com.ail.core.configure.Group" collection="arraylist" />
+    </class>
+
+    <class name="com.ail.core.configure.Builder" extends="com.ail.core.configure.Group">
+        <map-to xml="builder" />
+        <field name="factory" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.core.configure.Builders" extends="com.ail.core.configure.Group">
+        <map-to xml="builders" />
+        <field name="builder" type="com.ail.core.configure.Builder" get-method="getGroup" set-method="setGroup" collection="arraylist">
+            <bind-xml node="element" />
+        </field>
+    </class>
+
+    <class name="com.ail.core.configure.Type" extends="com.ail.core.configure.Group">
+        <map-to xml="type" />
+        <field name="key" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="singleInstance" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="builder" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.core.configure.Service" extends="com.ail.core.configure.Type">
+        <map-to xml="service" />
+    </class>
+
+    <class name="com.ail.core.configure.Command" extends="com.ail.core.configure.Type">
+        <map-to xml="command" />
+    </class>
+
+    <class name="com.ail.core.configure.Types" extends="com.ail.core.configure.Group">
+        <map-to xml="types" />
+        <field name="type" type="com.ail.core.configure.Type" get-method="getGroup" set-method="setGroup" collection="arraylist" />
+    </class>
+
+    <class name="com.ail.core.configure.Configuration" extends="com.ail.core.configure.Group">
+        <map-to xml="configuration" />
+        <field name="name" type="string" />
+        <field name="timeout" type="integer" />
+        <field name="validTo" type="com.ail.core.VersionEffectiveDate" />
+        <field name="parentNamespace" type="string" />
+        <field name="manager" type="string" />
+        <field name="who" type="string" />
+        <field name="source" type="string" />
+        <field name="loadedAt" type="date" />
+        <field name="version" type="string" />
+        <field name="validFrom" type="com.ail.core.VersionEffectiveDate" />
+        <field name="onlyGroups" type="com.ail.core.configure.Group" get-method="getOnlyGroups" set-method="setOnlyGroups"
+            collection="arraylist" />
+        <field name="builders" type="com.ail.core.configure.Builders" />
+        <field name="types" type="com.ail.core.configure.Types" />
+    </class>
+
+    <class name="com.ail.core.CommandScript" extends="com.ail.core.Type">
+        <map-to xml="commandScript" />
+        <field name="script" type="string" handler="com.ail.core.xmlbinding.castor.CastorCDataFieldHandler" />
+        <field name="commandName" type="string" />
+        <field name="namespace" type="string" />
+        <field name="type" type="string" />
+    </class>
+
+    <!-- Mappings for financial model types -->
+    <class name="com.ail.financial.CurrencyAmount" verify-constructable="false">
+        <field name="amount" type="big-decimal" get-method="getAmount" set-method="%1">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="currency" type="string" get-method="getCurrencyAsString" set-method="%2">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.util.Rate" extends="com.ail.core.Type">
+        <field name="rate" type="string" />
+    </class>
+
+    <class name="com.ail.financial.PaymentMethod" extends="com.ail.core.Type">
+        <field name="status" type="com.ail.financial.PaymentMethodStatus" handler="com.ail.core.xmlbinding.castor.CastorEnumFieldHandler" />
+    </class>
+
+    <class name="com.ail.financial.MoneyProvision" extends="com.ail.core.Type">
+        <map-to xml="moneyProvision" />
+        <field name="description" type="string" />
+        <field name="frequency" type="string" get-method="getFrequencyAsString" set-method="setFrequencyAsString" />
+        <field name="number" type="int" />
+        <field name="day" type="int" />
+        <field name="paymentsStartDate" type="date" />
+        <field name="paymentsEndDate" type="date" />
+        <field name="amount" type="com.ail.financial.CurrencyAmount" />
+        <field name="paymentMethod" type="com.ail.financial.PaymentMethod" />
+        <field name="status" type="com.ail.financial.MoneyProvisionStatus" handler="com.ail.core.xmlbinding.castor.CastorEnumFieldHandler" />
+        <field name="purpose" type="com.ail.financial.MoneyProvisionPurpose" handler="com.ail.core.xmlbinding.castor.CastorEnumFieldHandler" />
+        <field name="paymentId" type="string" />
+        <field name="saleId" type="string" />
+    </class>
+
+    <class name="com.ail.financial.DirectDebit" extends="com.ail.financial.PaymentMethod">
+        <map-to xml="directDebit" />
+        <field name="bankName" type="string" />
+        <field name="branchName" type="string" />
+        <field name="accountNumber" type="string" />
+        <field name="sortCode" type="string" />
+        <field name="name" type="string" />
+    </class>
+
+    <class name="com.ail.financial.PaymentCard" extends="com.ail.financial.PaymentMethod">
+        <map-to xml="paymentCard" />
+        <field name="cardHoldersName" type="string" />
+        <field name="cardNumber" type="string" />
+        <field name="issueNumber" type="string" />
+        <field name="issuer" type="string" get-method="getIssuerAsString" set-method="setIssuerAsString" />
+        <field name="startDate" type="date" />
+        <field name="expiryDate" type="date" />
+        <field name="securityCode" type="string" />
+    </class>
+
+    <class name="com.ail.financial.PaymentSchedule" extends="com.ail.core.Type">
+        <map-to xml="paymentSchedule" />
+        <field name="description" type="string" />
+        <field name="type" type="com.ail.financial.PaymentScheduleType" handler="com.ail.core.xmlbinding.castor.CastorEnumFieldHandler" />
+        <field name="moneyProvision" type="com.ail.financial.MoneyProvision" collection="arraylist" />
+    </class>
+
+    <class name="com.ail.financial.Orange" extends="com.ail.financial.PaymentMethod">
+        <map-to xml="orange" />
+    </class>
+
+    <class name="com.ail.financial.PayPal" extends="com.ail.financial.PaymentMethod">
+        <map-to xml="payPal" />
+    </class>
+
+    <class name="com.ail.financial.Stripe" extends="com.ail.financial.PaymentMethod">
+        <map-to xml="stripe" />
+    </class>
+
+    <class name="com.ail.financial.Eway" extends="com.ail.financial.PaymentMethod">
+        <map-to xml="eWAY" />
+    </class>
+
+    <class name="com.ail.financial.IWinPay" extends="com.ail.financial.PaymentMethod">
+        <map-to xml="iWinPay" />
+    </class>
+
+    <class name="com.ail.financial.SagePay" extends="com.ail.financial.PaymentMethod">
+        <map-to xml="sagePay" />
+    </class>
+
+    <class name="com.ail.core.Note" extends="com.ail.core.Type">
+        <map-to xml="note" />
+        <field name="title" type="string" handler="com.ail.core.xmlbinding.castor.CastorXMLStringFieldHandler" />
+        <field name="body" type="string" handler="com.ail.core.xmlbinding.castor.CastorXMLStringFieldHandler" />
+        <field name="type" type="string" />
+        <field name="label" type="com.ail.core.label.Label" collection="set" />	
+    </class>
+
+    <class name="com.ail.financial.PaymentRecord" extends="com.ail.core.Type" verify-constructable="false">
+        <map-to xml="paymentRecord" />
+        <field name="amount" type="string" set-method="%1" get-method="getAmountAsString">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="currency" type="string" set-method="%2" get-method="getCurrencyAsString">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="transactionReference" type="string" set-method="%3" get-method="getTransactionReference">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="methodIdentifer" type="string" set-method="%4" get-method="getMethodIdentifier">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="type" type="string" set-method="%5" get-method="getTypeAsString">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="date" type="string" set-method="%6" get-method="getDateAsString">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="description" type="string" set-method="%7" get-method="getDescription">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <!-- document model mappings start here -->
+    <class name="com.ail.core.document.model.ItemData" extends="com.ail.core.Type">
+        <map-to xml="itemData" />
+        <field name="id" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="condition" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="title" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="order" type="long">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="class" type="string" get-method="getStyle" set-method="setStyle">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="value" type="string">
+            <bind-xml node="text" />
+        </field>
+    </class>
+
+    <class name="com.ail.core.document.model.ImageData" extends="com.ail.core.document.model.ItemData">
+        <field name="binding" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="imageFilePath" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="height" type="int">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="width" type="int">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.core.document.model.ModelData" extends="com.ail.core.document.model.ItemData">
+        <field name="binding" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.core.document.model.UrlData" extends="com.ail.core.document.model.ItemData">
+        <field name="url" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.core.document.model.ItemContainer" extends="com.ail.core.document.model.ItemData">
+        <field name="item" type="com.ail.core.document.model.ItemData" collection="arraylist" />
+    </class>
+
+    <class name="com.ail.core.document.model.BlockData" extends="com.ail.core.document.model.ItemContainer">
+        <map-to xml="blockData" />
+        <field name="placement" get-method="getPlacementAsString" set-method="setPlacementAsString" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="applicability" get-method="getApplicabilityAsString" set-method="setApplicabilityAsString" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="border" get-method="isBorder" set-method="setBorder" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.core.document.model.HeaderData" extends="com.ail.core.document.model.ItemContainer">
+        <field name="applicability" get-method="getApplicabilityAsString" set-method="setApplicabilityAsString" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="leftLogo" type="string" />
+        <field name="rightLogo" type="string" />
+    </class>
+
+    <class name="com.ail.core.document.model.FooterData" extends="com.ail.core.document.model.ItemContainer">
+        <field name="applicability" get-method="getApplicabilityAsString" set-method="setApplicabilityAsString" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="leftLogo" type="string" />
+        <field name="rightLogo" type="string" />
+    </class>
+
+    <class name="com.ail.core.document.model.RepeatingData" extends="com.ail.core.document.model.ItemContainer">
+        <map-to xml="repeatingData" />
+        <field name="binding" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.core.document.model.ChapterData" extends="com.ail.core.document.model.ItemContainer">
+        <map-to xml="chapterData" />
+    </class>
+
+    <class name="com.ail.core.document.model.DocumentData" extends="com.ail.core.document.model.ItemData">
+        <map-to xml="documentData" />
+        <field name="headerData" type="com.ail.core.document.model.HeaderData" collection="arraylist" />
+        <field name="footerData" type="com.ail.core.document.model.FooterData" collection="arraylist" />
+        <field name="watermark" type="string" />
+        <field name="chapterData" type="com.ail.core.document.model.ChapterData" collection="arraylist" />
+    </class>
+
+    <class name="com.ail.core.document.model.DocumentDefinition" extends="com.ail.core.Type">
+        <map-to xml="documentDefinition" />
+        <field name="mergeCommand" type="string" />
+        <field name="styleCommand" type="string" />
+        <field name="renderCommand" type="string" />
+        <field name="documentData" type="com.ail.core.document.model.DocumentData" />
+    </class>
+
+    <!-- Mappings for quote model related types -->
+    <class name="com.ail.core.Reference" auto-complete="false">
+        <field name="lock" type="boolean" transient="true">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="serialVersion" type="long" transient="true">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="systemId" type="long" transient="true">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="id" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="type" type="string" get-method="getTypeAsString" set-method="setTypeAsString">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.insurance.policy.AssessmentLine" extends="com.ail.core.Type">
+        <field name="id" type="string" />
+        <field name="reason" type="string" handler="com.ail.core.xmlbinding.castor.CastorXMLStringFieldHandler" />
+        <field name="priority" type="int" />
+        <field name="processedOrder" type="int" />
+        <field name="origin" type="string" />
+        <field name="disabled" type="boolean" />
+        <field name="relatesTo" type="com.ail.core.Reference" />
+    </class>
+
+    <class name="com.ail.insurance.policy.AssessmentNote" extends="com.ail.insurance.policy.AssessmentLine" />
+
+    <class name="com.ail.insurance.policy.ControlLine" extends="com.ail.insurance.policy.AssessmentLine">
+        <field name="assessmentStage" type="string" get-method="getAssessmentStageAsString" set-method="setAssessmentStageAsString" />
+        <field name="controlLineType" type="string" get-method="getControlLineTypeAsString" set-method="setControlLineTypeAsString" />
+        <field name="fired" type="boolean" get-method="hasFired" set-method="setFired" />
+    </class>
+
+    <class name="com.ail.insurance.policy.ConstrainValueOutOfBounds" extends="com.ail.insurance.policy.ControlLine">
+        <field name="minimum" type="com.ail.financial.CurrencyAmount" />
+        <field name="maximum" type="com.ail.financial.CurrencyAmount" />
+    </class>
+
+    <class name="com.ail.insurance.policy.ReferValueOutOfBounds" extends="com.ail.insurance.policy.ControlLine">
+        <field name="minimum" type="com.ail.financial.CurrencyAmount" />
+        <field name="maximum" type="com.ail.financial.CurrencyAmount" />
+    </class>
+
+    <class name="com.ail.insurance.policy.DeclineValueOutOfBounds" extends="com.ail.insurance.policy.ControlLine">
+        <field name="minimum" type="com.ail.financial.CurrencyAmount" />
+        <field name="maximum" type="com.ail.financial.CurrencyAmount" />
+    </class>
+
+    <class name="com.ail.insurance.policy.RoundValue" extends="com.ail.insurance.policy.ControlLine">
+        <field name="scale" type="int" />
+        <field name="roundingMode" type="int" />
+    </class>
+
+    <class name="com.ail.insurance.policy.LoadValueOutOfBounds" extends="com.ail.insurance.policy.ControlLine">
+        <field name="minimum" type="com.ail.financial.CurrencyAmount" />
+        <field name="maximum" type="com.ail.financial.CurrencyAmount" />
+        <field name="dependsOn" type="string" />
+        <field name="contributesTo" type="string" />
+        <field name="rate" type="com.ail.util.Rate" />
+        <field name="amount" type="com.ail.financial.CurrencyAmount" />
+    </class>
+
+    <class name="com.ail.insurance.policy.DiscountValueOutOfBounds" extends="com.ail.insurance.policy.ControlLine">
+        <field name="minimum" type="com.ail.financial.CurrencyAmount" />
+        <field name="maximum" type="com.ail.financial.CurrencyAmount" />
+        <field name="dependsOn" type="string" />
+        <field name="contributesTo" type="string" />
+        <field name="rate" type="com.ail.util.Rate" />
+        <field name="amount" type="com.ail.financial.CurrencyAmount" />
+    </class>
+
+    <class name="com.ail.insurance.policy.CalculationLine" extends="com.ail.insurance.policy.AssessmentLine">
+        <field name="contributesTo" type="string" />
+        <field name="amount" type="com.ail.financial.CurrencyAmount" />
+    </class>
+
+    <class name="com.ail.insurance.policy.Behaviour" extends="com.ail.insurance.policy.CalculationLine">
+        <field name="type" type="string" get-method="getTypeAsString" set-method="setTypeAsString" />
+    </class>
+
+    <class name="com.ail.insurance.policy.RateBehaviour" extends="com.ail.insurance.policy.Behaviour">
+        <field name="dependsOn" type="string" />
+        <field name="rate" type="com.ail.util.Rate" />
+    </class>
+
+    <class name="com.ail.insurance.policy.SumBehaviour" extends="com.ail.insurance.policy.Behaviour" />
+
+    <class name="com.ail.insurance.policy.FixedSum" extends="com.ail.insurance.policy.CalculationLine" />
+
+    <class name="com.ail.insurance.policy.Totalizer" extends="com.ail.insurance.policy.CalculationLine">
+        <field name="dependsOn" type="string" />
+    </class>
+
+    <class name="com.ail.insurance.policy.ExpressionLine" extends="com.ail.insurance.policy.CalculationLine">
+        <field name="expression" type="string" />
+    </class>
+
+    <class name="com.ail.insurance.policy.Marker" extends="com.ail.insurance.policy.AssessmentLine">
+        <field name="type" type="string" set-method="setTypeAsString" get-method="getTypeAsString" />
+    </class>
+
+    <class name="com.ail.insurance.policy.MarkerResolution" extends="com.ail.insurance.policy.AssessmentLine">
+        <field name="behaviourId" type="string" />
+    </class>
+
+    <class name="com.ail.core.ProxyMap" extends="com.ail.core.Type">
+        <field name="map" collection="map">
+            <bind-xml name="line">
+                <class name="org.exolab.castor.mapping.MapItem">
+                    <field name="key" type="string">
+                        <bind-xml node="attribute" name="name" />
+                    </field>
+                    <field name="value" type="com.ail.insurance.policy.AssessmentLine">
+                        <bind-xml node="element" name="detail" />
+                    </field>
+                </class>
+            </bind-xml>
+        </field>
+    </class>
+
+    <class name="com.ail.insurance.policy.AssessmentSheet" extends="com.ail.core.Type">
+        <field name="lockingActor" type="string" />
+        <field name="assessmentLines" type="com.ail.core.ProxyMap" />
+    </class>
+
+    <class name="com.ail.core.Allowable" extends="com.ail.core.Type">
+        <field name="allowable" type="com.ail.core.Allowable" collection="arraylist" />
+        <field name="name" type="string" />
+        <field name="typeId" type="string" />
+        <field name="className" type="string" />
+    </class>
+
+    <class name="com.ail.insurance.policy.Asset" extends="com.ail.core.Type">
+        <field name="id" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="assetTypeId" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="asset" type="com.ail.insurance.policy.Asset" collection="arraylist" />
+    </class>
+
+    <class name="com.ail.core.document.DocumentContent" extends="com.ail.core.Type">
+        <field name="foreignSystemReference" collection="map">
+            <bind-xml name="element">
+                <class name="org.exolab.castor.mapping.MapItem">
+                    <field name="key" type="string">
+                        <bind-xml node="attribute" name="type" />
+                    </field>
+                    <field name="value" type="com.ail.core.ForeignSystemReference">
+                        <bind-xml node="element" name="sheet" />
+                    </field>
+                </class>
+            </bind-xml>
+        </field>
+    </class>
+
+    <class name="com.ail.core.document.Document" extends="com.ail.core.Type" verify-constructable="false">
+        <field name="type" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="otherType" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="title" type="string" handler="com.ail.core.xmlbinding.castor.CastorXMLStringFieldHandler">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="fileName" type="string" handler="com.ail.core.xmlbinding.castor.CastorXMLStringFieldHandler">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="description" type="string" handler="com.ail.core.xmlbinding.castor.CastorXMLStringFieldHandler" />
+        <field name="mimeType" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.core.document.DocumentPlaceholder" extends="com.ail.core.Type" verify-constructable="false">
+        <field name="type" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="otherType" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="title" type="string" handler="com.ail.core.xmlbinding.castor.CastorXMLStringFieldHandler">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.insurance.policy.Coverage" extends="com.ail.core.Type">
+        <field name="id" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="coverageTypeId" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="enabled" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="optional" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="name" type="string" />
+        <field name="description" type="string" />
+        <field name="limit" type="com.ail.financial.CurrencyAmount" />
+        <field name="deductible" type="com.ail.financial.CurrencyAmount" />
+        <field name="effectiveDate" type="date" />
+        <field name="expiryDate" type="date" />
+        <field name="broker" type="com.ail.insurance.policy.Broker" />
+    </class>
+
+    <class name="com.ail.insurance.policy.Wording" extends="com.ail.core.Type">
+        <field name="id" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="text" type="string" handler="com.ail.core.xmlbinding.castor.CastorCDataFieldHandler" />
+        <field name="url" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.insurance.policy.Excess" extends="com.ail.core.Type">
+        <field name="id" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="excessTypeId" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="enabled" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="deductible" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="title" type="string" handler="com.ail.core.xmlbinding.castor.CastorCDataFieldHandler">
+            <bind-xml type="any" node="element" />
+        </field>
+        <field name="assetId" type="string" collection="arraylist" />
+        <field name="amount" type="com.ail.financial.CurrencyAmount" />
+    </class>
+
+    <class name="com.ail.insurance.policy.Clause" extends="com.ail.core.Type">
+        <field name="type" get-method="getTypeAsString" set-method="setTypeAsString" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="createdDate" type="date">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="startDate" type="date">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="endDate" type="date">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="reminderDate" type="date">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="manuscript" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="reference" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="advisory" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="relatesTo" type="com.ail.core.Reference" collection="arraylist" />
+        <field name="title" type="string" handler="com.ail.core.xmlbinding.castor.CastorCDataFieldHandler" />
+        <field name="text" type="string" handler="com.ail.core.xmlbinding.castor.CastorCDataFieldHandler" />
+    </class>
+
+    <class name="com.ail.insurance.policy.Section" extends="com.ail.core.Type">
+        <field name="id" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="sectionTypeId" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="assessmentSheetList" collection="map">
+            <bind-xml name="assessmentSheet">
+                <class name="org.exolab.castor.mapping.MapItem">
+                    <field name="key" type="string">
+                        <bind-xml node="attribute" name="product" />
+                    </field>
+                    <field name="value" type="com.ail.insurance.policy.AssessmentSheet">
+                        <bind-xml node="element" name="sheet" />
+                    </field>
+                </class>
+            </bind-xml>
+        </field>
+        <field name="assetId" type="string" collection="arraylist" />
+        <field name="uninsuredAssetId" type="string" collection="arraylist" />
+        <field name="coverage" type="com.ail.insurance.policy.Coverage" collection="arraylist" />
+        <field name="clause" type="com.ail.insurance.policy.Clause" collection="arraylist" />
+    </class>
+
+    <class name="com.ail.insurance.policy.PolicyLink" extends="com.ail.core.Type" verify-constructable="false">
+        <field name="linkType" type="com.ail.insurance.policy.PolicyLinkType" handler="com.ail.core.xmlbinding.castor.CastorEnumFieldHandler">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="policySystemId" type="long">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.financial.PaymentHoliday" extends="com.ail.core.Type" verify-constructable="false">
+        <field name="startDate" type="date" />
+        <field name="endDate" type="date" />
+        <field name="note" type="com.ail.core.Note" collection="arraylist" />
+    </class>
+
+    <class name="com.ail.insurance.claim.ClaimRecovery" extends="com.ail.core.Type">
+        <field name="reason" type="string" />
+        <field name="recoveredFrom" type="com.ail.party.Party" />
+        <field name="recoveryType" type="com.ail.insurance.claim.RecoveryType" handler="com.ail.core.xmlbinding.castor.CastorEnumFieldHandler" />
+        <field name="paymentType" type="com.ail.insurance.claim.PaymentType" handler="com.ail.core.xmlbinding.castor.CastorEnumFieldHandler" />
+        <field name="recoveredDate" type="date" />
+        <field name="amount" type="com.ail.financial.CurrencyAmount" />
+    </class>
+    
+    <class name="com.ail.insurance.claim.ClaimSection" extends="com.ail.core.Type">
+        <field name="claimRecovery" set-method="setRecoveries" get-method="getRecoveries" type="com.ail.insurance.claim.ClaimRecovery" collection="arraylist"/>
+        <field name="estimatedReserve" type="com.ail.financial.CurrencyAmount" />
+        <field name="totalRecovered" type="com.ail.financial.CurrencyAmount" />
+        <field name="outstandingClaim" type="com.ail.financial.CurrencyAmount" />
+    </class>
+
+    <class name="com.ail.insurance.claim.Claim" extends="com.ail.core.Type">
+        <field name="policy" type="com.ail.insurance.policy.Policy" />
+        <field name="status" type="com.ail.insurance.claim.ClaimStatus" handler="com.ail.core.xmlbinding.castor.CastorEnumFieldHandler" />
+        <field name="recoveryStatus" type="com.ail.insurance.claim.RecoveryStatus" handler="com.ail.core.xmlbinding.castor.CastorEnumFieldHandler" />
+        <field name="claimNumber" type="string" />
+        <field name="clause" type="com.ail.insurance.policy.Clause" collection="arraylist" />
+        <field name="section" type="com.ail.insurance.claim.ClaimSection" collection="arraylist" />
+        <field name="asset" type="com.ail.insurance.policy.Asset" collection="arraylist" />
+        <field name="document" type="com.ail.core.document.Document" collection="arraylist" />
+        <field name="documentPlaceholder" type="com.ail.core.document.DocumentPlaceholder" collection="arraylist" />
+        <field name="note" type="com.ail.core.Note" collection="arraylist" />
+        <field name="subrogationPotential" type="boolean" />
+        <field name="subrogationWaiver" type="boolean" />
+        <field name="paid" type="boolean" />
+        <field name="litigationFlag" type="boolean" />
+        <field name="adrFlag" type="boolean" />
+        <field name="totalEstimatedRecovery" type="com.ail.financial.CurrencyAmount" />
+        <field name="totalRecovered" type="com.ail.financial.CurrencyAmount" />
+        <field name="outstandingReserve" type="com.ail.financial.CurrencyAmount" />
+        <field name="estimatedReserve" type="com.ail.financial.CurrencyAmount" />
+        <field name="subrogationReserve" type="com.ail.financial.CurrencyAmount" />
+        <field name="salvageReserve" type="com.ail.financial.CurrencyAmount" />
+        <field name="deductableReserve" type="com.ail.financial.CurrencyAmount" />
+        <field name="contributionReserve" type="com.ail.financial.CurrencyAmount" />
+        <field name="outstandingTotal" type="com.ail.financial.CurrencyAmount" />
+        <field name="owningUser" type="long" />
+        <field name="startDate" type="date" />
+        <field name="endDate" type="date" />
+    </class>
+
+    <class name="com.ail.insurance.policy.Policy" extends="com.ail.core.Type">
+        <field name="aggregator" type="boolean" />
+        <field name="allowable" type="com.ail.core.Allowable" collection="arraylist" />
+        <field name="assessmentSheetList" collection="map">
+            <bind-xml name="assessmentSheet">
+                <class name="org.exolab.castor.mapping.MapItem">
+                    <field name="key" type="string">
+                        <bind-xml node="attribute" name="product" />
+                    </field>
+                    <field name="value" type="com.ail.insurance.policy.AssessmentSheet">
+                        <bind-xml node="element" name="sheet" />
+                    </field>
+                </class>
+            </bind-xml>
+        </field>
+        <field name="asset" type="com.ail.insurance.policy.Asset" collection="arraylist" />
+        <field name="baseCurrency" type="com.ail.financial.Currency" handler="com.ail.core.xmlbinding.castor.CastorEnumFieldHandler" />
+        <field name="broker" type="com.ail.insurance.policy.Broker" />
+        <field name="claim" type="com.ail.insurance.claim.Claim" collection="arraylist"/>
+        <field name="clause" type="com.ail.insurance.policy.Clause" collection="arraylist" />
+        <field name="client" type="com.ail.party.Party" />
+        <field name="coverage" type="com.ail.insurance.policy.Coverage" collection="arraylist" />
+        <field name="document" type="com.ail.core.document.Document" collection="arraylist" />
+        <field name="documentPlaceholder" type="com.ail.core.document.DocumentPlaceholder" collection="arraylist" />
+        <field name="exception" type="com.ail.core.ExceptionRecord" collection="arraylist" />
+        <field name="excess" type="com.ail.insurance.policy.Excess" collection="arraylist" />
+        <field name="expiryDate" type="date" />
+        <field name="id" type="string" />
+        <field name="inceptionDate" type="date" />
+        <field name="locale" type="com.ail.core.ThreadLocale" />
+        <field name="mtaIndex" type="long" />
+        <field name="note" type="com.ail.core.Note" collection="arraylist" />
+        <field name="pageVisit" type="com.ail.core.PageVisit" collection="arraylist" />
+        <field name="paymentDetails" type="com.ail.financial.PaymentSchedule" />
+        <field name="paymentHistory" type="com.ail.financial.PaymentRecord" collection="arraylist" />
+        <field name="paymentOption" type="com.ail.financial.PaymentSchedule" collection="arraylist" />
+        <field name="paymentHoliday" type="com.ail.financial.PaymentHoliday" collection="arraylist" />
+        <field name="policyHolder" type="com.ail.party.Party" />
+        <field name="policyLink" type="com.ail.insurance.policy.PolicyLink" collection="arraylist" />
+        <field name="policyNumber" type="string" />
+        <field name="productName" type="string" />
+        <field name="productTypeId" type="string" />
+        <field name="proposer" type="com.ail.party.Party" />
+        <field name="quotationDate" type="date" />
+        <field name="quotationExpiryDate" type="date" />
+        <field name="quotationNumber" type="string" />
+        <field name="renewalIndex" type="long" />
+        <field name="section" type="com.ail.insurance.policy.Section" collection="arraylist" />
+        <field name="status" type="com.ail.insurance.policy.PolicyStatus" handler="com.ail.core.xmlbinding.castor.CastorEnumFieldHandler" />
+        <field name="testCase" type="boolean" />
+        <field name="userSaved" type="boolean" />
+        <field name="owningUser" type="long" />
+        <field name="versionEffectiveDate" type="com.ail.core.VersionEffectiveDate" />
+        <field name="wording" type="com.ail.insurance.policy.Wording" collection="arraylist" />
+    </class>
+
+    <class name="com.ail.util.DateOfBirth">
+        <field name="dateOfBirth" type="string" get-method="getDateAsString" set-method="setDateAsString" />
+    </class>
+
+    <class name="com.ail.party.ContactSystem" extends="com.ail.core.Type" verify-constructable="false">
+        <field name="primary" type="boolean" />
+        <field name="startDate" type="date" />
+        <field name="endDate" type="date" />
+        <field name="type" type="string" />
+    </class>
+
+    <class name="com.ail.party.EmailAddress" extends="com.ail.party.ContactSystem" verify-constructable="false">
+        <field name="emailAddress" type="string" />
+    </class>
+
+    <class name="com.ail.party.PhoneNumber" extends="com.ail.party.ContactSystem">
+        <field name="phoneNumber" type="string" />
+    </class>
+
+    <class name="com.ail.party.Address" extends="com.ail.party.ContactSystem"> 
+        <field name="line1" type="string" />
+        <field name="line2" type="string" />
+        <field name="line3" type="string" />
+        <field name="line4" type="string" />
+        <field name="line5" type="string" />
+        <field name="town" type="string" />
+        <field name="county" type="string" />
+        <field name="country" type="string" />
+        <field name="postcode" type="string" />
+    </class>
+
+    <class name="com.ail.party.Party" extends="com.ail.core.Type">
+        <field name="id" type="string" />
+        <field name="partyId" type="string" />
+        <field name="address" type="com.ail.party.Address" />
+        <field name="emailAddress" type="string" />
+        <field name="telephoneNumber" type="string" />
+        <field name="mobilephoneNumber" type="string" />
+        <field name="contactPreference" type="com.ail.party.ContactPreference" handler="com.ail.core.xmlbinding.castor.CastorEnumFieldHandler" />
+        <field name="legalName" type="string" handler="com.ail.core.xmlbinding.castor.CastorXMLStringFieldHandler" />
+        <field name="paymentMethod" type="com.ail.financial.PaymentMethod" collection="arraylist" />
+        <field name="partyRelationship" type="com.ail.party.PartyRelationship" collection="arraylist" />
+        <field name="contactSystem" type="com.ail.party.ContactSystem" collection="arraylist" />
+        <field name="document" type="com.ail.core.document.Document" collection="arraylist" />
+        <field name="documentPlaceholder" type="com.ail.core.document.DocumentPlaceholder" collection="arraylist" />
+    </class>
+
+    <class name="com.ail.party.PartyRole" extends="com.ail.core.Type" verify-constructable="false">
+        <field name="startDate" type="date" set-method="%2"> 
+            <bind-xml node="attribute" />
+        </field>
+        <field name="endDate" type="date" set-method="%3"> 
+            <bind-xml node="attribute" />
+        </field>
+        <field name="role" type="string" set-method="%1">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="party" type="com.ail.party.Party" />
+    </class>
+
+    <class name="com.ail.party.PartyRelationship" extends="com.ail.core.Type" verify-constructable="false">
+        <field name="startDate" type="date" set-method="%2"> 
+            <bind-xml node="attribute" />
+        </field>
+        <field name="endDate" type="date" set-method="%3"> 
+            <bind-xml node="attribute" />
+        </field>
+        <field name="relationship" type="string" set-method="%1">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="party" type="com.ail.party.Party" />
+    </class>
+
+    <class name="com.ail.party.Person" extends="com.ail.party.Party">
+        <field name="dateOfBirth" type="com.ail.util.DateOfBirth" />
+        <field name="firstName" type="string" />
+        <field name="surname" type="string" />
+        <field name="title" type="string" get-method="getTitleAsString" set-method="setTitleAsString" />
+        <field name="otherTitle" type="string" />
+    </class>
+
+    <class name="com.ail.party.Organisation" extends="com.ail.party.Party">
+        <field name="organisationRegistrationNumber" type="string" />
+        <field name="taxRegistrationNumber" type="string" />
+        <field name="contactName" type="string" />
+    </class>
+
+    <class name="com.ail.insurance.policy.PersonalProposer" extends="com.ail.party.Person">
+    </class>
+
+    <class name="com.ail.insurance.policy.CommercialProposer" extends="com.ail.party.Organisation">
+        <field name="firstName" type="string" />
+        <field name="surname" type="string" />
+        <field name="title" type="string" get-method="getTitleAsString" set-method="setTitleAsString" />
+        <field name="otherTitle" type="string" />
+    </class>
+
+    <class name="com.ail.insurance.policy.Broker" extends="com.ail.party.Organisation">
+        <map-to xml="broker" />
+        <field name="tradingName" type="string" />
+        <field name="paymentTelephoneNumber" type="string" />
+        <field name="quoteTelephoneNumber" type="string" />
+        <field name="claimTelephoneNumber" type="string" />
+        <field name="quoteEmailAddress" type="string" />
+        <field name="policyEmailAddress" type="string" />
+        <field name="directDebitIdentificationNumber" type="string" />
+    </class>
+
+    <class name="com.ail.core.PageVisit" extends="com.ail.core.Type">
+        <map-to xml="pageVisit" />
+        <field name="pageFlowName" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="pageName" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="visited" type="date">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <!-- Mappings for page flow related UI types -->
+    <class name="com.ail.pageflow.util.Choice" extends="com.ail.core.Type">
+        <map-to xml="choice" />
+        <field name="name" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="value" type="int">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="undefinedName" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="choice" type="com.ail.pageflow.util.Choice" collection="arraylist" />
+    </class>
+
+    <class name="com.ail.pageflow.util.HelpText">
+        <field name="text" type="string" handler="com.ail.core.xmlbinding.castor.CastorCDataFieldHandler">
+            <bind-xml node="text" />
+        </field>
+        <field name="renderHint" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.util.ErrorText">
+        <field name="text" type="string" handler="com.ail.core.xmlbinding.castor.CastorCDataFieldHandler">
+            <bind-xml node="text" />
+        </field>
+        <field name="error" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="renderHint" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.PageElement" extends="com.ail.core.Type">
+        <map-to xml="pageElement" />
+        <field name="action" type="com.ail.pageflow.Action" collection="arraylist" />
+        <field name="helpText" type="com.ail.pageflow.util.HelpText" />
+        <field name="hintText" type="com.ail.pageflow.util.HelpText" />
+        <field name="errorText" type="com.ail.pageflow.util.ErrorText" collection="arraylist" />
+        <field name="id" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="binding" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="condition" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="order" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="permissions" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="ref" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="renderHint" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="styleClass" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="submitTarget" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.AccountDetails" extends="com.ail.pageflow.PageElement">
+        <map-to xml="accountDetails" />
+        <field name="title" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="accountBinding" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="scheduleBinding" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="showSummary" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="showStatement" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="showNormalizedSchedule" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="showActualizedSchedule" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="period" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+    
+    <class name="com.ail.pageflow.Alerts" extends="com.ail.pageflow.PageElement">
+        <map-to xml="alerts" />
+    </class>
+
+    <class name="com.ail.pageflow.PageContainer" extends="com.ail.pageflow.PageElement">
+        <map-to xml="pageContainer" />
+        <field name="title" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="pageElement" type="com.ail.pageflow.PageElement" collection="collection" get-method="getPageElementCollection"
+            set-method="setPageElementCollection" />
+    </class>
+
+    <class name="com.ail.pageflow.ProposerQuotationSummary" extends="com.ail.pageflow.PageContainer">
+        <map-to xml="proposerQuotationSummary" />
+    </class>
+
+    <class name="com.ail.pageflow.If" extends="com.ail.pageflow.PageContainer">
+        <map-to xml="if" />
+    </class>
+
+    <class name="com.ail.pageflow.ActionSwitch" extends="com.ail.pageflow.Action">
+        <map-to xml="actionSwitch" />
+    </class>
+
+    <class name="com.ail.pageflow.BrokerQuotationSummary" extends="com.ail.pageflow.PageContainer">
+        <map-to xml="brokerQuotationSummary" />
+    </class>
+
+    <class name="com.ail.pageflow.Action" extends="com.ail.pageflow.PageElement">
+        <map-to xml="action" />
+        <field name="when" type="com.ail.pageflow.ActionType" handler="com.ail.core.xmlbinding.castor.CastorEnumFieldHandler">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="commandName" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="executeInAggregated" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.AssessmentSheetDetails" extends="com.ail.pageflow.PageElement">
+        <map-to xml="assessmentSheetDetails" />
+    </class>
+
+    <class name="com.ail.pageflow.AttributeField" extends="com.ail.pageflow.PageElement">
+        <map-to xml="attributeField" />
+        <field name="title" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="subTitle" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="onChange" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="onLoad" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="columnCondition" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.Blank" extends="com.ail.pageflow.PageElement">
+        <map-to xml="blank" />
+    </class>
+
+    <class name="com.ail.pageflow.util.Binding" extends="com.ail.core.Type">
+        <map-to xml="binding" />
+        <field name="xpath" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.DocumentManager" extends="com.ail.pageflow.PageElement">
+        <map-to xml="documentManager" />
+        <field name="fileTypes" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="validDocumentTypes" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="validLabels" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.SubjectivityManager" extends="com.ail.pageflow.PageElement">
+        <map-to xml="subjectivityManager" />
+    </class>
+
+    <class name="com.ail.pageflow.ExceptionDetails" extends="com.ail.pageflow.PageElement">
+        <map-to xml="exceptionDetails" />
+    </class>
+
+    <class name="com.ail.pageflow.AuditDetails" extends="com.ail.pageflow.PageElement">
+        <map-to xml="auditDetails" />
+    </class>
+
+    <class name="com.ail.pageflow.PageScript" extends="com.ail.pageflow.PageElement">
+        <map-to xml="pageScript" />
+        <field name="url" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="pageHeader" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="script" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.ProposerDetails" extends="com.ail.pageflow.PageElement">
+        <map-to xml="proposerDetails" />
+        <field name="mandatoryAddressFields" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.SavedQuotations" extends="com.ail.pageflow.PageElement">
+        <map-to xml="savedQuotations" />
+        <field name="requoteDisabled" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="confirmAndPayDisabled" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="viewQuotationDisabled" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="requoteDestinationPageId" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="confirmAndPayDestinationPageId" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="confirmAndPayLabel" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="requoteLabel" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.PaymentOptionSelector" extends="com.ail.pageflow.PageElement">
+        <map-to xml="paymentOptionSelector" />
+    </class>
+
+    <class name="com.ail.pageflow.PaymentScheduleDetails" extends="com.ail.pageflow.PageElement">
+        <map-to xml="paymentScheduleDetails" />
+        <field name="title" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="accountBinding" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="amountBinding" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="amount" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="type" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="allowablePaymentMethods" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="purpose" type="com.ail.financial.MoneyProvisionPurpose" handler="com.ail.core.xmlbinding.castor.CastorEnumFieldHandler">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="frequencyOptions" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="minimumNumberOfPayments" type="int">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="maximumNumberOfPayments" type="int">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.PaymentDetails" extends="com.ail.pageflow.PageElement">
+        <map-to xml="paymentDetails" />
+    </class>
+
+    <class name="com.ail.pageflow.PaymentRecorder" extends="com.ail.pageflow.PageElement">
+        <map-to xml="paymentRecorder" />
+        <field name="sourceBinding" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="targetBinding" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.ParsedUrlContent" extends="com.ail.pageflow.PageElement">
+        <map-to xml="parsedUrlContent" />
+        <field name="url" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.ReferralSummary" extends="com.ail.pageflow.PageContainer">
+        <map-to xml="referralSummary" />
+        <field name="referralNotificationUrl" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="requoteDestinationPageId" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="saveDestinationPageId" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.CommandButtonAction" extends="com.ail.pageflow.PageElement">
+        <map-to xml="commandButtonAction" />
+        <field name="label" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="destinationPageId" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="immediate" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="template" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.BuyNowWithPayPalButtonAction" extends="com.ail.pageflow.CommandButtonAction">
+        <map-to xml="buyNowWithPayPalButtonAction" />
+        <field name="destinationOnSuccessPageId" type="string" required="true">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="destinationOnFailurePageId" type="string" required="true">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.BuyNowWithEwayButtonAction" extends="com.ail.pageflow.CommandButtonAction">
+        <map-to xml="buyNowWithEwayButtonAction" />
+        <field name="destinationOnSuccessPageId" type="string" required="true">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="destinationOnFailurePageId" type="string" required="true">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.BuyNowWithSagePayButtonAction" extends="com.ail.pageflow.CommandButtonAction">
+        <map-to xml="buyNowWithSagePayButtonAction" />
+        <field name="destinationOnSuccessPageId" type="string" required="true">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="destinationOnFailurePageId" type="string" required="true">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.BuyNowWithIWinPayButtonAction" extends="com.ail.pageflow.CommandButtonAction">
+        <map-to xml="buyNowWithIWinPayButtonAction" />
+        <field name="destinationOnSuccessPageId" type="string" required="true">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="destinationOnFailurePageId" type="string" required="true">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.QuitButtonAction" extends="com.ail.pageflow.CommandButtonAction">
+        <map-to xml="quitButtonAction" />
+    </class>
+
+    <class name="com.ail.pageflow.QuitAction" extends="com.ail.pageflow.Action">
+        <map-to xml="quitAction" />
+    </class>
+
+    <class name="com.ail.pageflow.RedirectButtonAction" extends="com.ail.pageflow.CommandButtonAction">
+        <map-to xml="redirectButtonAction" />
+        <field name="destinationUrl" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="target" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.SaveButtonAction" extends="com.ail.pageflow.CommandButtonAction">
+        <map-to xml="saveButtonAction" />
+    </class>
+
+    <class name="com.ail.pageflow.ViewQuotationButtonAction" extends="com.ail.pageflow.CommandButtonAction">
+        <map-to xml="viewQuotationButtonAction" />
+    </class>
+
+    <class name="com.ail.pageflow.ViewCertificateButtonAction" extends="com.ail.pageflow.CommandButtonAction">
+        <map-to xml="viewCertificateButtonAction" />
+    </class>
+
+    <class name="com.ail.pageflow.ViewPolicyButtonAction" extends="com.ail.pageflow.CommandButtonAction">
+        <map-to xml="viewPolicyButtonAction" />
+    </class>
+
+    <class name="com.ail.pageflow.ViewScheduleButtonAction" extends="com.ail.pageflow.CommandButtonAction">
+        <map-to xml="viewScheduleButtonAction" />
+    </class>
+
+    <class name="com.ail.pageflow.ViewWordingButtonAction" extends="com.ail.pageflow.CommandButtonAction">
+        <map-to xml="viewWordingButtonAction" />
+    </class>
+
+    <class name="com.ail.pageflow.ViewInvoiceButtonAction" extends="com.ail.pageflow.CommandButtonAction">
+        <map-to xml="viewInvoiceButtonAction" />
+    </class>
+
+    <class name="com.ail.pageflow.RequoteButtonAction" extends="com.ail.pageflow.CommandButtonAction">
+        <map-to xml="requoteButtonAction" />
+    </class>
+
+    <class name="com.ail.pageflow.PageForwardAction" extends="com.ail.pageflow.Action">
+        <map-to xml="pageForwardAction" />
+        <field name="destinationPageId" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.GenerateQuotationDocumentAction" extends="com.ail.pageflow.Action">
+        <map-to xml="generateQuotationDocumentAction" />
+    </class>
+
+    <class name="com.ail.pageflow.GenerateCertificateDocumentAction" extends="com.ail.pageflow.Action">
+        <map-to xml="generateCertificateDocumentAction" />
+    </class>
+
+    <class name="com.ail.pageflow.GenerateEndorsementDocumentAction" extends="com.ail.pageflow.Action">
+        <map-to xml="generateEndorsementDocumentAction" />
+    </class>
+
+    <class name="com.ail.pageflow.GeneratePolicyDocumentAction" extends="com.ail.pageflow.Action">
+        <map-to xml="generatePolicyDocumentAction" />
+    </class>
+
+    <class name="com.ail.pageflow.GenerateInvoiceDocumentAction" extends="com.ail.pageflow.Action">
+        <map-to xml="generateInvoiceDocumentAction" />
+    </class>
+
+    <class name="com.ail.pageflow.GenerateScheduleDocumentAction" extends="com.ail.pageflow.Action">
+        <map-to xml="generateScheduleDocumentAction" />
+    </class>
+
+    <class name="com.ail.pageflow.StartWorkflowAction" extends="com.ail.pageflow.Action">
+        <map-to xml="startWorkflowAction" />
+        <field name="workflowId" type="string" required="true">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="abortExisting" type="boolean" required="false">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="onChangeField" type="string" collection="arraylist" />
+    </class>
+
+    <class name="com.ail.pageflow.SignalWorkflowAction" extends="com.ail.pageflow.Action">
+        <map-to xml="signalWorkflowAction" />
+        <field name="signalName" type="string" required="true">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="signalValue" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="onChangeField" type="string" collection="arraylist" />
+    </class>
+
+    <class name="com.ail.pageflow.NavigationSection" extends="com.ail.pageflow.PageContainer">
+        <map-to xml="navigationSection" />
+        <field name="quitDisabled" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.Question" extends="com.ail.pageflow.AttributeField">
+        <map-to xml="question" />
+        <field name="template" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.QuestionSeparator" extends="com.ail.pageflow.Question">
+        <map-to xml="questionSeparator" />
+    </class>
+
+    <class name="com.ail.pageflow.QuestionWithDetails" extends="com.ail.pageflow.Question">
+        <map-to xml="questionWithDetails" />
+        <field name="detailsEnabledFor" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="detailsTitle" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="detailsBinding" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.Repeater" extends="com.ail.pageflow.PageElement">
+        <map-to xml="repeater" />
+        <field name="type" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="minRows" type="int">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="maxRows" type="int">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="title" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="repeatedTitle" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="addAndDeleteEnabled" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="item" type="com.ail.pageflow.AttributeField" collection="collection" set-method="setItemCollection"
+            get-method="getItemCollection" />
+    </class>
+
+    <class name="com.ail.pageflow.RowScroller" extends="com.ail.pageflow.Repeater">
+        <map-to xml="rowScroller" />
+    </class>
+
+    <class name="com.ail.pageflow.SectionScroller" extends="com.ail.pageflow.Repeater">
+        <map-to xml="sectionScroller" />
+    </class>
+
+    <class name="com.ail.pageflow.PageSection" extends="com.ail.pageflow.PageContainer">
+        <map-to xml="pageSection" />
+    </class>
+
+    <class name="com.ail.pageflow.QuestionWithSubSection" extends="com.ail.pageflow.Question">
+        <map-to xml="questionWithSubSection" />
+        <field name="detailsEnabledFor" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="subSection" type="com.ail.pageflow.PageElement" collection="arraylist" />
+    </class>
+
+    <class name="com.ail.pageflow.QuestionSection" extends="com.ail.pageflow.PageElement">
+        <map-to xml="questionSection" />
+        <field name="title" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="question" type="com.ail.pageflow.Question" collection="arraylist" />
+    </class>
+
+    <class name="com.ail.pageflow.ClauseDetails" extends="com.ail.pageflow.PageElement">
+        <map-to xml="clauseDetails" />
+        <field name="title" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="groupBy" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.CoverageDetails" extends="com.ail.pageflow.PageElement">
+        <map-to xml="coverageDetails" />
+        <field name="title" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.ContactSystemDetails" extends="com.ail.pageflow.PageElement">
+        <field name="classes" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="types" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="mandatoryAddressFields" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.NoteDetails" extends="com.ail.pageflow.PageElement">
+        <map-to xml="noteDetails" />
+        <field name="title" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="addAndDeleteEnabled" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="readOnly" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="typeDiscriminator" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="validNoteTypes" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="validLabels" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.NoteRecorder" extends="com.ail.pageflow.PageElement">
+        <map-to xml="noteRecorder" />
+        <field name="title" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="typeDiscriminator" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.PaymentMethodDetails" extends="com.ail.pageflow.PageElement">
+        <map-to xml="paymentMethodDetails" />
+        <field name="title" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="addAndDeleteEnabled" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="readOnly" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.AggregatorQuotationSelector" extends="com.ail.pageflow.PageContainer">
+        <map-to xml="aggregatorQuotationSelector" />
+        <field name="featureHtml" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="hideReferrals" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="hideDeclines" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="destinationPageId" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.QuotationSummary" extends="com.ail.pageflow.PageContainer">
+        <map-to xml="quotationSummary" />
+        <field name="termsAndConditionsUrl" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="wordingsUrl" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="requoteDestinationPageId" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="saveDestinationPageId" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="confirmAndPayDestinationPageId" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="navigationSection" type="com.ail.pageflow.NavigationSection" />
+        <field name="premiumSummaryFooter" type="com.ail.pageflow.PageSection" />
+    </class>
+
+    <class name="com.ail.pageflow.PolicySummary" extends="com.ail.pageflow.PageContainer">
+        <map-to xml="policySummary" />
+    </class>
+
+    <class name="com.ail.pageflow.PolicyAdmin" extends="com.ail.pageflow.PageContainer">
+        <map-to xml="policyAdmin" />
+    </class>
+
+    <class name="com.ail.pageflow.PolicyDetail" extends="com.ail.pageflow.PageContainer">
+        <map-to xml="policyDetail" />
+    </class>
+
+    <class name="com.ail.pageflow.ReferralDetail" extends="com.ail.pageflow.PageContainer">
+        <map-to xml="referralDetail" />
+    </class>
+
+    <class name="com.ail.pageflow.PolicyPayments" extends="com.ail.pageflow.PageContainer">
+        <map-to xml="policyPayments" />
+    </class>
+
+    <class name="com.ail.pageflow.ReferralOverride" extends="com.ail.pageflow.PageContainer">
+        <map-to xml="referralOverride" />
+    </class>
+
+    <class name="com.ail.pageflow.QuoteToOnRisk" extends="com.ail.pageflow.PageContainer">
+        <map-to xml="quoteToOnRisk" />
+    </class>
+
+    <class name="com.ail.pageflow.ClaimHistoryDetails" extends="com.ail.pageflow.PageElement">
+        <map-to xml="claimHistoryDetails" />
+        <field name="title" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="excludeStatuses" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.PaymentHolidayDetails" extends="com.ail.pageflow.PageElement">
+        <map-to xml="paymentHolidayDetails" />
+        <field name="title" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="addAndDeleteEnabled" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="readOnly" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="showCurrent" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="showHistory" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="showNotes" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="type" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="initialiseNotes" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.PolicyDocuments" extends="com.ail.pageflow.PageContainer">
+        <map-to xml="policyDocuments" />
+    </class>
+
+    <class name="com.ail.pageflow.Logs" extends="com.ail.pageflow.PageContainer">
+        <map-to xml="logs" />
+    </class>
+
+    <class name="com.ail.pageflow.DocumentUpload" extends="com.ail.pageflow.PageElement">
+        <map-to xml="documentUpload" />
+        <field name="fileTypes" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="fileTitle" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="documentType" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="title" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.ImageViewer" extends="com.ail.pageflow.PageElement">
+        <map-to xml="imageViewer" />
+        <field name="fileTitle" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.Answer" extends="com.ail.pageflow.PageElement">
+        <map-to xml="answer" />
+        <field name="title" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.CustomLetterBuilder" extends="com.ail.pageflow.PageContainer"> 
+        <map-to xml="customLetterBuilder" />
+        <field name="validRecipientTypes" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="validDocumentTypes" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="saveDestinationPageId" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="signatureBaseUrl" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.AnswerScroller" extends="com.ail.pageflow.PageElement">
+        <map-to xml="answerScroller" />
+        <field name="answer" type="com.ail.pageflow.Answer" collection="arraylist" />
+    </class>
+
+    <class name="com.ail.pageflow.PageElementScroller" extends="com.ail.pageflow.PageElement">
+        <map-to xml="pageElementScroller" />
+        <field name="title" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="element" type="com.ail.pageflow.PageElement" collection="arraylist" />
+    </class>
+
+    <class name="com.ail.pageflow.AnswerSection" extends="com.ail.pageflow.PageContainer">
+        <map-to xml="answerSection" />
+    </class>
+
+    <class name="com.ail.pageflow.LoginSection" extends="com.ail.pageflow.PageElement">
+        <map-to xml="loginSection" />
+        <field name="loginButtonLabel" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="invitationMessageText" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="invitationLinkText" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="destinationOnSuccessPageId" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.AbstractPage" extends="com.ail.pageflow.PageContainer" verify-constructable="false">
+        <map-to xml="abstractPage" />
+        <field name="stage" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.Page" extends="com.ail.pageflow.AbstractPage">
+        <map-to xml="page" />
+        <field name="showPageError" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.QuestionPage" extends="com.ail.pageflow.AbstractPage">
+        <map-to xml="questionPage" />
+        <field name="showPageError" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.LabelDetails" extends="com.ail.pageflow.PageElement">
+        <map-to xml="labelDetails" />
+        <field name="title" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="discriminator" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="addAndDeleteEnabled" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="readOnly" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.InformationPage" extends="com.ail.pageflow.AbstractPage">
+        <map-to xml="informationPage" />
+    </class>
+
+    <class name="com.ail.pageflow.PageFlow" extends="com.ail.pageflow.PageElement">
+        <map-to xml="pageFlow" />
+        <field name="pages" type="com.ail.pageflow.AbstractPage" collection="collection" />
+        <field name="startPage" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="progressBar" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="rollbackOnValidationFailure" type="boolean">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.pageflow.TriggerNewBusinessReferralWorkflow" extends="com.ail.pageflow.Action">
+        <map-to xml="triggerNewBusinessReferralWorkflow" />
+    </class>
+
+    <class name="com.ail.pageflow.TriggerNamedWorkflow" extends="com.ail.pageflow.Action">
+        <map-to xml="triggerNamedWorkflow" />
+        <field name="workflowCommandName" type="string">
+            <bind-xml node="attribute" />
+        </field>
+    </class>
+
+    <class name="com.ail.financial.ledger.Balance" extends="com.ail.core.Type" verify-constructable="false" identity="externalSystemId">
+        <map-to xml="balance" />
+        <field name="date" type="date">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="amount" type="com.ail.financial.CurrencyAmount" />
+    </class>
+
+    <class name="com.ail.financial.ledger.Account" extends="com.ail.core.Type" verify-constructable="false" identity="externalSystemId">
+        <map-to xml="account" />
+        <field name="currency" type="com.ail.financial.Currency" handler="com.ail.core.xmlbinding.castor.CastorEnumFieldHandler">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="name" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="type" type="com.ail.financial.ledger.AccountType" handler="com.ail.core.xmlbinding.castor.CastorEnumFieldHandler">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="status" type="com.ail.financial.ledger.AccountStatus" handler="com.ail.core.xmlbinding.castor.CastorEnumFieldHandler">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="description" type="string" handler="com.ail.core.xmlbinding.castor.CastorXMLStringFieldHandler">
+            <bind-xml name="description" node="element" />
+        </field>
+        <field name="accountHolder" type="com.ail.party.Party" />
+        <field name="openingDate" type="date">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="balance" type="com.ail.financial.ledger.Balance" collection="arraylist" />
+    </class>
+
+    <class name="com.ail.financial.ledger.Ledger" extends="com.ail.core.Type" verify-constructable="false">
+        <map-to xml="ledger" />
+        <field name="name" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="accountId" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="description" type="string" handler="com.ail.core.xmlbinding.castor.CastorXMLStringFieldHandler">
+            <bind-xml name="description" node="element" />
+        </field>
+    </class>
+
+    <class name="com.ail.financial.ledger.Journal" extends="com.ail.core.Type" verify-constructable="false">
+        <map-to xml="journal" />
+        <field name="type" type="com.ail.financial.ledger.JournalType" handler="com.ail.core.xmlbinding.castor.CastorEnumFieldHandler">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="transactionDate" type="date">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="postedDate" type="date">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="journalLine" type="com.ail.financial.ledger.JournalLine" collection="arraylist" />
+        <field name="contraOf" type="com.ail.financial.ledger.Journal" />
+        <field name="subject" type="com.ail.core.Reference" />
+    </class>
+
+    <class name="com.ail.financial.ledger.JournalLine" extends="com.ail.core.Type" verify-constructable="false">
+        <map-to xml="journalLine" />
+        <field name="transactionType" type="com.ail.financial.ledger.TransactionType" handler="com.ail.core.xmlbinding.castor.CastorEnumFieldHandler">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="type" type="com.ail.financial.ledger.JournalLineType" handler="com.ail.core.xmlbinding.castor.CastorEnumFieldHandler">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="ledgerId" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="paymentMethodId" type="string">
+            <bind-xml node="attribute" />
+        </field>
+        <field name="amount" type="com.ail.financial.CurrencyAmount" />
+        <field name="description" type="string" handler="com.ail.core.xmlbinding.castor.CastorXMLStringFieldHandler">
+            <bind-xml name="description" node="element" />
+        </field>
+    </class>
+
+    <class name="com.ail.core.email.SendEmailArgumentImpl" extends="com.ail.core.command.ArgumentImpl">
+        <field name="attachmentsArg" type="com.ail.core.document.Document" collection="arraylist" />
+        <field name="toArg" type="string" />
+        <field name="ccArg" type="string" />
+        <field name="fromArg" type="string" />
+        <field name="textArg" type="string" handler="com.ail.core.xmlbinding.castor.CastorXMLStringFieldHandler" />
+        <field name="subjectArg" type="string" handler="com.ail.core.xmlbinding.castor.CastorXMLStringFieldHandler" />
+        <field name="hostArg" type="string" />
+        <field name="portArg" type="string" />
+        <field name="authArg" type="string" />
+        <field name="userArg" type="string" />
+        <field name="passwordArg" type="string" handler="com.ail.core.xmlbinding.castor.CastorXMLStringFieldHandler" />
+        <field name="startTlsEnabledArg" type="string" />
+
+    </class>
+
+    <class name="com.ail.core.document.RenderDocumentArgumentImpl" extends="com.ail.core.command.ArgumentImpl">
+        <field name="sourceDataArg" type="org.exolab.castor.types.AnyNode" handler="com.ail.core.xmlbinding.castor.CastorEmbeddedXMLFieldHandler">
+            <bind-xml type="any" node="element" />
+        </field>
+        <field name="renderOptionsArg" type="string" />
+        <field name="translationUrlArg" type="string" />
+        <field name="renderedDocumentRet" collection="array" type="byte" />
+    </class>
+
+    <class name="com.ail.core.configure.server.GetCommandScriptArgumentImpl">
+        <description>Default mapping for class com.ail.core.configure.server.GetCommandScriptArgImp</description>
+        <map-to xml="getCommandScriptArgumentImpl" />
+        <field name="commandScriptRet" type="com.ail.core.CommandScript" />
+        <field name="commandNameArg" type="string" />
+        <field name="namespaceArg" type="string" />
+    </class>
+
+    <class name="com.ail.core.configure.server.SetCommandScriptArgumentImpl">
+        <description>Default mapping for class com.ail.core.configure.server.SetCommandScriptArgImp</description>
+        <map-to xml="setCommandScriptArgumentImpl" />
+        <field name="commandTypeArg" type="string" />
+        <field name="commandNameArg" type="string" />
+        <field name="namespaceArg" type="string" />
+        <field name="commandScriptArg" type="com.ail.core.CommandScript" />
+    </class>
+
+    <class name="com.ail.core.product.ClearProductCacheArgumentImpl">
+        <map-to xml="clearProductCacheArgumentImpl" />
+        <field name="productNameArg" type="string" />
+    </class>
+
+    <class name="com.ail.core.product.ResetProductArgumentImpl">
+        <map-to xml="resetProductArgumentImpl" />
+        <field name="productNameArg" type="string" />
+    </class>
+</mapping>

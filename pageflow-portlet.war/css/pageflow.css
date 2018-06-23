@@ -1,0 +1,1069 @@
+/*
+ * Copyright Applied Industrial Logic Limited 2013. All rights Reserved 
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 51 
+ * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
+
+/* 
+  * General styles 
+  */
+.pf-number, .pf-currency {
+	text-align: right;
+}
+
+.pf-page-title {
+	font-size: 1.3em;
+	margin: 15px 0 10px 10px;
+}
+
+.pf-answer {
+	display: table-row;
+	width: auto;
+	clear: both;
+}
+
+.pf-answer-section {
+	display: inline-block;
+	width: auto;
+	vertical-align: top;
+}
+
+.pf-aggregator-quotation-selector {
+	
+}
+
+.pf-quoted {
+	font-size: 2em;
+}
+
+.pf-aggregator-quotation-selector-quote {
+	padding: 10px;
+	border: 1px dashed #1d8412;
+	margin: 10px;
+	border-radius: 5px;
+}
+
+.pf-aggregator-quotation-selector-summary {
+	display: inline-block;
+	height: 100%;
+	width: 79%;
+	vertical-align: middle;
+}
+
+.pf-aggregator-quotation-selector-result {
+	display: inline-block;
+	height: 100%;
+	width: 10%;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.pf-aggregator-quotation-selector-select {
+	display: inline-block;
+	height: 100%;
+	width: 10%;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.pf-page-section .pf-section-body {
+	border: none;
+	vertical-align: top;
+}
+
+.pf-header {
+	border: 1px solid #1D8412;
+	border-radius: 5px;
+	margin: 10px;
+	padding: 5px;
+}
+
+.pf-header-title {
+	float: left;
+	font-size: 1.3em;
+}
+
+.pf-header-summary {
+	float: right;
+	margin-right: 5px;
+}
+
+.pf-body, .pf-page-section {
+	border: 1px solid #1D8412;
+	border-radius: 5px;
+	margin: 10px;
+	padding: 5px;
+	overflow-x: hidden;
+}
+
+.pf-header-summary-title {
+	display: inline-block;
+	width: 86px;
+}
+
+.pf-header-summary-value {
+	display: inline;
+	margin-left: 5px;
+}
+
+.pf-section-title {
+	font-size: 1.2em;
+	margin-bottom: 5px;
+}
+
+.pf-system-id {
+	display: none;
+}
+
+.pf-section {
+	display: inline-block;
+	margin: 10px 5px 0;
+	padding: 5px;
+	vertical-align: top;
+}
+
+.pf-two-part-section .pf-input-section {
+	display: inline-block;
+	margin: 0px;
+}
+
+.pf-section-body {
+	border: #1D8412 1px solid;
+}
+
+.pf-item {
+	display: table-row;
+	width: auto;
+	clear: both;
+}
+
+.pf-item-label, .pf-item-value {
+	display: table-cell;
+	min-width: 150px;
+	width: 100%;
+	padding: 0px 5px 0px 5px;
+}
+
+.pf-item-label {
+	background-color: #e8f8e8;
+	width: 150px;
+}
+
+.pf-item-value {
+	background-color: #efffef;
+}
+
+.pf-input-section {
+	margin: 5px 0px 5px 0px;
+}
+
+.pf-input-field {
+	white-space: nowrap;
+	display: inline-block;
+}
+
+.pf-input-label-description {
+	color: #555555;
+}
+
+.pf-header-error {
+	background-color: #fee;
+	color: #f00;
+	border: 1px solid;
+	border-radius: 5px;
+	margin: 10px;
+	padding: 10px;
+}
+
+.pf-input-error, .pf-error-field {
+	display: inline-block;
+	color: #ff0000;
+	padding: 0 5px;
+}
+
+.pf-input-optional, .pf-input-required {
+	min-height: 9px;
+	min-width: 10px;
+	background-repeat: no-repeat;
+	display: inline-block;
+}
+
+.pf-input-required {
+	background-image: url("../images/required-field-indicator.png");
+}
+
+.pf-input-field > .pf-input-required {
+	margin-bottom: 10px;
+}
+
+.pf-help {
+	background-image: url("../images/help-indicator.png");
+	background-repeat: no-repeat;
+	display: inline-block;
+	min-height: 16px;
+	min-width: 16px;
+	margin-right: 5px;
+	margin-left: 5px;
+}
+
+.pf-input-optional {
+	
+}
+
+.pf-page-error {
+	color: #ff0000;
+	text-align: centre;
+}
+
+/*
+ * Styles specific to the BrokerQuotationSummary widget
+ */
+.pf-broker-quotation-summary-proposer-section {
+	float: right;
+}
+
+.pf-broker-quotation-summary-payment-section {
+	display: inline-block;
+}
+
+.pf-broker-quotation-summary-payment-section>.pf-section-description {
+	max-width: 312px;
+}
+
+.pf-broker-quotation-summary-premium-section {
+	display: block;
+}
+
+.pf-broker-quotation-summary-premium-section .pf-section-body {
+	display: inline-block;
+}
+
+.pf-assessment-sheet-details-calculation-contributes,
+	.pf-assessment-sheet-details-calculation-depends,
+	.pf-document-manager-dates,
+	.pf-note-details-dates {
+	color: #AABBAA;
+	font-size: 0.8em;
+	text-align: right;
+}
+
+.pf-assessment-sheet-details-calculation-lines-body,
+	.pf-assessment-sheet-details-marker-lines-body,
+	.pf-assessment-sheet-details-notes-body {
+	display: inline-block;
+	margin: 10px 5px 0;
+	width: 98%;
+	border: none;
+}
+
+.pf-assessment-sheet-details-calculation-lines-body>table,
+	.pf-assessment-sheet-details-marker-lines-body>table,
+	.pf-assessment-sheet-details-notes-body>table {
+	width: 100%;
+}
+
+.pf-assessment-sheet-details th, .pf-assessment-sheet-details td {
+	padding: 0px 5px 0px 5px;
+}
+
+.pf-assessment-sheet-details td:nth-child(odd) {
+	background-color: #e8f8e8;
+	border-bottom: 1px dotted;
+}
+
+.pf-assessment-sheet-details td:nth-child(even) {
+	background-color: #efffef;
+	border-bottom: 1px dotted;
+}
+
+.pf-assessment-sheet-details th {
+	background-color: #efefef;
+	border-bottom: #1D8412 1px solid;
+}
+
+.pf-assessment-sheet-details td:nth-child(1) {
+	width: 100px;
+}
+
+.pf-assessment-sheet-details td:nth-child(2) {
+	width: 500px;
+}
+
+.pf-assessment-sheet-details td:nth-child(4) {
+	width: 150px;
+}
+
+.pf-assessment-sheet-details td:nth-child(5),
+	.pf-assessment-sheet-details td:nth-child(6) {
+	text-align: right;
+}
+
+.pf-assessment-sheet-details table {
+	border: #1D8412 1px solid;
+}
+
+/*
+ * Styles specific to the AnswerSection widget
+ */
+.pf-answer-section>.pf-section-body>.pf-answer-scroller>.pf-section-body
+	{
+	border: none;
+	border-bottom: 1px solid #1D8412;
+}
+
+.pf-answer-section>.pf-section-body>.pf-answer-scroller>.pf-section-body:last-child
+	{
+	border-style: none;
+}
+
+.pf-answer-section>.pf-section-body>.pf-answer-scroller {
+	border: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+/*
+ * Styles specific to the ClauseDetails widget
+ */
+.pf-clause-details>.pf-section>.pf-section {
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+
+.pf-clause-details>.pf-section {
+	margin: 0;
+	padding: 0;
+}
+
+.pf-custom-letter-builder .pf-note {
+    width: 95%;
+    height: 200px;
+}
+
+.pf-custom-letter-builder select {
+    width: auto;
+}
+
+.pf-document-manager .pf-label-details {
+    border: 0 !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/*
+ * Styles specific to the LoginSection widget
+ */
+.pf-login-section.pf-body {
+	display: inline-block;
+}
+
+/*
+ * Styles specific to the NavigationSection widget
+ */
+.pf-navigation-section {
+	overflow: auto;
+}
+
+.pf-navigation-section>.pf-section {
+	width: 100%;
+	text-align: centre;
+}
+
+.pf-navigation-section-quit {
+	float: right;
+	display: inline-block;
+}
+
+.pf-navigation-section-buttons {
+	display: inline-block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.pf-pageflow-container input[type="button"], .pf-pageflow-container input[type="submit"]
+	{
+	-webkit-transition: all 0.30s ease-in-out;
+	-moz-transition: all 0.30s ease-in-out;
+	-ms-transition: all 0.30s ease-in-out;
+	-o-transition: all 0.30s ease-in-out;
+	outline: none;
+	padding: 3px 6px 3px 6px;
+	margin: 5px 1px 3px 0px;
+	border-radius: 4px;
+	border: 1px solid #aaa;
+	background-color: #efefef;
+}
+
+.pf-pageflow-container input[type="button"]:hover,
+	.pf-pageflow-container input[type="submit"]:hover,
+	.pf-pageflow-container input[type="button"]:focus,
+	.pf-pageflow-container input[type="submit"]:focus {
+	background-color: #ccc;
+}
+
+.pf-pageflow-container input[type="button"]:active,
+	.pf-pageflow-container input[type="submit"]:active {
+	box-shadow: 0 0 5px rgba(20, 133, 0, 1);
+}
+
+.pf-tab-disabled {
+	pointer-events: none;
+	cursor: default;
+	color: lightgrey !important;
+}
+
+.pf-show-pointer {
+	 cursor: pointer;
+}
+
+/*
+ * Styles specific to the PaymentDetails widget
+ */
+.pf-payment-details-contact>.pf-section-body {
+	display: inline-block;
+}
+
+.pf-payment-details-direct-debit>.pf-section {
+	display: block;
+	margin: 5px 5px 5px 0;
+}
+
+/*
+ * Styles specific to the PaymentOptionsSelector widget
+ */
+.pf-payment-option-selector .pf-input-label {
+	display: table-cell;
+	padding: 5px;
+}
+
+.pf-payment-option-selector .pf-input-field {
+	display: table-cell;
+	padding: 5px;
+	vertical-align: middle;
+}
+
+.pf-override-input {
+	width: 52px !important;
+	text-align: right;
+	margin-bottom: 0px !important
+}
+
+.pf-override-pct-input {
+	width: 28px !important;
+	text-align: left;
+	margin-bottom: 0px !important
+}
+
+.pf-payment-option-selector .pf-section-description {
+	display: inline;
+}
+
+.pf-payment-details-direct-debit input[name^=sc] {
+	width: 1.5em;
+}
+
+/*
+ * Styles specific to the ProposerDetails widget
+ */
+.pf-proposer-details-proposer-name, .pf-proposer-details-address,
+	.pf-proposer-details-email-and-phone {
+	display: block;
+	padding: 0 0 20px;
+}
+
+.pf-proposer-details .pf-input-label, .pf-proposer-details .pf-input-field,
+	.pf-proposer-details .pf-input-error, .pf-proposer-details-address>.pf-input-section-title,
+	.pf-proposer-details-address>.pf-section {
+	display: table-cell;
+	vertical-align: top;
+}
+
+.pf-input-label {
+	min-width: 20em;
+}
+
+.pf-proposer-details .pf-input-section {
+	min-width: 385px;
+	padding-right: 3em;
+}
+
+.pf-proposer-details .pf-input-label {
+	min-width: 10em;
+}
+
+.pf-proposer-details-address .pf-section {
+	padding: 0;
+}
+
+.pf-proposer-details-company-name input[type="text"] {
+	width: 100%;
+}
+
+.pf-proposer-details-address input[name="postcode"] {
+	width: 6em;
+}
+
+/*
+ * Styles specific to the ProposerQuotationSummary widget
+ */
+.pf-proposer-quotation-summary-proposer-section,
+	.pf-proposer-quotation-summary-section {
+	float: right;
+}
+
+.pf-proposer-quotation-summary>.pf-body {
+	min-height: 370px;
+}
+
+.pf-proposer-quotation-summary-introduction {
+	min-height: 200px;
+}
+
+/*
+ * Styles specific to Question related widgets
+ */
+.pf-question, .pf-question-with-details, .pf-question-with-subsection,
+	.pf-question-subsection {
+	display: table-row;
+}
+
+.pf-question .pf-input-label, .pf-question .pf-input-field,
+	.pf-question-with-details .pf-input-label, .pf-question-with-details .pf-input-field,
+	.pf-question-with-subsection .pf-input-label,
+	.pf-question-with-subsection .pf-input-field {
+	display: table-cell;
+	padding: 10px;
+}
+
+.pf-details {
+	white-space: nowrap;
+}
+
+.pf-details>.pf-input-field, .pf-details>.pf-input-label {
+	display: inline-block;
+	min-width: 0;
+}
+
+.pf-input-label {
+	vertical-align: middle;
+}
+
+#archive .pf-row-scroller-table-data-cell {
+	background-color: #eee;
+}
+
+#archive .pf-row-scroller-table-header-cell {
+	background-color: #aaa;
+}
+
+/*
+ * Styles specific to QuestionSection widgets
+ */
+.pf-question-section .pf-section-body {
+	display: table;
+	border: none;
+}
+
+.pf-attribute-field {
+	white-space: nowrap;
+}
+
+.pf-attribute-field-prefix {
+	min-width: 40px;
+	text-align: right;
+	display: inline-block;
+}
+
+.pf-attribute-field-suffix {
+	display: inline-block;
+}
+
+.pf-attribute-field-input {
+	display: inline-block;
+}
+
+.pf-attribute-field-input input[type="radio"] {
+	margin: 0 4px 0 0;
+}
+
+.pf-attribute-radio {
+	margin-right: 1em;
+}
+
+/*
+ * Styles specific to the QuotationSummary widget
+ */
+.pf-quotation-summary-navigation-section {
+	max-width: 50%;
+}
+
+.pf-quotation-summary-cover-section {
+	float: right;
+	max-width: 40%;
+}
+
+.pf-quotation-summary-cover-section .pf-answer-section {
+	display: block;
+}
+
+/*
+ * Styles specific to the ReferralSummary widget
+ */
+.pf-referral-summary-navigation-section {
+	max-width: 50%;
+}
+
+.pf-referral-summary-cover-section {
+	float: right;
+}
+
+.pf-referral-summary-cover-section .pf-answer-section {
+	display: block;
+}
+
+/*
+ * Styles specific to the RowScroller widget
+ */
+.pf-row-scroller-table,
+.pf-table {
+	display: table;
+	margin: 10px 0px;
+}
+
+.pf-row-scroller-table-header-row, 
+.pf-row-scroller-table-footer-row,
+.pf-row-scroller-table-data-row,
+.pf-table-header-row,
+.pf-table-data-row {
+	display: table-row;
+}
+
+.pf-row-scroller-table-header-cell, 
+.pf-row-scroller-table-data-cell,
+.pf-table-header-row div,
+.pf-table-data-row div,
+.pf-note-details-note > div {
+	display: table-cell;
+	text-align: center;
+	padding: 5px;
+	vertical-align: top;
+	border: 2px solid white;
+}
+
+.pf-note-details-note {
+	background: #efffef;
+}
+.pf-note-details-details {
+    width: 100%;
+}
+.pf-note-details-details > div {
+    text-align: left;
+	display: table;
+    width: 100%;
+}
+.pf-note-details-type {
+    display: table-cell;
+    width: 15em
+}
+.pf-note-details-title {
+    display: table-cell;
+    width: auto;
+    padding: 0 10px 0 10px;
+}
+.pf-note-details-title input {
+    width: 100%;
+}
+.pf-note-details-dates {
+    display: table-cell;
+    width: 20em;
+}
+
+.pf-note-details-type  > div,
+.pf-note-details-title > div,
+.pf-note-details-dates > div {
+    width: 100%;
+}
+.pf-note-details-body div {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+.pf-note-details-body textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.pf-document-manager-dates {
+    float: right;
+}
+.pf-note-details-note > textarea {
+    width: 100%;
+}
+.pf-note-details-note {
+    width: 100%;
+}
+
+.pf-note-record .pf-note-details-details {
+    border: none;
+    display: block;
+    box-sizing: border-box;
+}
+
+.pf-row-scroller-table-header-cell,
+.pf-table-header-row div {
+	background-color: #DFFFDF;
+}
+
+.pf-row-scroller-table-data-cell,
+.pf-table-data-row div {
+	background-color: #EFFFEF;
+}
+
+.pf-row-scroller-header-sub-title {
+	font-size: 0.85em;
+}
+
+.pf-row-scroller .pf-attribute-field-prefix {
+	min-width: 0;
+}
+
+.pf-row-scroller .pf-input-error, .pf-row-scroller .pf-error-field {
+	display: block;
+}
+
+.pf-row-scroller .pf-delete>input, .pf-document-manager .pf-delete>input
+	{
+	background: url("/pageflow-portlet/images/delete.png") no-repeat scroll
+		0 0/1.75em auto rgba(0, 0, 0, 0);
+	border: 0 none;
+	display: inline-block;
+	min-height: 1.75em;
+	min-width: 1.75em;
+}
+
+.pf-row-scroller .pf-restore>input, .pf-document-manager .pf-restore>input
+	{
+	background: url("/pageflow-portlet/images/restore.png") no-repeat scroll
+		0 0/1.75em auto rgba(0, 0, 0, 0);
+	border: 0 none;
+	display: inline-block;
+	min-height: 1.75em;
+	min-width: 1.75em;
+}
+
+.pf-row-scroller .pf-add>input {
+	background: url("/pageflow-portlet/images/add.png") no-repeat scroll 0 0/1.75em
+		auto rgba(0, 0, 0, 0);
+	border: 0 none;
+	display: inline-block;
+	min-height: 1.75em;
+	min-width: 1.75em;
+}
+
+.pf-row-scroller .pf-add>input[disabled], .pf-row-scroller .pf-restore>input[disabled],
+	.pf-document-manager .pf-restore>input[disabled], .pf-row-scroller .pf-delete>input[disabled],
+	.pf-document-manager .pf-delete>input[disabled] {
+	opacity: 0.2;
+}
+
+/*
+ * Styles specific to the SavedQuotations widget
+ */
+.pf-saved-quotations-table {
+	display: table;
+}
+
+.pf-saved-quotations-header-row, .pf-saved-quotations-data-row {
+	display: table-row;
+}
+
+.pf-saved-quotations-header-cell, .pf-saved-quotations-data-cell {
+	display: table-cell;
+	text-align: center;
+	padding: 5px;
+	vertical-align: top;
+	border: 2px solid white;
+}
+
+.pf-saved-quotations-header-cell {
+	background-color: #DFFFDF;
+}
+
+.pf-saved-quotations-data-cell {
+	background-color: #EFFFEF;
+}
+
+/*
+ * Styles specific to the SectionScroller widget
+ */
+.pf-section-scroller {
+	margin: 10px;
+	padding: 0;
+}
+
+.pf-section-scroller .pf-section-body {
+	border: 1px solid #1D8412;
+	border-radius: 5px;
+}
+
+.pf-section-scroller>.pf-section-body>.pf-section {
+	display: block;
+	position: relative;
+}
+
+.pf-section-scroller-heading {
+	display: inline-block;
+}
+
+.pf-section-scroller .pf-delete {
+	display: inline-block;
+	position: absolute;
+	right: 1em;
+	top: 2em;
+}
+
+.pf-section-scroller .pf-delete>input, 
+.pf-note-details .pf-delete>input {
+	background: url("/pageflow-portlet/images/delete.png") no-repeat scroll
+		0 0/1.75em auto rgba(0, 0, 0, 0);
+	border: none;
+	min-height: 1.75em;
+	padding-left: 1.4em;
+	display: inline-block;
+}
+
+.pf-section-scroller .pf-add>input, 
+.pf-note-details .pf-add>input {
+	background: url("/pageflow-portlet/images/add.png") no-repeat scroll 0 0/1.75em
+		auto rgba(0, 0, 0, 0);
+	border: none;
+	padding-left: 2em;
+	margin-left: 1em;
+	margin-bottom: 0.5em;
+	min-height: 1.75em;
+	display: inline-block;
+}
+
+.pf-section-scroller .pf-delete>input, 
+.pf-paymentmethod-details .pf-delete>input {
+	background: url("/pageflow-portlet/images/delete.png") no-repeat scroll
+		0 0/1.75em auto rgba(0, 0, 0, 0);
+	border: none;
+	min-height: 1.75em;
+	padding-left: 1.4em;
+	display: inline-block;
+}
+
+.pf-section-scroller .pf-add>input, 
+.pf-paymentmethod-details .pf-add>input {
+	background: url("/pageflow-portlet/images/add.png") no-repeat scroll 0 0/1.75em
+		auto rgba(0, 0, 0, 0);
+	border: none;
+	padding-left: 2em;
+	margin-left: 1em;
+	margin-bottom: 0.5em;
+	min-height: 1.75em;
+	display: inline-block;
+}
+
+.pf-section-scroller .pf-add-disabled>input {
+	background: url("/pageflow-portlet/images/add.png") no-repeat scroll 0 0/1.75em
+		auto rgba(0, 0, 0, 0);
+	border: none;
+	padding-left: 2em;
+	margin-left: 1em;
+	margin-bottom: 0.5em;
+	min-height: 1.75em;
+	display: inline-block;
+	opacity: 0.2;
+}
+
+.pf-eway-button {
+	
+}
+
+.pf-paypal-button {
+	background-image: url(/pageflow-portlet/images/buy-now-with-paypal.png);
+	min-width: 142px;
+	min-height: 27px;
+	border: none;
+	color: transparent;
+	background-color: transparent;
+}
+
+.pf-buy-now-with-sagepay {
+	background-image:
+		url("/pageflow-portlet/images/payments-by-sagepay.png");
+	background-position: right 0;
+	background-repeat: no-repeat;
+	display: inline-block;
+	padding-bottom: 34px;
+	padding-right: 120px;
+}
+
+.pf-logs-index-panel .pf-row-scroller-table-data-cell:nth-child(2) {
+	text-align: left;
+}
+
+.pf-audit-details .pf-row-scroller-table-data-cell:nth-child(3),
+.pf-audit-details .pf-row-scroller-table-data-cell:nth-child(4) {
+	text-align: left;
+}
+
+/* progress tracker styles */
+ol.progtrckr {
+	padding: 0 0 20px 0;
+	list-style-type: none;
+}
+
+ol.progtrckr li {
+	display: inline-block;
+	text-align: center;
+	line-height: 3em;
+}
+
+ol.progtrckr[data-progtrckr-steps="2"] li {
+	width: 49%;
+}
+
+ol.progtrckr[data-progtrckr-steps="3"] li {
+	width: 33%;
+}
+
+ol.progtrckr[data-progtrckr-steps="4"] li {
+	width: 24%;
+}
+
+ol.progtrckr[data-progtrckr-steps="5"] li {
+	width: 19%;
+}
+
+ol.progtrckr[data-progtrckr-steps="6"] li {
+	width: 16%;
+}
+
+ol.progtrckr[data-progtrckr-steps="7"] li {
+	width: 14%;
+}
+
+ol.progtrckr[data-progtrckr-steps="8"] li {
+	width: 12%;
+}
+
+ol.progtrckr[data-progtrckr-steps="9"] li {
+	width: 11%;
+}
+
+ol.progtrckr li.progtrckr-done {
+	color: black;
+	border-bottom: 4px solid yellowgreen;
+}
+
+ol.progtrckr li.progtrckr-todo {
+	color: silver;
+	border-bottom: 4px solid silver;
+}
+
+ol.progtrckr li.progtrckr-now {
+	color: black;
+	border-bottom: 4px solid orange;
+}
+
+ol.progtrckr li:after {
+	content: "\00a0\00a0";
+}
+
+ol.progtrckr li:before {
+	position: relative;
+	bottom: -2.5em;
+	float: left;
+	left: 50%;
+	line-height: 1em;
+}
+
+ol.progtrckr li.progtrckr-done:before {
+	content: "\2713";
+	color: white;
+	background-color: yellowgreen;
+	height: 1.2em;
+	width: 1.2em;
+	line-height: 1.2em;
+	border: none;
+	border-radius: 1.2em;
+}
+
+ol.progtrckr li.progtrckr-todo:before {
+	content: " ";
+	color: white;
+	background-color: silver;
+	height: 1.2em;
+	width: 1.2em;
+	line-height: 1.2em;
+	border: none;
+	border-radius: 1.2em;
+}
+
+ol.progtrckr li.progtrckr-now:before {
+	content: " ";
+	color: white;
+	background-color: orange;
+	height: 1.2em;
+	width: 1.2em;
+	line-height: 1.2em;
+	border: none;
+	border-radius: 1.2em;
+}
+
+.toggler-header-expanded {
+	padding-left: 2em;
+	background-image: url("../images/list-open.png");
+	background-repeat: no-repeat;
+	background-size: 1.4em;
+}
+
+.toggler-header-collapsed {
+	padding-left: 2em;
+	background-image: url("../images/list-closed.png");
+	background-repeat: no-repeat;
+	background-size: 1.4em;
+}
+
+.ui-widget-content {
+	border: none !important;
+}
+
+.ui-widget-header {
+	background: none !important;
+	border-top: none !important;
+	border-left: none !important;
+	border-right: none !important;
+}
+
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+    font-family: "Helvetica Neue",​Helvetica,​Arial,​sans-serif !important;
+    font-size: 1em !important;;
+}	
+	
+.ui-widget {
+    font-family: "Helvetica Neue",​Helvetica,​Arial,​sans-serif !important;;
+    font-size: 0.9em !important;
+}
+
+.tagit-autocomplete > .ui-state-focus {
+    background: blue !important;
+    color: white !important;
+    font-weight: 200 !important;
+}

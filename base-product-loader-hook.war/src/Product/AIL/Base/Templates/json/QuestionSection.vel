@@ -1,0 +1,59 @@
+## Copyright Applied Industrial Logic Limited 2017. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+#set( $pageElement = $args.PageElementArg ) 			## Instance of com.ail.pageflow.QuestionSection
+#set( $response = $args.ResponseArgRet )				## instance of com.ail.core.context.ResponseWrapper
+#set( $model = $args.ModelArgRet)              
+#set( $id = $args.RenderIdArg )
+#set( $title = ${pageElement.formattedTitle($args)} )
+#set( $context = $model )
+#if( $pageElement.Binding ) 
+    #set( $context = ${model.xpathGet($pageElement.Binding)} )
+#end
+##
+{
+	"type": "$pageElement.Class.SimpleName",
+	"id": "$id"
+	#title()
+	#questions()
+	#renderHint()
+}
+##
+#macro(title)
+	#if( $title && ${title.length()} != 0 )
+		,"title": "$title"
+	#end
+#end
+##
+#macro(questions)
+	#if( $pageElement.Question.size()!=0 || $title )
+		,"questions": [
+			#set( $mark = $response.writerMark() )
+			#foreach( $element in $pageElement.Question )
+	   			#if( $mark != $response.writerMark()),#end
+           		#set( $mark = $response.writerMark() )
+           		#set( $tmp = ${element.renderResponse($context)} )
+	    	#end
+		]
+	#end
+#end
+##
+#macro(renderHint)
+    #if( $args.RenderHintArg )       
+        ,"clientHint": "$args.RenderHintArg"
+    #end
+#end

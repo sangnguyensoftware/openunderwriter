@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Styles type="generic">
+    <Colours font-colour="#000040" font-header="#1D8412" no-colour="#FFFFFF" light-colour="#000080" dark-colour="#1D8412" background-colour="#FF00FF"/>
+    <Terms>
+        <Title wrap="1">
+            <Border type="label"  before="0" after="0" start="0" end="0"/>
+            <Border type="body"  before="0" after="0" start="0" end="0"/>
+        </Title>
+        <Body hyphenate="en">
+            <Border before="0" after="0" start="0" end="0"/>
+        </Body>
+        <Rest>
+            <Border before="0" after="0" start="0" end="0"/>
+        </Rest>
+    </Terms>
+</Styles>

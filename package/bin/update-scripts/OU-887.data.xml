@@ -1,0 +1,21 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-887 Migrate opening balance from accAccout to balBalance" author="richard">
+        <sql dbms="mysql">
+            INSERT INTO balBalance (balUID, balExternalSystemId, balSerialVersion, balCreatedDate, balAmount, balCurrency, balDate, balAccountUID)
+            SELECT accUID, UUID(), 0, accOpeningDate, accOpeningBalance, accCurrency, accOpeningDate, accUID FROM accAccount 
+            WHERE NOT EXISTS (SELECT * FROM balBalance WHERE balUID = accUID);
+        </sql>
+    </changeSet> 
+
+    <changeSet id="OU-887 Drop redundant columns" author="richard">
+        <sql dbms="mysql">
+            ALTER TABLE accAccount DROP COLUMN `accOpeningBalance`;
+        </sql>
+    </changeSet> 
+
+</databaseChangeLog>

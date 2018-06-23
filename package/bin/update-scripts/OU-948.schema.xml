@@ -1,0 +1,28 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-948 Add labels to docDocument" author="richard">
+        <sql dbms="mysql">
+            CREATE TABLE `cDocLab` (
+              `UIDdoc` bigint(20) NOT NULL,
+              `docLabel` varchar(255) DEFAULT NULL,
+              KEY `FKEF5CCF78E19DC77E` (`UIDdoc`),
+              CONSTRAINT `FKEF5CCF78E19DC77E` FOREIGN KEY (`UIDdoc`) REFERENCES `docDocument` (`docUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+            CREATE TABLE `cDocLab_` (
+              `secREV` int(11) NOT NULL,
+              `secUIDdoc` bigint(20) NOT NULL,
+              `docLabel` varchar(255) NOT NULL,
+              `REVTYPE` tinyint(4) DEFAULT NULL,
+              PRIMARY KEY (`secREV`,`secUIDdoc`,`docLabel`),
+              KEY `FKFC3D1FE752AE8777` (`secREV`),
+              CONSTRAINT `FKFC3D1FE752AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet> 
+
+</databaseChangeLog>

@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <name>Default Service Invocation Configuration</name>
+  <timeout>600000</timeout>
+  <who>factory</who>
+  <version>$Revision: 1.18 $</version>
+
+  <builders>
+    <builder name="ClassBuilder" factory="com.ail.core.factory.ClassFactory" />
+  </builders>
+
+  <group name="JEEAccessorContext">
+    <parameter name="java.naming.factory.url.pkgs">org.jboss.ejb.client.naming</parameter>
+    <parameter name="java.naming.factory.initial">org.jboss.naming.remote.client.InitialContextFactory</parameter>
+    <parameter name="java.naming.provider.url">remote://localhost:4447</parameter>
+    <parameter name="jboss.naming.client.ejb.context">true</parameter>
+    <parameter name="java.naming.security.principal">openquote</parameter>
+    <parameter name="java.naming.security.credentials">password</parameter>
+  </group>
+
+  <types>
+    <!--==================================== -->
+    <!-- Define the component's services -->
+    <!--==================================== -->
+    <service name="Service" key="com.ail.core.command.ClassAccessor">
+      <parameter name="ServiceClass">com.ail.core.dummyservice.DummyService</parameter>
+    </service>
+
+    <service name="ServiceWithNoLogging" key="com.ail.core.command.ClassAccessor">
+      <parameter name="ServiceClass">com.ail.core.dummyservice.DummyService</parameter>
+      <parameter name="LoggingIndicatorAsString">NONE</parameter>
+    </service>
+
+    <service name="ServiceWithCallLogging" key="com.ail.core.command.ClassAccessor">
+      <parameter name="ServiceClass">com.ail.core.dummyservice.DummyService</parameter>
+      <parameter name="LoggingIndicatorAsString">CALL</parameter>
+    </service>
+
+    <service name="ServiceWithFullLogging" key="com.ail.core.command.ClassAccessor">
+      <parameter name="ServiceClass">com.ail.core.dummyservice.DummyService</parameter>
+      <parameter name="LoggingIndicatorAsString">FULL</parameter>
+    </service>
+
+    <service name="ServiceWithStatsLogging" key="com.ail.core.command.ClassAccessor">
+      <parameter name="ServiceClass">com.ail.core.dummyservice.DummyService</parameter>
+      <parameter name="LoggingIndicatorAsString">STATS</parameter>
+    </service>
+
+    <service name="BeanShellService" builder="CachingClassBuilder" key="com.ail.core.command.BeanShellAccessor">
+      <parameter name="Script"><![CDATA[
+        /* make sure we can refer to our classes */
+        version=new com.ail.core.Version();
+        
+        /* a simple bit of logic */
+        if (args.getX()<100) {
+          args.setR(args.getX()+args.getY());
+        }
+        else {
+          args.setR((2*args.getX())+args.getY());
+        }
+      ]]></parameter>
+    </service>
+
+    <service name="BeanShellService2" builder="CachingClassBuilder" key="com.ail.core.command.BeanShellAccessor">
+      <parameter name="Extend">BeanShellService</parameter>
+      <parameter name="Script"><![CDATA[
+        if (args.getX()>1000) {
+          args.setR(args.getX()-(2*args.getY()));
+        }
+      ]]></parameter>
+    </service>
+
+    <service name="BeanShellService3" builder="CachingClassBuilder" key="com.ail.core.command.BeanShellAccessor">
+      <parameter name="Extend">BeanShellService</parameter>
+      <parameter name="Url">classpath://com.ail.core.command/TestServiceInvocationBeanshellScript.bs</parameter>
+    </service>
+
+    <service name="BeanShellInheritanceService" builder="CachingClassBuilder" key="com.ail.core.command.BeanShellAccessor">
+      <parameter name="Extend">BeanShellService2</parameter>
+      <parameter name="Script"><![CDATA[
+        /* This adds nothing - everything comes from the Extended script */
+      ]]></parameter>
+    </service>
+
+    <service name="JaninoService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+      <parameter name="Script" xml:space='preserve'><![CDATA[
+        import com.ail.core.Version;
+        import com.ail.core.dummyservice.DummyService.DummyArgument;
+        
+        public class JaninoService {
+        	public static void invoke(DummyArgument args) {
+        	    /* make sure we can refer to our classes */
+        	    Version version=new Version();
+        	    
+        	    /* a simple bit of logic */
+        	    if (args.getX()<100) {
+        	      args.setR(args.getX()+args.getY());
+        	    }
+        	    else {
+        	      args.setR((2*args.getX())+args.getY());
+        	    }
+        	}
+        }
+      ]]></parameter>
+    </service>
+
+    <service name="JaninoInheritanceService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+      <parameter name="Extend">JaninoService</parameter>
+      <parameter name="Script"><![CDATA[
+        import com.ail.core.dummyservice.DummyService.DummyArgument;
+        
+        public class JaninoInheritanceService extends JaninoService {
+        	public static void invoke(DummyArgument args) {
+
+                JaninoService.invoke(args);
+                
+        	    if (args.getX()>1000) {
+        	      args.setR(args.getX()-(2*args.getY()));
+        	    }
+        	}
+        }
+      ]]></parameter>
+    </service>
+
+    <service name="TestServiceInvocationJaninoClass" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+      <parameter name="Url">classpath://com.ail.core.command/TestServiceInvocationJaninoClass.janino</parameter>
+    </service>
+
+    <service name="TestServiceInvocationJaninoClassBadArgument" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+      <parameter name="Url">classpath://com.ail.core.command/TestServiceInvocationJaninoClassBadArgument.janino</parameter>
+    </service>
+
+    <service name="TestServiceInvocationJaninoClassNoArgument" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+      <parameter name="Url">classpath://com.ail.core.command/TestServiceInvocationJaninoClassNoArgument.janino</parameter>
+    </service>
+
+    <service name="TestServiceInvocationJaninoClassNoMethod" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+      <parameter name="Url">classpath://com.ail.core.command/TestServiceInvocationJaninoClassNoMethod.janino</parameter>
+    </service>
+
+    <service name="DroolsService" builder="CachingClassBuilder" key="com.ail.core.command.DroolsAccessor">
+      <parameter name="Url">classpath://com.ail.core.command/TestServiceInvocationDroolsServiceRule.drl</parameter>
+    </service>
+
+    <service name="DroolsXMLService" builder="CachingClassBuilder" key="com.ail.core.command.DroolsXMLAccessor">
+      <parameter name="Url">classpath://com.ail.core.command/TestServiceInvocationDroolsXMLServiceRule.xml</parameter>
+    </service>
+
+    <service name="DroolsService2" key="com.ail.core.command.DroolsAccessor">
+      <parameter name="Url">classpath://com.ail.core.command/TestServiceInvocationDroolsService2Rule.drl</parameter>
+    </service>
+
+    <service name="DroolsService3" builder="CachingClassBuilder" key="com.ail.core.command.DroolsAccessor">
+      <parameter name="Url">classpath://com.ail.core.command/TestServiceInvocationDroolsRule.drl</parameter>
+    </service>
+
+    <service name="DroolsInheritanceService" builder="CachingClassBuilder" key="com.ail.core.command.DroolsAccessor">
+      <parameter name="Extend">DroolsService3</parameter>
+      <parameter name="Url">classpath://com.ail.core.command/TestServiceInvocationDroolsExtendsRule.drl</parameter>
+    </service>
+
+    <service name="WebService1" key="com.ail.core.command.WebServiceAccessor">
+      <parameter name="Url">http://localhost:8080/configure-server-ejb/Configure?wsdl</parameter>
+      <parameter name="Namespace">http://com.ail.core.configure.server</parameter>
+      <parameter name="LocalPart">ConfigureService</parameter>
+      <parameter name="EndpointClass">com.ail.core.configure.server.ServerEndpoint</parameter>
+    </service>
+
+    <service name="DroolsDecisionTableService" key="com.ail.core.command.DroolsDecisionTableAccessor">
+      <parameter name="Url">classpath://com.ail.core.command/DroolsDecisionTableTest.xls</parameter>
+    </service>
+
+    <service name="DroolsDecisionTableInheritanceService" key="com.ail.core.command.DroolsDecisionTableAccessor">
+      <parameter name="Extend">DroolsDecisionTableService</parameter>
+      <parameter name="Url">classpath://com.ail.core.command/DroolsExtendingTableTest.xls</parameter>
+    </service>
+
+    <service name="XSLTService" key="com.ail.core.command.XSLTAccessor">
+      <parameter name="Url">classpath://com.ail.core.command/TestServiceInvocationXSLTScript.xsl</parameter>
+    </service>
+
+    <service name="TestJMSService" key="com.ail.core.command.JMSAccessor">
+      <parameter name="Factory">jms/RemoteConnectionFactory</parameter>
+      <parameter name="Queue">jms/queue/OpenUnderwriterCommandQueue</parameter>
+    </service>
+
+    <service name="VelocityService" key="com.ail.core.command.VelocityAccessor">
+      <parameter name="Url">classpath://com.ail.core.command/TestServiceInvocationVelocity.vm</parameter>
+    </service>
+
+    <service name="EJBService" key="com.ail.core.command.EJBAccessor">
+      <parameter name='JndiName'>ejb:/product-manager-ejb//ProductManagerBean!com.ail.core.product.ProductManagerRemote</parameter>
+    </service>
+
+    <service name="TestJavaScriptService" builder="CachingClassBuilder" key="com.ail.core.command.JavaScriptAccessor">
+      <parameter name="Script"><![CDATA[
+        function TestJavaScriptService() {
+          print("HELLO WORLD");
+        }
+      ]]></parameter>
+    </service>
+
+    <service name="TestJavaScriptWithBadFunctionService" builder="CachingClassBuilder" key="com.ail.core.command.JavaScriptAccessor">
+      <parameter name="Script"><![CDATA[
+        function BadFunctionName(args) {
+          print("HELLO WORLD");
+        }
+      ]]></parameter>
+    </service>
+
+    <service name="TestJavaScriptExecutionService" builder="CachingClassBuilder" key="com.ail.core.command.JavaScriptAccessor">
+      <parameter name="Script"><![CDATA[
+        function TestJavaScriptExecutionService(args) {
+          args.setR( args.getX() * args.getY() );
+        }
+      ]]></parameter>
+    </service>
+
+    <service name="TestJavaScriptDividerExecutionService" builder="CachingClassBuilder" key="com.ail.core.command.JavaScriptAccessor">
+      <parameter name="Script"><![CDATA[
+        function TestJavaScriptDividerExecutionService(args) {
+          args.setR( args.getX() / args.getY() );
+        }
+      ]]></parameter>
+    </service>
+    <!--======================================================================= -->
+    <!-- Bind the default core services (above) to Commands used by Core.class -->
+    <!--======================================================================= -->
+    <command name="TestService" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">Service</parameter>
+    </command>
+
+    <command name="TestServiceNoLogging" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">ServiceWithNoLogging</parameter>
+    </command>
+
+    <command name="TestServiceCallLogging" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">ServiceWithCallLogging</parameter>
+    </command>
+
+    <command name="TestServiceFullLogging" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">ServiceWithFullLogging</parameter>
+    </command>
+
+    <command name="TestServiceStatsLogging" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">ServiceWithStatsLogging</parameter>
+    </command>
+
+    <command name="TestBeanShellService" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">BeanShellService</parameter>
+    </command>
+
+    <command name="TestJaninoService" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">JaninoService</parameter>
+    </command>
+
+    <command name="TestJaninoInheritanceService" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">JaninoInheritanceService</parameter>
+    </command>
+
+    <command name="TestJaninoUrlService" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">TestServiceInvocationJaninoClass</parameter>
+    </command>
+
+    <command name="TestJaninoUrlServiceBadArgument" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">TestServiceInvocationJaninoClassBadArgument</parameter>
+    </command>
+
+    <command name="TestJaninoUrlServiceNoArgument" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">TestServiceInvocationJaninoClassNoArgument</parameter>
+    </command>
+
+    <command name="TestJaninoUrlServiceNoMethod" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">TestServiceInvocationJaninoClassNoMethod</parameter>
+    </command>
+
+    <command name="TestDroolsService" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">DroolsService</parameter>
+    </command>
+
+    <command name="TestDroolsXMLService" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">DroolsXMLService</parameter>
+    </command>
+
+    <command name="TestJMSCommand" key="com.ail.core.logging.LoggingCommandImpl">
+      <parameter name="Service">TestJMSService</parameter>
+    </command>
+
+    <command name="TestDroolsService2" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">DroolsService2</parameter>
+    </command>
+
+    <command name="TestWebService1" key="com.ail.core.configure.server.GetConfigurationCommandImpl">
+      <parameter name="Service">WebService1</parameter>
+    </command>
+
+    <command name="TestWebService2" key="com.ail.core.configure.server.GetConfigurationCommandImpl">
+      <parameter name="Service">WebService2</parameter>
+    </command>
+
+    <command name="TestBeanShellInheritance" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">BeanShellInheritanceService</parameter>
+    </command>
+
+    <command name="TestDroolsInheritance" builder="CachingClassBuilder" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">DroolsInheritanceService</parameter>
+    </command>
+
+    <command name="TestDroolsDecisionTable" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">DroolsDecisionTableService</parameter>
+    </command>
+
+    <command name="TestDroolsDecisionTableInheritance" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">DroolsDecisionTableInheritanceService</parameter>
+    </command>
+
+    <command name="TestBeanShellUrlLoader" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">BeanShellService3</parameter>
+    </command>
+
+    <command name="TestDroolsUrlLoader" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">DroolsService3</parameter>
+    </command>
+
+    <command name="TestXSLTService" key="com.ail.core.product.ListProductsCommandImpl">
+      <parameter name="Service">XSLTService</parameter>
+    </command>
+
+    <command name="TestVelocityService" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">VelocityService</parameter>
+    </command>
+
+    <command name="TestEJBService" key="com.ail.core.product.ListProductsCommandImpl">
+      <parameter name="Service">EJBService</parameter>
+    </command>
+
+    <command name="TestJavaScriptCommand" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">TestJavaScriptService</parameter>
+    </command>
+
+    <command name="TestJavaScriptWithBadFunctionCommand" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">TestJavaScriptWithBadFunctionService</parameter>
+    </command>
+
+    <command name="TestJavaScriptExecutionCommand" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">TestJavaScriptExecutionService</parameter>
+    </command>
+
+    <command name="TestJavaScriptDividerExecutionCommand" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">TestJavaScriptDividerExecutionService</parameter>
+    </command>
+    
+    <command name='com.ail.core.product.RegisterProductService.RegisterProductCommand' key='com.ail.core.product.RegisterProductCommandImpl'>
+        <parameter name='Service'>com.ail.core.product.catalog.CatalogRegisterProductService</parameter>
+    </command>
+    <command name='com.ail.core.product.UpdateProductService.UpdateProductCommand' key='com.ail.core.product.UpdateProductCommandImpl'>
+        <parameter name='Service'>com.ail.core.product.catalog.CatalogUpdateProductService</parameter>
+    </command>
+    <command name='com.ail.core.product.ScanForProductDefinitionsService.ScanForProductDefinitionsCommand' key='com.ail.core.product.ScanForProductDefinitionsCommandImpl'>
+        <parameter name='Service'>com.ail.core.product.catalog.CatalogScanForProductDefinitionsService</parameter>
+    </command>
+
+  </types>
+</configuration>

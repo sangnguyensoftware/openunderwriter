@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageFlow id="PolicyDocumentsPageFlow" progressBar="false" startPage="Main" type="java:com.ail.pageflow.PageFlow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/PageFlow-1.1.xsd">
+    <page id="Main">
+        <documentManager fileTypes="pdf,gif,png,jpg" />
+        <navigationSection quitDisabled="true">
+            <commandButtonAction destinationPageId="Main" label="i18n_save_button_label" immediate="true" />
+        </navigationSection>
+    </page>
+</pageFlow>

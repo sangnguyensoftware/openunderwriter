@@ -1,0 +1,86 @@
+<choice id="MakesAndModels" xsi:type="java:com.ail.pageflow.util.Choice"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<choice name="?">
+		<choice name="?" />
+	</choice>
+	<choice name="Mercury">
+		<choice name="none" />
+	</choice>
+	<choice name="Venus">
+		<choice name="none" />
+	</choice>
+	<choice name="Earth">
+		<choice name="Moon" />
+	</choice>
+	<choice name="Mars">
+        <choice name="Phobos" />
+        <choice name="Deimos" />
+	</choice>
+	<choice name="Saturn">
+      <choice name="Mimas"/>
+      <choice name="Enceladus"/>
+      <choice name="Tethys"/>
+      <choice name="Dione"/>
+      <choice name="Rhea"/>
+      <choice name="Titan"/>
+      <choice name="Hyperion"/>
+      <choice name="Iapetus"/>
+      <choice name="Erriapus"/>
+      <choice name="Phoebe"/>
+      <choice name="Janus"/>
+      <choice name="Epimetheus"/>
+      <choice name="Helene"/>
+      <choice name="Telesto"/>
+      <choice name="Calypso"/>
+      <choice name="Kiviuq"/>
+      <choice name="Atlas "/>
+      <choice name="others..."/> 
+	</choice>
+	<choice name="Jupiter">
+      <choice name="Io"/>
+      <choice name="Europa"/>
+      <choice name="Ganymede"/>
+      <choice name="Callisto"/>
+      <choice name="Amalthea"/>
+      <choice name="Himalia"/>
+      <choice name="Elara"/>
+      <choice name="Pasiphae"/>
+      <choice name="Sinope"/>
+      <choice name="Lysithea"/>
+      <choice name="Carme"/>
+      <choice name="Ananke"/>
+      <choice name="Leda"/>
+      <choice name="Thebe"/>
+      <choice name="Adrastea"/>
+      <choice name="others..."/> 
+	</choice>
+	<choice name="Neptune">
+      <choice name="Triton"/>
+      <choice name="Nereid"/>
+      <choice name="Naiad"/>
+      <choice name="Thalassa"/>
+      <choice name="Despina"/>
+      <choice name="Galatea"/>
+      <choice name="Larissa"/>
+      <choice name="Proteus"/>
+      <choice name="Halimede"/>
+      <choice name="Psamathe"/>
+      <choice name="Sao"/>
+      <choice name="Laomedeia"/>
+      <choice name="Neso "/>
+	</choice>
+	<choice name="Uranus">
+      <choice name="Cordelia"/>
+      <choice name="Ophelia"/>
+      <choice name="Bianca"/>
+      <choice name="Cressida"/>
+      <choice name="Desdemona"/>
+      <choice name="Juliet"/>
+      <choice name="Portia"/>
+      <choice name="Rosalind"/>
+      <choice name="Mab"/>
+      <choice name="Belinda"/>
+      <choice name="Perdita "/>
+      <choice name="others..."/> 
+	</choice>
+</choice>

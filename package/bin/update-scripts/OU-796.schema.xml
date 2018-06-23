@@ -1,0 +1,66 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-796 Add covCoverage table" author="richard">
+        <sql dbms="mysql">
+            CREATE TABLE `covCoverage` (
+              `covUID` bigint(20) NOT NULL,
+              `covAttribute` longtext,
+              `covCreatedBy` bigint(20) DEFAULT NULL,
+              `covCreatedDate` datetime DEFAULT NULL,
+              `covExternalSystemId` varchar(255) NOT NULL,
+              `covForeignSystemId` varchar(255) DEFAULT NULL,
+              `covLock` bit(1) DEFAULT NULL,
+              `covSerialVersion` bigint(20) NOT NULL,
+              `covUpdatedBy` bigint(20) DEFAULT NULL,
+              `covUpdatedDate` datetime DEFAULT NULL,
+              `covCoverageTypeId` varchar(255) DEFAULT NULL,
+              `covDeductibleAmount` decimal(19,2) DEFAULT NULL,
+              `covDeductibleCurrency` varchar(255) DEFAULT NULL,
+              `covDescription` varchar(255) DEFAULT NULL,
+              `covEffectiveDate` datetime DEFAULT NULL,
+              `covEnabled` bit(1) NOT NULL,
+              `covExpiryDate` datetime DEFAULT NULL,
+              `covId` varchar(255) DEFAULT NULL,
+              `covLimitAmount` decimal(19,2) DEFAULT NULL,
+              `covLimitCurrency` varchar(255) DEFAULT NULL,
+              `covName` varchar(255) DEFAULT NULL,
+              `covOptional` bit(1) NOT NULL,
+              `covBrokerUIDpar` bigint(20) DEFAULT NULL,
+              PRIMARY KEY (`covUID`),
+              UNIQUE KEY `covExternalSystemId` (`covExternalSystemId`),
+              KEY `FKC6B73192BA6F347E` (`covBrokerUIDpar`),
+              CONSTRAINT `FKC6B73192BA6F347E` FOREIGN KEY (`covBrokerUIDpar`) REFERENCES `parParty` (`parUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+        </sql>
+    </changeSet>
+    <changeSet id="OU-796 Add join table for Policy Coverage" author="richard">
+        <sql dbms="mysql">
+            CREATE TABLE `jPolCovCov` (
+              `UIDpol` bigint(20) NOT NULL,
+              `coverageUIDcov` bigint(20) NOT NULL,
+              UNIQUE KEY `coverageUIDcov` (`coverageUIDcov`),
+              KEY `FK50368B0384156FE0` (`UIDpol`),
+              KEY `FK50368B033DED8F7B` (`coverageUIDcov`),
+              CONSTRAINT `FK50368B033DED8F7B` FOREIGN KEY (`coverageUIDcov`) REFERENCES `covCoverage` (`covUID`),
+              CONSTRAINT `FK50368B0384156FE0` FOREIGN KEY (`UIDpol`) REFERENCES `polPolicy` (`polUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 
+        </sql>
+    </changeSet>
+    <changeSet id="OU-796 Add join table for Section Coverage" author="richard">
+        <sql dbms="mysql">
+            CREATE TABLE `jSecCovCov` (
+              `UIDsec` bigint(20) NOT NULL,
+              `coverageUIDcov` bigint(20) NOT NULL,
+              UNIQUE KEY `coverageUIDcov` (`coverageUIDcov`),
+              KEY `FK222002073DED8F7B` (`coverageUIDcov`),
+              KEY `FK2220020773432C55` (`UIDsec`),
+              CONSTRAINT `FK222002073DED8F7B` FOREIGN KEY (`coverageUIDcov`) REFERENCES `covCoverage` (`covUID`),
+              CONSTRAINT `FK2220020773432C55` FOREIGN KEY (`UIDsec`) REFERENCES `secSection` (`secUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+        </sql>
+    </changeSet>
+</databaseChangeLog>

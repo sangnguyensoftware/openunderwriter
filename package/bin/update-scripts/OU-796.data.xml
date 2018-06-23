@@ -1,0 +1,38 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-796 Migrate policy coverage date from XML to relational model" author="richard">
+        <executeCommand os="Linux" executable="../bin/liquibase-exec.sh">
+            <arg value="OU-796 Migrate policy coverage data.bsh"/>
+        </executeCommand>
+        <executeCommand os="Mac OS X" executable="../bin/liquibase-exec.sh">
+            <arg value="OU-796 Migrate policy coverage data.bsh"/>
+        </executeCommand>
+        <executeCommand os="Windows XP" executable="../bin/liquibase-exec.bat">
+            <arg value="OU-796 Migrate policy coverage data.bsh"/>
+        </executeCommand>
+    </changeSet> 
+
+    <changeSet id="OU-796 Migrate section coverage date from XML to relational model" author="richard">
+        <executeCommand os="Linux" executable="../bin/liquibase-exec.sh">
+            <arg value="OU-796 Migrate section coverage data.bsh"/>
+        </executeCommand>
+        <executeCommand os="Mac OS X" executable="../bin/liquibase-exec.sh">
+            <arg value="OU-796 Migrate section coverage data.bsh"/>
+        </executeCommand>
+        <executeCommand os="Windows XP" executable="../bin/liquibase-exec.bat">
+            <arg value="OU-796 Migrate section coverage data.bsh"/>
+        </executeCommand>
+    </changeSet> 
+
+    <changeSet id="OU-796 Drop redundant columns" author="richard">
+        <sql dbms="mysql">
+            ALTER TABLE polPolicy DROP COLUMN `polCoverage`;
+            ALTER TABLE secSection DROP COLUMN `secCoverage`;
+        </sql>
+    </changeSet> 
+
+</databaseChangeLog>

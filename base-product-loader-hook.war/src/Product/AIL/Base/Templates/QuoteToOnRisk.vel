@@ -1,0 +1,330 @@
+## Copyright Applied Industrial Logic Limited 2015. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the QuoteToOnRisk widget.
+## ------------------------------------------------------------------------------
+## Extract the argument values into variables to make them more easily accessible
+##
+#set( $policy = $args.ModelArgRet)
+#set( $pageElement = $args.PageElementArg )
+#set( $resourceURL = $args.ResponseArgRet.createResourceURL() )
+##
+#set( $manualPctId = "manual pct loading")
+#set( $manualFixedId = "manual fixed loading")
+#set( $basePremiumId = "base premium")
+#set( $totalPremiumId = "total premium")
+##
+<div class='pf-quote-to-on-risk'>
+		#render
+</div>
+##
+#macro(render)
+	<div class='pf-header'>
+        <div class='pf-header-title'>
+			$pageElement.i18n("i18n_quote_to_on_risk_title", $policy.QuotationNumber)
+		</div>
+        <div class='pf-header-summary'>
+            <div class='pf-header-summary-entry'>
+                <div class='pf-header-summary-title'>
+                    $pageElement.i18n("i18n_quote_to_on_risk_product_title")
+                </div>
+                <div class='pf-header-summary-value'>
+                    $policy.ProductName
+                </div>
+            </div>
+            <div class='pf-header-summary-entry'>
+                <div class='pf-header-summary-title'>
+                    $pageElement.i18n("i18n_quote_to_on_risk_status_title")
+                </div>
+                <div class='pf-header-summary-value'>
+                    $pageElement.i18n($policy.Status.LongName)
+                </div>
+            </div>
+			#if( $policy.TotalPremiumDefined )
+                <div class='pf-header-summary-entry'>
+                    <div class='pf-header-summary-title'>
+                        $pageElement.i18n("i18n_quote_to_on_risk_total_premium_title")
+                    </div>
+                    <div class='pf-header-summary-value'>
+                        $policy.TotalPremium
+                    </div>
+                </div>
+			#end
+		</div>
+		<div style="clear:both;"></div>
+	</div>
+	#set( $validationAttribute = $policy.getAttributeById('validation.error') )
+	#if ( $validationAttribute )
+		<div class='pf-input-error'>Validation error: $validationAttribute.Value </div>
+	#end
+	
+	#onriskDetails
+	
+#end
+##
+#macro(onriskDetails)
+	#if( !${policy.isAggregator()} )
+		<div class='pf-body'>
+		    <div class='pf-assessment-sheet-details'>
+		    
+		    #foreach( $sheetName in ${policy.AssessmentSheetList.keySet()} )
+					#renderAssessmentSheet($sheetName)
+			#end
+			
+		    </div>
+		</div>
+	#else
+		<div class='pf-body'>
+		    <div class='pf-assessment-sheet-details'>
+		    	<div class='pf-section-title'>
+					Aggregator Quotation
+				</div>
+			</div>
+		</div>
+	#end
+	<div class='pf-body pf-navigation-section'>
+	    <div style="width: 100%"> 
+	    	<div style="text-align: center"> 
+	    		<div class="pf-navigation-section-buttons">
+	    			<input type="button" value="Reset to Application" onclick="if (confirm('$pageElement.i18n("i18n_override_to_application_confirm")')) callServeResource('${resourceURL}', 'op=application:policyId=$policy.SystemId')" class="portlet-form-input-field"> 
+	    			#if( !${policy.isAggregator()} )
+	    				<input type="button" value="Recalculate" onclick="callServeResource('${resourceURL}', 'op=recalculate:policyId=$policy.SystemId')" class="portlet-form-input-field"> 
+	    			#end
+	    			<input type="button" value="Put On-Risk" onclick="if (confirm('$pageElement.i18n("i18n_override_to_onrisk_confirm")')) callServeResource('${resourceURL}', 'op=onrisk:policyId=$policy.SystemId')" class="portlet-form-input-field"> 
+	    		</div> 
+	    	</div>
+	    </div>
+	</div>
+#end
+##
+#macro(renderAssessmentSheet $sheet)
+	##
+	## Output the calculation lines
+	##
+	
+	#set( $sheet = ${policy.getAssessmentSheetFor($sheetName)} )
+	
+	#if( $sheet.calculationLines().size() != 0 )
+		<div class='pf-section-title'>
+	        $sheetName
+	    </div>
+	    <div class='pf-assessment-sheet-details-calculation-lines-body pf-body'>
+	        <div class='pf-section-description'>
+	            $pageElement.i18n("i18n_assessment_sheet_calculations_title")
+	        </div>
+	        <table>
+	            <tr>
+	                <th>$pageElement.i18n("i18n_assessment_sheet_id_title")</th>
+	                <th>$pageElement.i18n("i18n_assessment_sheet_description_title")</th>
+	                <th>$pageElement.i18n("i18n_assessment_sheet_source_title")</th>
+	                <th>$pageElement.i18n("i18n_assessment_sheet_type_title")</th>
+	                <th>$pageElement.i18n("i18n_assessment_sheet_rate_title")</th>
+	                <th>$pageElement.i18n("i18n_assessment_sheet_amount_title")</th>
+	            </tr>
+	            ##
+	            ## Base premium line
+	            #addLine($basePremiumId $sheetName)
+				##
+	            ## Manual percent loading line
+	            #addLine($manualPctId $sheetName)
+	            #if($lineAdded == "false")
+	            	#newManualPctLine($sheetName)
+	            #end
+	            ##
+	            ## Manual fixed loading line
+	            #addLine($manualFixedId $sheetName)
+	            #if($lineAdded == "false")
+	            	#newManualFixedLine($sheetName)
+	            #end     	
+	            ##
+	            ## Total premium line
+	           	#addLine($totalPremiumId $sheetName)
+	        </table>
+	    </div>
+	#end 
+	##
+	## Output the marker lines
+	##
+	#set( $markerLines = $pageElement.orderLines($sheet.markerLines(true)) )
+	#if( $markerLines.size() != 0 )
+		<div class='pf-assessment-sheet-details-marker-lines-body pf-body'>
+		    <div class='pf-section-description'>
+		        $pageElement.i18n("i18n_assessment_sheet_markers_title")
+		    </div>
+	        <table>
+				<tr>
+					<th>$pageElement.i18n("i18n_assessment_sheet_id_title")</th>
+					<th>$pageElement.i18n("i18n_assessment_sheet_description_title")</th>
+					<th>$pageElement.i18n("i18n_assessment_sheet_source_title")</th>
+					<th>$pageElement.i18n("i18n_assessment_sheet_type_title")</th>
+				</tr>
+					#foreach( $markerLine in $markerLines )
+						<tr>
+	                        <td>#lineId($markerLine.Id)</td>
+							<td>${markerLine.Reason}</td>
+							<td>${markerLine.Origin}</td>
+							<td>${markerLine.Type}</td>
+						</tr>
+					#end	
+			</table>
+		</div>
+	#end
+	##
+	## Output the note lines
+	##
+	#set( $notes = $pageElement.orderLines($sheet.noteLines()) )
+	#if( $notes.size() != 0 )
+		<div class='pf-assessment-sheet-details-notes-body pf-body'>
+		    <div class='pf-section-description'>
+		        $pageElement.i18n("i18n_assessment_sheet_notes_title")
+		    </div>
+		    <table>
+		        <tr>
+		            <th>$pageElement.i18n("i18n_assessment_sheet_id_title")</th>
+		            <th>$pageElement.i18n("i18n_assessment_sheet_description_title")</th>
+		            <th>$pageElement.i18n("i18n_assessment_sheet_source_title")</th>
+		        </tr>
+		        #foreach( $note in $notes )
+		            <tr>
+		                <td>#lineId($note.Id)</td>
+		                <td>$note.Reason</td>
+		                <td>$note.Origin</td>
+		            </tr>
+		        #end    
+		   </table>
+		</div>
+	#end
+#end
+##
+#macro(addLine $calcLineId $sheetName) 
+ 	#set($calcLine = $sheet.findLineById($calcLineId))
+   	#if($calcLine)
+		<tr>
+			<td>#lineId($calcLine.Id)</td>
+			#if ( $calcLine.Id == "total premium" )
+				<td>Overridden Premium Total</td>
+			#else
+				<td>$calcLine.Reason</td>
+			#end
+			<td>$calcLine.Origin</td>
+			#calculationLineType( $calcLine )
+			#calculationLineRate($calcLine $sheetName)
+			<td>
+				#if( $calcLine.Id == $basePremiumId 
+					|| $calcLine.Id == $manualFixedId)
+					<div class='pf-input-field'>
+						$policy.BaseCurrency.Symbol
+						<input name='${calcLine.Id} override:${sheetName}:$policy.SystemId' size='2' type='text'
+							value='${calcLine.Amount.Amount}' class='pf-override-input' />
+					</div>
+				#else
+					$calcLine.AmountAsString
+				#end
+			</td>
+		</tr>
+		#set($lineAdded = "true")
+	#else
+		#set($lineAdded = "false")
+	#end
+#end
+##
+#macro(calculationLineType $line)
+	<td>
+	#if( $line.Class.Name == "com.ail.insurance.policy.FixedSum" )
+        <div class='pf-assessment-sheet-details-calculation-detail'>
+            <div class='pf-assessment-sheet-details-calculation-name'>$pageElement.i18n("i18n_assessment_sheet_fixedsum_title")</div>
+            <div class='pf-assessment-sheet-details-calculation-depends'>&nbsp;</div>
+            <div class='pf-assessment-sheet-details-calculation-contributes'>#valueAndLabel(${line.ContributesTo} "i18n_assessment_sheet_contributes_to")</div>
+        </div>
+    #else
+        <div class='pf-assessment-sheet-details-calculation-detail'>
+        	<div class='pf-assessment-sheet-details-calculation-name'>
+        	#if( $line.Class.Name != "com.ail.insurance.policy.Totalizer" )
+            	${line.Type.LongName}
+           	#end
+           	</div>
+            <div class='pf-assessment-sheet-details-calculation-depends'>&nbsp;</div>
+            <div class='pf-assessment-sheet-details-calculation-contributes'>#valueAndLabel(${line.ContributesTo} "i18n_assessment_sheet_contributes_to")</div>
+        </div>
+	#end
+  	</td>
+#end
+##
+#macro(calculationLineRate $line $sheetName )
+  	<td>
+		#if( $line.Id == $manualPctId )
+			<div class='pf-input-field'>
+				<input name='${line.Id} override:${sheetName}:$policy.SystemId' size='2' type='text'
+					value='$line.Rate.Nominator' class='pf-override-pct-input' />%
+			</div>
+		#else
+			#if( $line.Class.Name == "com.ail.insurance.policy.RateBehaviour" )
+				${line.Rate.Rate}
+			#else
+				&nbsp;
+			#end
+		#end
+  	</td>
+#end
+##
+#macro(newManualPctLine $sheetName )
+	<tr>
+		<td>$manualPctId</td>
+		<td>Manually applied percentage loading</td>
+		<td>User</td>
+		<td>Load</td>
+		<td>
+			<div class='pf-input-field'>
+				<input name='${manualPctId} override:${sheetName}:$policy.SystemId' size='2' type='text'
+					value='0' class='pf-override-pct-input' />%
+			</div>
+		</td>
+		<td>&nbsp;</td>
+	</tr>
+#end
+##
+#macro(newManualFixedLine $sheetName )
+	<tr>
+		<td>$manualFixedId</td>
+		<td>Manually applied fixed sum loading</td>
+		<td>User</td>
+		<td>FixedSum</td>
+		<td>&nbsp;</td>
+		<td>
+			<div class='pf-input-field'>
+            	$policy.BaseCurrency.Symbol
+            	<input name='${manualFixedId} override:${sheetName}:$policy.SystemId' size='2' type='text' 
+            		value='0' class='pf-override-input'/>
+	 		</div>
+	 	</td>
+	</tr>
+#end
+##
+#macro(valueAndLabel $value $label)
+    #if( $value )
+    	$pageElement.i18n($label) $value
+    #end
+#end
+##
+#macro(lineId $id)
+    #if( $id.matches("[#0-9A-F]{9}") )
+        <div class='pf-system-id'>$id</div>
+    #else
+        <div class='pf-user-id'>$id</div>
+    #end
+#end

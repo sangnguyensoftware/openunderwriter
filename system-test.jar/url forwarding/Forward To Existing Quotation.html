@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>Forward To Existing Quotation</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Forward To Existing Quotation</td></tr>
+</thead><tbody>
+<!-- ==================================================================================== -->
+<!-- Create a quotation in the sandpit (and collect the quote ID)                         -->
+<!-- ==================================================================================== -->
+<tr>
+	<td>setTimeout</td>
+	<td>480000</td>
+	<td></td>
+</tr>
+<!-- Login as Adam -->
+<tr>
+	<td>open</td>
+	<td>/web/ou</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_58_login</td>
+	<td>adam@openunderwriter.org</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_58_password</td>
+	<td>adam</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Adam OpenUnderwriter</td>
+	<td></td>
+</tr>
+<!-- Open Sandpit -->
+<tr>
+	<td>open</td>
+	<td>http://localhost:8080/en_GB/web/ou/sandpit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=div.sandpit-debug-panel</td>
+	<td></td>
+</tr>
+<!-- Select LifePlus -->
+<tr>
+	<td>selectAndWait</td>
+	<td>id=selectedProduct</td>
+	<td>label=AIL.Demo.LifePlus</td>
+</tr>
+<tr>
+	<td>selectAndWait</td>
+	<td>id=selectedPageFlow</td>
+	<td>label=QuotationPageFlow</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>name=Welcome</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Welcome to the LifePlus quotation wizard</td>
+	<td></td>
+</tr>
+<!-- Create quotation -->
+<tr>
+	<td>clickAndWait</td>
+	<td>id=resetPageflow</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Get A Quote&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td> Some questions to help us: </td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>L2Fzc2V0W2lkPSdhc3NldCddL2F0dHJpYnV0ZVtpZD0nYWdlJ10</td>
+	<td>40</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>L2Fzc2V0W2lkPSdhc3NldCddL2F0dHJpYnV0ZVtpZD0nZ2VuZGVyJ10</td>
+	<td>label=Male</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>L2Fzc2V0W2lkPSdhc3NldCddL2F0dHJpYnV0ZVtpZD0nc21va2VyJ10</td>
+	<td>label=No</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>L2Fzc2V0W2lkPSdhc3NldCddL2F0dHJpYnV0ZVtpZD0nZXhlcmNpc2UnXQ</td>
+	<td>label=No</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Quote&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeValue</td>
+	<td>selectedPolicy</td>
+	<td>policyId</td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Your Quotation: £126.00</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Quit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Welcome to the LifePlus quotation wizard</td>
+	<td></td>
+</tr>
+<!--Forrward to policy by "policyId"-->
+<tr>
+	<td>open</td>
+	<td>/web/ou/welcome?pageflow.product=AIL.Demo.LifePlus&amp;pageflow.name=QuotationPageFlow&amp;pageflow.policy=${policyId}&amp;pageflow.page=QuestionPage</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=L2Fzc2V0W2lkPSdhc3NldCddL2F0dHJpYnV0ZVtpZD0nYWdlJ10</td>
+	<td>40</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=L2Fzc2V0W2lkPSdhc3NldCddL2F0dHJpYnV0ZVtpZD0nZ2VuZGVyJ10</td>
+	<td>Male</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=L2Fzc2V0W2lkPSdhc3NldCddL2F0dHJpYnV0ZVtpZD0nc21va2VyJ10</td>
+	<td>No</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=L2Fzc2V0W2lkPSdhc3NldCddL2F0dHJpYnV0ZVtpZD0nZXhlcmNpc2UnXQ</td>
+	<td>No</td>
+</tr>
+<!-- Login out-->
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Sign Out</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

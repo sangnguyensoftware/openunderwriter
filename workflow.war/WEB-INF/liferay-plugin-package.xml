@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE plugin-package PUBLIC "-//Liferay//DTD Plugin Package 6.1.0//EN" "http://www.liferay.com/dtd/liferay-plugin-package_6_1_0.dtd">
+
+<plugin-package>
+    <name>OpenUnderwriter Workflow</name>
+    <module-id>openunderwriter/workflow-portlet/2.0.1/war</module-id>
+    <recommended-deployment-context>workflow-portlet</recommended-deployment-context>
+    <types>
+        <type>portlet</type>
+    </types>
+    <short-description></short-description>
+    <change-log></change-log>
+    <page-url>http://www.openunderwriter.com</page-url>
+    <author>Applied Industrial Logic</author>
+    <licenses>
+        <license osi-approved="true">GPL</license>
+    </licenses>
+    <liferay-versions>
+        <liferay-version>6.2.0+</liferay-version>
+        <liferay-version>6.2.5+</liferay-version>
+    </liferay-versions>
+</plugin-package>

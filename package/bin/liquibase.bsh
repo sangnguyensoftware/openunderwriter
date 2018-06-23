@@ -1,0 +1,119 @@
+/*
+ * Copyright Applied Industrial Logic Limited 2017. All rights Reserved
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 51 
+ * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
+import java.net.*;
+import java.util.*;
+import java.sql.*;
+import java.io.*;
+import java.nio.file.*;
+import java.util.regex.*;
+import com.ail.core.*;
+
+XMLString standaloneXml;
+String jbossHome;
+
+main() {	
+    if (migrate(bsh.args[0], bsh.args[1])) {
+        System.exit(0);
+    }
+    else {
+        System.exit(1);
+    }
+}
+
+boolean migrate(String jboss, String home) {
+	jbossHome = jboss;
+	
+	String url = queryStandaloneXml("//*[name()='datasource' and @pool-name='PersistenceDS']//*[name()='connection-url']/text()");
+	String userName = queryStandaloneXml("//*[name()='datasource' and @pool-name='PersistenceDS']//*[name()='user-name']/text()");
+	String password = queryStandaloneXml("//*[name()='datasource' and @pool-name='PersistenceDS']//*[name()='password']/text()");
+				
+	PrintWriter writer = new PrintWriter(home + "/tmp/loader.properties", "UTF-8");
+	writer.println("loaderClass=com.ail.core.configure.JDBCConfigurationLoader");
+	writer.println("driver=com.mysql.jdbc.Driver");
+	writer.println("createTableSql=CREATE TABLE conConfig (namespace VARCHAR(255) NOT NULL, manager VARCHAR(255) NOT NULL, validfrom BIGINT(20) NOT NULL, configuration LONGBLOB NOT NULL, validto BIGINT(20), who VARCHAR(32), version VARCHAR(32)) ENGINE=InnoDB");
+	writer.println("url=" + url);
+	writer.println("databaseName=");
+	writer.println("user=" + userName);
+	writer.println("password="+ password);
+	writer.println("table=conConfig");
+	writer.close();
+	
+	String pathSeparator = System.getProperty("path.separator");
+	
+	cmd = new String[] {
+		"java", "-Xmx1024m", 
+	    "-Dliquibase.databaseChangeLogTableName=liqChangeLog",
+	    "-Dliquibase.databaseChangeLogLockTableName=liqChangeLogLock",
+	    "-jar", home + "/lib/liquibase.jar",
+	    "--driver=com.mysql.jdbc.Driver",
+	    "--classpath=" + home + "/bin/update-scripts" + pathSeparator + jboss + "/modules/com/liferay/portal/main/mysql.jar",
+	    "--changeLogFile=" + home + "/bin/update-scripts/db.changelog.xml",
+	    "--url=" + url,
+	    "--username=" + userName,
+	    "--password=" + password,
+	    "--logLevel=info",
+	    "update"
+    };
+	
+    try {
+		ProcessBuilder process = new ProcessBuilder(cmd);
+		process.environment().put("dbUrl", url);
+		process.environment().put("dbUsername", userName);
+		process.environment().put("dbPassword", password);
+		process.inheritIO();
+		return process.start().waitFor() == 0;
+    } catch (Exception e) {
+        print("Liquibase cannot be executed: " + e.getMessage());
+        return false;
+    }
+}
+
+inheritIO(InputStream src, PrintStream dest) {
+    new Thread(new Runnable() {
+        public void run() {
+            Scanner sc = new Scanner(src);
+            while (sc.hasNextLine()) {
+                dest.println(sc.nextLine());
+            }
+        }
+    }).start();
+}
+
+String readFile(String file) {
+    String line = null;
+    StringBuilder stringBuilder = new StringBuilder();
+    BufferedReader reader = new BufferedReader(new FileReader(file));
+    while((line = reader.readLine()) != null) {
+        stringBuilder.append(line);
+    }
+    return stringBuilder.toString();
+}
+
+XMLString fetchStandaloneXml() {
+	standaloneXml = new XMLString(new File(jbossHome + "/standalone/configuration/standalone.xml"));
+}
+
+String queryStandaloneXml(String xpath) {
+	if (standaloneXml == null) {
+		fetchStandaloneXml();
+	}
+	
+	return standaloneXml.evalToText(xpath);
+}	
+
+main();

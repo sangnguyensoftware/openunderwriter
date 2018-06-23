@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageFlow id="QuotationPageFlow" type="java:com.ail.pageflow.PageFlow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/PageFlow-1.0.xsd">
+
+	<questionPage id="Welcome" title="Welcome to the LifePlus quotation wizard">
+		<savedQuotations id="SavedQuotes" requoteDestinationPageId="QuestionPage" viewQuotationDisabled="true"/>
+		<navigationSection id="Navigation" order="2" quitDisabled="true">
+			<commandButtonAction id="Quote" label="i18n_quote_button_label" destinationPageId="QuestionPage">
+				<action when="onProcessActions" commandName="CreateNewBusinessQuotationCommand" />
+                <action when="onProcessActions" commandName="InitialiseQuotationCommand" />
+			</commandButtonAction>
+		</navigationSection>
+	</questionPage>
+
+	<questionPage id="QuestionPage" title="About You - The Insured">
+		<questionSection title="Some questions to help us:">
+			<question title="How old were you on your last birthday?" binding="/asset[id='asset']/attribute[id='age']" />
+			<question title="What gender are you?" binding="/asset[id='asset']/attribute[id='gender']" />
+			<question title="Are you currently a smoker?" binding="/asset[id='asset']/attribute[id='smoker']" />
+			<question title="Do you take regular exercise?" binding="/asset[id='asset']/attribute[id='exercise']" />			
+		</questionSection>
+		
+		<navigationSection>
+			<commandButtonAction label="Quote" destinationPageId="Referral">
+				<action when="onProcessActions" commandName="QuotationToApplication" />
+				<action when="onProcessActions" commandName="PremiumCalculation" />
+				<pageForwardAction when="onProcessActions" condition="i:test(status[.='QUOTATION'])" destinationPageId="Quotation" />
+			</commandButtonAction>
+		</navigationSection>
+	</questionPage>
+
+	<informationPage id="Quotation">
+		<quotationSummary termsAndConditionsUrl="~/HTML/TermsAndConditions.html" requoteDestinationPageId="QuestionPage"
+			saveDestinationPageId="SavedQuotes" confirmAndPayDestinationPageId="Proposer">
+			<answerSection title="Summary of your cover">
+				<answer title="Start date" binding="/inceptionDate" />
+				<answer title="End date" binding="/expiryDate" />
+			</answerSection>
+			<answerSection title="Summary of answers">
+				<answerScroller binding="/asset[id='asset']">
+					<answer title="Age" binding="attribute[id='age']" />
+					<answer title="Gender" binding="attribute[id='gender']" />
+					<answer title="Are you a smoker" binding="attribute[id='smoker']" />
+					<answer title="Do you take regular exercise" binding="attribute[id='exercise']" />
+				</answerScroller>
+			</answerSection>
+			<navigationSection>
+				<saveButtonAction destinationPageId="Welcome" />
+				<requoteButtonAction destinationPageId="Welcome" />
+				<commandButtonAction id="ConfirmAndPay" label="i18n_confirm_and_pay_button_label" destinationPageId="Proposer" />
+			</navigationSection>
+		</quotationSummary>
+	</informationPage>
+
+	<questionPage id="Referral" title="Referral">
+		<referralSummary referralNotificationUrl="~/HTML/ReferralNotification.html" requoteDestinationPageId="QuestionPage">
+			<answerSection title="Summary of your cover">
+				<answer title="Start date" binding="inceptionDate" />
+				<answer title="End date" binding="expiryDate" />
+			</answerSection>
+			<answerSection title="Summary of answers">
+				<answerScroller binding="/asset[id='asset']">
+					<answer title="Age" binding="attribute[id='age']" />
+					<answer title="Gender" binding="attribute[id='gender']" />
+					<answer title="Are you a smoker" binding="attribute[id='smoker']" />
+					<answer title="Do you take regular exercise" binding="attribute[id='exercise']" />
+				</answerScroller>
+			</answerSection>
+		</referralSummary>
+	</questionPage>
+
+	<questionPage id="Proposer" title="Contact Details">
+		<navigationSection id="Navigation">
+			<commandButtonAction id="Next" label="Pay by DirectDebit" destinationPageId="CollectPaymentDetails" />
+            <commandButtonAction label="Pay using Swifin" destinationPageId="CollectSwifinPayPaymentDetails" />
+		</navigationSection>
+	</questionPage>
+
+	<questionPage id="CollectPaymentDetails" title="Payment Details">
+		<action when="onRenderResponse" commandName="AssessBankPaymentOptions" />
+	</questionPage>
+
+    <questionPage id="CollectSwifinPayPaymentDetails" title="Swifin Payment Details">
+        <action when="onRenderResponse" commandName="AssessIWinPayPaymentOptions" />
+        <!-- temporary action can be removed when mobile number payments are supported -->
+        <action when="onApplyRequestValues" commandName="PopulateIWinPayUser" />
+        <pageSection>
+            <parsedUrlContent url="~/HTML/SwifinIntroduction.html" />
+        </pageSection>
+		<questionSection title="Payment details">
+			<question title="Please enter your Swifin username" binding="/attribute[id='iWinPayUsername']" >
+                <hintText>username/mobile number/email address</hintText>
+            </question>
+		</questionSection>
+        <navigationSection id="Navigation">
+			<commandButtonAction label="Previous" destinationPageId="Proposer" immediate='true' />
+            <buyNowWithIWinPayButtonAction destinationOnSuccessPageId="SwifinPaymentSuccessful" destinationOnFailurePageId="SwifinPaymentFailed" />
+        </navigationSection>
+    </questionPage>
+
+    <informationPage id="SwifinPaymentSuccessful" title="Payment Request Sent">
+        <pageSection id="ThankYou" order="1">
+            <parsedUrlContent url="~/HTML/SwifinSuccess.html" />
+        </pageSection>
+        <navigationSection id="Navigation" quitDisabled='true'>
+            <quitButtonAction id="Finish" label="i18n_finish_button_label" />
+        </navigationSection>
+    </informationPage>    
+
+    <informationPage id="SwifinPaymentFailed" title="Payment Request Failed">
+        <pageSection>
+            <parsedUrlContent url="~/HTML/SwifinFailed.html" />
+        </pageSection>
+        <navigationSection id="Navigation">
+            <commandButtonAction destinationPageId="CollectSwifinPayPaymentDetails" label="Previous" />
+        </navigationSection>
+    </informationPage>    
+
+	<questionPage id="Finish" title="Thank you">
+		<action when="onRenderResponse" commandName="AddPolicyNumberAction" />
+		<navigationSection id="Navigation" order="2" quitDisabled="true">
+			<viewQuotationButtonAction label="View quotation document" order="0" />
+		</navigationSection>
+	</questionPage>
+</pageFlow>

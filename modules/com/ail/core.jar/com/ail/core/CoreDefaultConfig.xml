@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file defines the default (factory) configuration for the Core. This configuration is used by the core's resetConfiguration() 
+    method. -->
+<configuration xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <name>Default Core Configuration</name>
+    <timeout>-1</timeout>
+    <who>factory</who>
+    <version>1.4</version>
+
+	<!-- The number of minutes after which document requests are considered to have expired -->
+	<!-- and are eligible for being deleted. -->
+    <parameter name="DocumentRequestExpiryMinutes">60</parameter>
+    
+    <group name="ProductRepository">
+        <parameter name="CompanyID">10157</parameter>
+        <parameter name="RepositoryID">10197</parameter>
+        <parameter name="Root">Product</parameter>
+        <parameter name="Protocol">http</parameter>
+        <parameter name="Host">localhost</parameter>
+        <parameter name="Port">8080</parameter>
+        <parameter name="Username">producthandler</parameter>
+        <parameter name="Mode">Automatic</parameter>
+        <parameter name="UpgradeUsername">upgradehandler</parameter>
+    </group>
+    
+    <group name="VelocityFunctionClasses">
+        <parameter name="CoreFunctions">com.ail.core.Functions</parameter>
+        <parameter name="InsuranceFunctions">com.ail.insurance.Functions</parameter>
+        <parameter name="FinancialFunctions">com.ail.financial.Functions</parameter>
+        <parameter name="PageFlowFunctions">com.ail.pageflow.util.Functions</parameter>
+        <parameter name="CoreContext">com.ail.core.CoreContext</parameter>
+        <parameter name="PageFlowContext">com.ail.pageflow.PageFlowContext</parameter>
+        <parameter name="DateTimeUtils">com.ail.core.DateTimeUtils</parameter>
+    </group>
+
+    <group name="JEEAccessorContext">
+        <!--
+        In most deployments these settings are picked up from the server's environment, but in some
+        circumstances it can be useful to override them - particularly if your client is accessing 
+        remote EJBs.
+        
+        <parameter name="java.naming.factory.url.pkgs">org.jboss.ejb.client.naming</parameter>
+        <parameter name="java.naming.factory.initial">org.jboss.naming.remote.client.InitialContextFactory</parameter>
+        <parameter name="java.naming.provider.url">remote://localhost:4447</parameter>
+        <parameter name="jboss.naming.client.ejb.context">true</parameter>
+        <parameter name="java.naming.security.principal">openquote</parameter>
+        <parameter name="java.naming.security.credentials">password</parameter>
+        -->
+    </group>
+
+    <types>
+
+        <service name="JMSQueueService" key="com.ail.core.command.JMSAccessor">
+            <parameter name="Factory">ConnectionFactory</parameter>
+            <parameter name="Queue">queue/OpenUnderwriterCommandQueue</parameter>
+        </service>
+        <service name="JMSOrderedQueueService" key="com.ail.core.command.JMSAccessor">
+            <parameter name="Factory">OrderedConnectionFactory</parameter>
+            <parameter name="Queue">queue/OpenUnderwriterCommandQueue</parameter>
+        </service>
+
+        <!-- Map all of the logger commands to the stdio logger -->
+        <command name="InfoLogger" key="com.ail.core.logging.LoggingCommandImpl">
+            <parameter name="Service">com.ail.core.logging.JavaLoggerService</parameter>
+        </command>
+        <command name="DebugLogger" key="com.ail.core.logging.LoggingCommandImpl">
+            <parameter name="Service">com.ail.core.logging.JavaLoggerService</parameter>
+        </command>
+        <command name="WarningLogger" key="com.ail.core.logging.LoggingCommandImpl">
+            <parameter name="Service">com.ail.core.logging.JavaLoggerService</parameter>
+        </command>
+        <command name="ErrorLogger" key="com.ail.core.logging.LoggingCommandImpl">
+            <parameter name="Service">com.ail.core.logging.JavaLoggerService</parameter>
+        </command>
+        <command name="FatalLogger" key="com.ail.core.logging.LoggingCommandImpl">
+            <parameter name="Service">com.ail.core.logging.JavaLoggerService</parameter>
+        </command>
+
+        <command name='FetchQuotationDocument' key='com.ail.core.document.FetchDocumentCommandImpl'>
+            <parameter name='Service'>com.ail.insurance.quotation.FetchQuoteDocumentService</parameter>
+        </command>
+        <command name='FetchWordingDocument' key='com.ail.core.document.FetchDocumentCommandImpl'>
+            <parameter name='Service'>com.ail.insurance.onrisk.FetchWordingDocumentService</parameter>
+        </command>
+        <command name='FetchCertificateDocument' key='com.ail.core.document.FetchDocumentCommandImpl'>
+            <parameter name='Service'>com.ail.insurance.onrisk.FetchCertificateDocumentService</parameter>
+        </command>
+        <command name='FetchEndorsementDocument' key='com.ail.core.document.FetchDocumentCommandImpl'>
+            <parameter name='Service'>com.ail.insurance.onrisk.FetchEndorsementDocumentService</parameter>
+        </command>
+        <command name='FetchInvoiceDocument' key='com.ail.core.document.FetchDocumentCommandImpl'>
+            <parameter name='Service'>com.ail.insurance.onrisk.FetchInvoiceDocumentService</parameter>
+        </command>
+        <command name='FetchPolicyDocument' key='com.ail.core.document.FetchDocumentCommandImpl'>
+            <parameter name='Service'>com.ail.insurance.onrisk.FetchPolicyDocumentService</parameter>
+        </command>
+        <command name='FetchScheduleDocument' key='com.ail.core.document.FetchDocumentCommandImpl'>
+            <parameter name='Service'>com.ail.insurance.onrisk.FetchScheduleDocumentService</parameter>
+        </command>
+        
+        <!-- ================================================================== -->
+        <!-- Payment commands                                                   -->
+        <!-- ================================================================== -->
+        <command name="BuyWithPayPalCommand" key="com.ail.payment.PaymentRequestCommandImpl">
+            <parameter name="Service">com.ail.payment.implementation.PayPalPaymentRequestService</parameter>
+        </command>
+        <command name="PayPalPaymentExecutionCommand" key="com.ail.payment.PaymentExecutionCommandImpl">
+            <parameter name="Service">com.ail.payment.implementation.PayPalPaymentExecutionService</parameter>
+        </command>
+        <command name="BuyWitheWAYCommand" key="com.ail.payment.PaymentRequestCommandImpl">
+            <parameter name="Service">com.ail.payment.implementation.EwayPaymentRequestService</parameter>
+        </command>
+        <command name="eWAYPaymentExecutionCommand" key="com.ail.payment.PaymentExecutionCommandImpl">
+            <parameter name="Service">com.ail.payment.implementation.EwayPaymentExecutionService</parameter>
+        </command>
+        <command name="eWAYPaymentResponseCommand" key="com.ail.payment.PaymentResponseCommandImpl">
+            <parameter name="Service">com.ail.payment.implementation.EwayPaymentResponseService</parameter>
+        </command>
+        <command name="eWAYPaymentExecutionCommand" key="com.ail.payment.PaymentExecutionCommandImpl">
+            <parameter name="Service">com.ail.payment.implementation.EwayPaymentExecutionService</parameter>
+        </command>
+        <command name="BuyWithiWinPayCommand" key="com.ail.payment.PaymentRequestCommandImpl">
+            <parameter name="Service">com.ail.payment.implementation.IWinPayPaymentRequestService</parameter>
+        </command>
+        <command name="iWinPayPaymentExecutionCommand" key="com.ail.payment.PaymentExecutionCommandImpl">
+            <parameter name="Service">com.ail.payment.implementation.IWinPayPaymentExecutionService</parameter>
+        </command>
+        <command name="BuyWithSagePayCommand" key="com.ail.payment.PaymentRequestCommandImpl">
+            <parameter name="Service">com.ail.payment.implementation.SagePayPaymentRequestService</parameter>
+        </command>
+        <command name="SagePayPaymentExecutionCommand" key="com.ail.payment.PaymentExecutionCommandImpl">
+            <parameter name="Service">com.ail.payment.implementation.SagePayPaymentExecutionService</parameter>
+        </command>
+        
+        <!-- ================================================================== -->
+        <!-- DocumentContent persistence lifecycle commands                     -->
+        <!-- ================================================================== -->
+        <command name="DocumentContentOnSaveCommand" key="com.ail.core.persistence.LifeCycleCommandImpl">
+            <parameter name="Service">com.ail.core.document.DocumentContentTableOnSaveService</parameter>
+        </command>
+        <command name="DocumentContentOnUpdateCommand" key="com.ail.core.persistence.LifeCycleCommandImpl">
+            <parameter name="Service">com.ail.core.NullService</parameter>
+        </command>
+        <command name="DocumentContentOnDeleteCommand" key="com.ail.core.persistence.LifeCycleCommandImpl">
+            <parameter name="Service">com.ail.core.NullService</parameter>
+        </command>
+        <command name="DocumentContentOnLoadCommand" key="com.ail.core.persistence.LifeCycleCommandImpl">
+            <parameter name="Service">com.ail.core.document.DocumentContentTableOnLoadService</parameter>
+        </command>
+    </types>
+</configuration>

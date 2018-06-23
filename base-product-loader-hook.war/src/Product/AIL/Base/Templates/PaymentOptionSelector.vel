@@ -1,0 +1,56 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the PaymentOptions widget.
+##
+#set( $policy = $args.ModelArgRet)
+#set( $paymentOptionSelector = $args.PageElementArg )
+#set( $renderId = $args.RenderIdArg )
+##
+<div class='pf-body pf-payment-option-selector' id='$!renderId'>
+	<div class='pf-section-title'>
+		$paymentOptionSelector.i18n("i18n_payment_option_selector_title")
+	</div>
+	<div class='pf-section-description'>
+        $paymentOptionSelector.i18n("i18n_payment_option_selector_description")
+	</div>
+    #if( $paymentOptionSelector.hasErrorMarker($policy) )
+	    <div class='pf-input-error'>
+	        $paymentOptionSelector.findError("paymentDetails", $policy, $paymentOptionSelector)
+	    </div>
+	#end
+    #set( $rowId = 0 )
+    #foreach( $ps in $policy.PaymentOption )
+        <div class='pf-input-section'>
+            <div class='pf-input-field'>
+                <input name='selectedOption' value="$rowId" #if( $policy.PaymentDetails == $ps ) checked="yes" #end type='radio'/>
+            </div>
+            <div class='pf-input-label'>
+                $ps.Description
+                #if ( $ps.MoneyProvision.size() > 1) 
+                    #foreach( $mp in $ps.MoneyProvision)
+                        <div class='pf-input-label-description'>
+                            $mp.Description
+                        </div>
+                    #end
+                #end
+            </div>
+        </div>
+        #set( $rowId = $rowId + 1 )
+    #end
+</div>

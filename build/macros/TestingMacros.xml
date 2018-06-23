@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ Macro file defining ant macros to support unit and system testing
+-->
+
+<project default="dummy" name="BuildTestingMacros.xml">
+
+    <target name="dummy" />
+
+    <macrodef name="run-system-tests-macro">
+        <attribute name="name" />
+        <attribute name="url" default="${server.base.url}" />
+        <attribute name="suite" default="./Suite.html" />
+        <attribute name="selenium.htmlSuite" default="${selenium.htmlSuite}" />
+        <sequential>
+            <_initialise-ant-contribs-macro />
+
+            <mkdir dir="${test.reports.dir}" />
+
+            <java errorproperty="system-test-errored@{name}" fork="yes" jar="${test.dir}/lib/selenium-server-standalone-2.53.0.jar" dir="@{name}">
+                <arg line="-port 4445 -htmlSuite @{selenium.htmlSuite} http://@{url} @{suite} '${test.reports.dir}/@{name}.html'" />
+            </java>
+
+            <loadfile property="system.test.results@{name}" srcFile="${test.reports.dir}/@{name}.html" />
+            <if>
+                <contains string="${system.test.results@{name}}" substring='class="  status_failed"' />
+                <then>
+                    <property name="system-test-failed" value="true" />
+                    <property name="system-test-failed@{name}" value="true" />
+                </then>
+            </if>
+
+            <if>
+                <istrue value="${system-test-failed@{name}}" />
+                <then>
+                    <echo message="Test failed: @{name}. Log is here: ${test.reports.dir}/@{name}.html'" />
+                    <echo message="${line.separator}@{name}: system-test-failed=true" file="${test.results.file}" append="yes" />
+                </then>
+            </if>
+
+            <if>
+                <istrue value="${system-test-errored@{name}}" />
+                <then>
+                    <property name="system-test-errored" value="true" />
+                    <echo message="Test error @{name}. Log is here: ${test.reports.dir}/@{name}.html'" />
+                    <echo message="${line.separator}@{name}: system-test-errored=true" file="${test.results.file}" append="yes" />
+                </then>
+            </if>
+
+        </sequential>
+    </macrodef>
+    
+    <macrodef name="fail-on-system-test-error-macro">
+        <sequential>
+            <_initialise-ant-contribs-macro />
+
+            <property file="${test.results.file}" />
+
+            <if>
+                <or>
+                    <istrue value="${system-test-errored}" />
+                </or>
+                <then>
+                    <fail message="System test errors. Test reports are in ${test.reports.dir}." />
+                </then>
+            </if>
+
+            <if>
+                <or>
+                    <istrue value="${system-test-failed}" />
+                </or>
+                <then>
+                    <fail message="System test failures. Test reports are in ${test.reports.dir}." />
+                </then>
+            </if>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="run-product-tests-macro">
+        <attribute name="product" />
+        <attribute name="url" default="${server.base.url}" />
+        <attribute name="product.dir" default="${project.dir}/demo-product-loader-hook.war/src/Product" />
+        <attribute name="suite" default="./Suite.html" />
+        <attribute name="selenium.htmlSuite" default="${selenium.htmlSuite}" />
+        <sequential>
+            <_initialise-ant-contribs-macro />
+
+            <mkdir dir="${test.reports.dir}" />
+
+            <pathify-product-name-macro property="product.subdir" value="@{product}/Test Suite" />
+
+            <echo message="Running product tests for: @{product}" />
+
+            <java errorproperty="product-test-errored" fork="yes" jar="${test.dir}/lib/selenium-server-standalone-2.53.0.jar" dir="@{product.dir}/${product.subdir}">
+                <arg line="-htmlSuite @{selenium.htmlSuite} http://@{url} @{suite} '${test.reports.dir}/@{product}.html'" />
+            </java>
+
+            <loadfile property="product.test.results@{product}" srcFile="${test.reports.dir}/@{product}.html" />
+            <if>
+                <contains string="${product.test.results@{product}}" substring='class="  status_failed"' />
+                <then>
+                    <property name="product-test-failed" value="true" />
+                </then>
+            </if>
+
+            <if>
+                <istrue value="${product-test-failed}" />
+                <then>
+                    <echo message="Selenium test failed: @{product}. Log is here: ${test.reports.dir}/@{product}.html" />
+                    <echo message="${line.separator}product-test-failed=true" file="${test.results.file}" append="yes" />
+                </then>
+            </if>
+
+            <if>
+                <istrue value="${product-test-errored}" />
+                <then>
+                    <echo message="Selenium test errored: @{product}. Log is here: ${test.reports.dir}/@{product}.html" />
+                    <echo message="${line.separator}product-test-errored=true" file="${test.results.file}" append="yes" />
+                </then>
+            </if>
+          
+            <if>
+                <available file="@{product.dir}/${product.subdir}/Postman.json" />
+                <then>
+                    <property name="postman.command" value="newman run Postman.json -e localhost.json --no-color" />
+                    
+                    <exec dir="@{product.dir}/${product.subdir}" executable="bash" osfamily="unix" outputproperty="postman-test-errored" output="${test.reports.dir}/@{product}.txt">
+                        <arg line="-l -c '${postman.command}'" />
+                    </exec>
+
+                    <exec dir="@{product.dir}/${product.subdir}" executable="cmd" osfamily="windows" outputproperty="postman-test-errored" output="${test.reports.dir}/@{product}.txt">
+                        <arg line='/c "${postman.command}"' />
+                    </exec>
+
+                    <if>
+                        <istrue value="${postman-test-errored}" />
+                        <then>
+                            <echo message="Postman test errored: @{product}. Log is here: ${test.reports.dir}/@{product}.txt" />
+                            <echo message="${line.separator}product-test-errored=true" file="${test.results.file}" append="yes" />
+                        </then>
+                    </if>
+                </then>
+            </if>
+
+        </sequential>
+    </macrodef>
+
+    <macrodef name="fail-on-product-test-error-macro">
+        <sequential>
+            <_initialise-ant-contribs-macro />
+
+            <property file="${test.results.file}" />
+
+            <if>
+                <or>
+                    <istrue value="${product-test-errored}" />
+                    <istrue value="${product-test-failed}" />
+                </or>
+                <then>
+                    <fail message="Product test errors/failures. Test reports are in ${test.reports.dir}." />
+                </then>
+            </if>
+        </sequential>
+    </macrodef>
+
+    <!-- Run the integration tests associated with a project. Reports are written to -->
+    <!-- ${test.reports.dir}.                                                        -->
+    <macrodef name="run-integration-tests-macro">
+        <element name="junit-classpath" optional="no" />
+        <sequential>
+            <_initialise-ant-contribs-macro />
+
+            <mkdir dir="${test.reports.dir}" />
+
+            <property name="testCases" value="**/*Test*.class" />
+
+            <junit dir="${project.dir}" showoutput="yes" printsummary="yes" fork="yes" errorproperty="integration-test-errored" failureproperty="integration-test-failed">
+                <!--jvmarg value="-Djava.protocol.handler.pkgs=com.ail.core.urlhandler" /-->
+                <!--jvmarg value="-Xrunjdwp:transport=dt_socket,address=8786,server=y,suspend=y" /-->
+                <!--jvmarg value="-Duser.language=en" /-->
+                <!--jvmarg value="-Duser.country=US" /-->
+
+                <classpath>
+                    <dirset dir="${test.dir}" includes="integration-test.jar" excludes="**/*-javadoc.jar,**/*-sources.jar" />
+                    <junit-classpath />
+                </classpath>
+
+                <formatter type="xml" />
+
+                <batchtest fork="yes" todir="${test.reports.dir}" filtertrace="no">
+                    <fileset dir="${test.dir}/integration-test.jar" includes="${testCases}" excludes="${excluded.tests}, **/*$*" />
+                </batchtest>
+            </junit>
+
+            <if>
+                <istrue value="${integration-test-failed}" />
+                <then>
+                    <echo message="${line.separator}integration-test-failed=true" file="${test.results.file}" append="yes" />
+                </then>
+            </if>
+
+            <if>
+                <istrue value="${integration-test-errored}" />
+                <then>
+                    <echo message="${line.separator}integration-test-errored=true" file="${test.results.file}" append="yes" />
+                </then>
+            </if>
+
+        </sequential>
+    </macrodef>
+
+    <macrodef name="format-unit-test-results-macro">
+        <sequential>
+            <junitreport todir="${test.reports.dir}">
+                <fileset dir="${test.reports.dir}">
+                    <include name="TEST-*.xml" />
+                </fileset>
+                <report format="frames" todir="${test.reports.dir}/html" />
+            </junitreport>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="fail-on-integration-test-error-macro">
+        <sequential>
+            <_initialise-ant-contribs-macro />
+
+            <property file="${test.results.file}" />
+
+            <if>
+                <or>
+                    <istrue value="${integration-test-errored}" />
+                    <istrue value="${integration-test-failed}" />
+                </or>
+                <then>
+                    <fail message="Integration test errors/failures. Test reports are in ${test.reports.dir}." />
+                </then>
+            </if>
+        </sequential>
+    </macrodef>
+
+    <!-- Run the unit tests associated with a project. Reports are written to -->
+    <!-- ${test.reports.dir}.                                                 -->
+    <macrodef name="run-unit-tests-macro">
+        <element name="junit-classpath" optional="no" />
+        <attribute name="test-dir" default="${test.dir}/unit-test.jar" />
+        <sequential>
+            <_initialise-ant-contribs-macro />
+
+            <mkdir dir="${test.reports.dir}" />
+
+            <property name="testCases" value="**/*Test*.class" />
+
+            <junit showoutput="yes" printsummary="yes" fork="yes" errorproperty="errored" failureproperty="failed">
+                <jvmarg value="-Djava.protocol.handler.pkgs=com.ail.core.urlhandler" />
+                <!-- To enable the debugger on the unit test process:                              -->
+                <jvmarg value="-Xrunjdwp:transport=dt_socket,address=8786,server=y,suspend=y" />
+
+                <classpath>
+                    <junit-classpath />
+                </classpath>
+
+                <formatter type="xml" />
+
+                <batchtest fork="no" todir="${test.reports.dir}" filtertrace="no">
+                    <fileset dir="@{test-dir}" includes="${testCases}" excludes="**/*$*.class" />
+                </batchtest>
+            </junit>
+
+            <if>
+                <or>
+                    <istrue value="${errored}" />
+                    <istrue value="${failed}" />
+                </or>
+                <then>
+                    <fail message="Unit test errors/failures. Logs are here: ${test.reports.dir}" />
+                </then>
+            </if>
+
+        </sequential>
+    </macrodef>
+
+    <macrodef name="generate-sample-data-macro">
+        <sequential>
+            <_initialise-ant-contribs-macro />
+            <if>
+                <not>
+                    <istrue value="${nodemo}" />
+                </not>
+                <then>
+                    <path id="generate.classpath">
+                        <fileset dir="${module.dir}/com/ail/core/main" includes="*.jar" />
+                        <fileset dir="${module.dir}/com/ail/insurance/main" includes="*.jar" />
+                        <fileset dir="${module.dir}/com/liferay/portal/main" includes="mysql.jar" />
+                        <dirset dir="${module.dir}/com/ail/core/main" includes="core.jar" />
+                        <dirset dir="${module.dir}/com/ail/insurance/main" includes="insurance.jar" />
+                    </path>
+        
+                    <property name="actuarial" value="jdbc:mysql://${dbhost}/${dbname.dwh.prefix}_AIL_Base_DataSource_Master_Motor" />
+                    <property name="report" value="jdbc:mysql://${dbhost}/${dbname.dwh.prefix}_AIL_Base_Report" />
+        
+                    <parallel threadcount="${threads}" >
+                        <java fork="yes" classname="com.ail.insurance.actuarial.DataGenerator" classpathref="generate.classpath">
+                            <arg line="-q ${mysql.driver} ${actuarial} 'root' '${mysql.root.password}'" />
+                        </java>
+        
+                        <java fork="yes" classname="com.ail.insurance.policy.DataGenerator" classpathref="generate.classpath">
+                            <arg line="-q ${mysql.driver} ${report} 'root' '${mysql.root.password}'" />
+                        </java>
+                    </parallel>
+                </then>
+            </if>
+        </sequential>
+    </macrodef>
+
+    <!-- Macro to export policy data to be used as test data into the source tree for future builds. -->
+    <macrodef name="_policy-export-macro">
+        <sequential>
+
+            <!-- If mysql isn't the right version, the dump files will be hard/impossible to diff. -->
+            <verify-mysql-version-macro required="5.6" />
+
+            <path id="jdbc.driver.classpath">
+                <fileset dir="${buildlib.dir}" includes="*.jar" />
+            </path>
+
+            <sql driver="com.mysql.jdbc.Driver" classpathref="jdbc.driver.classpath" print="yes" url="jdbc:mysql://${dbhost}/${dbname.openunderwriter}" userid="root" password="${mysql.root.password}" output="${tmp.dir}/sqlresults.txt">
+                UPDATE polPolicy SET polTestCase=FALSE WHERE polProductName NOT LIKE '%WidgetShowcase%';
+            </sql>
+
+            <property name="dump.command" value="mysqldump --no-create-info --skip-triggers --user=root --password=${mysql.root.password} --opt --dump-date=FALSE --ignore-table=${dbname.openunderwriter}.conConfig --extended-insert=FALSE ${dbname.openunderwriter} > ${policy.test.data.file}" />     
+          
+            <exec executable="bash" dir="." osfamily="unix">
+                <arg line='-l -c "${dump.command}"' />
+            </exec>
+
+            <exec executable="cmd" dir="." osfamily="windows">
+                <arg line='/c "{dump.command}"' />
+            </exec>
+
+        </sequential>
+    </macrodef>
+
+</project>

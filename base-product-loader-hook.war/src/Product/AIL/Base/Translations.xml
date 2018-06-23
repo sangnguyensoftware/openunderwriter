@@ -1,0 +1,959 @@
+<translations defaultLanguage="en" xsi:type="java:com.ail.core.language.Translations" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <translation language="en">
+        <element key="i18n_?">?</element>
+        <element key="i18n_Yes">Yes</element>
+        <element key="i18n_No">No</element>
+
+        <element key="i18n_Attachment">Attachment</element>
+        <element key="i18n_Certificate">Certificate</element>
+        <element key="i18n_Invoice">Invoice</element>
+        <element key="i18n_Other">Other</element>
+        <element key="i18n_Policy">Policy</element>
+        <element key="i18n_Quotation">Quotation</element>
+        <element key="i18n_Schedule">Schedule</element>
+        <element key="i18n_Unknown">Unknown</element>
+        <element key="i18n_Wording">Wording</element>
+        <element key="i18n_Endorsement">Endorsement</element>
+        <element key="i18n_Cancellation">Cancellation</element>
+        <element key="i18n_Combined">Combined</element>
+        
+        <element key="i18n_Image">Image</element>
+
+        <element key="i18n_years">years</element>
+        <element key="i18n_year">year</element>
+        <element key="i18n_months">months</element>
+        <element key="i18n_month">month</element>
+        <element key="i18n_days">days</element>
+        <element key="i18n_day">day</element>
+
+        <element key="i18n_policy_number">Policy Number</element>
+        <element key="i18n_quote_number">Quote Number</element>
+        <element key="i18n_system_id">System ID</element>
+        <element key="i18n_external_id">External ID</element>
+ 
+        <element key="i18n_no_policy_message">No policy selected.</element>
+
+        <element key="i18n_next_button_label">Next</element>
+        <element key="i18n_previous_button_label">Previous</element>
+        <element key="i18n_quit_button_label">Quit</element>
+        <element key="i18n_quote_button_label">Get A Quote</element>
+        <element key="i18n_finish_button_label">Finish</element>
+        <element key="i18n_requote_button_label">Requote</element>
+        <element key="i18n_save_button_label">Save</element>
+        <element key="i18n_confirm_and_pay_button_label">Confirm and Pay</element>
+        <element key="i18n_view_quotation_document_button_label">Quote document</element>
+        <element key="i18n_view_certificate_document_button_label">Certificate</element>
+        <element key="i18n_view_invoice_document_button_label">Invoice</element>
+        <element key="i18n_view_wording_document_button_label">Wording</element>
+        <element key="i18n_view_policy_document_button_label">Policy</element>
+        <element key="i18n_view_schedule_document_button_label">Schedule</element>
+
+        <element key="i18n_proposer_page_title">About You - The Proposer</element>
+        <element key="i18n_payment_options_page_title">Confirm and Pay</element>
+        <element key="i18n_payment_details_page_title">Payment details</element>
+        <element key="i18n_finish_page_title">Thank you</element>
+        
+        <element key="i18n_page_error">Some questions were not completed correctly, see details below.</element>
+        <element key="i18n_invalid_error">invalid</element>
+        <element key="i18n_required_error">required</element>
+        
+        <element key="i18n_label_add_label">+Label</element>
+        <element key="i18n_label_watch">Watch</element>
+        <element key="i18n_label_policy_litigation">Litigation</element>
+        <element key="i18n_label_policy_reviewed">Reviewed</element>
+        <element key="i18n_label_claim_litigation">Litigation</element>
+        <element key="i18n_label_note_watch_reason">Watch reason</element>
+        <element key="i18n_label_note_cancellation_cooling_off">Cancel in Cooling Off period</element>
+        <element key="i18n_label_note_cancellation_from_outset">Cancel from outset</element>
+        <element key="i18n_label_note_cancellation_non_disclosure">Non-disclosure</element>
+        <element key="i18n_label_note_cancellation_other_policy">Taken out another policy</element>
+        <element key="i18n_label_note_cancellation_other">Other</element>
+        <element key="i18n_label_note_reinstatement_financial">Reinstatement</element>
+        <element key="i18n_label_note_reinstatement_other">Other</element>
+        <element key="i18n_label_note_general">General</element>
+        <element key="i18n_label_party_hard_of_hearing">Hard of hearing</element>
+        <element key="i18n_label_party_bereaved">Bereaved</element>
+        <element key="i18n_label_medical_sensitive">Medically sensitive</element>
+        <element key="i18n_label_financially_sensitive">Financially sensitive</element>
+        
+        <element key="i18n_label_payment_holiday_cancellation_new_business_opportunity">New business opportunity</element>
+        <element key="i18n_label_payment_holiday_cancellation_reason_two">Reason two</element>
+        <element key="i18n_label_payment_holiday_cancellation_reason_three">Reason three</element>
+
+        <element key="i18n_policy_status_application">Application</element>
+        <element key="i18n_policy_status_cancelled">Cancelled</element>
+        <element key="i18n_policy_status_canceled_from_inception">Cancelled From Inception</element>
+        <element key="i18n_policy_status_declined">Declined</element>
+        <element key="i18n_policy_status_deleted">Deleted</element>
+        <element key="i18n_policy_status_lapsed">Lapsed</element>
+        <element key="i18n_policy_status_not_taken_up">Not Taken Up</element>
+        <element key="i18n_policy_status_on_risk">On Risk</element>
+        <element key="i18n_policy_status_quotation">Quotation</element>
+        <element key="i18n_policy_status_referred">Referred</element>
+        <element key="i18n_policy_status_submitted">Submitted</element>
+        <element key="i18n_policy_status_unused">Unused</element>
+
+        <element key="i18n_policy_search_all">[All]</element>
+
+        <element key="i18n_unrecoverable_pageflow_error_title">Internal system error</element>
+        <element key="i18n_unrecoverable_pageflow_error_message">There is an internal system error which is preventing you from proceeding. We will rectify the problem as soon as possible and will contact you if necessary. We apologies for the inconvenience this has caused.</element>
+        
+        <element key="i18n_referred">Referred</element>
+        <element key="i18n_declined">Declined</element>
+
+        <element key="i18n_aggregator_quotation_selector_policy_not_aggregator_warning_message">Quotation aggregation result cannot be displayed. The current quotation is not an aggregator quotation.</element>
+        <element key="i18n_aggregator_quotation_selector_no_quotations_found">No aggregated quotations were found.</element>
+        <element key="i18n_aggregator_quotation_selector_select">Select</element>
+        
+        <element key="i18n_quotation_summary_quote_message">Your Quotation: %s</element>
+        <element key="i18n_quotation_summary_quote_number_message"><![CDATA[Your quote number: <b>%s</b>]]></element>
+        <element key="i18n_quotation_summary_valid_until_message">This quote is valid until: %s.</element>
+        <element key="i18n_quotation_summary_sample_wording_message"><![CDATA[A sample of the policy wordings is available <a target='wordings' href='%s'>here</a>.]]></element>
+        <element key="i18n_quotation_summary_inclusive_header_message">This quote is inclusive of </element>
+        <element key="i18n_quotation_summary_inclusive_rate_message">%s at %s</element>
+        <element key="i18n_quotation_summary_inclusive_sum_message">%s of %s</element>
+        <element key="i18n_quotation_summary_missing_tandc_message">Please contact us at %s for a copy of our Terms &apos; Conditions.</element>
+        <element key="i18n_quotation_summary_existing_account_message">If you have an existing account, please login here. If not, please %s.</element>
+        <element key="i18n_quotation_summary_create_message">create one</element>
+        <element key="i18n_quotation_summary_login_and_save_button_label">Login &amp; Save</element>
+        
+        <element key="i18n_document_generation_quotation_document_title">Quotation %s</element>
+        <element key="i18n_document_generation_invoice_document_title">Invoice %s</element>
+        <element key="i18n_document_generation_wording_document_title">Wording %s</element>
+        <element key="i18n_document_generation_certificate_document_title">Certificate %s</element>
+        <element key="i18n_document_generation_policy_document_title">Policy %s</element>
+        <element key="i18n_document_generation_schedule_document_title">Schedule %s</element>
+
+        <element key="i18n_document_generation_quotation_document_filename">Quotation %s.pdf</element>
+        <element key="i18n_document_generation_invoice_document_filename">Invoice %s.pdf</element>
+        <element key="i18n_document_generation_wording_document_filename">Wording %s.pdf</element>
+        <element key="i18n_document_generation_certificate_document_filename">Certificate %s.pdf</element>
+        <element key="i18n_document_generation_policy_document_filename">Policy %s.pdf</element>
+        <element key="i18n_document_generation_schedule_document_filename">Schedule %s.pdf</element>
+        
+        <element key="i18n_document_manager_filename_required">Required</element>
+        <element key="i18n_document_manager_duplicate_type_error">Duplicate</element>
+        <element key="i18n_document_manager_document_tab_label">Documents</element>
+        <element key="i18n_document_manager_archive_tab_label">Archive</element>
+        <element key="i18n_document_manager_duplicate_type_error">Duplicate</element>
+
+        <element key="i18n_custom_letter_builder_document_type_label">Document Type</element>
+        <element key="i18n_custom_letter_builder_custom_content_label">Content</element>
+        <element key="i18n_custom_letter_builder_recipient_label">Recipient</element>
+
+        <element key="i18n_document_template_claim_form_cover_letter">Claim form cover letter</element>
+        <element key="i18n_document_template_policy_wordings">Policy wordings</element>
+
+        <element key="i18n_quotation_saved_page_title">Quotation Saved</element>
+
+        <element key="i18n_assessment_sheet_details_no_assessment_sheet_message">The selected policy has no assessment sheets.</element>
+        <element key="i18n_assessment_sheet_details_title">Assessment Sheet for Quotation %s</element>
+        <element key="i18n_assessment_sheet_details_product_title">Product</element>
+        <element key="i18n_assessment_sheet_details_status_title">Status</element>
+        <element key="i18n_assessment_sheet_details_total_premium_title">Premium</element>
+        <element key="i18n_assessment_sheet_details_policy_title">Policy</element>
+        <element key="i18n_assessment_sheet_details_section_title">Section</element>
+        <element key="i18n_assessment_sheet_section_title">%s assessment lines</element>
+        <element key="i18n_assessment_sheet_notes_title">Notes</element>
+        <element key="i18n_assessment_sheet_id_title">Identifiers</element>
+        <element key="i18n_assessment_sheet_description_title">Description</element>
+        <element key="i18n_assessment_sheet_source_title">Source</element>
+        <element key="i18n_assessment_sheet_calculations_title">Calculations</element>
+        <element key="i18n_assessment_sheet_type_title">Type</element>
+        <element key="i18n_assessment_sheet_rate_title">Rate</element>
+        <element key="i18n_assessment_sheet_amount_title">Amount</element>
+        <element key="i18n_assessment_sheet_markers_title">Markers</element>
+        <element key="i18n_assessment_sheet_fixedsum_title">FixedSum</element>
+        <element key="i18n_assessment_sheet_depends_on">depends on:</element>
+        <element key="i18n_assessment_sheet_contributes_to">contributes to:</element>
+        
+        <element key="i18n_broker_quotation_summary_premium_title">Gross Premium</element>
+        <element key="i18n_broker_quotation_summary_proposer_title">Proposer</element>
+        <element key="i18n_broker_quotation_summary_legal_name_label">Name</element>
+        <element key="i18n_broker_quotation_summary_address_label">Address</element>
+        <element key="i18n_broker_quotation_summary_contact_label">Contact</element>
+        <element key="i18n_broker_quotation_summary_phone_label">Phone</element>
+        <element key="i18n_broker_quotation_summary_email_label">Email</element>
+        <element key="i18n_broker_quotation_summary_total_premium_detail_title">Premium detail</element>
+        <element key="i18n_broker_quotation_summary_premium_message">The total premium shown above includes:</element>
+        <element key="i18n_broker_quotation_summary_card_details_title">Card details</element>
+        <element key="i18n_broker_quotation_summary_payments_title">Payment</element>
+        <element key="i18n_broker_quotation_summary_card_details_title">Card details</element>
+        <element key="i18n_broker_quotation_summary_account_details_title">Card details</element>
+        <element key="i18n_broker_quotation_summary_card_number_label">Card number</element>
+        <element key="i18n_broker_quotation_summary_name_on_card_label">Name on card</element>
+        <element key="i18n_broker_quotation_summary_issue_number_label">Issue number</element>
+        <element key="i18n_broker_quotation_summary_expiry_date_label">Expiry date</element>
+        <element key="i18n_broker_quotation_summary_start_date_label">Start date</element>
+        <element key="i18n_broker_quotation_summary_account_details_title">Account details</element>
+        <element key="i18n_broker_quotation_summary_account_number_label">Account number</element>
+        <element key="i18n_broker_quotation_summary_sort_code_label">Sort code</element>
+        <element key="i18n_broker_quotation_summary_paypal_title">PayPal</element>
+        <element key="i18n_broker_quotation_summary_paypal_message">The PayPal payment method was selected by the client.</element>
+        <element key="i18n_broker_quotation_summary_title">Summary</element>
+        <element key="i18n_broker_quotation_summary_product_label">Product</element>
+        <element key="i18n_broker_quotation_summary_quotation_date_label">Quotation date</element>
+        <element key="i18n_broker_quotation_summary_quotation_expiry_date_label">Quotation expiry date</element>
+        <element key="i18n_broker_quotation_summary_cover_start_date_label">Cover start date</element>
+        <element key="i18n_broker_quotation_summary_cover_end_date_label">Cover end date</element>
+        <element key="i18n_broker_quotation_summary_assessment_sheet_title">Assessment summary</element>
+
+        <element key="i18n_claim_history_claim_id">Claim Id</element>
+        <element key="i18n_claim_history_start_date">Start date</element>
+        <element key="i18n_claim_history_end_date">End date</element>
+        <element key="i18n_claim_history_total_paid">Total paid</element>
+
+        <element key="i18n_claim_status_open">Open</element>
+        <element key="i18n_claim_status_enquiry">Enquiry</element>
+        <element key="i18n_claim_status_notified">Notified</element>
+        <element key="i18n_claim_status_form_received">Form received</element>
+        <element key="i18n_claim_status_in_assessment">In assessment</element>
+        <element key="i18n_claim_status_rejected">Rejected</element>
+        <element key="i18n_claim_status_in_payment">In payment</element>
+        <element key="i18n_claim_status_closed">Closed</element>
+        <element key="i18n_claim_status_reopen">Reopend</element>
+
+        <element key="i18n_recovery_status_undefined">Undefined</element>
+        <element key="i18n_recovery_status_open">Open</element>
+        <element key="i18n_recovery_status_closed">Closed</element>
+
+        <element key="i18n_claim_payment_type_subrogation_legal">Subrogation legal</element>
+        <element key="i18n_claim_payment_type_subrogation_consultant">Subrogation consultant</element>
+        <element key="i18n_claim_payment_type_subrogation_court_expenses">Subrogation court expenses</element>
+        <element key="i18n_claim_payment_type_ard_expenses">Alternative Dispute Resolution expenses</element>
+        <element key="i18n_claim_payment_type_subrogation_other">Subrogation other</element>
+
+        <element key="i18n_claim_recovery_type_non_cash">Non cash</element>
+        <element key="i18n_claim_recovery_type_subrogation">Subrogation</element>
+        <element key="i18n_claim_recovery_type_subrogation_surety">Subrogation surety</element>
+        <element key="i18n_claim_recovery_type_subrogation_fidelity">Subrogation fidelity</element>
+        <element key="i18n_claim_recovery_type_deductible_return">Deductible return</element>
+        <element key="i18n_claim_recovery_type_contribution_from_third_party">Contribution from third party</element>
+        <element key="i18n_claim_recovery_type_contribution_from_insured">Contribution from insured</element>
+        <element key="i18n_claim_recovery_type_subrogation_second_injury_fund">Subrogation second injury fund</element>
+        
+        <element key="i18n_contact_system_main_phone_number">Main Phone Number</element>
+        <element key="i18n_contact_system_mobile_phone_number">Mobile</element>
+        <element key="i18n_contact_system_home_phone_number">Home</element>
+        <element key="i18n_contact_system_office_phone_number">Office</element>
+        <element key="i18n_contact_system_fax_phone_number">Fax</element>
+        <element key="i18n_contact_system_main_email_address">Main Email Address</element>
+        <element key="i18n_contact_system_main_postal_address">Main Address</element>
+
+        <element key="i18n_contact_system_broker_quote_phone_number">Quote phone number</element>
+        <element key="i18n_contact_system_broker_payment_phone_number">Payments phone number</element>
+        <element key="i18n_contact_system_broker_claim_phone_number">Claims phone number</element>
+        <element key="i18n_contact_system_broker_quote_email_address">Quotation email address</element>
+        <element key="i18n_contact_system_broker_policy_email_address">Policy email address</element>
+
+        <element key="i18n_referral_override_title">Referral Details for Quotation %s</element>
+        <element key="i18n_referral_override_product_title">Product</element>
+        <element key="i18n_referral_override_status_title">Status</element>
+        <element key="i18n_referral_override_total_premium_title">Premium</element>
+        <element key="i18n_referral_override_referral_details">Referral details</element>
+        <element key="i18n_referral_override_control_title">Override</element>
+        <element key="i18n_referral_override_referral_decline_action">Decline</element>
+        <element key="i18n_referral_override_recalcultate">Recalculate Premium</element>
+        
+        <element key="i18n_revison_type_insert">Added</element>
+        <element key="i18n_revison_type_update">Modified</element>
+        <element key="i18n_revison_type_delete">Deleted</element>
+
+        <element key="i18n_party_relationship_doctor">Doctor</element>
+        <element key="i18n_party_relationship_guardian">Guardian</element>
+        <element key="i18n_party_relationship_power_of_attorney">Power of attorney</element>
+
+        <element key="i18n_party_role_claim_loss_adjuster">Loss adjuster</element>
+        <element key="i18n_party_role_claim_claim_handler">Claim handler</element>
+        <element key="i18n_party_role_policy_proposer">Proposer</element>
+        <element key="i18n_party_role_policy_policy_holder">Policy holder</element>
+        <element key="i18n_party_role_policy_client">Client</element>
+        <element key="i18n_party_role_policy_broker">Broker</element>
+
+        <element key="i18n_payment_scheduled_details_calculate_button_label">Calculate</element>
+        <element key="i18n_payment_scheduled_details_amount_due_label">Calculate</element>
+        <element key="i18n_payment_scheduled_details_amount_to_pay_label">Amount to pay</element>
+        <element key="i18n_payment_scheduled_details_method_label">Payment method</element>
+        <element key="i18n_payment_scheduled_details_frequency_label">Payment frequency</element>
+        <element key="i18n_payment_scheduled_details_date_label">Date</element>
+        <element key="i18n_payment_scheduled_details_number_label">Number of payments</element>
+
+        <element key="i18n_policy_admin_title">Policy Admin for %s</element>
+        <element key="i18n_policy_admin_product_title">Product</element>
+        <element key="i18n_policy_admin_status_title">Status</element>
+        <element key="i18n_policy_admin_total_premium_title">Premium</element>
+        <element key="i18n_policy_admin_dates_title">Dates</element>
+        <element key="i18n_policy_admin_inception_date">Inception</element>
+        <element key="i18n_policy_admin_expiry_date">Expiry</element>
+        
+        <element key="i18n_quote_to_on_risk_title">Override Details for Quotation %s</element>
+        <element key="i18n_quote_to_on_risk_product_title">Product</element>
+        <element key="i18n_quote_to_on_risk_status_title">Status</element>
+        <element key="i18n_quote_to_on_risk_total_premium_title">Premium</element>
+        
+        <element key="i18n_money_provision_type_premium">Premium</element>
+        <element key="i18n_money_provision_type_arrears">Arrears</element>
+        <element key="i18n_money_provision_type_claim">Claim</element>
+        <element key="i18n_money_provision_type_commission">Commission</element>
+        <element key="i18n_money_provision_type_refund">Refund</element>
+        <element key="i18n_money_provision_type_thirdparty">ThirdParty</element>
+        
+        <element key="i18n_premium_received_journal_type">Premium Received</element>
+        <element key="i18n_premium_due_journal_type">Premium Due</element>
+        <element key="i18n_premium_waiver_journal_type">Premium Waiver</element>
+        <element key="i18n_arrears_received_journal_type">Arrears Received</element>
+        <element key="i18n_arrears_due_journal_type">Arrears Due</element>
+        <element key="i18n_claim_due_journal_type">Claim Due</element>
+        <element key="i18n_claim_received_journal_type">Claim Received</element>
+        <element key="i18n_commission_due_journal_type">Commission Due</element>
+        <element key="i18n_commission_received_journal_type">Commission Received</element>
+        <element key="i18n_refund_due_journal_type">Refund Due</element>
+        <element key="i18n_refund_received_journal_type">Refund Received</element>
+        <element key="i18n_thirdparty_due_journal_type">Third Party Due</element>
+        <element key="i18n_thirdparty_received_journal_type">Third Party Received</element>
+        <element key="i18n_tax_due_journal_type">Tax Due</element>
+        <element key="i18n_tax_received_journal_type">Tax Received</element>
+        
+        <element key="i18n_commission_journal_line_type">Commission</element>
+        <element key="i18n_premium_journal_line_type">Premium</element>
+        <element key="i18n_claim_journal_line_type">Claim</element>
+        <element key="i18n_arrears_journal_line_type">Arrears</element>
+        <element key="i18n_refund_journal_line_type">Refund</element>
+        <element key="i18n_thirdparty_journal_line_type">Third Party</element>
+        <element key="i18n_tax_journal_line_type">Tax</element>
+
+        <element key="i18n_override_to_application_confirm">Please confirm you wish to reset this to APPLCATION?</element>
+        <element key="i18n_override_to_onrisk_confirm">Please confirm you wish to apply any calculations and put this to ON RISK?</element>
+        <element key="i18n_override_to_quotation_confirm">Please confirm you wish to apply any calculations and make this a QUOTATION?</element>
+        <element key="i18n_override_to_decline_confirm">Please confirm you wish to set this to DECLINE?</element>
+        <element key="i18n_override_to_quotation_alert">At least one product must be set to QUOTATION</element>
+        
+        <element key="i18n_proposer_stage">Proposer</element>
+        <element key="i18n_payment_stage">Payment</element>
+        <element key="i18n_finished_stage">Finished</element>
+        
+        <element key="i18n_document_manager_title_column_heading">Title</element>
+        <element key="i18n_document_manager_description_column_heading">Description</element>
+        <element key="i18n_document_manager_type_column_heading">Type</element>
+        <element key="i18n_document_manager_filename_column_heading">File</element>
+        <element key="i18n_document_manager_created_date_column_heading">Created:</element>
+        <element key="i18n_document_manager_updated_date_column_heading">Updated:</element>
+        <element key="i18n_document_manager_delete_column_heading"><![CDATA[&nbsp;]]></element>
+        <element key="i18n_document_manager_download_column_heading"><![CDATA[&nbsp;]]></element>
+        <element key="i18n_document_manager_required_date_column_heading">Required date</element>
+        <element key="i18n_document_manager_requires_signing_column_heading">Requires signing</element>
+        <element key="i18n_document_manager_combine_button_label">Combine documents</element>
+        
+        <element key="i18n_note_details_add_note_label">Add note</element>
+        <element key="i18n_note_details_type_label">Type</element>
+        <element key="i18n_note_details_title_label">Title</element>
+        <element key="i18n_note_details_created_message">Created %s by %s</element>
+        <element key="i18n_note_details_updated_message">Updated %s by %s</element>
+
+        <element key="i18n_proposer_quotation_summary_premium_title">Gross Premium</element>
+        <element key="i18n_proposer_quotation_summary_premium_title">Premium: </element>
+        <element key="i18n_proposer_quotation_summary_legal_name_label">Name</element>
+        <element key="i18n_proposer_quotation_summary_address_label">Address</element>
+        <element key="i18n_proposer_quotation_summary_contact_label">Contact</element>
+        <element key="i18n_proposer_quotation_summary_phone_label">Phone</element>
+        <element key="i18n_proposer_quotation_summary_email_label">Email</element>
+        <element key="i18n_proposer_quotation_summary_proposer_title">Contact details</element>
+        <element key="i18n_proposer_quotation_summary_legal_name_label">Name</element>
+        <element key="i18n_proposer_quotation_summary_address_label">Address</element>
+        <element key="i18n_proposer_quotation_summary_mobile_label">Mobile</element>
+        <element key="i18n_proposer_quotation_summary_phone_label">Phone</element>
+        <element key="i18n_proposer_quotation_summary_email_label">Email</element>
+        <element key="i18n_proposer_quotation_summary_premium_message">The total premium shown above includes:</element>
+        <element key="i18n_proposer_quotation_summary_card_details_title">Card details</element>
+        <element key="i18n_proposer_quotation_summary_payments_title">Payment</element>
+        <element key="i18n_proposer_quotation_summary_card_number_label">Card number</element>
+        <element key="i18n_proposer_quotation_summary_name_on_card_label">Name on card</element>
+        <element key="i18n_proposer_quotation_summary_issue_number_label">Issue number</element>
+        <element key="i18n_proposer_quotation_summary_expiry_date_label">Expiry date</element>
+        <element key="i18n_proposer_quotation_summary_start_date_label">Start date</element>
+        <element key="i18n_proposer_quotation_summary_account_details_title">Account details</element>
+        <element key="i18n_proposer_quotation_summary_account_number_label">Account number</element>
+        <element key="i18n_proposer_quotation_summary_sort_code_label">Sort code</element>
+        <element key="i18n_proposer_quotation_summary_title">Summary</element>
+        <element key="i18n_proposer_quotation_summary_product_label">Product</element>
+        <element key="i18n_proposer_quotation_summary_quotation_date_label">Quotation date</element>
+        <element key="i18n_proposer_quotation_summary_quotation_expiry_date_label">Quotation expiry date</element>
+        <element key="i18n_proposer_quotation_summary_cover_start_date_label">Cover start date</element>
+        <element key="i18n_proposer_quotation_summary_cover_end_date_label">Cover end date</element>
+        <element key="i18n_proposer_quotation_summary_quote_introduction"><![CDATA[Dear %s,<br/><br/>Thank you for using %s. We have great pleasure in presenting details of your quotation below. <br/><br/>Please contact us on %s if you have any questions related to this quote.<br/>]]></element>
+        <element key="i18n_proposer_quotation_summary_submitted_introduction"><![CDATA[Dear %s,<br/><br/>Thank you for using %s. We have great pleasure in presenting details of your quotation below. This has been submitted to our underwriting department and a policy document will be issued shortly.<br/><br/>Please contact us on %s if you have any questions related to this quote.<br/>]]></element>
+        <element key="i18n_proposer_quotation_summary_referral_introduction"><![CDATA[Dear %s,<br/><br/>Thank you for using %s. Unfortunatly our online system was unable to provide an automated quotation meeting your specific needs. However, details have been forwarded to an underwriter who will contact you shortly. <br/><br/>Please contact us on %s if you have any questions related to this quotation.]]></element>
+        <element key="i18n_proposer_quotation_summary_onrisk_introduction"><![CDATA[Dear %s,<br/><br/>Thank you for using %s. We are very pleased to attach a copy of your documents. <br/><br/>Please contact us on %s if you have any questions related to your policy.]]></element>
+        
+        <element key="i18n_policy_summary_quotation_title">Quotation Summary for %s</element>
+        <element key="i18n_policy_summary_policy_title">Policy Summary for %s</element>
+        <element key="i18n_policy_summary_client_id">ID</element>
+        <element key="i18n_policy_summary_policy_id">Policy ref</element>
+        <element key="i18n_policy_summary_contact_title">Contact details</element>
+        <element key="i18n_policy_summary_legal_name_label">Name</element>
+        <element key="i18n_policy_summary_address_label">Address</element>
+        <element key="i18n_policy_summary_contact_label">Contact</element>
+        <element key="i18n_policy_summary_mobile_label">Mobile</element>
+        <element key="i18n_policy_summary_phone_label">Phone</element>
+        <element key="i18n_policy_summary_email_label">Email</element>
+        <element key="i18n_policy_summary_dates_title">Dates</element>
+        <element key="i18n_policy_summary_premium_detail_title">Premium details</element>
+        <element key="i18n_policy_summary_premium_message">The total premium shown above includes:</element>
+        <element key="i18n_policy_summary_payments_title">Payment details</element>
+        <element key="i18n_policy_summary_card_details_title">Payment card</element>
+        <element key="i18n_policy_summary_card_number_label">Card number</element>
+        <element key="i18n_policy_summary_name_on_card_label">Name on card</element>
+        <element key="i18n_policy_summary_issue_number_label">Issue number</element>
+        <element key="i18n_policy_summary_start_date_label">Start date</element>
+        <element key="i18n_policy_summary_expiry_date_label">End date</element>
+        <element key="i18n_policy_summary_payment_amount">Amount</element>
+        <element key="i18n_policy_summary_payment_frequency">Frequency</element>
+        <element key="i18n_policy_summary_payment_status">Status</element>
+        <element key="i18n_policy_summary_number_of_payments_label">Number of payments</element>
+        <element key="i18n_policy_summary_account_details_title">Account details</element>
+        <element key="i18n_policy_summary_paypal_title">PayPal</element>
+        <element key="i18n_policy_summary_paypal_message">PayPa1 payment method was seleced by the client.</element>
+        <element key="i18n_policy_summary_stripe_title">Stripe</element>
+        <element key="i18n_policy_summary_stripe_message">Stripe payment method was seleced by the client.</element>
+        <element key="i18n_policy_summary_account_number_label">Account number</element>
+        <element key="i18n_policy_summary_sort_code_label">Sort code</element>
+        <element key="i18n_policy_summary_application_title">Summary for Application %d</element>
+        <element key="i18n_policy_summary_product_title">Product</element>
+        <element key="i18n_policy_summary_status_title">Status</element>
+        <element key="i18n_policy_summary_total_premium_title">Premium</element>
+        <element key="i18n_policy_summary_quotation_date_label">Quotation Date</element>
+        <element key="i18n_policy_summary_quotation_expiry_date_label">Quotation Expiry Date</element>
+        <element key="i18n_policy_summary_cover_inception_date_label">Cover Inception Date</element>
+        <element key="i18n_policy_summary_cover_expiry_date_label">Cover Expiry Date</element>
+        <element key="i18n_policy_summary_no_records">No record.</element>
+        <element key="i18n_policy_summary_payment_history_title">Payment history</element>
+        <element key="i18n_policy_summary_payment_options_title">Payment options</element>
+	
+		<element key="i18n_policy_detail_policy_title">Policy Details for %s</element>
+		<element key="i18n_policy_detail_quotation_title">Quotation Details for %s</element>
+		<element key="i18n_policy_detail_application_title">Application Details for %s</element>
+		<element key="i18n_policy_detail_policy_asset_title">Assets</element>
+		
+		<element key="i18n_policy_detail_policy_coverage_title">Policy Coverages</element>
+		<element key="i18n_policy_detail_section_coverage_title">Section Coverages</element>
+	
+        <element key="i18n_buy_with_eway_payment_description">Buy with eWAY</element> 
+        <element key="i18n_buy_with_iwinpay_payment_description">Buy with Swifin</element> 
+		<element key="i18n_buy_with_paypal_payment_description">Buy with PayPal</element> 
+		<element key="i18n_buy_with_sagepay_payment_description">Buy with SagePay</element> 
+
+        <element key="i18n_login_section_username_missmatch_error">usernames do not match</element>
+        <element key="i18n_login_section_password_missmatch_error">passwords do not match</element>
+        <element key="i18n_login_section_username_taken_error">username already taken</element>
+        <element key="i18n_login_section_unknown_username_error">username not recognized</element>
+        <element key="i18n_login_section_login_failed_error">The username or password that you entered is incorrect.</element>
+        <element key="i18n_login_section_username_label">Email address:</element>
+        <element key="i18n_login_section_confirm_username_label">Confirm email address:</element>
+        <element key="i18n_login_section_password_label">Password:</element>
+        <element key="i18n_login_section_confirm_password_label">Confirm password:</element>
+        <element key="i18n_login_section_login_button_label">Login</element>
+        <element key="i18n_login_section_create_and_save_button_label">Create &apos; Save</element>
+        <element key="i18n_login_section_email_password_message">Enter your email address below and your password will be emailed to you.</element>
+        <element key="i18n_login_section_send_reminder_button_label">Send Reminder</element>
+        <element key="i18n_login_section_forgotten_password_label">Forgotten password?</element>
+        <element key="i18n_login_section_create_account_label">Create new account</element>
+        <element key="i18n_login_section_create_button_label">Create Login</element>
+        <element key="i18n_login_section_login_here_label">Login here</element>
+        <element key="i18n_login_section_create_or_login_message"><![CDATA[Create a new account here. If you have an existing account, please <a onClick='showDivDisplay("UserLogin");hideDivDisplay("CreateLogin");'>login here</a>.]]></element>
+        <element key="i18n_login_section_forgotten_password_title">Forgotten Password</element>
+
+		<element key="i18n_payment_details_summary_title">Payment Details for %s</element>
+        <element key="i18n_payment_details_title">Your quotation</element>
+        <element key="i18n_payment_details_premium_label">Premium</element>
+        <element key="i18n_payment_details_cover_start_date_label">Cover start</element>
+        <element key="i18n_payment_details_cover_end_date_label">Cover end</element>
+        <element key="i18n_payment_details_contact_details_title">Your contact information</element>
+        <element key="i18n_payment_details_name_label">Name</element>
+        <element key="i18n_payment_details_address_label">Address</element>
+        <element key="i18n_payment_details_email_address_label">Email address</element>
+        <element key="i18n_payment_details_payment_details_title">Payment details</element>
+        <element key="i18n_payment_details_originator_label">Originator</element>
+        <element key="i18n_payment_details_originator_id_label">Originator's identification number</element>
+        <element key="i18n_payment_details_account_number_label">Account number</element>
+        <element key="i18n_payment_details_sort_code_label">Sort code</element>
+        <element key="i18n_payment_details_card_title">Card Details</element>
+        <element key="i18n_payment_details_card_description">Please enter your credit/debit card details</element>
+        <element key="i18n_payment_details_card_number_label">Card number</element>
+        <element key="i18n_payment_details_card_start_date_label">Start date</element>
+        <element key="i18n_payment_details_card_expiry_date_label">Expiry date</element>
+        <element key="i18n_payment_details_card_issue_number_label">Issue number</element>
+        <element key="i18n_payment_details_card_cardholders_name_label">Cardholder&apos;s name</element>
+        <element key="i18n_payment_details_direct_debit_title">Bank Details</element>
+        <element key="i18n_payment_details_direct_debit_description">Please enter your bank account number and sort code so that we can take payment from your account</element>
+        <element key="i18n_payment_details_direct_debit_message"><![CDATA[Please pay %s from the account detailed in this instruction subject to the safeguards assured by the direct debit guarantee. I understand that this instruction may remain with the originator mentioned above and, if so, details will be passed electronically to my bank or building society.<br/><br/> ]]></element>
+        <element key="i18n_payment_details_guarantee_message"><![CDATA[<u>Direct Debit Guarantee</u><br/>This guarantee is offered by all banks and building societies that take part in the Direct Debit scheme. The efficiency and security of the scheme is monitored and protected by your own bank or building society.<ul><li>If the amounts to be paid or the payment dates change, you will be told of this 8 days in advance of your account being debited.</li><li>If an error is made by %s or your bank or building society, you are guaranteed a full and immediate refund from your branch of the amount paid.</li><li>You can cancel a Direct Debit at any time by writing to your bank or building society. Please also send a copy of your letter to us.</li></ul> ]]></element>
+        <element key="i18n_payment_details_submit_title">Submit</element>
+        <element key="i18n_payment_details_confirm_message"><![CDATA[Please note you have confirmed that you are not falsely representing yourself or impersonating someone else within the details you are submitting for this policy and payment. You also confirm that you are the only person required to authorise this debit from your account. If you can not comply please contact us.<br/><br/>You can contacted us on %s<br/><br/> ]]></element>
+        <element key="i18n_payment_details_confirm_label"><![CDATA[Please tick this box to confirm that the details you have entered are correct&nbsp;]]></element>
+        <element key="i18n_payment_details_confirm_error_label">please confirm</element>
+        
+		<element key="i18n_payment_holiday_from_title">From</element>
+		<element key="i18n_payment_holiday_to_title">To</element>
+		<element key="i18n_payment_holiday_duration_title">Duration</element>
+		<element key="i18n_payment_holiday_date_overlap_error">Periods overlap</element>
+		<element key="i18n_min_consecutive_error">Less than %s month minimum permissable period</element>
+		<element key="i18n_max_consecutive_error">Exceeds %s month permissable period</element>
+		<element key="i18n_max_lifetime_error">Combined holidays exceed %s month permissable period</element>
+        <element key="i18n_payment_holiday_start_date_before_months_payment">The collection day for this premium holiday has past for this month</element>
+        <element key="i18n_payment_holiday_start_date_in_past">You cannot create a payment holiday in the past</element>
+        <element key="i18n_payment_holiday_start_date_before_arrears">You cannot create a payment holiday before the arrears start date</element>
+        <element key="i18n_payment_holiday_active_claim_error">The policy has an active claim so you can't create a payment holiday</element>
+        <element key="i18n_payment_holiday_active_status">In progress</element>
+        <element key="i18n_payment_holiday_inactive_status">Not in progress</element>
+
+        <element key="i18n_payment_option_selector_title">Payment Options</element>
+        <element key="i18n_payment_option_selector_description">Please select how you wish to pay and press next.</element>
+        <element key="i18n_payment_option_select_error">Please select an option.</element>
+        
+        <element key="i18n_proposer_details_title_label">Title</element>
+        <element key="i18n_proposer_details_other_title_label">Other title</element>
+        <element key="i18n_proposer_details_first_name_label">First name</element>
+        <element key="i18n_proposer_details_surname_label">Surname</element>
+        <element key="i18n_proposer_details_company_label">Company name</element>
+        <element key="i18n_proposer_details_company_placeholder">company name</element>
+        <element key="i18n_proposer_details_address_label">Address</element>
+        <element key="i18n_proposer_details_address_line_1_placeholder">address line 1</element>
+        <element key="i18n_proposer_details_address_line_2_placeholder">address line 2</element>
+        <element key="i18n_proposer_details_address_line_3_placeholder">address line 3</element>
+        <element key="i18n_proposer_details_address_line_4_placeholder">address line 4</element>
+        <element key="i18n_proposer_details_address_town_placeholder">town</element>
+        <element key="i18n_proposer_details_address_county_placeholder">county</element>
+        <element key="i18n_proposer_details_address_country_placeholder">country</element>
+        <element key="i18n_proposer_details_address_postcode_placeholder">postcode</element>
+        <element key="i18n_proposer_details_telephone_label">Telephone number</element>
+        <element key="i18n_proposer_details_mobilephone_label">Mobile number</element>
+        <element key="i18n_proposer_details_email_label">Email address</element>
+        <element key="i18n_proposer_details_postcode_label">Postcode</element>
+        <element key="i18n_proposer_details_proposer_error">Proposer details cannot be displayed because the quotation does not contain a proposer.</element>
+        <element key="i18n_proposer_details_proposer_address_error">Proposer details cannot be displayed because the quotation's proposer does not contain an addrees placeholder.</element>
+        <element key="i18n_proposer_details_contact_title">Contact Details</element>
+        
+        <element key="i18n_saved_quotations_title_quote">You have the following saved quote:</element>
+        <element key="i18n_saved_quotations_title_quotes">You have the following saved quotes:</element>
+        <element key="i18n_saved_quotations_quote_number_heading">Quotation Number</element>
+        <element key="i18n_saved_quotations_quote_date_heading">Quotation Date</element>
+        <element key="i18n_saved_quotations_expiry_date_heading">Expiry Date</element>
+        <element key="i18n_saved_quotations_premium_heading">Premium</element>
+        <element key="i18n_saved_quotations_login_message"><![CDATA[ Please <a onclick='showDivDisplay("Proposer Login")'>login here</a> if you have previously saved quotes that you would like to view. ]]></element>
+        <element key="i18n_saved_quotations_username_label">Email address:</element>
+        <element key="i18n_saved_quotations_password_label">Password:</element>
+        <element key="i18n_saved_quotations_forgotten_password_message">Forgotten password?</element>
+        <element key="i18n_saved_quotations_confirm_button_label">Confirm and Pay</element>
+        <element key="i18n_saved_quotations_requote_button_label">Requote</element>
+        
+        <element key="i18n_clause_details_apply_to_only">The following endorsement(s) apply to %s only</element>
+        <element key="i18n_clause_details_apply_to">The following endorsement(s) apply to %s</element>
+        <element key="i18n_clause_details_separator">, </element>
+        <element key="i18n_clause_details_last_separator"> and </element>
+		<element key="i18n_clause_details_applicable">The following endorsement(s) are applicable</element>
+
+        <element key="i18n_section_scroller_add_record_label">Add record</element>
+
+        <element key="i18n_help_popup_title">Help</element>
+        
+        <element key="i18n_paymentmethod_add">Add Payment Method</element>
+        <element key="i18n_paymentmethod_add_paymentmethod_type">Payment Method Type</element>
+        <element key="i18n_paymentmethod_details_directdebit_title">Direct Debit Details</element>
+        <element key="i18n_paymentmethod_details_directdebit_bank_name_label">Bank Name</element>
+        <element key="i18n_paymentmethod_details_directdebit_branch_name_label">Branch Name</element>
+        <element key="i18n_paymentmethod_details_directdebit_account_name_label">Account Name</element>
+        <element key="i18n_paymentmethod_details_directdebit_sort_code_label">Sort Code</element>
+        <element key="i18n_paymentmethod_details_directdebit_account_number_label">Account Number</element>
+        <element key="i18n_paymentmethod_details_paymentcard_title">Payment Card Details</element>
+        <element key="i18n_paymentmethod_details_paymentcard_issuer_label">Card Issuer</element>
+        <element key="i18n_paymentmethod_details_paymentcard_cardnumber_label">Card Number</element>
+        <element key="i18n_paymentmethod_details_paymentcard_cardholdername_label">Card Holder Name</element>
+        <element key="i18n_paymentmethod_details_paymentcard_issuenumber_label">Issue Number</element>
+        <element key="i18n_paymentmethod_details_paymentcard_startdate_label">Start Date</element>
+        <element key="i18n_paymentmethod_details_paymentcard_expirydate_label">Expiry Date</element>
+        <element key="i18n_paymentmethod_details_paymentcard_securitycode_label">Security Code</element>
+    </translation>
+    <translation language="en_US" extendsLanguage="en">
+        <element key="i18n_proposer_details_postcode_label">Zipcode</element>
+    </translation>
+    <translation language="de" extendsLanguage="en">
+        <element key="i18n_Yes">Ja</element>
+        <element key="i18n_No">Nein</element>
+
+        <element key="i18n_next_button_label">Weiter</element>
+        <element key="i18n_previous_button_label">Zurück</element>
+        <element key="i18n_quit_button_label">Beenden</element>
+        <element key="i18n_quote_button_label">Angebot einholen</element>
+        <element key="i18n_finish_button_label">Fertig stellen</element>
+        <element key="i18n_requote_button_label">Requote</element>
+        <element key="i18n_save_button_label">Speichern</element>
+        <element key="i18n_confirm_and_pay_button_label">Bestätigen und zahlen</element>
+        <element key="i18n_view_quotation_document_button_label">Angebot Anzeigen</element>
+        
+        <element key="i18n_proposer_page_title">Über Sie - der Antragsteller</element>
+        <element key="i18n_payment_options_page_title">Bestätigen und zahlen</element>
+        <element key="i18n_payment_details_page_title">Zahlungsart</element>
+        <element key="i18n_finish_page_title">Dankeschön</element>
+        
+        <element key="i18n_invalid_error">ungültig</element>
+        <element key="i18n_required_error">erforderlich</element>
+        
+        <element key="i18n_quotation_summary_quote_message">Zu zahlender Betrag: %s</element>
+        <element key="i18n_quotation_summary_quote_number_message"><![CDATA[Ihre Referenznummer: <b>%s</b>]]></element>
+        <element key="i18n_quotation_summary_valid_until_message">Dieses Angebot ist gültig bis: %s.</element>
+        <element key="i18n_quotation_summary_sample_wording_message"><![CDATA[Zu den Rechtsbedinungen <a target='wordings' href='%s'>öffnen</a>.]]></element>
+        <element key="i18n_quotation_summary_inclusive_header_message">Dieses Angebot beinhaltet </element>
+        <element key="i18n_quotation_summary_inclusive_rate_message">%s von %s</element>
+        <element key="i18n_quotation_summary_inclusive_sum_message">%s von %s</element>
+        <element key="i18n_quotation_summary_missing_tandc_message">Für die Allgemeinen Geschäftsbedingungen, kontaktieren Sie uns bitte unter %s.</element>
+        <element key="i18n_quotation_summary_existing_account_message">If you have an existing account, please login here. If not, please %s.</element>
+        <element key="i18n_quotation_summary_create_message">create one</element>
+
+        <element key="i18n_quotation_summary_login_and_save_button_label">Anmelden und Speichern</element>
+        
+        <element key="i18n_broker_quotation_summary_legal_name_label">Name</element>
+        <element key="i18n_broker_quotation_summary_address_label">Adresse</element>
+        <element key="i18n_broker_quotation_summary_phone_label">Telefon</element>
+        <element key="i18n_broker_quotation_summary_email_label">E-mail</element>
+        <element key="i18n_broker_quotation_summary_title">Zusammenfassung</element>
+        
+        <element key="i18n_login_section_username_label">E-mail Adresse:</element>
+        <element key="i18n_login_section_confirm_username_label">E-mail Adresse bestätigen:</element>
+        <element key="i18n_login_section_password_label">Passwort:</element>
+        <element key="i18n_login_section_confirm_password_label">Passwort bestätigen:</element>
+        
+        <element key="i18n_payment_details_name_label">Name</element>
+        <element key="i18n_payment_details_address_label">Adresse</element>
+        <element key="i18n_payment_details_email_address_label">E-mail</element>
+        
+        <element key="i18n_proposer_details_first_name_label">Vorname:</element>
+        <element key="i18n_proposer_details_surname_label">Nachname:</element>
+        <element key="i18n_proposer_details_company_label">Firmenname:</element>
+        <element key="i18n_proposer_details_address_label">Adresse:</element>
+        <element key="i18n_proposer_details_telephone_label">Telefonnummer:</element>
+        <element key="i18n_proposer_details_mobilephone_label">Handynummer:</element>
+        <element key="i18n_proposer_details_email_label">E-mail Adresse:</element>
+        
+        <element key="i18n_saved_quotations_username_label">E-mail Adresse:</element>
+        <element key="i18n_saved_quotations_password_label">Passwort:</element>
+        <element key="i18n_saved_quotations_forgotten_password_message">Passwort vergessen?</element>
+        <element key="i18n_saved_quotations_confirm_button_label">Bestätigen und zahlen</element>
+        <element key="i18n_saved_quotations_requote_button_label">Requote</element>
+    </translation>
+    <translation language="pt_BR">
+        <element key="i18n_?">?</element>
+        <element key="i18n_Yes">Sim</element>
+        <element key="i18n_No">Não</element>
+
+        <element key="i18n_next_button_label">Próximo</element>
+        <element key="i18n_previous_button_label">Anterior</element>
+        <element key="i18n_quit_button_label">Sair</element>
+        <element key="i18n_quote_button_label">Cotar</element>
+        <element key="i18n_finish_button_label">Finalizar</element>
+        <element key="i18n_requote_button_label">Refazer Cotação</element>
+        <element key="i18n_save_button_label">Save</element>
+        <element key="i18n_confirm_and_pay_button_label">Confirmar e Pagar</element>
+        <element key="i18n_view_quotation_document_button_label">Gerar Documento</element>
+        
+        <element key="i18n_proposer_page_title">Sobre você - O Proponente</element>
+        <element key="i18n_payment_options_page_title">Confirmar e Pagar</element>
+        <element key="i18n_payment_details_page_title">Detalhes Pagamento</element>
+        <element key="i18n_finish_page_title">Obrigado</element>
+        
+        <element key="i18n_invalid_error">inválido</element>
+        <element key="i18n_required_error">requerido</element>
+        
+        <element key="i18n_quotation_summary_quote_message">Sua Cotação: %s</element>
+        <element key="i18n_quotation_summary_quote_number_message"><![CDATA[Número sua cotação: <b>%s</b>]]></element>
+        <element key="i18n_quotation_summary_valid_until_message">Esta cotação é valida até: %s.</element>
+        <element key="i18n_quotation_summary_sample_wording_message"><![CDATA[Uma amostra das menções apólice está disponível <a target='wordings' href='%s'>aqui</a>.]]></element>
+        <element key="i18n_quotation_summary_inclusive_header_message">Esta quotação é abrangente de </element>
+        <element key="i18n_quotation_summary_inclusive_rate_message">%s em %s</element>
+        <element key="i18n_quotation_summary_inclusive_sum_message">%s de %s</element>
+        <element key="i18n_quotation_summary_missing_tandc_message">Por favor entre em contato %s para um cópia de nossos Termos &apos; Condições.</element>
+        <element key="i18n_quotation_summary_existing_account_message">Se você tem uma conta, por favor entre aqui. Se não, por favor %s.</element>
+        <element key="i18n_quotation_summary_create_message">criar um(a)</element>
+        <element key="i18n_quotation_summary_login_and_save_button_label">Login &amp; Salvar</element>
+        
+        <element key="i18n_assessment_sheet_details_title">Planilha de Avaliação de Cotação %s</element>
+        <element key="i18n_assessment_sheet_details_product_title">Produto</element>
+        <element key="i18n_assessment_sheet_details_status_title">Status</element>
+        <element key="i18n_assessment_sheet_details_total_premium_title">Prêmio Total</element>
+        <element key="i18n_assessment_sheet_details_policy_title">Apólice</element>
+        <element key="i18n_assessment_sheet_details_section_title">Seção</element>
+        <element key="i18n_assessment_sheet_section_title">%s nível de avaliação</element>
+        <element key="i18n_assessment_sheet_notes_title">Notas</element>
+        <element key="i18n_assessment_sheet_id_title">ID</element>
+        <element key="i18n_assessment_sheet_description_title">Descrição</element>
+        <element key="i18n_assessment_sheet_source_title">Fonte</element>
+        <element key="i18n_assessment_sheet_calculations_title">Cálculos</element>
+        <element key="i18n_assessment_sheet_type_title">Tipo</element>
+        <element key="i18n_assessment_sheet_rate_title">Classificação</element>
+        <element key="i18n_assessment_sheet_amount_title">Montante</element>
+        <element key="i18n_assessment_sheet_markers_title">Markers</element>
+        <element key="i18n_assessment_sheet_fixedsum_title">FixedSum</element>
+        
+        <element key="i18n_broker_quotation_summary_premium_title">Prêmio Bruto: %s</element>
+        <element key="i18n_broker_quotation_summary_proposer_title">Proponente</element>
+        <element key="i18n_broker_quotation_summary_legal_name_label">Nome</element>
+        <element key="i18n_broker_quotation_summary_address_label">Endereço</element>
+        <element key="i18n_broker_quotation_summary_phone_label">Telefone</element>
+        <element key="i18n_broker_quotation_summary_email_label">Email</element>
+        <element key="i18n_broker_quotation_summary_premium_message">O total do prêmio mostrado abaixo inclui:</element>
+        <element key="i18n_broker_quotation_summary_card_details_title">Dados cartão</element>
+        <element key="i18n_broker_quotation_summary_payments_title">Pagamento</element>
+        <element key="i18n_broker_quotation_summary_card_number_label">Número cartão</element>
+        <element key="i18n_broker_quotation_summary_name_on_card_label">Nome no cartão</element>
+        <element key="i18n_broker_quotation_summary_issue_number_label">Código segurança</element>
+        <element key="i18n_broker_quotation_summary_expiry_date_label">Data validade</element>
+        <element key="i18n_broker_quotation_summary_account_details_title">Dados conta</element>
+        <element key="i18n_broker_quotation_summary_account_number_label">Conta número</element>
+        <element key="i18n_broker_quotation_summary_sort_code_label">Sort code</element>
+        <element key="i18n_broker_quotation_summary_title">Síntese</element>
+        <element key="i18n_broker_quotation_summary_product_label">Produto</element>
+        <element key="i18n_broker_quotation_summary_quotation_date_label">Data cotação</element>
+        <element key="i18n_broker_quotation_summary_quotation_expiry_date_label">Validade cotação</element>
+        <element key="i18n_broker_quotation_summary_cover_start_date_label">Íncio cobertura</element>
+        <element key="i18n_broker_quotation_summary_cover_end_date_label">Fim cobertura</element>
+        <element key="i18n_broker_quotation_summary_assessment_sheet_title">Síntese de avaliação</element>
+        
+        <element key="i18n_proposer_quotation_summary_premium_title">Prêmio: %s</element>
+        <element key="i18n_proposer_quotation_summary_proposer_title">Dados contato</element>
+        <element key="i18n_proposer_quotation_summary_legal_name_label">Nome</element>
+        <element key="i18n_proposer_quotation_summary_address_label">Endereço</element>
+        <element key="i18n_proposer_quotation_summary_phone_label">Telefone</element>
+        <element key="i18n_proposer_quotation_summary_email_label">Email</element>
+        <element key="i18n_proposer_quotation_summary_premium_message">O total do prêmio mostrado abaixo inclui:</element>
+        <element key="i18n_proposer_quotation_summary_card_details_title">Dados cartão</element>
+        <element key="i18n_proposer_quotation_summary_payments_title">Pagamento</element>
+        <element key="i18n_proposer_quotation_summary_card_number_label">Número cartão</element>
+        <element key="i18n_proposer_quotation_summary_name_on_card_label">Nome no cartão</element>
+        <element key="i18n_proposer_quotation_summary_issue_number_label">Código segurança</element>
+        <element key="i18n_proposer_quotation_summary_expiry_date_label">Data validade</element>
+        <element key="i18n_proposer_quotation_summary_account_details_title">Dados conta</element>
+        <element key="i18n_proposer_quotation_summary_account_number_label">Conta número</element>
+        <element key="i18n_proposer_quotation_summary_sort_code_label">Sort code</element>
+        <element key="i18n_proposer_quotation_summary_title">Síntese</element>
+        <element key="i18n_proposer_quotation_summary_product_label">Produto</element>
+        <element key="i18n_proposer_quotation_summary_quotation_date_label">Data cotação</element>
+        <element key="i18n_proposer_quotation_summary_quotation_expiry_date_label">Validade cotação</element>
+        <element key="i18n_proposer_quotation_summary_cover_start_date_label">Ínicio cobertura</element>
+        <element key="i18n_proposer_quotation_summary_cover_end_date_label">Fim cobertura</element>
+        <element key="i18n_proposer_quotation_summary_quote_introduction"><![CDATA[Caro(a) %s,<br/><br/>Obrigado por usar %s. Nós temos o prazer de apresentar os detalhes de sua cotação abaixo. <br/><br/>Por favos nos contate no %s se você tem alguma dúvida sobre esta cotação.<br/>]]></element>
+        <element key="i18n_proposer_quotation_summary_submitted_introduction"><![CDATA[Caro(a) %s,<br/><br/>Obrigado por usar %s. Nós temos o prazer de apresentar os detalhes de sua cotação abaixo. Sua cotação foi submetida para o nosso departamento de subscriÇào e a apólice será emitida em breve.<br/><br/>Please contact us on %s if you have any questions related to this quote.<br/>]]></element>
+        <element key="i18n_proposer_quotation_summary_referral_introduction"><![CDATA[Dear %s,<br/><br/>Obrigado por usar %s. Infelizmente nosso sistema on-line foi incapaz de fornecer uma cotação automatizada satisfaça as suas necessidades. No entanto, os dados foram encaminhados para um subscritor que entrará em contato com você em breve. <br/><br/>Por favor nos contate no %s se tiver alguma dúvida referente a sua cotação.]]></element>
+        
+        <element key="i18n_login_section_username_missmatch_error">usuários não correspondem</element>
+        <element key="i18n_login_section_password_missmatch_error">senhas não correspondem</element>
+        <element key="i18n_login_section_username_taken_error">usuário já registrado</element>
+        <element key="i18n_login_section_unknown_username_error">usuário não encontrado</element>
+        <element key="i18n_login_section_username_label">Email:</element>
+        <element key="i18n_login_section_confirm_username_label">Confirmar email:</element>
+        <element key="i18n_login_section_password_label">Senha:</element>
+        <element key="i18n_login_section_confirm_password_label">Confirmar senha:</element>
+        <element key="i18n_login_section_login_button_label">Login</element>
+        <element key="i18n_login_section_create_and_save_button_label">Criar &apos; Salvar</element>
+        <element key="i18n_login_section_email_password_message">Informe seu email e sua senha será enviada.</element>
+        <element key="i18n_login_section_send_reminder_button_label">Enviar Lembrete</element>
+        
+        <element key="i18n_payment_details_title">Sua cotação</element>
+        <element key="i18n_payment_details_premium_label">Prêmio</element>
+        <element key="i18n_payment_details_cover_start_date_label">Ínicio cobertura</element>
+        <element key="i18n_payment_details_cover_end_date_label">Fim cobertura</element>
+        <element key="i18n_payment_details_contact_details_title">Informação para contato</element>
+        <element key="i18n_payment_details_name_label">Nome</element>
+        <element key="i18n_payment_details_address_label">Endereço</element>
+        <element key="i18n_payment_details_email_address_label">Email</element>
+        <element key="i18n_payment_details_payment_details_title">Dados pagamento</element>
+        <element key="i18n_payment_details_bank_account_message">Please enter your bank account number and sort code so that we can take payment from your account</element>
+        <element key="i18n_payment_details_originator_label">Originator</element>
+        <element key="i18n_payment_details_originator_id_label">Originator's identification number</element>
+        <element key="i18n_payment_details_account_number_label">Account number</element>
+        <element key="i18n_payment_details_sort_code_label">Sort code</element>
+        <element key="i18n_payment_details_direct_card_title">Please enter your credit/debit card details</element>
+        <element key="i18n_payment_details_direct_debit_message"><![CDATA[Please pay %s from the account detailed in this instruction subject to the safeguards assured by the direct debit guarantee. I understand that this instruction may remain with the originator mentioned above and, if so, details will be passed electronically to my bank or building society.<br/><br/> ]]></element>
+        <element key="i18n_payment_details_guarantee_message"><![CDATA[<u>Direct Debit Guarantee</u><br/>This guarantee is offered by all banks and building societies that take part in the Direct Debit scheme. The efficiency and security of the scheme is monitored and protected by your own bank or building society.<ul><li>If the amounts to be paid or the payment dates change, you will be told of this 8 days in advance of your account being debited.</li><li>If an error is made by %s or your bank or building society, you are guaranteed a full and immediate refund from your branch of the amount paid.</li><li>You can cancel a Direct Debit at any time by writing to your bank or building society. Please also send a copy of your letter to us.</li></ul> ]]></element>
+        <element key="i18n_payment_details_confirm_message"><![CDATA[Please note you have confirmed that you are not falsely representing yourself or impersonating someone else within the details you are submitting for this policy and payment. You also confirm that you are the only person required to authorise this debit from your account. If you can not comply please contact us.<br/><br/>You can contacted us on %s<br/><br/> ]]></element>
+        <element key="i18n_payment_details_confirm_label"><![CDATA[Please tick this box to confirm that the details you have entered are correct&nbsp;]]></element>
+        <element key="i18n_payment_details_confirm_error_label">please confirm</element>
+        
+        <element key="i18n_payment_option_selector_title">Please select how you wish to pay and press next.</element>
+        <element key="i18n_payment_option_select_error">por favor selecione</element>
+        
+        <element key="i18n_proposer_details_title_label">Título:</element>
+        <element key="i18n_proposer_details_other_title_label">Outro:</element>
+        <element key="i18n_proposer_details_first_name_label">Nome:</element>
+        <element key="i18n_proposer_details_surname_label">Sobrenome:</element>
+        <element key="i18n_proposer_details_company_label">Empresa:</element>
+        <element key="i18n_proposer_details_address_label">Endereço:</element>
+        <element key="i18n_proposer_details_telephone_label">Telefone:</element>
+        <element key="i18n_proposer_details_mobilephone_label">Celular:</element>
+        <element key="i18n_proposer_details_email_label">Email:</element>
+        <element key="i18n_proposer_details_postcode_label">CEP</element>
+        
+        <element key="i18n_saved_quotations_title_quote">Você tem a seguinte cotação salva:</element>
+        <element key="i18n_saved_quotations_title_quotes">Você tem as seguintes cotações salvas:</element>
+        <element key="i18n_saved_quotations_quote_number_heading">Número Cotação</element>
+        <element key="i18n_saved_quotations_quote_date_heading">Data Cotação</element>
+        <element key="i18n_saved_quotations_expiry_date_heading">Data expiração</element>
+        <element key="i18n_saved_quotations_premium_heading">Prêmio</element>
+        <element key="i18n_saved_quotations_login_message"><![CDATA[ Por favor <a onclick='showDivDisplay("Proposer Login")'>login aqui</a> se você tiver salvo anteriormente uma quotação que você gostaria de visualizar. ]]></element>
+        <element key="i18n_saved_quotations_username_label">Email:</element>
+        <element key="i18n_saved_quotations_password_label">Senha:</element>
+        <element key="i18n_saved_quotations_forgotten_password_message">Esqueceu a senha?</element>
+        <element key="i18n_saved_quotations_confirm_button_label">Confirmar e Pagar</element>
+        <element key="i18n_saved_quotations_requote_button_label">Refazer Cotação</element>
+    </translation>
+    <translation extendsLanguage="en" language="zh_CN">
+        <element key="i18n_?">？</element>
+        <element key="i18n_Yes">是</element>
+        <element key="i18n_No">否</element>
+        <element key="i18n_next_button_label">下一页</element>
+        <element key="i18n_previous_button_label">上一页</element>
+        <element key="i18n_quit_button_label">退出</element>
+        <element key="i18n_quote_button_label">保单询价</element>
+        <element key="i18n_finish_button_label">完成</element>
+        <element key="i18n_requote_button_label">新价格</element>
+        <element key="i18n_save_button_label">保存</element>
+        <element key="i18n_confirm_and_pay_button_label">确认付款</element>
+        <element key="i18n_view_quotation_document_button_label">保单文档</element>
+        <element key="i18n_proposer_page_title">关于你 - 投保人</element>
+        <element key="i18n_payment_options_page_title">确认和付款</element>
+        <element key="i18n_payment_details_page_title">付款细则</element>
+        <element key="i18n_finish_page_title">谢谢</element>
+        <element key="i18n_invalid_error">无效</element>
+        <element key="i18n_required_error">要求</element>
+        <element key="i18n_quotation_summary_quote_message">您的询保单：%s</element>
+        <element key="i18n_quotation_summary_quote_number_message"><![CDATA[您的询保单编号：<b>%s</b>]]></element>
+        <element key="i18n_quotation_summary_valid_until_message">此询保单有效期至： %s.</element>
+        <element key="i18n_quotation_summary_sample_wording_message"><![CDATA[在<a target='wordings' href='%s'>这里</a>可以找到保单样本的字句.]]></element>
+        <element key="i18n_quotation_summary_inclusive_header_message">此保单包容</element>
+        <element key="i18n_quotation_summary_inclusive_rate_message">%s 在 %s</element>
+        <element key="i18n_quotation_summary_inclusive_sum_message">%s 的 %s</element>
+        <element key="i18n_quotation_summary_missing_tandc_message">请联系我们%s获取想关条款副本。</element>
+        <element key="i18n_quotation_summary_existing_account_message">如果您有一个现有的帐户，请在此登陆。如果没有，请%s</element>
+        <element key="i18n_quotation_summary_create_message">创建一个</element>
+        <element key="i18n_quotation_summary_login_and_save_button_label">登录与保存</element>
+        <element key="i18n_assessment_sheet_details_title">报价%s的评估表</element>
+        <element key="i18n_assessment_sheet_details_product_title">产品</element>
+        <element key="i18n_assessment_sheet_details_status_title">状态</element>
+        <element key="i18n_assessment_sheet_details_total_premium_title">总保费</element>
+        <element key="i18n_assessment_sheet_details_policy_title">保险</element>
+        <element key="i18n_assessment_sheet_details_section_title">项目</element>
+        <element key="i18n_assessment_sheet_section_title">%s级评估行</element>
+        <element key="i18n_assessment_sheet_notes_title">备注</element>
+        <element key="i18n_assessment_sheet_id_title"> ID</element>
+        <element key="i18n_assessment_sheet_description_title">说明</element>
+        <element key="i18n_assessment_sheet_source_title">来源</element>
+        <element key="i18n_assessment_sheet_calculations_title">计算</element>
+        <element key="i18n_assessment_sheet_type_title">类型</element>
+        <element key="i18n_assessment_sheet_rate_title">利率</element>
+        <element key="i18n_assessment_sheet_amount_title">数量</element>
+        <element key="i18n_assessment_sheet_markers_title">标记</element>
+        <element key="i18n_assessment_sheet_fixedsum_title"> 固定累计额</element>
+        <element key="i18n_broker_quotation_summary_premium_title">总保费：%s</element>
+        <element key="i18n_broker_quotation_summary_proposer_title">投保人</element>
+        <element key="i18n_broker_quotation_summary_legal_name_label">名称</element>
+        <element key="i18n_broker_quotation_summary_address_label">地址</element>
+        <element key="i18n_broker_quotation_summary_phone_label">电话</element>
+        <element key="i18n_broker_quotation_summary_email_label">电子邮件</element>
+        <element key="i18n_broker_quotation_summary_premium_message">总保费如上图所示，包括:</element>
+        <element key="i18n_broker_quotation_summary_card_details_title">所持卡细节</element>
+        <element key="i18n_broker_quotation_summary_payments_title">付款方式</element>
+        <element key="i18n_broker_quotation_summary_card_number_label">卡号</element>
+        <element key="i18n_broker_quotation_summary_name_on_card_label">信用卡持有人姓名</element>
+        <element key="i18n_broker_quotation_summary_issue_number_label">发行数量</element>
+        <element key="i18n_broker_quotation_summary_expiry_date_label">截止日期</element>
+        <element key="i18n_broker_quotation_summary_account_details_title">帐户的详细信息</element>
+        <element key="i18n_broker_quotation_summary_account_number_label">帐户号码</element>
+        <element key="i18n_broker_quotation_summary_sort_code_label">分类代码</element>
+        <element key="i18n_broker_quotation_summary_title">总结</element>
+        <element key="i18n_broker_quotation_summary_product_label">产品</element>
+        <element key="i18n_broker_quotation_summary_quotation_date_label">报价日期</element>
+        <element key="i18n_broker_quotation_summary_quotation_expiry_date_label">报价到期日</element>
+        <element key="i18n_broker_quotation_summary_cover_start_date_label">开始日期</element>
+        <element key="i18n_broker_quotation_summary_cover_end_date_label">封面结束日期</element>
+        <element key="i18n_broker_quotation_summary_assessment_sheet_title">评估总结</element>
+        <element key="i18n_proposer_quotation_summary_premium_title">总保费：%s</element>
+        <element key="i18n_proposer_quotation_summary_proposer_title">联系细节</element>
+        <element key="i18n_proposer_quotation_summary_legal_name_label">名称</element>
+        <element key="i18n_proposer_quotation_summary_address_label">地址</element>
+        <element key="i18n_proposer_quotation_summary_phone_label">电话</element>
+        <element key="i18n_proposer_quotation_summary_email_label">电子邮件</element>
+        <element key="i18n_proposer_quotation_summary_premium_message">总保费如上图所示，包括：</element>
+        <element key="i18n_proposer_quotation_summary_card_details_title">所持卡细节</element>
+        <element key="i18n_proposer_quotation_summary_payments_title">付款方式</element>
+        <element key="i18n_proposer_quotation_summary_card_number_label">卡号</element>
+        <element key="i18n_proposer_quotation_summary_name_on_card_label">信用卡持有人姓名</element>
+        <element key="i18n_proposer_quotation_summary_issue_number_label">发行数量</element>
+        <element key="i18n_proposer_quotation_summary_expiry_date_label">截止日期</element>
+        <element key="i18n_proposer_quotation_summary_account_details_title">帐户的详细信息</element>
+        <element key="i18n_proposer_quotation_summary_account_number_label">帐户号码</element>
+        <element key="i18n_proposer_quotation_summary_sort_code_label">分类代码</element>
+        <element key="i18n_proposer_quotation_summary_title"> 总结</element>
+        <element key="i18n_proposer_quotation_summary_product_label">产品</element>
+        <element key="i18n_proposer_quotation_summary_quotation_date_label">报价日期</element>
+        <element key="i18n_proposer_quotation_summary_quotation_expiry_date_label">报价到期日</element>
+        <element key="i18n_proposer_quotation_summary_cover_start_date_label">保险开始日期</element>
+        <element key="i18n_proposer_quotation_summary_cover_end_date_label">保险结束日期</element>
+        <element key="i18n_proposer_quotation_summary_quote_introduction"><![CDATA[亲爱 %s,<br/> <br/>谢谢您使用%s. 我们很高兴在下面提交您的报价细节。 <br/><br/>，如果您有与此报价的任何问题，请联系我们，%s。<br/>]]></element>
+        <element key="i18n_proposer_quotation_summary_submitted_introduction"><![CDATA[亲爱%s,<br/> <br/>谢谢您使用%s,我们很高兴在下面提交您的报价细节。这已被提交给我们的承保部门，签发想关保险。<br/> <br/>，如果您有与此报价的任何问题，请联系我们，%s。<br/>]]></element>
+        <element key="i18n_proposer_quotation_summary_referral_introduction"><![CDATA[亲爱%s，<br/> <br/>谢谢您使用%s, 不幸的是，我们的在线系统无法满足您的特定需求提供了一个自动报价。然而，细节已经提交承保部门，将尽快与您联系。 <br/> <br/>,如果您有与此报价的任何问题，请联系我们，%s。]]></element>
+        <element key="i18n_login_section_username_missmatch_error">用户名不匹配</element>
+        <element key="i18n_login_section_password_missmatch_error">密码不匹配</element>
+        <element key="i18n_login_section_username_taken_error">用户名已经使用</element>
+        <element key="i18n_login_section_unknown_username_error">未确认用户名</element>
+        <element key="i18n_login_section_username_label">电子邮件地址：</element>
+        <element key="i18n_login_section_confirm_username_label">确认的电子邮件地址：</element>
+        <element key="i18n_login_section_password_label">密码：</element>
+        <element key="i18n_login_section_confirm_password_label">确认密码：</element>
+        <element key="i18n_login_section_login_button_label">登录</element>
+        <element key="i18n_login_section_create_and_save_button_label">创建保存</element>
+        <element key="i18n_login_section_email_password_message">请输入您的电子邮件地址，密码将通过电子邮件发送给你。</element>
+        <element key="i18n_login_section_send_reminder_button_label">发送提醒</element>
+        <element key="i18n_payment_details_title">您的保单</element>
+        <element key="i18n_payment_details_premium_label">保费</element>
+        <element key="i18n_payment_details_cover_start_date_label">保险开始日期</element>
+        <element key="i18n_payment_details_cover_end_date_label">保险结束日期</element>
+        <element key="i18n_payment_details_contact_details_title">您的联系信息</element>
+        <element key="i18n_payment_details_name_label">名称</element>
+        <element key="i18n_payment_details_address_label">地址</element>
+        <element key="i18n_payment_details_email_address_label">电子邮件地址</element>
+        <element key="i18n_payment_details_payment_details_title">付款细节</element>
+        <element key="i18n_payment_details_bank_account_message">请输入您的银行帐户号码或代码，使我们可以从您的帐户付款</element>
+        <element key="i18n_payment_details_originator_label">帐户人</element>
+        <element key="i18n_payment_details_originator_id_label">帐户人的身份证件号码</element>
+        <element key="i18n_payment_details_account_number_label">帐户号码</element>
+        <element key="i18n_payment_details_sort_code_label">分类代码</element>
+        <element key="i18n_payment_details_direct_debit_title">请输入您的信用卡/借记卡信息</element>
+        <element key="i18n_payment_details_direct_debit_message"><![CDATA[从上述帐户您将支付s%,根据帐户直接付款保证条款。我知道，有关帐户人和付款项目及详情会以电子方式传递到我的银行。<br/><br/>]]></element>
+        <element key="i18n_payment_details_guarantee_message"><![CDATA[<u>直接付款保证<u/><br/>银行提供这种采取直接付款保证计划，并提供相关的安全的监测和保护。<ul><li>如果金额将支付或付款日期发生变更，你将被提前8天被告知，在您的帐户发生扣除之前。</li> <li>如果错误是由%s或您的银行，您会从支付的银行获得扣除的金额。</li> <li>如果您通过书面形式向您的银行取消直接付款，也请把你的信的副本发送给我们。</li> </ul>]]></element>
+        <element key="i18n_payment_details_confirm_message"><![CDATA[请注意，你必须确认你没有提供虚假信息或假冒别人的资料，你提交的这一保险和支付费用。您还确认，你是唯一合法授权人可以从您的帐户借记的。如果你不能确定，请与我们联系。<br/> <br/>您可以联系我们,%s<br/> <br/>]]></element>
+        <element key="i18n_payment_details_confirm_label">请选择此框，以确认您输入的细节是正确的</element>
+        <element key="i18n_payment_details_confirm_error_label">请确认</element>
+        <element key="i18n_payment_option_selector_title">请选择您希望如何支付，然后按下一步。</element>
+        <element key="i18n_payment_option_select_error">请选择</element>
+        <element key="i18n_proposer_details_title_label">称谓：</element>
+        <element key="i18n_proposer_details_other_title_label">其他：</element>
+        <element key="i18n_proposer_details_first_name_label">名字：</element>
+        <element key="i18n_proposer_details_surname_label">姓氏：</element>
+        <element key="i18n_proposer_details_company_label">公司名称：</element>
+        <element key="i18n_proposer_details_address_label">地址：</element>
+        <element key="i18n_proposer_details_telephone_label">电话号码：</element>
+        <element key="i18n_proposer_details_mobilephone_label">手机号码：</element>
+        <element key="i18n_proposer_details_email_label">电子邮件地址：</element>
+        <element key="i18n_proposer_details_postcode_label">邮编</element>
+        <element key="i18n_saved_quotations_title_quote">您有以下保存的报价单：</element>
+        <element key="i18n_saved_quotations_title_quotes">您有以下保存的报价单：</element>
+        <element key="i18n_saved_quotations_quote_number_heading">报价数量</element>
+        <element key="i18n_saved_quotations_quote_date_heading">报价日期</element>
+        <element key="i18n_saved_quotations_expiry_date_heading">到期日</element>
+        <element key="i18n_saved_quotations_premium_heading">保费</element>
+        <element key="i18n_saved_quotations_login_message"><![CDATA[请<a onclick='showDivDisplay("Proposer Login")'>登录这里</ a> ，查看以前保存的报价。]]></element>
+        <element key="i18n_saved_quotations_username_label">电子邮件地址：</element>
+        <element key="i18n_saved_quotations_password_label">密码：</element>
+        <element key="i18n_saved_quotations_forgotten_password_message">忘记密码？</element>
+        <element key="i18n_saved_quotations_confirm_button_label">确认支付</element>
+        <element key="i18n_saved_quotations_requote_button_label">重新询价</element>
+    </translation>
+</translations>

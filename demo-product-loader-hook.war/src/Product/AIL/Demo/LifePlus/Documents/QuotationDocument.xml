@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documentDefinition xsi:type="java:com.ail.core.document.model.DocumentDefinition" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+    <documentData>
+
+        <chapterData id="c1" title="Basic Details">
+            <blockData pd="prop" placement="body" applicability="all" title="Proposer" border="true">
+                <modelData id='pn' title="Proposer&apos;s name" class='string'>${/proposer/actualTitle} ${/proposer/firstName} ${proposer/surname}</modelData>
+                <blockData title="Proposer&apos;s address" class='address'>
+                    <modelData id="line1" class="line" binding="/proposer/address/line1"/>
+                    <modelData id="line2" class="line" binding="/proposer/address/line2"/>
+                    <modelData id="line3" class="line" binding="/proposer/address/line3"/>
+                    <modelData id="line4" class="line" binding="/proposer/address/line4"/>
+                    <modelData id="line5" class="line" binding="/proposer/address/line5"/>
+                    <modelData id="town" class="town" binding="/proposer/address/town"/>
+                    <modelData id="county" class="county" binding="/proposer/address/county"/>
+                    <modelData id="country" class="country" binding="/proposer/address/country"/>
+                    <modelData id="postcode" class="postcode" binding="/proposer/address/postcode"/>
+                </blockData>
+                <modelData id='pn' title='Phone number' class='phone' binding="/proposer/telephoneNumber"/>
+                <modelData id='em' title='Email address' class='email' binding="/proposer/emailAddress"/>
+            </blockData>
+            
+            <blockData id="qs" placement="body" applicability="all" title="Quotation summary" border="true">
+                <modelData id='qn' title='Quotation number' class='string' binding='/quotationNumber'/>
+                <modelData id='pm' title='Total premium' class='string' binding="/assessmentSheet/line[id='total premium']/amountAsString"/>
+                <modelData id='qd' title='Quotation date' class='date' binding='c:format(/quotationDate,"d MMMMM, yyyy")'/>
+                <modelData id="qx" title='Quotation expiry date' class='date' binding='c:format(/quotationExpiryDate,"d MMMMM, yyyy")'/>    
+            </blockData>
+
+            <blockData placement="body" applicability="all" title="Life Insured" border="true">
+                <modelData id='qn' title='Forename' class='string' binding="/proposer/firstName"/>
+                <modelData id='qn' title='Surname' class='string' binding="/proposer/surname"/>
+                <modelData id='qn' title='Age' class='number' binding="/asset/attribute[id='age']/formattedValue"/>
+                <modelData id='qn' title='Gender' class='number' binding="/asset/attribute[id='gender']/formattedValue"/>
+                <modelData id='qn' title='Smoker' class='string' binding="/asset/attribute[id='smoker']/formattedValue"/>
+            </blockData>            
+
+            <blockData applicability="all" placement="body" title="Terms &amp; Conditions" border="true">
+                <urlData class="wording" title="Terms &amp; Conditions" url="product://localhost:8080/AIL/Demo/LifePlus/HTML/TermsAndConditions.html"/> 
+            </blockData>
+        </chapterData>
+    </documentData> 
+</documentDefinition>

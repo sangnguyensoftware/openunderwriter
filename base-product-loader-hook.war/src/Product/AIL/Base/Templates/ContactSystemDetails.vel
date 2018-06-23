@@ -1,0 +1,171 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the ContactSystemDetails widget.
+##
+#set( $model = $args.ModelArgRet)
+#set( $pageElement = $args.PageElementArg )
+#set( $renderId = $args.RenderIdArg )
+#set( $context = $model )
+##
+<div class='pf-body pf-contact-system-details pf-proposer-details' id='$!renderId'>
+    #if( ${pageElement.Title} )
+       <div class='pf-section-title'>${pageElement.formattedTitle($args)}</div>
+    #end
+    #renderContactSystems
+</div>
+##
+#macro(renderContactSystems)
+	#foreach( $cs in ${pageElement.fetchContactSystems($model)} )
+		#if( ${cs.Class.SimpleName} == "Address" )
+			#renderAddress($cs)
+		#elseif( ${cs.Class.SimpleName} == "PhoneNumber")
+			#renderPhoneNumber($cs)
+		#elseif( ${cs.Class.SimpleName} == "EmailAddress")
+			#renderEmailAddress($cs)
+		#else
+			#renderError($cs)
+		#end		
+	#end
+#end
+##
+#macro(renderAddress $cs)
+	<div class='pf-proposer-details-address'>
+		<div class='pf-input-section-title'>
+			<div class='pf-input-label'>
+				#i18n(${cs.Type})
+			</div>
+		</div>
+		<div class='pf-section'>
+			<div class='pf-input-section'>
+				<div class='pf-input-field'>
+                    <input name='#name($cs  "address1")' type='text' value='$!cs.Line1' placeholder='#i18n( "i18n_proposer_details_address_line_1_placeholder" )' size='30' maxlength='100'/>
+                    #requiredIndicator('address1')
+				</div>
+                #error( "address1" $cs $pageElement )
+			</div>
+			<div class='pf-input-section'>
+				<div class='pf-input-field'>
+                    <input name='#name($cs  "address2")' type='text' value='$!cs.Line2' placeholder='#i18n( "i18n_proposer_details_address_line_2_placeholder" )' size='30' maxlength='100'/>
+                    #requiredIndicator('address2')
+				</div>
+                #error( "address2" $cs $pageElement )
+			</div>
+			<div class='pf-input-section'>
+				<div class='pf-input-field'>
+                    <input name='#name($cs  "address3")' type='text' value='$!cs.Line3' placeholder='#i18n( "i18n_proposer_details_address_line_3_placeholder" )' size='30' maxlength='100'/>
+                    #requiredIndicator('address3')
+				</div>
+                #error( "address3" $cs $pageElement )
+			</div>
+			<div class='pf-input-section'>
+				<div class='pf-input-field'>
+                    <input name='#name($cs  "address4")' type='text' value='$!cs.Line4' placeholder='#i18n( "i18n_proposer_details_address_line_4_placeholder" )' size='30' maxlength='100'/>
+                    #requiredIndicator('address4')
+				</div>
+                #error( "address4" $cs $pageElement )
+			</div>
+			<div class='pf-input-section'>
+				<div class='pf-input-field'>
+                    <input name='#name($cs  "town")' type='text' value='$!cs.Town' placeholder='#i18n( "i18n_proposer_details_address_town_placeholder" )' size='30' maxlength='100'/>
+                    #requiredIndicator('town')
+   				</div>
+                #error( "town" $cs $pageElement )
+			</div>
+			<div class='pf-input-section'>
+				<div class='pf-input-field'>
+                    <input name='#name($cs "county")' type='text' value='$!cs.County' placeholder='#i18n( "i18n_proposer_details_address_county_placeholder" )' size='30' maxlength='100'/>
+					#requiredIndicator('county')
+				</div>
+                #error( "county" $cs $pageElement )
+			</div>
+			<div class='pf-input-section'>
+				<div class='pf-input-field'>
+                    <input name='#name($cs "country")' type='text' value='$!cs.Country' placeholder='#i18n( "i18n_proposer_details_address_country_placeholder" )' size='30' maxlength='100'/>
+					#requiredIndicator('country')
+				</div>
+                #error( "country" $cs $pageElement )
+			</div>
+		</div>
+		<div class='pf-input-section'>
+			#requiredIndicatorQuestionLabel( "postcode" "i18n_proposer_details_postcode_label" )
+			<div class='pf-input-field'>
+                <input name='#name($cs "postcode")' type='text' value='$!cs.Postcode' placeholder='#i18n( "i18n_proposer_details_address_postcode_placeholder" )' size='8' maxlength='8'>
+			</div>
+            #error( "postcode" $cs $pageElement )
+		</div>
+	</div>
+#end
+##
+#macro(renderPhoneNumber $cs)
+	<div class='pf-proposer-details-address'>
+		<div class='pf-input-section'>
+			#requiredQuestionLabel(${cs.Type})
+			<div class='pf-input-field'>
+	            <input name='#name($cs  "phone")' type='text' value='$!{cs.FullAddress}' size='30' maxlength='100'>
+			</div>
+	        #error( "phone" $cs $pageElement )
+		</div>
+	</div>
+#end
+##
+#macro(renderEmailAddress $cs)
+	<div class='pf-proposer-details-address'>
+		<div class='pf-input-section'>
+			#requiredQuestionLabel(${cs.Type})
+			<div class='pf-input-field'>
+	            <input name='#name($cs  "email")' type='text' value='$!{cs.FullAddress}' size='30' maxlength='100'>
+			</div>
+	        #error( "email" $cs $pageElement )
+		</div>
+	</div>
+#end
+##
+#macro(renderError $cs)
+	<div class='pf-header-error'>
+		ContactSystemDetailWidget does not support ContactSystems of type: ${cs.Class.Name}
+	</div>
+#end
+##
+#macro( requiredQuestionLabel $label )
+    <div class='pf-input-label'>
+        <div class='pf-input-required'></div>
+        #i18n("$label")
+    </div>
+#end
+##
+#macro( requiredIndicator $id )
+    <div class=#if(${pageElement.isFieldMandatory($id)})'pf-input-required'#else'pf-input-optional'#end></div>
+#end
+##
+#macro( requiredIndicatorQuestionLabel $id $label )
+    <div class='pf-input-label'>
+        <div class=#if(${pageElement.isFieldMandatory($id)})'pf-input-required'#else'pf-input-optional'#end></div>
+        #i18n("$label")
+    </div>
+#end
+##
+#macro( error $filter $model $element )
+     #if( $element.hasErrorMarker($filter, $model) )
+         <div class='pf-input-error'>$element.findError($filter, $model, $element)</div>
+     #end
+#end
+##
+#macro( name $cs $field )${pageElement.fieldId($cs, $field)}#end
+##
+#macro(i18n $id)$pageElement.i18n("$id")#end

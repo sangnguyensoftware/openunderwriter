@@ -1,0 +1,241 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml" xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-934 Add claims related tables" author="richard">
+        <sql dbms="mysql">
+            CREATE TABLE `claClaim` (
+              `claUID` bigint(20) NOT NULL,
+              `claAttribute` longtext,
+              `claCreatedBy` bigint(20) DEFAULT NULL,
+              `claCreatedDate` datetime DEFAULT NULL,
+              `claExternalSystemId` varchar(255) NOT NULL,
+              `claForeignSystemId` varchar(255) DEFAULT NULL,
+              `claLock` bit(1) DEFAULT NULL,
+              `claSerialVersion` bigint(20) NOT NULL,
+              `claUpdatedBy` bigint(20) DEFAULT NULL,
+              `claUpdatedDate` datetime DEFAULT NULL,
+              `claAdrFlag` bit(1) DEFAULT NULL,
+              `claClaimNumber` varchar(255) DEFAULT NULL,
+              `claContributionReserveAmount` decimal(19,2) DEFAULT NULL,
+              `claContributionReserveCurrency` varchar(255) DEFAULT NULL,
+              `claDeductableReserveAmount` decimal(19,2) DEFAULT NULL,
+              `claDeductableReserveCurrency` varchar(255) DEFAULT NULL,
+              `claEstimatedReserveAmount` decimal(19,2) DEFAULT NULL,
+              `claEstimatedReserveCurrency` varchar(255) DEFAULT NULL,
+              `claId` varchar(255) DEFAULT NULL,
+              `claLitigationFlag` bit(1) DEFAULT NULL,
+              `claOutstandingReserveAmount` decimal(19,2) DEFAULT NULL,
+              `claOutstandingReserveCurrency` varchar(255) DEFAULT NULL,
+              `claOutstandingTotalAmount` decimal(19,2) DEFAULT NULL,
+              `claOutstandingTotalCurrency` varchar(255) DEFAULT NULL,
+              `claOwningUser` bigint(20) DEFAULT NULL,
+              `claPaid` bit(1) DEFAULT NULL,
+              `claRecoveryStatus` varchar(255) DEFAULT NULL,
+              `claSalvageReserveAmount` decimal(19,2) DEFAULT NULL,
+              `claSalvageReserveCurrency` varchar(255) DEFAULT NULL,
+              `claStatus` varchar(255) DEFAULT NULL,
+              `claSubrogationPotential` bit(1) DEFAULT NULL,
+              `claSubrogationReserveAmount` decimal(19,2) DEFAULT NULL,
+              `claSubrogationReserveCurrency` varchar(255) DEFAULT NULL,
+              `claSubrogationWaiver` bit(1) DEFAULT NULL,
+              `claTotalEstimatedRecoveryAmount` decimal(19,2) DEFAULT NULL,
+              `claTotalEstimatedRecoveryCurrency` varchar(255) DEFAULT NULL,
+              `claTotalRecoveredAmount` decimal(19,2) DEFAULT NULL,
+              `claTotalRecoveredCurrency` varchar(255) DEFAULT NULL,
+              `claPolicyUIDpol` bigint(20) DEFAULT NULL,
+              PRIMARY KEY (`claUID`),
+              UNIQUE KEY `claExternalSystemId` (`claExternalSystemId`),
+              KEY `owningUser` (`claOwningUser`),
+              KEY `claimNumber` (`claClaimNumber`),
+              KEY `status` (`claStatus`),
+              KEY `FK269E2604E5FB84AA` (`claPolicyUIDpol`),
+              CONSTRAINT `FK269E2604E5FB84AA` FOREIGN KEY (`claPolicyUIDpol`) REFERENCES `polPolicy` (`polUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+            CREATE TABLE `claClaim_` (
+              `claUID` bigint(20) NOT NULL,
+              `secREV` int(11) NOT NULL,
+              `REVTYPE` tinyint(4) DEFAULT NULL,
+              `claAttribute` longtext,
+              `claCreatedBy` bigint(20) DEFAULT NULL,
+              `claCreatedDate` datetime DEFAULT NULL,
+              `claExternalSystemId` varchar(255) DEFAULT NULL,
+              `claForeignSystemId` varchar(255) DEFAULT NULL,
+              `claUpdatedBy` bigint(20) DEFAULT NULL,
+              `claUpdatedDate` datetime DEFAULT NULL,
+              `claAdrFlag` bit(1) DEFAULT NULL,
+              `claClaimNumber` varchar(255) DEFAULT NULL,
+              `claContributionReserveAmount` decimal(19,2) DEFAULT NULL,
+              `claContributionReserveCurrency` varchar(255) DEFAULT NULL,
+              `claDeductableReserveAmount` decimal(19,2) DEFAULT NULL,
+              `claDeductableReserveCurrency` varchar(255) DEFAULT NULL,
+              `claEstimatedReserveAmount` decimal(19,2) DEFAULT NULL,
+              `claEstimatedReserveCurrency` varchar(255) DEFAULT NULL,
+              `claId` varchar(255) DEFAULT NULL,
+              `claLitigationFlag` bit(1) DEFAULT NULL,
+              `claOutstandingReserveAmount` decimal(19,2) DEFAULT NULL,
+              `claOutstandingReserveCurrency` varchar(255) DEFAULT NULL,
+              `claOutstandingTotalAmount` decimal(19,2) DEFAULT NULL,
+              `claOutstandingTotalCurrency` varchar(255) DEFAULT NULL,
+              `claOwningUser` bigint(20) DEFAULT NULL,
+              `claPaid` bit(1) DEFAULT NULL,
+              `claRecoveryStatus` varchar(255) DEFAULT NULL,
+              `claSalvageReserveAmount` decimal(19,2) DEFAULT NULL,
+              `claSalvageReserveCurrency` varchar(255) DEFAULT NULL,
+              `claStatus` varchar(255) DEFAULT NULL,
+              `claSubrogationPotential` bit(1) DEFAULT NULL,
+              `claSubrogationReserveAmount` decimal(19,2) DEFAULT NULL,
+              `claSubrogationReserveCurrency` varchar(255) DEFAULT NULL,
+              `claSubrogationWaiver` bit(1) DEFAULT NULL,
+              `claTotalEstimatedRecoveryAmount` decimal(19,2) DEFAULT NULL,
+              `claTotalEstimatedRecoveryCurrency` varchar(255) DEFAULT NULL,
+              `claTotalRecoveredAmount` decimal(19,2) DEFAULT NULL,
+              `claTotalRecoveredCurrency` varchar(255) DEFAULT NULL,
+              `claPolicyUIDpol` bigint(20) DEFAULT NULL,
+              PRIMARY KEY (`claUID`,`secREV`),
+              KEY `FKAD269ADB52AE8777` (`secREV`),
+              CONSTRAINT `FKAD269ADB52AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+            CREATE TABLE `cseClaimSection` (
+              `cseUID` bigint(20) NOT NULL,
+              `cseAttribute` longtext,
+              `cseCreatedBy` bigint(20) DEFAULT NULL,
+              `cseCreatedDate` datetime DEFAULT NULL,
+              `cseExternalSystemId` varchar(255) NOT NULL,
+              `cseForeignSystemId` varchar(255) DEFAULT NULL,
+              `cseLock` bit(1) DEFAULT NULL,
+              `cseSerialVersion` bigint(20) NOT NULL,
+              `cseUpdatedBy` bigint(20) DEFAULT NULL,
+              `cseUpdatedDate` datetime DEFAULT NULL,
+              `cseEstimatedReserveAmount` decimal(19,2) DEFAULT NULL,
+              `cseEstimatedReserveCurrency` varchar(255) DEFAULT NULL,
+              `cseOutstandingClaimAmount` decimal(19,2) DEFAULT NULL,
+              `cseOutstandingClaimCurrency` varchar(255) DEFAULT NULL,
+              `cseTotalRecoveredAmount` decimal(19,2) DEFAULT NULL,
+              `cseTotalRecoveredCurrency` varchar(255) DEFAULT NULL,
+              `cseClaimUIDcla` bigint(20) DEFAULT NULL,
+              PRIMARY KEY (`cseUID`),
+              UNIQUE KEY `cseExternalSystemId` (`cseExternalSystemId`),
+              KEY `FK9794819E5A3FF86E` (`cseClaimUIDcla`),
+              CONSTRAINT `FK9794819E5A3FF86E` FOREIGN KEY (`cseClaimUIDcla`) REFERENCES `claClaim` (`claUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+            CREATE TABLE `cseClaimSection_` (
+              `cseUID` bigint(20) NOT NULL,
+              `secREV` int(11) NOT NULL,
+              `REVTYPE` tinyint(4) DEFAULT NULL,
+              `cseAttribute` longtext,
+              `cseCreatedBy` bigint(20) DEFAULT NULL,
+              `cseCreatedDate` datetime DEFAULT NULL,
+              `cseExternalSystemId` varchar(255) DEFAULT NULL,
+              `cseForeignSystemId` varchar(255) DEFAULT NULL,
+              `cseUpdatedBy` bigint(20) DEFAULT NULL,
+              `cseUpdatedDate` datetime DEFAULT NULL,
+              `cseEstimatedReserveAmount` decimal(19,2) DEFAULT NULL,
+              `cseEstimatedReserveCurrency` varchar(255) DEFAULT NULL,
+              `cseOutstandingClaimAmount` decimal(19,2) DEFAULT NULL,
+              `cseOutstandingClaimCurrency` varchar(255) DEFAULT NULL,
+              `cseTotalRecoveredAmount` decimal(19,2) DEFAULT NULL,
+              `cseTotalRecoveredCurrency` varchar(255) DEFAULT NULL,
+              `cseClaimUIDcla` bigint(20) DEFAULT NULL,
+              PRIMARY KEY (`cseUID`,`secREV`),
+              KEY `FK5AFBB28152AE8777` (`secREV`),
+              CONSTRAINT `FK5AFBB28152AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+            CREATE TABLE `creClaimRecovery` (
+              `creUID` bigint(20) NOT NULL,
+              `creAttribute` longtext,
+              `creCreatedBy` bigint(20) DEFAULT NULL,
+              `creCreatedDate` datetime DEFAULT NULL,
+              `creExternalSystemId` varchar(255) NOT NULL,
+              `creForeignSystemId` varchar(255) DEFAULT NULL,
+              `creLock` bit(1) DEFAULT NULL,
+              `creSerialVersion` bigint(20) NOT NULL,
+              `creUpdatedBy` bigint(20) DEFAULT NULL,
+              `creUpdatedDate` datetime DEFAULT NULL,
+              `creAmount` decimal(19,2) DEFAULT NULL,
+              `creCurrency` varchar(255) DEFAULT NULL,
+              `crePaymentType` varchar(255) DEFAULT NULL,
+              `creReason` varchar(255) DEFAULT NULL,
+              `creRecoveredDate` datetime DEFAULT NULL,
+              `creRecoveryType` varchar(255) DEFAULT NULL,
+              `creClaimSectionUIDcse` bigint(20) DEFAULT NULL,
+              `creRecoveredFromUIDpar` bigint(20) DEFAULT NULL,
+              PRIMARY KEY (`creUID`),
+              UNIQUE KEY `creExternalSystemId` (`creExternalSystemId`),
+              KEY `FK98FE69BB48BDEBCF` (`creRecoveredFromUIDpar`),
+              KEY `FK98FE69BB4A5DF6CA` (`creClaimSectionUIDcse`),
+              CONSTRAINT `FK98FE69BB48BDEBCF` FOREIGN KEY (`creRecoveredFromUIDpar`) REFERENCES `parParty` (`parUID`),
+              CONSTRAINT `FK98FE69BB4A5DF6CA` FOREIGN KEY (`creClaimSectionUIDcse`) REFERENCES `cseClaimSection` (`cseUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+            CREATE TABLE `creClaimRecovery_` (
+              `creUID` bigint(20) NOT NULL,
+              `secREV` int(11) NOT NULL,
+              `REVTYPE` tinyint(4) DEFAULT NULL,
+              `creAttribute` longtext,
+              `creCreatedBy` bigint(20) DEFAULT NULL,
+              `creCreatedDate` datetime DEFAULT NULL,
+              `creExternalSystemId` varchar(255) DEFAULT NULL,
+              `creForeignSystemId` varchar(255) DEFAULT NULL,
+              `creUpdatedBy` bigint(20) DEFAULT NULL,
+              `creUpdatedDate` datetime DEFAULT NULL,
+              `creAmount` decimal(19,2) DEFAULT NULL,
+              `creCurrency` varchar(255) DEFAULT NULL,
+              `crePaymentType` varchar(255) DEFAULT NULL,
+              `creReason` varchar(255) DEFAULT NULL,
+              `creRecoveredDate` datetime DEFAULT NULL,
+              `creRecoveryType` varchar(255) DEFAULT NULL,
+              `creClaimSectionUIDcse` bigint(20) DEFAULT NULL,
+              `creRecoveredFromUIDpar` bigint(20) DEFAULT NULL,
+              PRIMARY KEY (`creUID`,`secREV`),
+              KEY `FK86CECE0452AE8777` (`secREV`),
+              CONSTRAINT `FK86CECE0452AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+            CREATE TABLE `jClaAssAss` (
+              `UIDcla` bigint(20) NOT NULL,
+              `assetUIDass` bigint(20) NOT NULL,
+              UNIQUE KEY `assetUIDass` (`assetUIDass`),
+              KEY `FK48021E2EE0CB4A47` (`UIDcla`),
+              KEY `FK48021E2EC30A5D40` (`assetUIDass`),
+              CONSTRAINT `FK48021E2EC30A5D40` FOREIGN KEY (`assetUIDass`) REFERENCES `assAsset` (`assUID`),
+              CONSTRAINT `FK48021E2EE0CB4A47` FOREIGN KEY (`UIDcla`) REFERENCES `claClaim` (`claUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+            CREATE TABLE `jClaAssAss_` (
+              `secREV` int(11) NOT NULL,
+              `secUIDcla` bigint(20) NOT NULL,
+              `secAssetUIDass` bigint(20) NOT NULL,
+              `REVTYPE` tinyint(4) DEFAULT NULL,
+              PRIMARY KEY (`secREV`,`secUIDcla`,`secAssetUIDass`),
+              KEY `FKB841A7F152AE8777` (`secREV`),
+              CONSTRAINT `FKB841A7F152AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+            CREATE TABLE `jClaNotNot` (
+              `UIDcla` bigint(20) NOT NULL,
+              `noteUIDnot` bigint(20) NOT NULL,
+              UNIQUE KEY `noteUIDnot` (`noteUIDnot`),
+              KEY `FK5DF964EEB3C35E1F` (`noteUIDnot`),
+              KEY `FK5DF964EEE0CB4A47` (`UIDcla`),
+              CONSTRAINT `FK5DF964EEB3C35E1F` FOREIGN KEY (`noteUIDnot`) REFERENCES `notNote` (`notUID`),
+              CONSTRAINT `FK5DF964EEE0CB4A47` FOREIGN KEY (`UIDcla`) REFERENCES `claClaim` (`claUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+            CREATE TABLE `jClaNotNot_` (
+              `secREV` int(11) NOT NULL,
+              `secUIDcla` bigint(20) NOT NULL,
+              `secNoteUIDnot` bigint(20) NOT NULL,
+              `REVTYPE` tinyint(4) DEFAULT NULL,
+              PRIMARY KEY (`secREV`,`secUIDcla`,`secNoteUIDnot`),
+              KEY `FK6133393152AE8777` (`secREV`),
+              CONSTRAINT `FK6133393152AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

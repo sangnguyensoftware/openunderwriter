@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageFlow id="QuotationPageFlow" progressBar="false" startPage="Welcome" type="java:com.ail.pageflow.PageFlow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/PageFlow-1.0.xsd">
+
+    <questionPage id="Welcome" title="[PRODUCT NAME]">
+        <pageSection id="Welcome" order="1">
+            <parsedUrlContent id="Content" order="1" url="~/HTML/Welcome.html" />
+        </pageSection>
+        <savedQuotations id="SavedQuotes" order="2" confirmAndPayDestinationPageId="SelectPaymentOption" />
+        <navigationSection id="Navigation" order="3" quitDisabled='true'>
+            <commandButtonAction id="Quote" order="1" label="i18n_quote_button_label" destinationPageId="Proposer"/>
+        </navigationSection>
+    </questionPage>
+
+    <questionPage id="Proposer" title="i18n_proposer_page_title" stage="i18n_proposer_stage">
+        <proposerDetails id="Proposer" order="1" binding="/proposer" />
+        <navigationSection id="Navigation" order="2">
+            <commandButtonAction id="Next" order="1" label="i18n_next_button_label" />
+        </navigationSection>
+    </questionPage>
+
+    <questionPage id="SelectPaymentOption" title="i18n_payment_options_page_title" stage="i18n_payment_stage">
+        <action id="AssessOptions" when="onRenderResponse" commandName="AssessPaymentOptionsAction" />
+        <paymentOptionSelector id="Optionselector" order="1" />
+        <navigationSection id="Navigation" order="2">
+            <commandButtonAction id="Next" order="1" label="i18n_next_button_label" destinationPageId="CollectPaymentDetails" />
+        </navigationSection>
+    </questionPage>
+
+    <questionPage id="CollectPaymentDetails" title="i18n_payment_details_page_title" stage="i18n_payment_stage">
+        <paymentDetails id="PaymentDetails" order="1" />
+        <navigationSection id="Navigation" order="2">
+            <commandButtonAction id="Previous" order="1" label="i18n_previous_button_label" immediate='true' destinationPageId="SelectPaymentOption" />
+            <commandButtonAction id="Next" order="2" label="i18n_next_button_label" destinationPageId="Finish">
+                <action id="AcceptQuotation" when="onProcessActions" commandName="AcceptQuotationAction" />
+            </commandButtonAction>
+        </navigationSection>
+    </questionPage>
+
+    <questionPage id="QuotationSaved" title="i18n_quotation_saved_page_title">
+        <parsedUrlContent id="QuotationSaved" order="1" url="~/HTML/QuotationSaved.html" />
+        <savedQuotations id="SavedQuotes" order="2" confirmAndPayDestinationPageId="SelectPaymentOption" />
+        <navigationSection id="Navigation" order="3" quitDisabled='true'>
+            <quitButtonAction id="Finish" order="1" label="i18n_finish_button_label" />
+        </navigationSection>
+    </questionPage>
+
+    <questionPage id="Referral" title="Referral">
+        <triggerNewBusinessReferralWorkflow when="onRenderResponse" />
+    </questionPage>    
+
+    <questionPage id="Finish" title="i18n_finish_page_title" stage="i18n_finished_stage">
+        <action order="1" id="SendBrokerNotification" when="onRenderResponse" commandName="SendBrokerEmailNotificationAction" />
+        <action order="2" id="SendProposerNotification" when="onRenderResponse" commandName="SendProposerEmailNotificationAction" />
+        <pageSection id="ThankYou" order="1">
+            <parsedUrlContent id="ThankYou" order="1" url="~/HTML/ThankYou.html" />
+        </pageSection>
+        <navigationSection id="Navigation" order="2" quitDisabled='true'>
+            <quitButtonAction id="Finish" order="1" label="i18n_finish_button_label" />
+        </navigationSection>
+    </questionPage>
+
+</pageFlow>

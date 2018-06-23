@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>Conditions</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Conditions</td></tr>
+</thead><tbody>
+<tr>
+	<td>setTimeout</td>
+	<td>300000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=resetPageflow</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectAndWait</td>
+	<td>name=selectedPage</td>
+	<td>label=Conditions</td>
+</tr>
+<!--Example of "condition" attribute test-->
+<tr>
+	<td>verifyTextNotPresent</td>
+	<td>Condition met.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=L2Fzc2V0W2lkPSdjb25kaXRpb25zRGF0YSddL2F0dHJpYnV0ZVtpZD0nc2VjdGlvbidd</td>
+	<td>label=Yes</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Submit Page&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Condition met.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=L2Fzc2V0W2lkPSdjb25kaXRpb25zRGF0YSddL2F0dHJpYnV0ZVtpZD0nc2VjdGlvbidd</td>
+	<td>label=No</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Submit Page&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextNotPresent</td>
+	<td>Condition met.</td>
+	<td></td>
+</tr>
+<!--Example "if" widget test-->
+<tr>
+	<td>verifyTextNotPresent</td>
+	<td>Condition met.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=L2Fzc2V0W2lkPSdjb25kaXRpb25zRGF0YSddL2F0dHJpYnV0ZVtpZD0naWYnXQ</td>
+	<td>label=Yes</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Submit Page&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Condition met.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=L2Fzc2V0W2lkPSdjb25kaXRpb25zRGF0YSddL2F0dHJpYnV0ZVtpZD0naWYnXQ</td>
+	<td>label=No</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Submit Page&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextNotPresent</td>
+	<td>Condition met.</td>
+	<td></td>
+</tr>
+<!--ConditionalColumn test-->
+<tr>
+	<td>verifyTextNotPresent</td>
+	<td>Condition met.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementNotPresent</td>
+	<td>//div[@class=&quot;pf-row-scroller-header-sub-title&quot; and text()=' (conditional) ']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=L2Fzc2V0W2lkPSdjb25kaXRpb25zRGF0YSddL2F0dHJpYnV0ZVtpZD0nY29sdW1uJ10</td>
+	<td>label=Yes</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Submit Page&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//div[@class='pf-row-scroller-header-sub-title' and contains(text(),&quot;conditional&quot;)]</td>
+	<td>(conditional)</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=L2Fzc2V0W2lkPSdjb25kaXRpb25zRGF0YSddL2F0dHJpYnV0ZVtpZD0nY29sdW1uJ10</td>
+	<td>label=No</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Submit Page&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>//div[@class='pf-row-scroller-header-sub-title' and contains(text(),&quot;conditional&quot;)]</td>
+	<td>(conditional)</td>
+</tr>
+</tbody></table>
+</body>
+</html>

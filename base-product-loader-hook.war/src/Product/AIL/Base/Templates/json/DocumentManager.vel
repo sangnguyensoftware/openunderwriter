@@ -1,0 +1,187 @@
+## Copyright Applied Industrial Logic Limited 2016. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+#set( $pageElement = $args.PageElementArg )
+#set( $id = $args.RenderIdArg )
+#set( $model = $args.ModelArgRet)
+#set( $modelBinding = $pageElement.Binding )
+#set( $documentTypeOptions = $pageElement.DocumentTypeOptions )
+#set( $string = '' )
+#set( $dateFormat = '%1$tY-%1$tm-%1$tdT%1$tT' )
+#set( $renderHint = $args.RenderHintArg )
+##
+#locateDocuments()
+##
+{
+	"type": "${pageElement.Class.SimpleName}",
+	"id": "${id}"
+	#renderDocuments
+	#renderDocumentPlaceholders
+	#title
+	#renderHint
+}
+##
+#macro(title)
+	#if( ${pageElement.Title} && ${pageElement.Title.length()} !=0 )
+		,"title": "${pageElement.formattedTitle($args)}"
+	#end
+#end
+##
+#macro(renderHint)
+	#if( $args.RenderHintArg )	   
+		,"clientHint": "${args.RenderHintArg}"
+	#end
+#end
+##
+#macro(renderDocuments)
+	#if(${renderHint} && ${renderHint.contains('inline')})
+		#set( $inlineOpt = "&inline" )
+	#else
+		#set( $inlineOpt = "" )
+	#end
+	,"documents": [
+		#foreach(${document} in ${source.Document})
+            #if( $pageElement.isDocumentTypeAndLabelsValid($document) )
+                #if( $velocityCount != 1),#end
+                {
+                    "type": {
+                        "title": "Type",
+                        "value": "$pageElement.i18n($!{document.Type})",
+                        "valueId": "${pageElement.encodeId('type', $velocityCount)}",
+                        "format": {
+                            "type": "choice",
+                            "required": "yes",
+                            "typeName": "DocumentTypes"
+                        }
+                        #if($pageElement.hasErrorMarker("type", $document))
+                            ,"error": "${pageElement.findError("type", $document, $pageElement)}"
+                        #end
+                    },
+                    "title": {
+                        "title": "Title",
+                        "value": "$!{document.Title}",
+                        "valueId": "${pageElement.encodeId('title', $velocityCount)}",
+                        "format": {
+                            "type": "string",
+                            "required": "yes",
+                            "max": "255"
+                        }
+                        #if($pageElement.hasErrorMarker("title", $document))
+                            ,"error": "${pageElement.findError("title", $document, $pageElement)}"
+                        #end
+                    },
+                    "description": {
+                        "title": "Description",
+                        "value": "$!{document.Description}",
+                        "valueId": "${pageElement.encodeId('description', $velocityCount)}",
+                        "format": {
+                            "type": "string"
+                         }
+                         #if($pageElement.hasErrorMarker("description", $document))
+                             ,"error": "${pageElement.findError("description", $document, $pageElement)}"
+                         #end
+                    },
+                    "fileName": {
+                        "title": "Filename",
+                        "value": "$!{document.FileName}",
+                        "valueId": "${pageElement.encodeId('fileName', $velocityCount)}",
+                        "format": {
+                            "type": "string",
+                            "required": "yes"
+                        }
+                        #if($pageElement.hasErrorMarker("fileName", $document))
+                            ,"error": "${pageElement.findError("fileName", $document, $pageElement)}",
+                        #end
+                    },
+                    "labels": 
+                        #set($dummy = ${pageElement.getLabelDetails($foreach.index).renderResponse($document)} ),
+                    "mimeType": "$!{document.MimeType}",
+                    "url": "${pageElement.getDownloadUrl(${document})}$!{inlineOpt}"
+                     #if(${document.CreatedDate}),"createdDate": "${string.format(${dateFormat}, ${document.CreatedDate})}"#end
+                     #if(${document.CreatedBy}),"createdBy": "${pageElement.getUsernameForUserId(${document.CreatedBy})}"#end
+                     #if(${document.UpdatedDate}),"updatedDate": "${string.format(${dateFormat}, ${document.UpdatedDate})}"#end
+                     #if(${document.UpdatedBy}),"updatedBy": "${pageElement.getUsernameForUserId(${document.UpdatedBy})}"#end
+                     ,"deleteOp": "op=delete:id=${id}:row=${velocityCount}:immediate=true"
+                }
+            #end
+        #end
+	]
+#end
+##
+#macro(renderDocumentPlaceholders)
+	#if(${renderHint} && ${renderHint.contains('inline')})
+		#set( $inlineOpt = "&inline" )
+	#else
+		#set( $inlineOpt = "" )
+	#end
+	,"documentPlaceholders": [
+		#foreach(${documentPlaceholder} in ${source.DocumentPlaceholder})
+            #if( $velocityCount != 1),#end
+            {
+                "type": {
+                    "title": "Type",
+                    "value": "$pageElement.i18n($!{documentPlaceholder.Type})",
+                    "valueId": "${pageElement.encodeId('documentPlaceholders', 'type', $velocityCount)}",
+                    "format": {
+                        "type": "choice",
+                        "required": "yes",
+                        "typeName": "DocumentTypes"
+                    }
+                    #if($pageElement.hasErrorMarker("type", $documentPlaceholder))
+                        ,"error": "${pageElement.findError("type", $documentPlaceholder, $pageElement)}"
+                    #end
+                },
+                "title": {
+                    "title": "Title",
+                    "value": "$!{documentPlaceholder.Title}",
+                    "valueId": "${pageElement.encodeId('documentPlaceholders', 'title', $velocityCount)}",
+                    "format": {
+                        "type": "string",
+                        "required": "yes",
+                        "max": "255"
+                    }
+                    #if($pageElement.hasErrorMarker("title", $documentPlaceholder))
+                        ,"error": "${pageElement.findError("title", $documentPlaceholder, $pageElement)}"
+                    #end
+                },
+                "description": {
+                    "title": "Description",
+                    "value": "$!{documentPlaceholder.Description}",
+                    "valueId": "${pageElement.encodeId('documentPlaceholders', 'description', $velocityCount)}",
+                    "format": {
+                        "type": "string"
+                     }
+                     #if($pageElement.hasErrorMarker("description", $documentPlaceholder))
+                         ,"error": "${pageElement.findError("description", $documentPlaceholder, $pageElement)}"
+                     #end
+                },
+                 #if(${document.CreatedDate}),"createdDate": "${string.format(${dateFormat}, ${documentPlaceholder.CreatedDate})}"#end
+                 #if(${document.CreatedBy}),"createdBy": "${pageElement.getUsernameForUserId(${documentPlaceholder.CreatedBy})}"#end
+                 #if(${document.UpdatedDate}),"updatedDate": "${string.format(${dateFormat}, ${documentPlaceholder.UpdatedDate})}"#end
+                 #if(${document.UpdatedBy}),"updatedBy": "${pageElement.getUsernameForUserId(${documentPlaceholder.UpdatedBy})}"#end
+            }
+        #end
+	]
+#end
+##
+#macro(locateDocuments)
+    #if( $modelBinding )
+        #set($source = $model.xpathGet($modelBinding))
+    #else
+        #set($source = $model)
+    #end
+#end

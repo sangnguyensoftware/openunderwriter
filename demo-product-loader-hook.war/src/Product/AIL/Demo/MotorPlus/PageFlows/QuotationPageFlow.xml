@@ -1,0 +1,200 @@
+<pageFlow id="QuotationPageFlow" progressBar="true" type="java:com.ail.pageflow.PageFlow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/PageFlow-1.0.xsd">
+    <questionPage id="Welcome" title="Motor Plus - Online Motor Insurance">
+        <savedQuotations id="SavedQuotes" requoteDestinationPageId="Vehicles"/>
+        <navigationSection id="Navigation" >
+            <commandButtonAction id="Quote">
+                <action when="onProcessActions" commandName="CreateNewBusinessQuotationCommand" />
+                <action when="onProcessActions" commandName="InitialiseNewBusiness" />
+            </commandButtonAction>
+        </navigationSection>
+    </questionPage>
+    
+    <questionPage id="Proposer">
+        <navigationSection id="Navigation">
+            <commandButtonAction id="Next" destinationPageId="Vehicles">
+            	<action when="onProcessActions" commandName="QuotationToApplication" />
+            </commandButtonAction>
+        </navigationSection>
+    </questionPage>
+    
+    <questionPage id="Vehicles" title="About Your Car(s)" stage="Vehicles">
+    	<pageSection>
+	        <rowScroller binding="Vehicle" type="VehicleAsset" minRows="1" maxRows="4">
+	            <attributeField title="Make" binding="Vehicle.make"/> 
+	            <attributeField title="Model" binding="Vehicle.model" /> 
+	            <attributeField title="Engine size" subTitle="(cc)" binding="Vehicle.CC"/>
+	            <attributeField title="Type of body" binding="Vehicle.Body Type"/>
+	            <attributeField title="Year" binding="Vehicle.Year" renderHint="no-picker"/>
+	            <attributeField title="Registration no" binding="Vehicle.Registration"/>
+	            <attributeField title="Value now" binding="Vehicle.Current Value"/> 
+	        </rowScroller>
+	    </pageSection>
+        <navigationSection>
+            <commandButtonAction label="i18n_previous_button_label" destinationPageId="Proposer" immediate="true"/>
+            <commandButtonAction label="i18n_next_button_label" destinationPageId="VehicleDetails"/>
+        </navigationSection>
+    </questionPage>
+    
+    <questionPage id="VehicleDetails" title="Details Of Your Car(s)" stage="Vehicles">
+        <sectionScroller binding="Vehicle" type="VehicleAsset" addAndDeleteEnabled="false" 
+        				 repeatedTitle="Details for ${Vehicle.Make/value} ${Vehicle.Model/value} ${Vehicle.Registration/value}">
+            <question title="Is the car left hand drive?" binding="Vehicle.left hand drive"/>
+            <question title="Is the car registered in your name?" binding="Vehicle.registered"/>
+            <question title="Are you the owner of the car?" binding="Vehicle.owned"/>
+            <question title="Will you drive the car to and from work?" binding="Vehicle.commuting"/>
+            <questionWithDetails title="Have there been any changes to the original car?" 
+                binding="Vehicle.modified"
+                detailsTitle="Please specifiy:" 
+                detailsBinding="Vehicle.modification" />
+            <question title="Has a security device been fitted?" binding="Vehicle.security device"/>
+            <question title="Do you keep the car at the proposers address?" binding="Vehicle.kept at home"/>
+            <questionWithDetails title="Is the car stored in a locked garage overnight?" 
+                binding="Vehicle.garaged"
+                detailsTitle="Is the garage of solid construction?"
+                detailsBinding="Vehicle.solid garage" />
+        </sectionScroller>
+        <navigationSection>
+            <commandButtonAction label="i18n_previous_button_label" destinationPageId="Vehicles" immediate="true"/>
+            <commandButtonAction label="i18n_next_button_label" destinationPageId="Drivers"/>
+        </navigationSection>
+    </questionPage>
+    
+    <questionPage id="Drivers" title="About The Drivers" stage="Drivers">
+        <action when="onRenderResponse" commandName="PopulateDriverName"/>
+        <pageSection>
+	        <rowScroller binding="/asset[assetTypeId='DriverAsset']" type='DriverAsset' minRows="1" maxRows='4'>
+	            <attributeField title="Name" binding="attribute[id='name']"/>
+	            <attributeField title="Date of birth" subTitle="(dd/mm/yyyy)" binding="attribute[id='dob']"/>
+	            <attributeField title="Sex" binding="attribute[id='sex']"/>
+	            <attributeField title="Occupation" binding="attribute[id='occupation']"/>
+	            <attributeField title="Type of license" binding="attribute[id='licenseType']"/>
+	            <attributeField title="Years license held" binding="attribute[id='yearsLicenseHeld']"/>
+	        </rowScroller>
+	    </pageSection>
+        <navigationSection>
+            <commandButtonAction label="i18n_previous_button_label" destinationPageId="VehicleDetails" immediate="true"/>
+            <commandButtonAction label="i18n_next_button_label" destinationPageId="History"/> 
+        </navigationSection>
+    </questionPage>
+    
+    <questionPage id="History" title="About Your Driving History" stage="Drivers">
+        <action when="onRenderResponse" commandName="PopulateDriverOptions"/>
+        <questionSection title="Have you or any of the named drivers:">
+            <question title="Had motor insurance refused or had to meet special terms such as increased excess?" 
+                binding="/asset[id='driversHistory']/attribute[id='refusedMotorInsurance']"/>
+            <questionWithSubSection title="Had any claim, accident or loss in the last 3 years, regardless of blame to any vehicle in your control or custody?" 
+                binding="/asset[id='driversHistory']/attribute[id='claimAccidentOrLoss']">
+                <rowScroller binding="/asset[assetTypeId='AccidentHistoryAsset']" type="AccidentHistoryAsset" id="ah">
+                    <attributeField title="Driver" binding="attribute[id='driver']"/>
+                    <attributeField title="Date" subTitle="(dd/mm/yyyy)" binding="attribute[id='date']"/>
+                    <attributeField title="Your fault?" binding="attribute[id='atFault']"/>
+                    <attributeField title="Value of claim?" binding="attribute[id='value']"/>
+                </rowScroller> 
+            </questionWithSubSection>
+            <question title="Had any theft in the last three years of any car in your custody or control?" 
+                binding="/asset[id='driversHistory']/attribute[id='theft']" />
+            <questionWithSubSection title="Had a motor conviction or fixed penalty fine in the last 5 years, or have an pending prosecution?" 
+                binding="/asset[id='driversHistory']/attribute[id='motorConviction']">
+                <rowScroller binding="/asset[assetTypeId='ConvictionHistoryAsset']" type="ConvictionHistoryAsset" id="ch">
+                    <attributeField title="Driver" binding="attribute[id='driver']"/>
+                    <attributeField title="Date" subTitle="(dd/mm/yyyy)" binding="attribute[id='date']"/>
+                    <attributeField title="Offence code" binding="attribute[id='type']"/>
+                </rowScroller> 
+            </questionWithSubSection>
+            <question title="Had any other non-motoring conviction?" 
+                binding="/asset[id='driversHistory']/attribute[id='otherConviction']" />
+        </questionSection>
+        <questionSection title="Your insurance history:">
+            <questionWithSubSection title="Have you been insured in your own name for any of these cars in the last 3 years?" 
+                binding="/asset[id='driversHistory']/attribute[id='previouslyInsured']">
+                   <questionWithDetails title="Did your last insurance expire more than one month before this insurance starts?" 
+                       binding="/asset[id='driversHistory']/attribute[id='gapInCover']"
+                       detailsTitle="If yes, please give details:"
+                       detailsBinding="/asset[id='driversHistory']/attribute[id='gapInCoverDetail']"/>
+                   <question title="Name of previous insurers:" 
+                       binding="/asset[id='driversHistory']/attribute[id='previousInsurer']"/>
+                   <question title="Policy number (if known):" 
+                       binding="/asset[id='driversHistory']/attribute[id='previousPolicyNumber']"/>
+            </questionWithSubSection>
+            <questionWithDetails title="Are you claiming a no claims discount?" 
+                binding="/asset[id='driversHistory']/attribute[id='claimingNoClaimsBonus']"
+                detailsTitle="If yes, for how many years?"
+                detailsBinding="/asset[id='driversHistory']/attribute[id='yearsOfNoClaimsBonus']"/>
+        </questionSection>
+        <navigationSection>
+            <commandButtonAction label="i18n_previous_button_label" destinationPageId="Drivers" immediate="true"/>
+            <commandButtonAction label="i18n_next_button_label" destinationPageId="Referral">
+                <action when="onProcessActions" commandName="PremiumCalculation"/>
+                <pageForwardAction when="onProcessActions" condition="i:test(status[.='QUOTATION'])" destinationPageId="Quotation"/>
+            </commandButtonAction>
+        </navigationSection>
+    </questionPage>
+    
+    <informationPage id="Quotation" stage="Quotation">
+        <action when="onRenderResponse" commandName="SendBrokerEmailNotificationAction"/>
+        <action when="onRenderResponse" commandName="SendProposerEmailNotificationAction"/>
+
+        <quotationSummary termsAndConditionsUrl="~/HTML/TermsAndConditions.html" 
+            wordingsUrl="~/Documents/Wordings.pdf"
+            requoteDestinationPageId="Vehicles"
+            saveDestinationPageId="SavedQuotes"
+            confirmAndPayDestinationPageId="SelectPaymentOption">
+
+            <answerSection title="Summary of your cover">
+                <answer title="Coverage" binding="section[id='section1']/attribute[id='cover']"/>
+                <answer title="Start date" binding="inceptionDate"/>
+                <answer title="End date" binding="expiryDate"/>
+                <answer title="${/excess[id='excess1']/title}" binding="/excess[id='excess1']/amount"/>
+                <answer title="${/excess[id='excess2']/title}" binding="/excess[id='excess2']/amount"/>
+            </answerSection>
+            
+            <answerSection title="Driver(s)">
+                <answerScroller binding="/asset[assetTypeId='DriverAsset']">
+                    <answer title="Name" binding="attribute[id='name']"/>
+                    <answer title="Date of birth" binding="attribute[id='dob']"/>
+                    <answer title="Occupation" binding="attribute[id='occupation']"/>
+                </answerScroller>
+            </answerSection>
+            
+            <answerSection title="Vehicle(s)">
+                <answerScroller binding="Vehicle">
+                    <answer title="Make" binding="Vehicle.Make"/>
+                    <answer title="Model" binding="Vehicle.Model"/>
+                    <answer title="Registration" binding="Vehicle.Registration"/>
+                </answerScroller>
+            </answerSection>
+        </quotationSummary>
+    </informationPage>
+    
+    <questionPage id="Referral" title="Referral" stage="Quotation">
+        <action when="onRenderResponse" commandName="SendBrokerEmailNotificationAction"/>
+        <action when="onRenderResponse" commandName="SendProposerEmailNotificationAction"/>
+        <referralSummary referralNotificationUrl="~/HTML/ReferralNotification.html" 
+            requoteDestinationPageId="Vehicles">
+
+            <answerSection title="Summary of your requirements">
+                <answer title="Coverage" binding="section[id='section1']/attribute[id='cover']"/>
+                <answer title="Start date" binding="inceptionDate"/>
+                <answer title="End date" binding="expiryDate"/>
+                <answer title="${/excess[id='excess1']/title}" binding="/excess[id='excess1']/amount"/>
+                <answer title="${/excess[id='excess2']/title}" binding="/excess[id='excess2']/amount"/>
+            </answerSection>
+            
+            <answerSection title="Driver(s)">
+                <answerScroller binding="/asset[assetTypeId='DriverAsset']">
+                    <answer title="Name" binding="attribute[id='name']"/>
+                    <answer title="Date of birth" binding="attribute[id='dob']"/>
+                    <answer title="Occupation" binding="attribute[id='occupation']"/>
+                </answerScroller>
+            </answerSection>
+            
+            <answerSection title="Vehicle(s)">
+                <answerScroller binding="Vehicle">
+                    <answer title="Make" binding="Vehicle.Make"/>
+                    <answer title="Model" binding="Vehicle.Model"/>
+                    <answer title="Registration" binding="Vehicle.Registration"/>
+                </answerScroller>
+            </answerSection>
+        </referralSummary>
+    </questionPage>
+</pageFlow>

@@ -1,0 +1,245 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the Payments widget.
+##
+#set( $quote = $args.ModelArgRet)
+#set( $policyPayments = $args.pageElementArg )
+#set( $policy = $args.PolicyArg )
+#set( $renderId = $args.RenderIdArg )
+##
+<div class='pf-policy-payments' id='$!{renderId}'>
+	#if( $policy )
+		<div class='pf-header'>
+			#renderHeader
+		</div>
+		<div class='pf-body'>
+			#paymentDetails
+			#paymentOptions
+			#paymentHistory
+			#renderDates
+		</div>
+	#else
+		#renderPolicyMessage
+	#end
+</div>
+##
+#macro(paymentOptions)
+    <div class='pf-section pf-policy-payments-payment-options-section'>
+        <div class='pf-section-title'>
+            $policyPayments.i18n("i18n_policy_summary_payment_options_title")
+        </div>
+    	#if( $policy.PaymentOption && $policy.PaymentOption.size() != 0 )
+            <div class='pf-section-body'>
+				#foreach( $option in $policy.PaymentOption )
+					#if( $policy.PaymentDetails && $option.Description == $policy.PaymentDetails.Description )
+						#set( $style = '' )
+					#else
+						#set( $style = 'color:lightgrey' )
+					#end
+                    <div class='pf-item'>
+                        <div class='pf-item-value' style='$style'>$option.Description</div>
+                    </div>
+                    #foreach( $provision in $option.MoneyProvision)
+                    	<div class='pf-item'>
+                    		#paymentDetailRow( $!provision.Description "")
+                    		#paymentDetailRow("i18n_policy_summary_start_date_label" $provision.PaymentsStartDate $style)
+                    		#paymentDetailRow("i18n_policy_summary_expiry_date_label" $provision.PaymentsEndDate $style)
+                    		#paymentDetailRow("i18n_policy_summary_number_of_payments_label" $provision.Number $style)
+                    		#paymentDetailRow("i18n_policy_summary_payment_amount" $provision.Amount $style)
+                    		#paymentDetailRow("i18n_policy_summary_payment_frequency" $provision.Frequency $style)
+                    		#paymentDetailRow("i18n_policy_summary_payment_status" $provision.Status $style)
+                    	</div>
+                    #end
+				#end
+			</div>
+		#else
+            <div class='pf-section-body'>
+                <div class='pf-item'>
+                    <div class='pf-item-value'>$policyPayments.i18n("i18n_policy_summary_no_records")</div>
+                </div>
+			</div>
+		#end
+	</div>
+#end
+##
+#macro(paymentHistory)
+    <div class='pf-section pf-policy-payments-payment-history-section'>
+        <div class='pf-section-title'>
+            $policyPayments.i18n("i18n_policy_summary_payment_history_title")
+        </div>
+    	#if( $policy.PaymentHistory && $policy.PaymentHistory.size() != 0 )
+            <div class='pf-section-body'>
+				#foreach( $record in $policy.PaymentHistory )
+                    <div class='pf-item'>
+                        <div class='pf-item-value'>$record.Date</div>
+                        <div class='pf-item-value'>$record.Amount</div>
+                        <div class='pf-item-value'>$record.Type</div>
+                        <div class='pf-item-value'>$record.TransactionReference</div>
+                        <div class='pf-item-value'>$record.MethodIdentifier</div>
+                        <div class='pf-item-value'>$!record.Description</div>
+                    </div>
+				#end
+			</div>
+		#else
+            <div class='pf-section-body'>
+                <div class='pf-item'>
+                    <div class='pf-item-value'>$policyPayments.i18n("i18n_policy_summary_no_records")</div>
+                </div>
+			</div>
+		#end
+	</div>
+#end
+##
+#macro(paymentDetails)
+    <div class='pf-section pf-policy-payments-payment-section'>
+        <div class='pf-section-title'>
+            $policyPayments.i18n("i18n_policy_summary_payments_title")
+        </div>
+		#if( $policy.PaymentDetails && $policy.PaymentDetails.MoneyProvision.size() != 0 )
+		 	<div class='pf-section-body'>
+                <div class='pf-item-value'>$policy.PaymentDetails.Description</div>
+           
+                #foreach( $provision in $policy.PaymentDetails.MoneyProvision)
+                    <div class='pf-item-title'>$provision.Description</div>
+                    <div class='pf-item'>
+                		#paymentDetailRow("i18n_policy_summary_payment_frequency" $provision.Frequency)
+                		#paymentDetailRow("i18n_policy_summary_payment_amount" $provision.Amount)
+                		#paymentDetailRow("i18n_policy_summary_start_date_label" ${provision.xpathGet("u:longDate(/paymentsStartDate)","")} )
+                		#if($provision.PaymentsEndDate)
+                			#paymentDetailRow("i18n_policy_summary_expiry_date_label" ${provision.xpathGet("u:longDate(/paymentsEndDate)","")} )
+	                		#paymentDetailRow("i18n_policy_summary_number_of_payments_label" $provision.Number)
+                		#end
+                		#paymentDetailRow("i18n_policy_summary_payment_status" $provision.Status)
+                	</div>
+                    #set( $method = $provision.PaymentMethod )
+                    #if( $method.Class.Name == "com.ail.financial.PaymentCard" )
+                        <div class='pf-item-title'>$policyPayments.i18n("i18n_policy_summary_card_details_title")</div>
+                        <div class='pf-item'>
+                            #paymentDetailRow("i18n_policy_summary_card_number_label" $method.CardNumber)
+                            #paymentDetailRow("i18n_policy_summary_name_on_card_label" $method.CardHoldersName)
+                            #paymentDetailRow("i18n_policy_summary_issue_number_label" $method.IssueNumber)
+                            #paymentDetailRow("i18n_policy_summary_start_date_label" $method.FormattedStartDate)
+                            #paymentDetailRow("i18n_policy_summary_expiry_date_label" $method.FormattedExpiryDate)
+                        </div> 
+                    #elseif( $method.Class.Name == "com.ail.financial.DirectDebit" )
+                        <div class='pf-item-title'>$policyPayments.i18n("i18n_policy_summary_account_details_title")</div>
+                        <div class='pf-item'>
+                            #paymentDetailRow("i18n_policy_summary_account_number_label" $method.AccountNumber)
+                            #paymentDetailRow("i18n_policy_summary_sort_code_label" $method.SortCode)
+                        </div>
+					#elseif( $method.Class.Name == "com.ail.financial.PayPal" )
+                        <div class='pf-item-title'>$policyPayments.i18n("i18n_policy_summary_paypal_title")</div>
+                        <div class='pf-item'>$policyPayments.i18n("i18n_policy_summary_paypal_message")</div>
+                    #end
+            	#end
+            </div>
+		#else
+            <div class='pf-section-body'>
+				<div class='pf-item'>
+					#paymentDetailRow("i18n_policy_summary_no_records" "")
+                </div>
+            </div>
+		#end
+	</div>
+#end
+##
+#macro(renderDates)
+#set( $style = '' )
+	<div class='pf-section pf-policy-payments-dates-section'>
+    	<div class='pf-section-title'>$policyPayments.i18n("i18n_policy_summary_dates_title")</div>
+           <div class='pf-section-body'>
+           	#paymentDetailRow("i18n_policy_summary_cover_inception_date_label" ${quote.xpathGet("u:longDate(/inceptionDate)","")} )
+           	#paymentDetailRow("i18n_policy_summary_cover_expiry_date_label" ${quote.xpathGet("u:longDate(/expiryDate)","")} )
+        </div>
+	</div>
+#end
+##
+#macro(renderHeader)
+    <div class='pf-header-title'>
+		#if( $policy.PolicyNumber )
+			$policyPayments.i18n("i18n_payment_details_summary_title", $policy.PolicyNumber)
+		#elseif( $policy.QuotationNumber )
+			$policyPayments.i18n("i18n_payment_details_summary_title", $policy.QuotationNumber)
+		#end
+	</div>
+    <div class='pf-header-summary'>
+        <div class='pf-header-summary-entry'>
+            <div class='pf-header-summary-title'>
+                $policyPayments.i18n("i18n_policy_summary_product_title")
+            </div>
+            <div class='pf-header-summary-value'>
+                $policy.ProductName
+            </div>
+        </div>
+        <div class='pf-header-summary-entry'>
+            <div class='pf-header-summary-title'>
+                $policyPayments.i18n("i18n_policy_summary_status_title")
+            </div>
+            <div class='pf-header-summary-value'>
+                #if ( $policy.StatusAsString )
+                    	$policyPayments.i18n($policy.Status.LongName)
+                #end
+            </div>
+        </div>
+		#if( $policy.TotalPremiumDefined )
+            <div class='pf-header-summary-entry'>
+                <div class='pf-header-summary-title'>
+                    $policyPayments.i18n("i18n_policy_summary_total_premium_title")
+                </div>
+                <div class='pf-header-summary-value'>
+                    $policy.TotalPremium
+                </div>
+            </div>
+		#end
+	</div>
+	<div style="clear:both;"></div>
+#end
+##
+#macro(renderPolicyMessage)
+	$policyPayments.i18n('i18n_no_policy_message')
+#end
+##
+#macro(paymentDetailRow $label $value)
+    
+    #if( !$style )
+		#set( $style = '' )
+	#end
+    <div class='pf-item'>
+        <div style='$style' class='pf-item-label'>
+        	#if( $label )
+        		#if( $label.startsWith("i18n_") )
+        			$policyPayments.i18n($label)
+        		#else
+        			$label
+        		#end
+       		#end
+       	</div>
+        <div style='$style' class='pf-item-value'>
+        	#if( $value )
+        		#if( $value.toString().startsWith("i18n_") )
+        			$policyPayments.i18n($value)
+        		#else
+        			$value
+        		#end
+        	#end
+        </div>
+    </div>
+#end
+##
+

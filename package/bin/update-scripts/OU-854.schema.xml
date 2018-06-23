@@ -1,0 +1,30 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-854 Add phoPaymentHoliday table" author="richard">
+        <sql dbms="mysql">
+			CREATE TABLE `phoPaymentHoliday` (
+			  `phoUID` bigint(20) NOT NULL,
+			  `phoAttribute` longtext,
+			  `phoCreatedBy` bigint(20) DEFAULT NULL,
+			  `phoCreatedDate` datetime DEFAULT NULL,
+			  `phoExternalSystemId` varchar(255) NOT NULL,
+			  `phoForeignSystemId` varchar(255) DEFAULT NULL,
+			  `phoLock` bit(1) DEFAULT NULL,
+			  `phoSerialVersion` bigint(20) NOT NULL,
+			  `phoUpdatedBy` bigint(20) DEFAULT NULL,
+			  `phoUpdatedDate` datetime DEFAULT NULL,
+			  `phoEndDate` datetime DEFAULT NULL,
+			  `phoStartDate` datetime DEFAULT NULL,
+			  `phoPolicyUIDpol` bigint(20) DEFAULT NULL,
+			  PRIMARY KEY (`phoUID`),
+			  UNIQUE KEY `phoExternalSystemId` (`phoExternalSystemId`),
+			  KEY `FKADB97CC9F9D31E89` (`phoPolicyUIDpol`),
+			  CONSTRAINT `FKADB97CC9F9D31E89` FOREIGN KEY (`phoPolicyUIDpol`) REFERENCES `polPolicy` (`polUID`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+</databaseChangeLog>

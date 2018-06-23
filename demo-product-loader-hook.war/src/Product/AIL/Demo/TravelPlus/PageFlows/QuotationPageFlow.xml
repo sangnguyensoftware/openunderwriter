@@ -1,0 +1,437 @@
+<pageFlow id="QuotationPageFlow" type="java:com.ail.pageflow.PageFlow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/PageFlow-1.0.xsd">
+
+    <action id="CreateNewBusinessQuotation" when="onPageFlowEntry" commandName="CreateNewBusinessQuotationCommand" />
+    <action id="Initialise" when="onPageFlowEntry" commandName="InitialiseNewBusiness" />
+
+    <!-- First Page -->
+    <questionPage id="Welcome" title="i18n_travel_detail_label">
+      <!-- questions -->
+      <blank id="Welcome" />
+      <questionSection order="1">
+        <question title="i18n_policy_type_label" binding="/asset[id='travel']/attribute[id='policyType']" >
+          <errorText  error="invalid">i18n_policy_type_error</errorText>
+          <errorText error="required">i18n_policy_type_error</errorText>
+          <hintText>i18n_policy_type_help</hintText>
+        </question> 
+        <question title="i18n_winter_sports_label" binding="/asset[id='travel']/attribute[id='winterSportsCover']" renderHint="checkbox">
+          <errorText error="invalid">i18n_winter_sports_error</errorText>
+          <errorText error="required">i18n_winter_sports_error</errorText>
+          <hintText>i18n_winter_sports_help</hintText>
+        </question> 
+        <question title="i18n_destination_label" binding="/asset[id='travel']/attribute[id='destination']" >
+          <errorText error="invalid">i18n_destination_error</errorText>
+          <errorText error="required">i18n_destination_error</errorText>
+          <hintText>i18n_destination_help</hintText>
+        </question> 
+        <question title="i18n_party_type_label" binding="/asset[id='travel']/attribute[id='partyType']" >
+          <errorText error="invalid">i18n_party_type_error</errorText>
+          <errorText error="required">i18n_party_type_error</errorText>
+          <hintText>i18n_party_type_help</hintText>
+        </question> 
+      </questionSection>
+      <!-- navigation buttons -->
+      <navigationSection id="Navigation" quitDisabled="true" order="2">
+        <blank id="Quote" />
+        <commandButtonAction id="Next" destinationPageId="CoverDetail" label="i18n_next_button_label" styleClass="submit" >
+        	<action when="onProcessActions" commandName="QuotationToApplication" />
+        </commandButtonAction> 
+      </navigationSection>
+      <blank id="SavedQuotes" />
+    </questionPage>
+		
+    <!-- Second Page -->
+    <questionPage id="CoverDetail" title="i18n_cover_detail_label" stage="Cover">
+      <!-- questions -->
+      <!-- repeatable - people to be insured -->
+      <!-- Individual -->
+      <pageSection title="i18n_travellers_label"  condition="i:test(asset[id='travel']/attribute[id='partyType']/value[.='i18n_party_type_individual_option'])">
+        <rowScroller binding="/asset[assetTypeId='TravellerAsset']" type="TravellerAsset" minRows="1" maxRows="1">
+          <attributeField title="i18n_first_name_label" binding="attribute[id='firstName']" >
+            <errorText error="invalid">i18n_first_name_error</errorText>
+            <hintText>i18n_first_name_hint</hintText>
+          </attributeField>
+          <attributeField title="i18n_last_name_label" binding="attribute[id='lastName']" >
+            <errorText error="invalid">i18n_last_name_error</errorText>
+            <hintText>i18n_last_name_hint</hintText>
+          </attributeField>
+          <attributeField title="i18n_age_label" binding="attribute[id='age']" >
+            <errorText error="invalid">i18n_age_error</errorText>
+            <hintText>i18n_age_hint</hintText>
+          </attributeField>
+        </rowScroller>
+      </pageSection>
+      <!-- Couple -->
+      <pageSection title="i18n_travellers_label"  condition="i:test(asset[id='travel']/attribute[id='partyType']/value[.='i18n_party_type_couple_option'])">
+        <rowScroller binding="/asset[assetTypeId='TravellerAsset']" type="TravellerAsset" minRows="2" maxRows="2">
+          <attributeField title="i18n_first_name_label" binding="attribute[id='firstName']" >
+            <errorText error="invalid">i18n_first_name_error</errorText>
+          </attributeField>
+          <attributeField title="i18n_last_name_label" binding="attribute[id='lastName']" >
+            <errorText error="invalid">i18n_last_name_error</errorText>
+          </attributeField>
+          <attributeField title="i18n_age_label" binding="attribute[id='age']" >
+            <errorText error="invalid">i18n_age_error</errorText>
+          </attributeField>
+        </rowScroller>
+      </pageSection>
+      <!-- Family -->
+      <pageSection title="i18n_travellers_label"  condition="i:test(asset[id='travel']/attribute[id='partyType']/value[.='i18n_party_type_family_option'])">
+        <rowScroller binding="/asset[assetTypeId='TravellerAsset']" type="TravellerAsset" minRows="2" maxRows="5">
+          <attributeField title="i18n_first_name_label" binding="attribute[id='firstName']" >
+            <errorText error="invalid">i18n_first_name_error</errorText>
+          </attributeField>
+          <attributeField title="i18n_last_name_label" binding="attribute[id='lastName']" >
+            <errorText error="invalid">i18n_last_name_error</errorText>
+          </attributeField>
+          <attributeField title="i18n_age_label" binding="attribute[id='age']" >
+            <errorText error="invalid">i18n_age_error</errorText>
+          </attributeField>
+        </rowScroller>
+      </pageSection>
+      <!-- Group -->
+      <pageSection title="i18n_travellers_label"  condition="i:test(asset[id='travel']/attribute[id='partyType']/value[.='i18n_party_type_group_option'])">
+        <rowScroller binding="/asset[assetTypeId='TravellerAsset']" type="TravellerAsset" minRows="2" maxRows="9">
+          <attributeField title="i18n_first_name_label" binding="attribute[id='firstName']" >
+            <errorText error="invalid">i18n_first_name_error</errorText>
+          </attributeField>
+          <attributeField title="i18n_last_name_label" binding="attribute[id='lastName']" >
+            <errorText error="invalid">i18n_last_name_error</errorText>
+          </attributeField>
+          <attributeField title="i18n_age_label" binding="attribute[id='age']" >
+            <errorText error="invalid">i18n_age_error</errorText>
+          </attributeField>
+        </rowScroller>
+      </pageSection>
+      <questionSection order="1">
+        <question title="i18n_medical_conditions_label" binding="/asset[id='travel']/attribute[id='medicalConditions']" renderHint="checkbox" >
+          <errorText error="invalid">i18n_medical_conditions_error</errorText>
+          <hintText>i18n_medical_conditions_help</hintText>
+        </question> 
+      </questionSection>
+      <questionSection order="2" title="i18n_cover_label">
+        <question title="i18n_natural_catastrophe_cover_label" binding="/asset[id='travel']/attribute[id='naturalCatastropheCover']" renderHint="checkbox" >
+          <errorText error="invalid">i18n_natural_catastrophe_cover_error</errorText>
+          <hintText>i18n_natural_catastrophe_cover_help</hintText>
+        </question> 
+        <question title="i18n_personal_accident_cover_label" binding="/asset[id='travel']/attribute[id='personalAccidentCover']" renderHint="checkbox" >
+          <errorText error="invalid">i18n_personal_accident_cover_error</errorText>
+          <hintText>i18n_personal_accident_cover_help</hintText>
+        </question> 
+        <question title="i18n_trip_cancellation_cover_label" binding="/asset[id='travel']/attribute[id='tripCancellationCover']" renderHint="checkbox" >
+          <errorText error="invalid">i18n_trip_cancellation_cover_error</errorText>
+          <hintText>i18n_trip_cancellation_cover_help</hintText>
+        </question> 
+        <question title="i18n_loss_of_personal_money_cover_label" binding="/asset[id='travel']/attribute[id='lossOfPersonalMoneyCover']" renderHint="checkbox" >
+          <errorText error="invalid">i18n_loss_of_personal_money_cover_error</errorText>
+          <hintText>i18n_loss_of_personal_money_cover_help</hintText>
+        </question> 
+        <question title="i18n_loss_of_personal_belongings_cover_label" binding="/asset[id='travel']/attribute[id='lossOfPersonalBelongingsCover']" renderHint="checkbox" >
+          <errorText error="invalid">i18n_loss_of_personal_belongings_cover_error</errorText>
+          <hintText>i18n_loss_of_personal_belongings_cover_help</hintText>
+        </question> 
+      </questionSection>
+      <!-- navigation buttons -->
+      <navigationSection id="Navigation" quitDisabled="true" order="3">
+        <commandButtonAction id="Previous" destinationPageId="Welcome" label="i18n_previous_button_label" immediate="true" styleClass="submit" />
+		<commandButtonAction  id="Quote" label="i18n_quote_button_label" destinationPageId="QuoteOptions" styleClass="submit">
+			<action when="onProcessValidations" commandName="TravellersValidation"/>
+			<!-- Enable coverages as specified by proposal -->
+			<action when="onProcessActions" commandName="EnforceCoverages" />
+			<!-- Finally, run the risk assessment and premium calculation rules -->
+			<action when="onProcessActions" commandName="PremiumCalculation"/>
+			<!-- if all sections refer... -->
+			<pageForwardAction when="onProcessActions" condition="i:test(section[id='threestar']/assessmentSheet/line[type='REFER']) and i:test(section[id='fourstar']/assessmentSheet/line[type='REFER']) and i:test(section[id='fivestar']/assessmentSheet/line[type='REFER'])" destinationPageId="Referral" />
+		</commandButtonAction>		
+	  </navigationSection>
+    </questionPage>
+
+    <!-- Quote Options -->
+    <questionPage id="QuoteOptions" title="i18n_quote_options_label" stage="Options">
+      <!-- navigation buttons -->
+      <navigationSection id="NavigationConfirmAndPay" quitDisabled="true" order="1">
+ 		<commandButtonAction id="threeStarConfirmAndPay" label="i18n_select_section_1_label" destinationPageId="Proposer" styleClass="submit">
+			<action when="onProcessActions" commandName="SelectSection" >
+				<attribute id="selected" format="string" value="threestar"/>
+				<attribute id="notselected" format="string" value="fourstar,fivestar"/>
+			</action>			
+		</commandButtonAction>	
+		<commandButtonAction id="fourStarConfirmAndPay" label="i18n_select_section_2_label" destinationPageId="Proposer" styleClass="submit">
+			<action when="onProcessActions" commandName="SelectSection" >
+				<attribute id="selected" format="string" value="fourstar"/>
+				<attribute id="notselected" format="string" value="threestar,fivestar"/>
+			</action>			
+		</commandButtonAction>	
+		<commandButtonAction id="fiveStarConfirmAndPay" label="i18n_select_section_3_label" destinationPageId="Proposer" styleClass="submit">
+			<action when="onProcessActions" commandName="SelectSection" >
+				<attribute id="selected" format="string" value="fivestar"/>
+				<attribute id="notselected" format="string" value="threestar,fourstar"/>
+			</action>			
+		</commandButtonAction>	
+	  </navigationSection>
+	  <pageScript script="document.getElementById('NavigationConfirmAndPay').style.display = 'none';" />
+      <!-- options -->
+      <answerSection order="2" title="i18n_3_star_protection_label" ref="threeStarConfirmAndPay">
+        <answer title="i18n_premium_label" binding="section[id='threestar']/assessmentSheet/line[id='total premium']/amount" />
+        <answer title="i18n_cover_label" binding="''"/>
+		<!-- Optional coverages -->
+        <answer title="i18n_winter_sports_limit_label" binding="section[id='threestar']/coverage[id='winterSports']/limit" condition="i:test(section[id='threestar']/coverage[id='winterSports' and enabled='true'])"/>
+        <answer title="i18n_winter_sports_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='winterSports' and enabled!='true'])"/>
+        <answer title="i18n_natural_catastrophe_limit_label" binding="section[id='threestar']/coverage[id='naturalCatastrophe']/limit" condition="i:test(section[id='threestar']/coverage[id='naturalCatastrophe' and enabled='true'])"/>
+        <answer title="i18n_natural_catastrophe_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='naturalCatastrophe' and enabled!='true'])"/>
+        <answer title="i18n_personal_accident_limit_label" binding="section[id='threestar']/coverage[id='personalAccident']/limit" condition="i:test(section[id='threestar']/coverage[id='personalAccident' and enabled='true'])"/>
+        <answer title="i18n_personal_accident_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='personalAccident' and enabled!='true'])"/>
+        <answer title="i18n_trip_cancellation_limit_label" binding="section[id='threestar']/coverage[id='tripCancellation']/limit" condition="i:test(section[id='threestar']/coverage[id='tripCancellation' and enabled='true'])"/>
+        <answer title="i18n_trip_cancellation_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='tripCancellation' and enabled!='true'])"/>
+        <answer title="i18n_loss_of_personal_money_limit_label" binding="section[id='threestar']/coverage[id='lossOfPersonalMoney']/limit" condition="i:test(section[id='threestar']/coverage[id='lossOfPersonalMoney' and enabled='true'])"/>
+        <answer title="i18n_loss_of_personal_money_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='lossOfPersonalMoney' and enabled!='true'])"/>
+        <answer title="i18n_loss_of_personal_belongings_limit_label" binding="section[id='threestar']/coverage[id='lossOfPersonalBelongings']/limit" condition="i:test(section[id='threestar']/coverage[id='lossOfPersonalBelongings' and enabled='true'])"/>
+        <answer title="i18n_loss_of_personal_belongings_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='lossOfPersonalBelongings' and enabled!='true'])"/>
+		<!-- Mandatory (section determined) coverages -->
+        <answer title="i18n_medical_expenses_limit_label" binding="section[id='threestar']/coverage[id='medicalExpenses']/limit" condition="i:test(section[id='threestar']/coverage[id='medicalExpenses' and enabled='true'])"/>
+        <answer title="i18n_medical_expenses_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='medicalExpenses' and enabled!='true'])"/>
+        <answer title="i18n_personal_liability_limit_label" binding="section[id='threestar']/coverage[id='personalLiability']/limit" condition="i:test(section[id='threestar']/coverage[id='personalLiability' and enabled='true'])"/>
+        <answer title="i18n_personal_liability_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='personalLiability' and enabled!='true'])"/>
+        <answer title="i18n_cutting_your_trip_short_limit_label" binding="section[id='threestar']/coverage[id='cuttingYourTripShort']/limit" condition="i:test(section[id='threestar']/coverage[id='cuttingYourTripShort' and enabled='true'])"/>
+        <answer title="i18n_cutting_your_trip_short_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='cuttingYourTripShort' and enabled!='true'])"/>
+        <answer title="i18n_passport_and_travel_documents_limit_label" binding="section[id='threestar']/coverage[id='passportAndTravelDocuments']/limit" condition="i:test(section[id='threestar']/coverage[id='passportAndTravelDocuments' and enabled='true'])"/>
+        <answer title="i18n_passport_and_travel_documents_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='passportAndTravelDocuments' and enabled!='true'])"/>
+        <answer title="i18n_scheduled_airline_failure_limit_label" binding="section[id='threestar']/coverage[id='personalAccident']/limit" condition="i:test(section[id='threestar']/coverage[id='scheduledAirlineFailure' and enabled='true'])"/>
+        <answer title="i18n_scheduled_airline_failure_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='scheduledAirlineFailure' and enabled!='true'])"/>
+        <answer title="i18n_end_supplier_failure_limit_label" binding="section[id='threestar']/coverage[id='endSupplierFailure']/limit" condition="i:test(section[id='threestar']/coverage[id='endSupplierFailure' and enabled='true'])"/>
+        <answer title="i18n_end_supplier_failure_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='endSupplierFailure' and enabled!='true'])"/>
+        <answer title="i18n_concierge_service_limit_label" binding="'included'" condition="i:test(section[id='threestar']/coverage[id='conciergeService' and enabled='true'])"/>
+        <answer title="i18n_concierge_service_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='conciergeService' and enabled!='true'])"/>
+      </answerSection>
+      <answerSection order="3" title="i18n_4_star_protection_label" ref="fourStarConfirmAndPay">
+        <answer title="i18n_premium_label" binding="section[id='fourstar']/assessmentSheet/line[id='total premium']/amount" />
+        <answer title="i18n_cover_label" binding="''"/>
+		<!-- Optional coverages -->
+        <answer title="i18n_winter_sports_limit_label" binding="section[id='fourstar']/coverage[id='winterSports']/limit" condition="i:test(section[id='fourstar']/coverage[id='winterSports' and enabled='true'])"/>
+        <answer title="i18n_winter_sports_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='winterSports' and enabled!='true'])"/>
+        <answer title="i18n_natural_catastrophe_limit_label" binding="section[id='fourstar']/coverage[id='naturalCatastrophe']/limit" condition="i:test(section[id='fourstar']/coverage[id='naturalCatastrophe' and enabled='true'])"/>
+        <answer title="i18n_natural_catastrophe_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='naturalCatastrophe' and enabled!='true'])"/>
+        <answer title="i18n_personal_accident_limit_label" binding="section[id='fourstar']/coverage[id='personalAccident']/limit" condition="i:test(section[id='fourstar']/coverage[id='personalAccident' and enabled='true'])"/>
+        <answer title="i18n_personal_accident_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='personalAccident' and enabled!='true'])"/>
+        <answer title="i18n_trip_cancellation_limit_label" binding="section[id='fourstar']/coverage[id='tripCancellation']/limit" condition="i:test(section[id='fourstar']/coverage[id='tripCancellation' and enabled='true'])"/>
+        <answer title="i18n_trip_cancellation_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='tripCancellation' and enabled!='true'])"/>
+        <answer title="i18n_loss_of_personal_money_limit_label" binding="section[id='fourstar']/coverage[id='lossOfPersonalMoney']/limit" condition="i:test(section[id='fourstar']/coverage[id='lossOfPersonalMoney' and enabled='true'])"/>
+        <answer title="i18n_loss_of_personal_money_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='lossOfPersonalMoney' and enabled!='true'])"/>
+        <answer title="i18n_loss_of_personal_belongings_limit_label" binding="section[id='fourstar']/coverage[id='lossOfPersonalBelongings']/limit" condition="i:test(section[id='fourstar']/coverage[id='lossOfPersonalBelongings' and enabled='true'])"/>
+        <answer title="i18n_loss_of_personal_belongings_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='lossOfPersonalBelongings' and enabled!='true'])"/>
+		<!-- Mandatory (section determined) coverages -->
+        <answer title="i18n_medical_expenses_limit_label" binding="section[id='fourstar']/coverage[id='medicalExpenses']/limit" condition="i:test(section[id='fourstar']/coverage[id='medicalExpenses' and enabled='true'])"/>
+        <answer title="i18n_medical_expenses_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='medicalExpenses' and enabled!='true'])"/>
+        <answer title="i18n_personal_liability_limit_label" binding="section[id='fourstar']/coverage[id='personalLiability']/limit" condition="i:test(section[id='fourstar']/coverage[id='personalLiability' and enabled='true'])"/>
+        <answer title="i18n_personal_liability_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='personalLiability' and enabled!='true'])"/>
+        <answer title="i18n_cutting_your_trip_short_limit_label" binding="section[id='fourstar']/coverage[id='cuttingYourTripShort']/limit" condition="i:test(section[id='fourstar']/coverage[id='cuttingYourTripShort' and enabled='true'])"/>
+        <answer title="i18n_cutting_your_trip_short_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='cuttingYourTripShort' and enabled!='true'])"/>
+        <answer title="i18n_passport_and_travel_documents_limit_label" binding="section[id='fourstar']/coverage[id='passportAndTravelDocuments']/limit" condition="i:test(section[id='fourstar']/coverage[id='passportAndTravelDocuments' and enabled='true'])"/>
+        <answer title="i18n_passport_and_travel_documents_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='passportAndTravelDocuments' and enabled!='true'])"/>
+        <answer title="i18n_scheduled_airline_failure_limit_label" binding="section[id='fourstar']/coverage[id='personalAccident']/limit" condition="i:test(section[id='fourstar']/coverage[id='scheduledAirlineFailure' and enabled='true'])"/>
+        <answer title="i18n_scheduled_airline_failure_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='scheduledAirlineFailure' and enabled!='true'])"/>
+        <answer title="i18n_end_supplier_failure_limit_label" binding="section[id='fourstar']/coverage[id='endSupplierFailure']/limit" condition="i:test(section[id='fourstar']/coverage[id='endSupplierFailure' and enabled='true'])"/>
+        <answer title="i18n_end_supplier_failure_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='endSupplierFailure' and enabled!='true'])"/>
+        <answer title="i18n_concierge_service_limit_label" binding="'included'" condition="i:test(section[id='fourstar']/coverage[id='conciergeService' and enabled='true'])"/>
+        <answer title="i18n_concierge_service_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='conciergeService' and enabled!='true'])"/>
+      </answerSection>
+      <answerSection order="4" title="i18n_5_star_protection_label" ref="fiveStarConfirmAndPay">
+        <answer title="i18n_premium_label" binding="section[id='fivestar']/assessmentSheet/line[id='total premium']/amount" />
+        <answer title="i18n_cover_label" binding="''"/>
+		<!-- Optional coverages -->
+        <answer title="i18n_winter_sports_limit_label" binding="section[id='fivestar']/coverage[id='winterSports']/limit" condition="i:test(section[id='fivestar']/coverage[id='winterSports' and enabled='true'])"/>
+        <answer title="i18n_winter_sports_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='winterSports' and enabled!='true'])"/>
+        <answer title="i18n_natural_catastrophe_limit_label" binding="section[id='fivestar']/coverage[id='naturalCatastrophe']/limit" condition="i:test(section[id='fivestar']/coverage[id='naturalCatastrophe' and enabled='true'])"/>
+        <answer title="i18n_natural_catastrophe_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='naturalCatastrophe' and enabled!='true'])"/>
+        <answer title="i18n_personal_accident_limit_label" binding="section[id='fivestar']/coverage[id='personalAccident']/limit" condition="i:test(section[id='fivestar']/coverage[id='personalAccident' and enabled='true'])"/>
+        <answer title="i18n_personal_accident_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='personalAccident' and enabled!='true'])"/>
+        <answer title="i18n_trip_cancellation_limit_label" binding="section[id='fivestar']/coverage[id='tripCancellation']/limit" condition="i:test(section[id='fivestar']/coverage[id='tripCancellation' and enabled='true'])"/>
+        <answer title="i18n_trip_cancellation_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='tripCancellation' and enabled!='true'])"/>
+        <answer title="i18n_loss_of_personal_money_limit_label" binding="section[id='fivestar']/coverage[id='lossOfPersonalMoney']/limit" condition="i:test(section[id='fivestar']/coverage[id='lossOfPersonalMoney' and enabled='true'])"/>
+        <answer title="i18n_loss_of_personal_money_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='lossOfPersonalMoney' and enabled!='true'])"/>
+        <answer title="i18n_loss_of_personal_belongings_limit_label" binding="section[id='fivestar']/coverage[id='lossOfPersonalBelongings']/limit" condition="i:test(section[id='fivestar']/coverage[id='lossOfPersonalBelongings' and enabled='true'])"/>
+        <answer title="i18n_loss_of_personal_belongings_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='lossOfPersonalBelongings' and enabled!='true'])"/>
+		<!-- Mandatory (section determined) coverages -->
+        <answer title="i18n_medical_expenses_limit_label" binding="section[id='fivestar']/coverage[id='medicalExpenses']/limit" condition="i:test(section[id='fivestar']/coverage[id='medicalExpenses' and enabled='true'])"/>
+        <answer title="i18n_medical_expenses_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='medicalExpenses' and enabled!='true'])"/>
+        <answer title="i18n_personal_liability_limit_label" binding="section[id='fivestar']/coverage[id='personalLiability']/limit" condition="i:test(section[id='fivestar']/coverage[id='personalLiability' and enabled='true'])"/>
+        <answer title="i18n_personal_liability_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='personalLiability' and enabled!='true'])"/>
+        <answer title="i18n_cutting_your_trip_short_limit_label" binding="section[id='fivestar']/coverage[id='cuttingYourTripShort']/limit" condition="i:test(section[id='fivestar']/coverage[id='cuttingYourTripShort' and enabled='true'])"/>
+        <answer title="i18n_cutting_your_trip_short_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='cuttingYourTripShort' and enabled!='true'])"/>
+        <answer title="i18n_passport_and_travel_documents_limit_label" binding="section[id='fivestar']/coverage[id='passportAndTravelDocuments']/limit" condition="i:test(section[id='fivestar']/coverage[id='passportAndTravelDocuments' and enabled='true'])"/>
+        <answer title="i18n_passport_and_travel_documents_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='passportAndTravelDocuments' and enabled!='true'])"/>
+        <answer title="i18n_scheduled_airline_failure_limit_label" binding="section[id='fivestar']/coverage[id='personalAccident']/limit" condition="i:test(section[id='fivestar']/coverage[id='scheduledAirlineFailure' and enabled='true'])"/>
+        <answer title="i18n_scheduled_airline_failure_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='scheduledAirlineFailure' and enabled!='true'])"/>
+        <answer title="i18n_end_supplier_failure_limit_label" binding="section[id='fivestar']/coverage[id='endSupplierFailure']/limit" condition="i:test(section[id='fivestar']/coverage[id='endSupplierFailure' and enabled='true'])"/>
+        <answer title="i18n_end_supplier_failure_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='endSupplierFailure' and enabled!='true'])"/>
+        <answer title="i18n_concierge_service_limit_label" binding="'included'" condition="i:test(section[id='fivestar']/coverage[id='conciergeService' and enabled='true'])"/>
+        <answer title="i18n_concierge_service_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='conciergeService' and enabled!='true'])"/>
+      </answerSection>
+      <!-- navigation buttons -->
+      <navigationSection id="Navigation" order="5">
+        <requoteButtonAction destinationPageId="Welcome" styleClass="submit" />
+	  </navigationSection>
+    </questionPage>
+
+	<!-- Referral -->
+    <questionPage id="Referral" title="i18n_referral_label">
+		<triggerNewBusinessReferralWorkflow when="onRenderResponse" condition="i:test(status[.='REFERRED'])"/> 
+        <referralSummary referralNotificationUrl="~/HTML/ReferralNotification.html" requoteDestinationPageId="Welcome">
+        </referralSummary>
+    </questionPage>
+
+    <!-- Proposer Details -->
+    <questionPage id="Proposer" title="i18n_proposer_details_label"> 
+        <navigationSection id="Navigation" order="2">
+            <commandButtonAction label="i18n_previous_button_label" destinationPageId="QuoteOptions" immediate="true" styleClass="submit"/>
+            <commandButtonAction id="Next" label="i18n_next_button_label" destinationPageId="Summary" styleClass="submit">
+				<action when="onProcessActions" commandName="CreateQuoteDocumentAction"/>
+				<action when="onProcessActions" commandName="SendBrokerEmailNotificationAction"/>
+			</commandButtonAction>	
+		</navigationSection>
+	</questionPage>
+
+    <!-- Summary Details -->
+    <questionPage id="Summary" title="i18n_summary_label" stage="Summary"> 
+		<action when="onRenderResponse" commandName="AddPayPalMoneyProvisionToPolicy" />
+		<action when="onRenderResponse" commandName="AddPolicyNumberAction" />
+		<action when="onRenderResponse" commandName="SetPolicyStatus" >
+			<attribute id="policyStatus" format="string" value="SUBMITTED"/>
+		</action>			
+		<!-- Generated quote reference -->
+		<pageSection title="i18n_your_quotation_label">
+		  <answerSection title="i18n_quote_label">
+			<answer title="i18n_quote_ref_label" binding="/quotationNumber"/>
+			<answer title="i18n_premium_label" binding="/assessmentSheet/line[id='total premium']/amount"/>
+			<answer title="i18n_tax_label" binding="/assessmentSheet/line[reason='IPT']/amount"/>
+			<!-- <answer title="i18n_broker_fee_label" binding="/assessmentSheet/line[id='Brokerage']/amount"/> -->
+		  </answerSection>
+		  <answerSection order="1" title="i18n_summary_label">
+			<answer title="i18n_policy_type_label" binding="/asset[id='travel']/attribute[id='policyType']" />
+			<answer title="i18n_destination_label" binding="/asset[id='travel']/attribute[id='destination']" />
+			<answer title="i18n_party_type_label" binding="/asset[id='travel']/attribute[id='partyType']" />
+		  </answerSection>
+		  <answerSection order="2" title="i18n_3_star_protection_label" condition="i:test(section[id='threestar']/attribute[id='sectionEnabled' and value='Yes'])">
+			<!-- Optional coverages -->
+			<answer title="i18n_winter_sports_limit_label" binding="section[id='threestar']/coverage[id='winterSports']/limit" condition="i:test(section[id='threestar']/coverage[id='winterSports' and enabled='true'])"/>
+			<answer title="i18n_winter_sports_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='winterSports' and enabled!='true'])"/>
+			<answer title="i18n_natural_catastrophe_limit_label" binding="section[id='threestar']/coverage[id='naturalCatastrophe']/limit" condition="i:test(section[id='threestar']/coverage[id='naturalCatastrophe' and enabled='true'])"/>
+			<answer title="i18n_natural_catastrophe_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='naturalCatastrophe' and enabled!='true'])"/>
+			<answer title="i18n_personal_accident_limit_label" binding="section[id='threestar']/coverage[id='personalAccident']/limit" condition="i:test(section[id='threestar']/coverage[id='personalAccident' and enabled='true'])"/>
+			<answer title="i18n_personal_accident_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='personalAccident' and enabled!='true'])"/>
+			<answer title="i18n_trip_cancellation_limit_label" binding="section[id='threestar']/coverage[id='tripCancellation']/limit" condition="i:test(section[id='threestar']/coverage[id='tripCancellation' and enabled='true'])"/>
+			<answer title="i18n_trip_cancellation_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='tripCancellation' and enabled!='true'])"/>
+			<answer title="i18n_loss_of_personal_money_limit_label" binding="section[id='threestar']/coverage[id='lossOfPersonalMoney']/limit" condition="i:test(section[id='threestar']/coverage[id='lossOfPersonalMoney' and enabled='true'])"/>
+			<answer title="i18n_loss_of_personal_money_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='lossOfPersonalMoney' and enabled!='true'])"/>
+			<answer title="i18n_loss_of_personal_belongings_limit_label" binding="section[id='threestar']/coverage[id='lossOfPersonalBelongings']/limit" condition="i:test(section[id='threestar']/coverage[id='lossOfPersonalBelongings' and enabled='true'])"/>
+			<answer title="i18n_loss_of_personal_belongings_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='lossOfPersonalBelongings' and enabled!='true'])"/>
+			<!-- Mandatory (section determined) coverages -->
+			<answer title="i18n_medical_expenses_limit_label" binding="section[id='threestar']/coverage[id='medicalExpenses']/limit" condition="i:test(section[id='threestar']/coverage[id='medicalExpenses' and enabled='true'])"/>
+			<answer title="i18n_medical_expenses_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='medicalExpenses' and enabled!='true'])"/>
+			<answer title="i18n_personal_liability_limit_label" binding="section[id='threestar']/coverage[id='personalLiability']/limit" condition="i:test(section[id='threestar']/coverage[id='personalLiability' and enabled='true'])"/>
+			<answer title="i18n_personal_liability_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='personalLiability' and enabled!='true'])"/>
+			<answer title="i18n_cutting_your_trip_short_limit_label" binding="section[id='threestar']/coverage[id='cuttingYourTripShort']/limit" condition="i:test(section[id='threestar']/coverage[id='cuttingYourTripShort' and enabled='true'])"/>
+			<answer title="i18n_cutting_your_trip_short_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='cuttingYourTripShort' and enabled!='true'])"/>
+			<answer title="i18n_passport_and_travel_documents_limit_label" binding="section[id='threestar']/coverage[id='passportAndTravelDocuments']/limit" condition="i:test(section[id='threestar']/coverage[id='passportAndTravelDocuments' and enabled='true'])"/>
+			<answer title="i18n_passport_and_travel_documents_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='passportAndTravelDocuments' and enabled!='true'])"/>
+			<answer title="i18n_scheduled_airline_failure_limit_label" binding="section[id='threestar']/coverage[id='personalAccident']/limit" condition="i:test(section[id='threestar']/coverage[id='scheduledAirlineFailure' and enabled='true'])"/>
+			<answer title="i18n_scheduled_airline_failure_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='scheduledAirlineFailure' and enabled!='true'])"/>
+			<answer title="i18n_end_supplier_failure_limit_label" binding="section[id='threestar']/coverage[id='endSupplierFailure']/limit" condition="i:test(section[id='threestar']/coverage[id='endSupplierFailure' and enabled='true'])"/>
+			<answer title="i18n_end_supplier_failure_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='endSupplierFailure' and enabled!='true'])"/>
+			<answer title="i18n_concierge_service_limit_label" binding="'included'" condition="i:test(section[id='threestar']/coverage[id='conciergeService' and enabled='true'])"/>
+			<answer title="i18n_concierge_service_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='conciergeService' and enabled!='true'])"/>
+		  </answerSection>
+		  <answerSection order="3" title="i18n_4_star_protection_label" condition="i:test(section[id='fourstar']/attribute[id='sectionEnabled' and value='Yes'])">
+			<!-- Optional coverages -->
+			<answer title="i18n_winter_sports_limit_label" binding="section[id='fourstar']/coverage[id='winterSports']/limit" condition="i:test(section[id='fourstar']/coverage[id='winterSports' and enabled='true'])"/>
+			<answer title="i18n_winter_sports_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='winterSports' and enabled!='true'])"/>
+			<answer title="i18n_natural_catastrophe_limit_label" binding="section[id='fourstar']/coverage[id='naturalCatastrophe']/limit" condition="i:test(section[id='fourstar']/coverage[id='naturalCatastrophe' and enabled='true'])"/>
+			<answer title="i18n_natural_catastrophe_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='naturalCatastrophe' and enabled!='true'])"/>
+			<answer title="i18n_personal_accident_limit_label" binding="section[id='fourstar']/coverage[id='personalAccident']/limit" condition="i:test(section[id='fourstar']/coverage[id='personalAccident' and enabled='true'])"/>
+			<answer title="i18n_personal_accident_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='personalAccident' and enabled!='true'])"/>
+			<answer title="i18n_trip_cancellation_limit_label" binding="section[id='fourstar']/coverage[id='tripCancellation']/limit" condition="i:test(section[id='fourstar']/coverage[id='tripCancellation' and enabled='true'])"/>
+			<answer title="i18n_trip_cancellation_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='tripCancellation' and enabled!='true'])"/>
+			<answer title="i18n_loss_of_personal_money_limit_label" binding="section[id='fourstar']/coverage[id='lossOfPersonalMoney']/limit" condition="i:test(section[id='fourstar']/coverage[id='lossOfPersonalMoney' and enabled='true'])"/>
+			<answer title="i18n_loss_of_personal_money_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='lossOfPersonalMoney' and enabled!='true'])"/>
+			<answer title="i18n_loss_of_personal_belongings_limit_label" binding="section[id='fourstar']/coverage[id='lossOfPersonalBelongings']/limit" condition="i:test(section[id='fourstar']/coverage[id='lossOfPersonalBelongings' and enabled='true'])"/>
+			<answer title="i18n_loss_of_personal_belongings_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='lossOfPersonalBelongings' and enabled!='true'])"/>
+			<!-- Mandatory (section determined) coverages -->
+			<answer title="i18n_medical_expenses_limit_label" binding="section[id='fourstar']/coverage[id='medicalExpenses']/limit" condition="i:test(section[id='fourstar']/coverage[id='medicalExpenses' and enabled='true'])"/>
+			<answer title="i18n_medical_expenses_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='medicalExpenses' and enabled!='true'])"/>
+			<answer title="i18n_personal_liability_limit_label" binding="section[id='fourstar']/coverage[id='personalLiability']/limit" condition="i:test(section[id='fourstar']/coverage[id='personalLiability' and enabled='true'])"/>
+			<answer title="i18n_personal_liability_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='personalLiability' and enabled!='true'])"/>
+			<answer title="i18n_cutting_your_trip_short_limit_label" binding="section[id='fourstar']/coverage[id='cuttingYourTripShort']/limit" condition="i:test(section[id='fourstar']/coverage[id='cuttingYourTripShort' and enabled='true'])"/>
+			<answer title="i18n_cutting_your_trip_short_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='cuttingYourTripShort' and enabled!='true'])"/>
+			<answer title="i18n_passport_and_travel_documents_limit_label" binding="section[id='fourstar']/coverage[id='passportAndTravelDocuments']/limit" condition="i:test(section[id='fourstar']/coverage[id='passportAndTravelDocuments' and enabled='true'])"/>
+			<answer title="i18n_passport_and_travel_documents_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='passportAndTravelDocuments' and enabled!='true'])"/>
+			<answer title="i18n_scheduled_airline_failure_limit_label" binding="section[id='fourstar']/coverage[id='personalAccident']/limit" condition="i:test(section[id='fourstar']/coverage[id='scheduledAirlineFailure' and enabled='true'])"/>
+			<answer title="i18n_scheduled_airline_failure_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='scheduledAirlineFailure' and enabled!='true'])"/>
+			<answer title="i18n_end_supplier_failure_limit_label" binding="section[id='fourstar']/coverage[id='endSupplierFailure']/limit" condition="i:test(section[id='fourstar']/coverage[id='endSupplierFailure' and enabled='true'])"/>
+			<answer title="i18n_end_supplier_failure_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='endSupplierFailure' and enabled!='true'])"/>
+			<answer title="i18n_concierge_service_limit_label" binding="'included'" condition="i:test(section[id='fourstar']/coverage[id='conciergeService' and enabled='true'])"/>
+			<answer title="i18n_concierge_service_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='conciergeService' and enabled!='true'])"/>
+		  </answerSection>
+		  <answerSection order="4" title="i18n_5_star_protection_label" condition="i:test(section[id='fivestar']/attribute[id='sectionEnabled' and value='Yes'])">
+			<!-- Optional coverages -->
+			<answer title="i18n_winter_sports_limit_label" binding="section[id='fivestar']/coverage[id='winterSports']/limit" condition="i:test(section[id='fivestar']/coverage[id='winterSports' and enabled='true'])"/>
+			<answer title="i18n_winter_sports_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='winterSports' and enabled!='true'])"/>
+			<answer title="i18n_natural_catastrophe_limit_label" binding="section[id='fivestar']/coverage[id='naturalCatastrophe']/limit" condition="i:test(section[id='fivestar']/coverage[id='naturalCatastrophe' and enabled='true'])"/>
+			<answer title="i18n_natural_catastrophe_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='naturalCatastrophe' and enabled!='true'])"/>
+			<answer title="i18n_personal_accident_limit_label" binding="section[id='fivestar']/coverage[id='personalAccident']/limit" condition="i:test(section[id='fivestar']/coverage[id='personalAccident' and enabled='true'])"/>
+			<answer title="i18n_personal_accident_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='personalAccident' and enabled!='true'])"/>
+			<answer title="i18n_trip_cancellation_limit_label" binding="section[id='fivestar']/coverage[id='tripCancellation']/limit" condition="i:test(section[id='fivestar']/coverage[id='tripCancellation' and enabled='true'])"/>
+			<answer title="i18n_trip_cancellation_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='tripCancellation' and enabled!='true'])"/>
+			<answer title="i18n_loss_of_personal_money_limit_label" binding="section[id='fivestar']/coverage[id='lossOfPersonalMoney']/limit" condition="i:test(section[id='fivestar']/coverage[id='lossOfPersonalMoney' and enabled='true'])"/>
+			<answer title="i18n_loss_of_personal_money_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='lossOfPersonalMoney' and enabled!='true'])"/>
+			<answer title="i18n_loss_of_personal_belongings_limit_label" binding="section[id='fivestar']/coverage[id='lossOfPersonalBelongings']/limit" condition="i:test(section[id='fivestar']/coverage[id='lossOfPersonalBelongings' and enabled='true'])"/>
+			<answer title="i18n_loss_of_personal_belongings_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='lossOfPersonalBelongings' and enabled!='true'])"/>
+			<!-- Mandatory (section determined) coverages -->
+			<answer title="i18n_medical_expenses_limit_label" binding="section[id='fivestar']/coverage[id='medicalExpenses']/limit" condition="i:test(section[id='fivestar']/coverage[id='medicalExpenses' and enabled='true'])"/>
+			<answer title="i18n_medical_expenses_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='medicalExpenses' and enabled!='true'])"/>
+			<answer title="i18n_personal_liability_limit_label" binding="section[id='fivestar']/coverage[id='personalLiability']/limit" condition="i:test(section[id='fivestar']/coverage[id='personalLiability' and enabled='true'])"/>
+			<answer title="i18n_personal_liability_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='personalLiability' and enabled!='true'])"/>
+			<answer title="i18n_cutting_your_trip_short_limit_label" binding="section[id='fivestar']/coverage[id='cuttingYourTripShort']/limit" condition="i:test(section[id='fivestar']/coverage[id='cuttingYourTripShort' and enabled='true'])"/>
+			<answer title="i18n_cutting_your_trip_short_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='cuttingYourTripShort' and enabled!='true'])"/>
+			<answer title="i18n_passport_and_travel_documents_limit_label" binding="section[id='fivestar']/coverage[id='passportAndTravelDocuments']/limit" condition="i:test(section[id='fivestar']/coverage[id='passportAndTravelDocuments' and enabled='true'])"/>
+			<answer title="i18n_passport_and_travel_documents_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='passportAndTravelDocuments' and enabled!='true'])"/>
+			<answer title="i18n_scheduled_airline_failure_limit_label" binding="section[id='fivestar']/coverage[id='personalAccident']/limit" condition="i:test(section[id='fivestar']/coverage[id='scheduledAirlineFailure' and enabled='true'])"/>
+			<answer title="i18n_scheduled_airline_failure_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='scheduledAirlineFailure' and enabled!='true'])"/>
+			<answer title="i18n_end_supplier_failure_limit_label" binding="section[id='fivestar']/coverage[id='endSupplierFailure']/limit" condition="i:test(section[id='fivestar']/coverage[id='endSupplierFailure' and enabled='true'])"/>
+			<answer title="i18n_end_supplier_failure_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='endSupplierFailure' and enabled!='true'])"/>
+			<answer title="i18n_concierge_service_limit_label" binding="'included'" condition="i:test(section[id='fivestar']/coverage[id='conciergeService' and enabled='true'])"/>
+			<answer title="i18n_concierge_service_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='conciergeService' and enabled!='true'])"/>
+		  </answerSection>
+		</pageSection>
+      <!-- navigation buttons -->
+      <navigationSection id="Navigation" order="2">
+        <commandButtonAction label="i18n_previous_button_label" destinationPageId="Proposer" immediate="true" styleClass="submit"/>
+        <!-- <commandButtonAction id="Next" label="i18n_next_button_label" destinationPageId="Finish" styleClass="submit"/> -->
+		<buyNowWithPayPalButtonAction destinationOnSuccessPageId="Finish" destinationOnFailurePageId="PaymentFailure"/>
+	  </navigationSection>
+    </questionPage>
+
+	<!-- Payment Failure -->
+    <questionPage id="PaymentFailure" title="i18n_payment_failure_label">
+        <pageSection>
+            <parsedUrlContent url="~/HTML/BuyNowWithPayPalButtonActionFailure.html" />
+        </pageSection>
+        <navigationSection id="Navigation" order="2">
+            <commandButtonAction label="i18n_previous_button_label" destinationPageId="Summary" immediate="true" styleClass="submit">
+				<action when="onRenderResponse" commandName="ResetPayPalMoneyProvisionInPolicy" />
+			</commandButtonAction>	
+		</navigationSection>
+    </questionPage>
+
+    <!-- Documentation -->
+    <questionPage id="Finish" title="i18n_finish_label">
+ 		<action when="onRenderResponse" commandName="SetPolicyStatus" >
+			<attribute id="policyStatus" format="string" value="ON_RISK"/>
+		</action>			
+       <action when="onRenderResponse" commandName="CreateCertificateDocumentAction" />
+        <action when="onRenderResponse" commandName="SendBrokerEmailNotificationAction"/>
+        <action when="onRenderResponse" commandName="SendProposerEmailNotificationAction"/>
+        <navigationSection id="Navigation">
+            <viewCertificateButtonAction id="cert" label="i18n_view_certificate_document_button_label"/>
+        </navigationSection>
+    </questionPage>
+
+</pageFlow>

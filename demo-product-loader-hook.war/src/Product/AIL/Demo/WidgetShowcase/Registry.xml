@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd">
+    <name>Sample product configuration</name>
+    <timeout>-1</timeout>
+    <who>Applied Industrial Logic</who>
+    <version>1.1</version>
+    <manager>com.ail.core.product.resetproduct.ResetProductService</manager>
+    <parentNamespace>AIL.Base.Registry</parentNamespace>
+
+    <group name="SecuredServices">
+        <parameter name="SampleBasicRestfulCommand">PermitAll</parameter>
+        <parameter name="SampleArgumentAndReturnRestfulCommand">PermitAll</parameter>
+    </group>
+
+    <group name="DocumentContentCms">
+        <parameter name="CompanyID">10157</parameter>
+        <parameter name="RepositoryID">10197</parameter>
+        <parameter name="Root">Documents</parameter>
+        <parameter name="Creator">documentowner</parameter>
+    </group>
+
+    <group name="ProductUpgradeCommands">
+        <group name="AIL.Demo.WidgetShowcase">
+            <parameter name="SampleProductUpgradeCommand" />
+        </group>
+    </group>
+    
+    <types>
+        <!-- Register the services used by this product -->
+
+        <service name="CreateAccountService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/CreateAccountService.java</parameter>
+        </service>
+
+        <service name="CreateTransactionService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/CreateTransactionService.java</parameter>
+        </service>
+
+        <service name="CreatePaymentScheduleService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/CreatePaymentScheduleService.java</parameter>
+        </service>
+
+        <service name="CommandButtonActionScriptService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/CommandButtonActionScriptService.java</parameter>
+        </service>
+
+        <service name="InitialiseBrokerQuotationSummaryService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/InitialiseBrokerQuotationSummaryService.java</parameter>
+        </service>
+        
+        <service name="InitialiseClaimHistoryDetailsService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/InitialiseClaimHistoryDetailsService.java</parameter>
+        </service>        
+
+        <service name="InitialiseHtmlAssetService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/InitialiseHtmlAssetService.java</parameter>
+        </service>
+
+        <service name="InitialisePaymentDetailsService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/InitialisePaymentDetailsService.java</parameter>
+        </service>
+
+        <service name="InitialisePaymentOptionsService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/InitialisePaymentOptionsService.java</parameter>
+        </service>
+
+        <service name="InitialiseProposerDetailsPersonalService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/InitialiseProposerDetailsPersonalService.java</parameter>
+        </service>
+
+        <service name="InitialiseProposerDetailsCommercialService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/InitialiseProposerDetailsCommercialService.java</parameter>
+        </service>
+
+        <service name="InitialiseProposerQuotationSummaryService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/InitialiseProposerQuotationSummaryService.java</parameter>
+        </service>
+
+        <service name="InitialiseQuotationService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/InitialiseQuotationService.java</parameter>
+        </service>
+
+        <service name="InitialiseQuotationSummaryService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/InitialiseQuotationSummaryService.java</parameter>
+        </service>
+
+        <service name="InitialiseReferralSummaryService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/InitialiseReferralSummaryService.java</parameter>
+        </service>
+
+        <service name="LabelDetailsCreateNoteService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/LabelDetailsCreateNoteService.java</parameter>
+        </service>
+
+        <service name="SavedQuotationsUpdateAndSaveService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/SavedQuotationsUpdateAndSaveService.java</parameter>
+        </service>
+
+        <service name="WorkflowPolicyUpdateService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/WorkflowPolicyUpdateService.java</parameter>
+        </service>
+
+        <service name="DocumentButtonActionPolicyUpdateService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/DocumentButtonActionPolicyUpdateService.java</parameter>
+        </service>
+
+        <service name="SetPolicyStatusToOnRiskService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/SetPolicyStatusToOnRiskService.java</parameter>
+        </service>
+
+        <service name="AddIWinPayMoneyProvisionToPolicyService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/AddIWinPayMoneyProvisionToPolicyService.java</parameter>
+        </service>
+
+        <service name="AddEwayMoneyProvisionToPolicyService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/AddEwayMoneyProvisionToPolicyService.java</parameter>
+        </service>
+
+        <service name="AddPayPalMoneyProvisionToPolicyService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/AddPayPalMoneyProvisionToPolicyService.java</parameter>
+        </service>
+
+        <service name="AddSagePayMoneyProvisionToPolicyService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/AddSagePayMoneyProvisionToPolicyService.java</parameter>
+        </service>
+
+        <service name="ResetMoneyProvisionInPolicyService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/ResetMoneyProvisionInPolicyService.java</parameter>
+        </service>
+
+        <service name="SetQuoteToAggregatorService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/SetQuoteToAggregatorService.java</parameter>
+        </service>
+
+        <service name="SetQuoteToNormalService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/SetQuoteToNormalService.java</parameter>
+        </service>
+
+        <service name="SampleBasicRestfulService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/SampleBasicRestfulService.java</parameter>
+        </service>
+
+        <service name="SampleArgumentAndReturnRestfulService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/SampleArgumentAndReturnRestfulService.java</parameter>
+        </service>
+
+        <service name="CommandButtonServiceValidationService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/CommandButtonServiceValidationService.java</parameter>
+        </service>
+
+        <service name="SwitchCommandOneService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/SwitchCommandOneService.java</parameter>
+        </service>
+
+        <!-- Binding services to commands which can be referred to by the pageflow -->
+        <command name="InitialiseQuotation" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">InitialiseQuotationService</parameter>
+        </command>
+
+        <command name="CreateAccount" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">CreateAccountService</parameter>
+        </command>
+
+        <command name="CreateTransaction" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">CreateTransactionService</parameter>
+        </command>
+
+        <command name="CreatePaymentSchedule" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">CreatePaymentScheduleService</parameter>
+        </command>
+
+        <command name="ClearQuotationDate" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">ClearQuotationDateService</parameter>
+        </command>
+
+        <command name="CommandButtonActionScript" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">CommandButtonActionScriptService</parameter>
+        </command>
+
+        <command name="InitialiseBrokerQuotationSummary" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">InitialiseBrokerQuotationSummaryService</parameter>
+        </command>
+
+        <command name="InitialiseClaimHistoryDetails" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">InitialiseClaimHistoryDetailsService</parameter>
+        </command>
+
+        <command name="InitialisePaymentDetails" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">InitialisePaymentDetailsService</parameter>
+        </command>
+
+        <command name="InitialiseHtmlAsset" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">InitialiseHtmlAssetService</parameter>
+        </command>
+
+        <command name="InitialisePaymentOptions" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">InitialisePaymentOptionsService</parameter>
+        </command>
+
+        <command name="InitialiseProposerDetailsPersonal" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">InitialiseProposerDetailsPersonalService</parameter>
+        </command>
+
+        <command name="InitialiseProposerDetailsCommercial" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">InitialiseProposerDetailsCommercialService</parameter>
+        </command>
+
+        <command name="InitialiseProposerQuotationSummary" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">InitialiseProposerQuotationSummaryService</parameter>
+        </command>
+
+        <command name="InitialiseQuotationSummary" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">InitialiseQuotationSummaryService</parameter>
+        </command>
+
+        <command name="InitialiseReferralSummary" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">InitialiseReferralSummaryService</parameter>
+        </command>
+
+        <command name="LabelDetailsCreateNote" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">LabelDetailsCreateNoteService</parameter>
+        </command>
+
+        <command name="SavedQuotationsUpdateAndSave" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">SavedQuotationsUpdateAndSaveService</parameter>
+        </command>
+
+        <command name="WorkflowPolicyUpdate" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">WorkflowPolicyUpdateService</parameter>
+        </command>
+
+        <command name="DocumentButtonActionPolicyUpdate" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">DocumentButtonActionPolicyUpdateService</parameter>
+        </command>
+
+        <command name="SetPolicyStatusToOnRisk" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">SetPolicyStatusToOnRiskService</parameter>
+        </command>
+
+        <command name="AddIWinPayMoneyProvisionToPolicy" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">AddIWinPayMoneyProvisionToPolicyService</parameter>
+        </command>
+
+        <command name="AddEwayMoneyProvisionToPolicy" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">AddEwayMoneyProvisionToPolicyService</parameter>
+        </command>
+
+        <command name="AddPayPalMoneyProvisionToPolicy" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">AddPayPalMoneyProvisionToPolicyService</parameter>
+        </command>
+
+        <command name="AddSagePayMoneyProvisionToPolicy" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">AddSagePayMoneyProvisionToPolicyService</parameter>
+        </command>
+
+        <command name="ResetMoneyProvisionInPolicy" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">ResetMoneyProvisionInPolicyService</parameter>
+        </command>
+
+        <command name="SetQuoteToAggregator" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">SetQuoteToAggregatorService</parameter>
+        </command>
+
+        <command name="SetQuoteToNormal" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">SetQuoteToNormalService</parameter>
+        </command>
+
+        <command name="SetQuoteToNormal" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">SetQuoteToNormalService</parameter>
+        </command>
+
+        <command name="SampleBasicRestfulCommand" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">SampleBasicRestfulService</parameter>
+        </command>
+
+        <command name="SampleArgumentAndReturnRestfulCommand" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">SampleArgumentAndReturnRestfulService</parameter>
+        </command>
+
+        <command name="CommandButtonServiceValidationCommand" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">CommandButtonServiceValidationService</parameter>
+        </command>
+
+        <command name="SwitchCommandOne" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">SwitchCommandOneService</parameter>
+        </command>
+        
+        <command name="RenderXDocInvoiceDocumentCommand" builder="ClassBuilder" key="com.ail.core.document.RenderDocumentCommandImpl">
+            <parameter name="Service">com.ail.core.document.RenderXDocReportPdfDocumentService</parameter>
+            <parameter name="TemplateUrlArg">product://localhost:8080/AIL/Demo/WidgetShowcase/Documents/InvoiceDocument.docx</parameter>
+        </command>
+
+        <!-- ================================================================== -->
+        <!-- DocumentContent persistence lifecycle commands -->
+        <!-- ================================================================== -->
+        <command name="DocumentContentOnSaveCommand" key="com.ail.core.persistence.LifeCycleCommandImpl">
+            <parameter name="Service">com.ail.core.document.liferay.DocumentContentCmsOnSaveService</parameter>
+        </command>
+        <command name="DocumentContentOnUpdateCommand" key="com.ail.core.persistence.LifeCycleCommandImpl">
+            <parameter name="Service">com.ail.core.NullService</parameter>
+        </command>
+        <command name="DocumentContentOnDeleteCommand" key="com.ail.core.persistence.LifeCycleCommandImpl">
+            <parameter name="Service">com.ail.core.NullService</parameter>
+        </command>
+        <command name="DocumentContentOnLoadCommand" key="com.ail.core.persistence.LifeCycleCommandImpl">
+            <parameter name="Service">com.ail.core.document.liferay.DocumentContentCmsOnLoadService</parameter>
+        </command>
+
+ 
+        <service name="SampleProductUpgradeService"  builder="CachingClassBuilder" key="com.ail.core.command.BeanShellAccessor">
+            <parameter name="Url">~/Upgrade/SampleProductUpgradeService.bsh</parameter>
+        </service>
+        <command name="SampleProductUpgradeCommand" key="com.ail.core.product.UpgradeProductCommandImpl">
+            <parameter name="Service">SampleProductUpgradeService</parameter>
+        </command>
+
+        <type name="Translations" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.language.Translations">
+            <parameter name="Extends">super.Translations</parameter>
+            <parameter name="Url">~/Translations.xml</parameter>
+        </type>
+
+        <type name="DocumentTypes" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.util.Choice">
+            <parameter name="extends">super.DocumentTypes</parameter>
+            <parameter name="Url">~/DocumentTypes.xml</parameter>
+        </type>
+
+        <!-- Register the types used by this product -->
+        <type name="Policy" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Policy">
+            <parameter name="extends">super.Policy</parameter>
+            <parameter name="Url">~/Model/Policy.xml</parameter>
+        </type>
+
+        <type name="DataDictionary" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.data.DataDictionary">
+            <parameter name="extends">super.DataDictionary</parameter>
+            <parameter name="Url">~/DataDictionary.xml</parameter>
+        </type>
+
+        <type name="QuotationPageFlow" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.PageFlow">
+            <parameter name="Url">~/PageFlows/QuotationPageFlow.xml</parameter>
+        </type>
+
+        <type name="ValidationFailurePageFlow" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.PageFlow">
+            <parameter name="Url">~/PageFlows/ValidationFailurePageFlow.xml</parameter>
+        </type>
+
+        <type name="MasterSlaveChoice" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.util.Choice">
+            <parameter name="Url">~/Model/MasterSlave.xml</parameter>
+        </type>
+
+        <type name="RowScroller2AssetData" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Asset">
+            <parameter name="Url">~/Model/RowScroller2AssetData.xml</parameter>
+        </type>
+
+        <type name="PageSectionRowScrollerAsset" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Asset">
+            <parameter name="Url">~/Model/PageSectionRowScrollerAsset.xml</parameter>
+        </type>
+
+        <type name="HtmlTextAttributeAsset" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Asset">
+            <parameter name="Url">~/Model/HtmlTextAttributeAsset.xml</parameter>
+        </type>
+
+        <type name="PageSectionSectionScrollerAsset" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Asset">
+            <parameter name="Url">~/Model/PageSectionSectionScrollerAsset.xml</parameter>
+        </type>
+
+        <type name="SectionScroller2AssetData" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Asset">
+            <parameter name="Url">~/Model/SectionScroller2AssetData.xml</parameter>
+        </type>
+
+        <type name="SingleProductAssessmentSheet" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Section">
+            <parameter name="Url">~/Model/SingleProductAssessmentSheet.xml</parameter>
+        </type>
+
+        <type name="AggregatedProductAssessmentSheet" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Section">
+            <parameter name="Url">~/Model/AggregatedProductAssessmentSheet.xml</parameter>
+        </type>
+
+        <type name="OptionList" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.util.Choice">
+            <parameter name="Url">~/Model/OptionList.xml</parameter>
+        </type>
+
+        <type name="MoneyProvision" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.financial.MoneyProvision" >
+            <parameter name="Url">~/Model/MoneyProvision.xml</parameter>
+        </type>
+
+        <type name="ChoiceType" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.util.Choice">
+            <parameter name="Url">~/Model/ChoiceType.xml</parameter>
+        </type>
+
+        <type name="QuotationDocument" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.document.model.DocumentDefinition">
+            <parameter name="extends">super.QuotationDocument</parameter>
+            <parameter name="Url">~/Documents/QuotationDocument.xml</parameter>
+        </type>
+
+        <type name="PaymentHoliday" builder="CastorXMLBuilder" key="com.ail.financial.PaymentHoliday">
+            <parameter name="Url">~/Model/PaymentHoliday.xml</parameter>
+        </type>
+
+        <type name="CertificateDocument" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.document.model.DocumentDefinition">
+            <parameter name="extends">super.CertificateDocument</parameter>
+            <parameter name="Url">~/Documents/CertificateDocument.xml</parameter>
+        </type>
+
+        <type name="InvoiceDocument" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.document.model.DocumentDefinition">
+            <parameter name="Url">~/Documents/InvoiceDocument.xml</parameter>
+        </type>
+
+        <type name="WordingDocument" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.document.model.DocumentDefinition">
+            <parameter name="extends">super.WordingDocument</parameter>
+            <parameter name="Url">~/Documents/WordingDocument.xml</parameter>
+        </type>
+    </types>
+</configuration>

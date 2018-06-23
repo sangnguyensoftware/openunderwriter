@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project default="upload" name="Product:AIL.Demo.TradePL.TradeQB">
+	<import file="D:/OpenUnderwriter/openunderwriter/BuildSettings.xml" />
+
+  <target name="upload" description="Upload product content">
+    <upload-product-content-macro src="." dest="/Product/AIL/Demo/TradePL/TradeQB" />
+  </target>
+</project>

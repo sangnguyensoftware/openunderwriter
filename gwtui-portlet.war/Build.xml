@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project default="build" name="openunderwriter:gwtui-portlet.war">
+	<import file="../BuildSettings.xml" />
+
+	<target name="clean" description="delete everything that the build can generate">
+		<delete-war-macro />
+	</target>
+
+	<target name="_build">
+		<antcall target="_gwt-compile-worflow" />
+		<antcall target="_gwt-compile-policysearch" />
+		<antcall target="_gwt-compile-quicksearch" />
+		<antcall target="build-deploy-war" />
+	</target>
+	
+	<target name="build-worflow">
+		<antcall target="_gwt-compile-worflow" />
+		<antcall target="build-deploy-war" />
+	</target>
+	
+	<target name="build-policysearch">
+		<antcall target="_gwt-compile-policysearch" />
+		<antcall target="build-deploy-war" />
+	</target>
+		
+	<target name="build-quicksearch">
+		<antcall target="_gwt-compile-quicksearch" />
+		<antcall target="build-deploy-war" />
+	</target>
+
+	<target name="build-deploy-war" description="Build war">
+		<compile-war-macro>
+			<javac-classpath>
+				<pathelement location="${project.dir}/modules/com/ail/gwtui.jar"/>
+				<dirset dir="${module.dir}/com/ail" includes="**/*.jar" />
+				<fileset dir="${module.dir}/com/ail" includes="**/*.jar" />
+				<fileset dir="${module.dir}/com/liferay/portal" includes="**/*.jar" />
+				<fileset dir="${module.dir}/javax/servlet/api" includes="**/*.jar" />
+				<fileset dir="${module.dir}/org/jboss/as/web" includes="**/*.jar" />
+				<fileset dir="${output.dir}/WEB-INF/lib" includes="**/*.jar" />
+			</javac-classpath>
+		</compile-war-macro>
+	</target>
+
+	<target name="_gwt-compile-worflow" description="GWT compile to JavaScript">
+		<gwt-compile-macro gwtModule="workflow" module="gwtui" />
+	</target>
+	
+	<target name="_gwt-compile-policysearch" description="GWT compile to JavaScript">
+			<gwt-compile-macro gwtModule="policysearch" module="gwtui" />
+	</target>
+	
+	<target name="_gwt-compile-quicksearch" description="GWT compile to JavaScript">
+			<gwt-compile-macro gwtModule="quicksearch" module="gwtui" />
+	</target>
+
+	<target name="build" description="compile (generate, copy, etc) all build outputs">
+		<antcall target="_build" />
+	</target>
+
+	<target name="setup" description="run all the one-time-only steps - like copying libs into place">
+	</target>
+
+	<target name="teardown" description="undo whatever setup did">
+	</target>
+</project>

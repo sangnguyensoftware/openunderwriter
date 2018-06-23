@@ -1,0 +1,146 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the LoginSection widget.
+##
+#set( $policy = $args.ModelArgRet)
+#set( $loginSection = $args.PageElementArg )
+#set( $response = $args.ResponseArgRet )
+#set( $renderId = $args.RenderIdArg )
+#set( $errors = $args.PageFlowSessionTypeArg )
+##
+#set( $Q='"' )
+##
+#set( $hideAll = ${loginSection.isAuthenticated()} || ${loginSection.isHiddenByDefault()} )
+<div class='pf-login-section pf-body' id='login' #if($hideAll)style="display:none"#end>
+	#if( $loginSection.hasErrorMarker("page", $errors) )
+		#set( $pageError = $loginSection.findError("page", $errors, $loginSection) )
+		<div class='pf-page-error'>$loginSection.i18n($pageError)</div>
+	#end
+	## Div #1: login and save the quote. Note: if the usernameGuess is a known user we'll pre-populate the form with 
+	## the guess to save the user some typing; otherwise we'll leave the username field blank.
+    <div class='pf-section' id='UserLogin'>
+		#set( $lnk = "<a onclick='hideDivDisplay(${Q}UserLogin${Q});showDivDisplay(${Q}CreateLogin${Q});'>$!loginSection.InvitationLinkText</a>" )
+		<div class='pf-section-title'>
+    		${loginSection.getFormattedInvitationMessageText($lnk)}
+    	</div>
+		<form method='post' action='$response.createActionURL()' name='loginform' id='loginForm'>
+            <div class='pf-input-section'>
+				<div class='pf-input-label'>$loginSection.i18n("i18n_login_section_username_label")</div>
+				<div class='pf-input-field'><input type='text' name='username' id='username' value='$loginSection.usernameGuess()'/></div>     
+				<div class='pf-input-error'>$loginSection.findError("username", $errors, $loginSection)</div>
+		    </div>
+		    <div class='pf-input-section'>
+                <div class='pf-input-label'>$loginSection.i18n("i18n_login_section_password_label")</div>
+                <div class='pf-input-field'><input type='password' name='password' id='password' value=''/></div>
+                <div class='pf-input-error'>$loginSection.findError("password", $errors, $loginSection)</div>
+		    </div>
+		    <div class='pf-section'>
+                <a onClick='hideDivDisplay("UserLogin");showDivDisplay("ForgottenPassword");'>$loginSection.i18n("i18n_login_section_forgotten_password_label")</a><br/>
+                <a onClick='hideDivDisplay("UserLogin");showDivDisplay("CreateLogin");'>$loginSection.i18n("i18n_login_section_create_account_label")</a>
+		    </div>
+		    <div class='pf-section'>
+				<input type='submit' id='loginButton' name='op=login-section-login' value='${loginSection.i18n($loginSection.getLoginButtonLabel())}'/>
+		    </div>
+		</form>
+    </div>
+	## Div #2: create a new user and save quote
+	<div class='pf-section' id='CreateLogin'>
+        <div class='pf-section-title'>
+            ${loginSection.i18n("i18n_login_section_create_button_label")}
+        </div>
+        <div class='pf-section-description'>
+            $loginSection.i18n("i18n_login_section_create_or_login_message")
+        </div>
+		<form method='post' action='$response.createActionURL()'> 
+            <div class='pf-input-section'>
+				<div class='pf-input-label'>$loginSection.i18n("i18n_login_section_username_label")</div>
+				<div class='pf-input-field'><input type='text' name='username' id='username' value=''/></div>
+				<div class='pf-input-error'>$loginSection.findError("username", $errors, $loginSection)</div>
+		    </div>            
+		    <div class='pf-input-section'>
+				<div class='pf-input-label'>$loginSection.i18n("i18n_login_section_confirm_username_label")</div>
+				<div class='pf-input-field'><input type='text' name='cusername' id='cusername' value=''/></div>
+				<div class='pf-input-error'>$loginSection.findError("cusername", $errors, $loginSection)</div> 
+		    </div>
+		    <div class='pf-input-section'>
+				<div class='pf-input-label'>$loginSection.i18n("i18n_login_section_password_label")</div>
+				<div class='pf-input-field'><input type='password' name='password' id='password' value=''/></div>
+				<div class='pf-input-error'>$loginSection.findError("password", $errors, $loginSection)</div>
+		    </div>
+		    <div class='pf-input-section'>
+				<div class='pf-input-label'>$loginSection.i18n("i18n_login_section_confirm_password_label")</div>
+				<div class='pf-input-field'><input type='password' name='cpassword' id='cpassword' value=''/></div>
+				<div class='pf-input-error'>$loginSection.findError("cpassword", $errors, $loginSection)</div>
+		    </div>
+		    <div class='pf-section'>
+                <a onClick='hideDivDisplay("CreateLogin");showDivDisplay("ForgottenPassword");'>$loginSection.i18n("i18n_login_section_forgotten_password_label")</a><br/>
+                <a onClick='hideDivDisplay("CreateLogin");showDivDisplay("UserLogin");'>$loginSection.i18n("i18n_login_section_login_here_label")</a>
+		    </div>
+		    <div class='pf-section'>
+				<input type='submit' id='createLoginButton' name='op=login-section-create' value='${loginSection.i18n("i18n_login_section_create_and_save_button_label")}'/>
+            </div>
+		</form>
+    </div>
+	## Div #3: Send a password reminder
+	<div class='pf-section' id='ForgottenPassword'>
+        <div class='pf-section-title'>
+            ${loginSection.i18n("i18n_login_section_forgotten_password_title")}
+        </div>
+        <div class='pf-section-description'>
+    		$loginSection.i18n("i18n_login_section_email_password_message")
+		</div>
+		<form method='post'>
+            <div class='pf-input-section'>
+				<div class='pf-input-label'>$loginSection.i18n("i18n_login_section_username_label")</div>
+				<div class='pf-input-field'><input type='text' name='username' id='username' value='$loginSection.usernameGuess()'/></div>
+		    </div>
+		    <div class='pf-section'>
+                <a onClick='hideDivDisplay("ForgottenPassword");showDivDisplay("CreateLogin");'>$loginSection.i18n("i18n_login_section_create_account_label")</a><br/>
+                <a onClick='hideDivDisplay("ForgottenPassword");showDivDisplay("UserLogin");'>$loginSection.i18n("i18n_login_section_login_here_label")</a>
+		    </div>
+            <div class='pf-section'>
+		        <input type='submit' id='email' name='op=login-section-reminder' value='$loginSection.i18n("i18n_login_section_send_reminder_button_label")'/>
+		    </div>
+		</form>
+    </div>
+</div>
+<script type='text/javascript'>
+  ## hide the 'create login' form unless there's an error associated with it.
+  #if( ${loginSection.hasErrorMarker("create", ${errors})} )
+    hideDivDisplay('ForgottenPassword');
+    hideDivDisplay('UserLogin');
+    showDivDisplay('CreateLogin');
+    showDivDisplay('login');
+  #elseif( ${loginSection.hasErrorMarker("login", ${errors})} )
+	hideDivDisplay('CreateLogin');
+    hideDivDisplay('ForgottenPassword');
+    showDivDisplay('UserLogin');
+    showDivDisplay('login');
+  #else
+    hideDivDisplay('CreateLogin');
+    hideDivDisplay('ForgottenPassword');
+    #if( ${loginSection.isAuthenticated()} || ${loginSection.isHiddenByDefault()}  )
+		hideDivDisplay('UserLogin');
+    	hideDivDisplay('login');
+	#else
+		showDivDisplay('UserLogin');
+    	showDivDisplay('login');
+	#end
+  #end
+</script>

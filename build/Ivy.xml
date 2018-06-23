@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+  <info organisation="com.ail" module="build" />
+  <dependencies>
+  	<dependency org="org.apache.httpcomponents" name="httpclient" rev="4.3.6" />
+    <dependency org="org.apache.httpcomponents" name="httpmime" rev="4.3.6" />
+    <dependency org="bsf" name="bsf" rev="2.3.0" />
+    <dependency org="com.ail" name="annotation" rev="4.5" />
+    <dependency org="com.ail" name="jbpm-ant-task" rev="1.2" />
+    <dependency org="com.ail" name="sardine" rev="5.8" />
+    <dependency org="com.jcraft" name="jsch" rev="0.1.50" />
+    <dependency org="commons-discovery" name="commons-discovery" rev="0.2" />
+    <dependency org="commons-httpclient" name="commons-httpclient" rev="3.1" />
+    <dependency org="commons-jxpath" name="commons-jxpath" rev="1.1" />
+    <dependency org="commons-logging" name="commons-logging" rev="1.1" />
+    <dependency org="commons-net" name="commons-net" rev="1.1.0" />
+    <dependency org="de.schlichtherle.truezip" name="truezip-driver-zip" rev="7.7.1" />
+    <dependency org="de.schlichtherle.truezip" name="truezip-file" rev="7.7.1" />
+    <dependency org="de.schlichtherle.truezip" name="truezip-kernel" rev="7.7.1" />
+    <dependency org="gnu" name="jargs" rev="1.0"/>
+    <dependency org="javax.activation" name="activation" rev="1.1" />
+    <dependency org="javax.servlet" name="servlet-api" rev="2.4-20040521" />
+    <dependency org="jspapi" name="jsp-api" rev="2.0-20040521" />
+    <dependency org="junit" name="junit" rev="4.12" />
+    <dependency org="mysql" name="mysql-connector-java" rev="5.1.24"/>
+    <dependency org="org.beanshell" name="bsh" rev="2.0b5" />
+    <dependency org="org.mockito" name="mockito-all" rev="1.10.19" />
+    <dependency org="org.sonatype.nexus.ant" name="nexus-staging-ant-tasks" rev="1.1" />
+    <dependency org="qdox" name="qdox" rev="1.6"/>
+    <dependency org="xerces" name="xercesImpl" rev="2.11.0" />
+    <dependency org="xerces" name="xml-apis" rev="2.11.0" />
+    <dependency org="xfire" name="opensaml" rev="1.0.1" />
+    <dependency org="xml-security" name="xmlsec" rev="1.2.1" />
+    <exclude module="nexus-staging-client" org="com.sonatype.nexus.staging" />
+    <exclude org="xml-apis"  />
+    <exclude org="xerces" module="xerces" />
+  </dependencies>
+</ivy-module>

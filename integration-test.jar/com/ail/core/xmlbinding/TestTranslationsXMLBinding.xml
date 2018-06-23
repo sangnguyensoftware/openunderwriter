@@ -1,0 +1,13 @@
+<translations xsi:type="java:com.ail.core.language.Translations" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" defaultLanguage="en_UK">
+    <translation language="en_UK">
+        <element key="key1">String number one</element>
+        <element key="key3">String number three</element>
+        <element key="key2">String number two</element>
+        <element key="key4">String number four</element>
+    </translation>
+    <translation language="en_US" extendsLanguage="en_UK">
+        <element key="key1">Second String number one</element>
+        <element key="key3">Second String number three</element>
+        <element key="key2"><![CDATA[Second <b>String</b> number two]]></element>
+    </translation>
+</translations>

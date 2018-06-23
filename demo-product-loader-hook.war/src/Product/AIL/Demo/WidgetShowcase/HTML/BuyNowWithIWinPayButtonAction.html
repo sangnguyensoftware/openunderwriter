@@ -1,0 +1,76 @@
+<p>The BuyNowWithIWinPayButtonAction provides the facility for
+	PageFlows to authorise and collect premium payments using iWinPay.</p>
+<p>The button can be added to a navigation section as follows</p>
+<pre>
+     &lt;navigationSection&gt;
+         &lt;buyNowWithIWinPayPayButtonAction destinationOnSuccessPageId="<i>page id</i>" destinationOnFailurePageId="<i>page id</i>"/&gt;
+         ...
+     &lt;/navigationSection&gt;
+</pre>
+<p>
+	This widget represents itself on the user interface as a "Buy now with
+	iWinPay" button. When the user clicks the button OpenUnderwriter will
+	create a iWinPay payment request. If the request is cancelled, the
+	user is returned to OpenUnderwriter at a point in the PageFlow
+	specified by the
+	<code>destinationOnFailurePageId</code>
+	attribute. If the payment is successful the user is redirected to the
+	page specified by
+	<code>destinationOnSuccessPageId</code>
+	.
+</p>
+<p>Executed (successful) payments are complete at will appear in the
+	merchant's transaction histories on iWinPay.</p>
+<h4>Defining the amount to be paid</h4>
+<p>The policy's paymentDetail object defines the amount to be paid.
+	The payment services inspect the collection of MoneyProvisions held in
+	policy.paymentDetails and create requests for each instance that they
+	find which has a paymentMethod of iWinPay and a status of NEW. Based on
+	the following example, one payment request would be made for
+	&pound;276.58.</p>
+<pre>
+     &lt;policy&gt;
+         ...
+         &lt;paymentDetails&gt;
+             &lt;description&gt;Insurance premium payment&lt;/description&gt;
+             &lt;moneyProvision&gt;
+                 &lt;description&gt;Insurance premium payment&lt;/description&gt;
+                 &lt;frequency&gt;ONE_TIME&lt;/frequency&gt;
+                 &lt;number&gt;1&lt;/number&gt;
+                 &lt;paymentsStartDate&gt;2014-05-21T16:23:28.705Z&lt;/paymentsStartDate&gt;
+                 &lt;paymentsEndDate&gt;2014-05-21T16:23:28.705Z&lt;/paymentsEndDate&gt;
+                 &lt;amount amount="276.58" currency="GBP"/&gt;
+                 &lt;paymentMethod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="iWinPay"/&gt;
+                 &lt;status xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="java:java.lang.String"&gt;NEW&lt;/status&gt;
+             &lt;/moneyProvision&gt;
+         &lt;/paymentDetails&gt;
+         ...
+    &lt;/policy&gt;
+</pre>
+<p>In a typical PageFlow the paymentDetails object is created and
+	populated using a JavaService once the quotation calculations have been
+	completed.</p>
+<p>Once a request has been sent to iWinPay for a MoneyProvision, the
+	instance's status value is updated to REQUESTED.</p>
+<h4>Configuring a product to accept payments</h4>
+<p>In order for a product to accept iWinPay payments it must first
+	be configured with parameters defining the account into which payments
+	will be made. These parameters are defined in the product's
+	Registry.xml. The values may be defined in the root product of a
+	hierarchy or set individually in the products themselves. This allows
+	for each product to be configured with independent settings if
+	necessary. The parameters involved are as follows:</p>
+<pre>
+&lt;configuration&gt;
+    ...
+    &lt;group name="PaymentMethods"&gt;
+        &lt;group name="iWinPay"&gt;
+        	&lt;parameter name="URL"&gt;Gateway URL&lt;/parameter&gt;
+        	&lt;parameter name="ClientId"&gt;Client ID&lt;/parameter&gt;
+        	&lt;parameter name="Credentials"&gt;Credentials&lt;/parameter&gt;
+        &lt;/group&gt;
+    &lt;/group&gt;
+    ...
+&lt;/configuration&gt;
+</pre>
+

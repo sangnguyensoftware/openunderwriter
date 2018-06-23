@@ -1,0 +1,75 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+	
+    <changeSet id="OU-893 status and name to pmePaymentMethod" author="richard">
+        <sql dbms="mysql">
+        		ALTER TABLE pmePaymentMethod ADD COLUMN `pmeStatus` varchar(255) DEFAULT NULL;
+ 			ALTER TABLE pmePaymentMethod ADD COLUMN `pmeName` varchar(255) DEFAULT NULL;
+ 			
+ 			ALTER TABLE pmePaymentMethod_ ADD COLUMN `pmeStatus` varchar(255) DEFAULT NULL;
+ 			ALTER TABLE pmePaymentMethod_ ADD COLUMN `pmeName` varchar(255) DEFAULT NULL;
+		</sql>
+    </changeSet>
+
+    <changeSet id="OU-893 add type to pscPaymentSchedule" author="richard">
+        <sql dbms="mysql">
+        		ALTER TABLE pscPaymentSchedule ADD COLUMN `pscType` varchar(255) DEFAULT NULL;
+ 			ALTER TABLE pscPaymentSchedule_ ADD COLUMN `pscType` varchar(255) DEFAULT NULL;
+		</sql>
+    </changeSet>
+
+    <changeSet id="OU-893 fix non-standard column names in pmePaymentMethod" author="richard">
+        <sql dbms="mysql">
+			ALTER TABLE pmePaymentMethod CHANGE `mprCardHoldersName` `pmeCardHoldersName` varchar(255);
+			ALTER TABLE pmePaymentMethod CHANGE `mprCardNumber` `pmeCardNumber` varchar(255);
+			ALTER TABLE pmePaymentMethod CHANGE `mprExpiryDate` `pmeExpiryDate` datetime;
+			ALTER TABLE pmePaymentMethod CHANGE `mprIssueNumber` `pmeIssueNumber` varchar(255);
+			ALTER TABLE pmePaymentMethod CHANGE `mprIssuer` `pmeIssuer` varchar(255);
+			ALTER TABLE pmePaymentMethod CHANGE `mprSecurityCode` `pmeSecurityCode` varchar(255);
+			ALTER TABLE pmePaymentMethod CHANGE `mprStartDate` `pmeStartDate` datetime;
+
+			ALTER TABLE pmePaymentMethod_ CHANGE `mprCardHoldersName` `pmeCardHoldersName` varchar(255);
+			ALTER TABLE pmePaymentMethod_ CHANGE `mprCardNumber` `pmeCardNumber` varchar(255);
+			ALTER TABLE pmePaymentMethod_ CHANGE `mprExpiryDate` `pmeExpiryDate` datetime;
+			ALTER TABLE pmePaymentMethod_ CHANGE `mprIssueNumber` `pmeIssueNumber` varchar(255);
+			ALTER TABLE pmePaymentMethod_ CHANGE `mprIssuer` `pmeIssuer` varchar(255);
+			ALTER TABLE pmePaymentMethod_ CHANGE `mprSecurityCode` `pmeSecurityCode` varchar(255);
+			ALTER TABLE pmePaymentMethod_ CHANGE `mprStartDate` `pmeStartDate` datetime;
+		</sql>
+    </changeSet>
+
+    <changeSet id="OU-893 fix non-standard column name in parParty" author="richard">
+        <sql dbms="mysql">
+			ALTER TABLE parParty CHANGE `taxRegistrationNumber` `parTaxRegistrationNumber` varchar(255);
+
+			ALTER TABLE parParty_ CHANGE `taxRegistrationNumber` `parTaxRegistrationNumber` varchar(255);
+		</sql>
+    </changeSet>
+
+    <changeSet id="OU-893 add parParty - pmePaymentMethod join" author="richard">
+        <sql dbms="mysql">
+			CREATE TABLE `jParPmePme` (
+			  `UIDpar` bigint(20) NOT NULL,
+			  `paymentMethodUIDpme` bigint(20) NOT NULL,
+			  UNIQUE KEY `paymentMethodUIDpme` (`paymentMethodUIDpme`),
+			  KEY `FKF556C1974212110A` (`paymentMethodUIDpme`),
+			  KEY `FKF556C19743E35FF8` (`UIDpar`),
+			  CONSTRAINT `FKF556C1974212110A` FOREIGN KEY (`paymentMethodUIDpme`) REFERENCES `pmePaymentMethod` (`pmeUID`),
+			  CONSTRAINT `FKF556C19743E35FF8` FOREIGN KEY (`UIDpar`) REFERENCES `parParty` (`parUID`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+			CREATE TABLE `jParPmePme_` (
+			  `secREV` int(11) NOT NULL,
+			  `secUIDpar` bigint(20) NOT NULL,
+			  `secPaymentMethodUIDpme` bigint(20) NOT NULL,
+			  `REVTYPE` tinyint(4) DEFAULT NULL,
+			  PRIMARY KEY (`secREV`,`secUIDpar`,`secPaymentMethodUIDpme`),
+			  KEY `FKB58171A852AE8777` (`secREV`),
+			  CONSTRAINT `FKB58171A852AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		</sql>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,84 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml" xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-780 Add label support to claim, note, policy and party." author="richard">
+        <sql dbms="mysql">
+            CREATE TABLE `cClaLab` (
+              `UIDcla` bigint(20) NOT NULL,
+              `claLabel` varchar(255) DEFAULT NULL,
+              KEY `FKED7CC798E0CB4A47` (`UIDcla`),
+              CONSTRAINT `FKED7CC798E0CB4A47` FOREIGN KEY (`UIDcla`) REFERENCES `claClaim` (`claUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            CREATE TABLE `cClaLab_` (
+              `secREV` int(11) NOT NULL,
+              `secUIDcla` bigint(20) NOT NULL,
+              `claLabel` varchar(255) NOT NULL,
+              `REVTYPE` tinyint(4) DEFAULT NULL,
+              PRIMARY KEY (`secREV`,`secUIDcla`,`claLabel`),
+              KEY `FKC21C2BC752AE8777` (`secREV`),
+              CONSTRAINT `FKC21C2BC752AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            CREATE TABLE `cNotLab` (
+              `UIDnot` bigint(20) NOT NULL,
+              `notLabel` varchar(255) DEFAULT NULL,
+              KEY `FK74FFFD81AAEBAD` (`UIDnot`),
+              CONSTRAINT `FK74FFFD81AAEBAD` FOREIGN KEY (`UIDnot`) REFERENCES `notNote` (`notUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            CREATE TABLE `cNotLab_` (
+              `secREV` int(11) NOT NULL,
+              `secUIDnot` bigint(20) NOT NULL,
+              `notLabel` varchar(255) NOT NULL,
+              `REVTYPE` tinyint(4) DEFAULT NULL,
+              PRIMARY KEY (`secREV`,`secUIDnot`,`notLabel`),
+              KEY `FKE2B000252AE8777` (`secREV`),
+              CONSTRAINT `FKE2B000252AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            CREATE TABLE `cParLab` (
+              `UIDpar` bigint(20) NOT NULL,
+              `parLabel` varchar(255) DEFAULT NULL,
+              KEY `FK3187F6F43E35FF8` (`UIDpar`),
+              CONSTRAINT `FK3187F6F43E35FF8` FOREIGN KEY (`UIDpar`) REFERENCES `parParty` (`parUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            CREATE TABLE `cParLab_` (
+              `secREV` int(11) NOT NULL,
+              `secUIDpar` bigint(20) NOT NULL,
+              `parLabel` varchar(255) NOT NULL,
+              `REVTYPE` tinyint(4) DEFAULT NULL,
+              PRIMARY KEY (`secREV`,`secUIDpar`,`parLabel`),
+              KEY `FK5FF76ED052AE8777` (`secREV`),
+              CONSTRAINT `FK5FF76ED052AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            CREATE TABLE `cPolLab` (
+              `UIDpol` bigint(20) NOT NULL,
+              `polLabel` varchar(255) DEFAULT NULL,
+              KEY `FK3DB0E4384156FE0` (`UIDpol`),
+              CONSTRAINT `FK3DB0E4384156FE0` FOREIGN KEY (`UIDpol`) REFERENCES `polPolicy` (`polUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            CREATE TABLE `cPolLab_` (
+              `secREV` int(11) NOT NULL,
+              `secUIDpol` bigint(20) NOT NULL,
+              `polLabel` varchar(255) NOT NULL,
+              `REVTYPE` tinyint(4) DEFAULT NULL,
+              PRIMARY KEY (`secREV`,`secUIDpol`,`polLabel`),
+              KEY `FK7786BA7C52AE8777` (`secREV`),
+              CONSTRAINT `FK7786BA7C52AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
+    <changeSet id="OU-780 Add type field to notNote." author="richard">
+        <sql dbms="mysql">
+            ALTER TABLE `notNote` ADD COLUMN `notType` varchar(255) DEFAULT NULL;
+            
+            ALTER TABLE `notNote_` ADD COLUMN `notType` varchar(255) DEFAULT NULL;
+        </sql>
+    </changeSet>
+</databaseChangeLog>

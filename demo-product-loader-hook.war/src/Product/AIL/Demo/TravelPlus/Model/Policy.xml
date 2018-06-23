@@ -1,0 +1,224 @@
+<quotation xsi:type="java:com.ail.insurance.policy.Policy" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <productName>TravelPlus</productName>
+  
+  <baseCurrency xsi:type="java:java.lang.String">GBP</baseCurrency>
+
+  <!-- Proposer -->
+  <xi:include href="product://localhost:8080/AIL/Base/Model/PersonalProposer.xml" />
+
+  <!-- Travel Cover Asset -->
+  <asset id="travel" assetTypeId="TravelAsset" xsi:type="java:com.ail.insurance.policy.Asset">
+    <attribute id="policyType" value="i18n_?" format="choice,options=-1#i18n_?|1#i18n_policy_type_single_trip_option|2#i18n_policy_type_multi_trip_option" />
+    <attribute id="destination" value="i18n_?" format="choice,options=-1#i18n_?|1#i18n_destination_united_kingdom_option|2#i18n_destination_europe_option|3#i18n_destination_world_wide_excluding_option|4#i18n_destination_world_wide_including_option" />
+    <attribute id="partyType" value="i18n_?" format="choice,options=-1#i18n_?|1#i18n_party_type_individual_option|2#i18n_party_type_couple_option|3#i18n_party_type_family_option|4#i18n_party_type_group_option" />
+    <attribute id="medicalConditions" value="No" format="yesorno" />
+    <attribute id="winterSportsCover" value="No" format="yesorno" />
+    <attribute id="naturalCatastropheCover" value="No" format="yesorno" />
+    <attribute id="personalAccidentCover" format="yesorno" value="No" /> 
+    <attribute id="tripCancellationCover" value="Yes" format="yesorno" />
+    <attribute id="lossOfPersonalMoneyCover" value="Yes" format="yesorno" />
+    <attribute id="lossOfPersonalBelongingsCover" value="Yes" format="yesorno" />
+  </asset>
+
+  <!-- Traveller Asset (imported xml definition) - repeatable max 9 -->
+  <xi:include href="~/TravellerAsset.xml"/>  
+  
+  <!-- Policy can have either Three Star, Four Star or Five Star cover, these are represent bu the sections defind below.  Only one section can be enabled. -->
+
+  <!-- Three Star cover section -->
+  <section id="threestar" sectionTypeId="Section" xsi:type="java:com.ail.insurance.policy.Section">
+
+    <!-- Is section enabled? -->
+    <attribute id="sectionEnabled" value="no" format="yesorno" />
+ 
+    <!-- Optional coverages -->
+    <coverage id="winterSports" enabled="false">
+      <description>Winter Sports</description>
+      <limit amount="250.00" currency="GBP"/>
+    </coverage>
+    <coverage id="naturalCatastrophe" enabled="false">
+      <description>Natural Catastrophe</description>
+      <limit amount="5000.00" currency="GBP"/>
+    </coverage>
+    <coverage id="personalAccident" enabled="false">
+      <description>Personal Accident</description>
+      <limit amount="10000.00" currency="GBP"/>
+    </coverage>
+    <coverage id="tripCancellation" enabled="true">
+      <description>Trip Cancellation</description>
+      <limit amount="2500.00" currency="GBP"/>
+    </coverage>
+    <coverage id="lossOfPersonalMoney" enabled="true">
+      <description>Loss Of Personal Money</description>
+      <limit amount="250.00" currency="GBP"/>
+    </coverage>
+    <coverage id="lossOfPersonalBelongings" enabled="true">
+      <description>Loss Of Personal Belongings</description>
+      <limit amount="1000.00" currency="GBP"/>
+    </coverage>
+
+    <!-- Mandatory coverages -->
+    <coverage id="medicalExpenses" enabled="true">
+      <description>Medical Expenses</description>
+      <limit amount="5000000.00" currency="GBP"/>
+    </coverage>
+    <coverage id="personalLiability" enabled="true">
+      <description>Personal Liability</description>
+      <limit amount="2000000.00" currency="GBP"/>
+    </coverage>
+    <coverage id="cuttingYourTripShort" enabled="true">
+      <description>Cutting Your Trip Short</description>
+      <limit amount="1500.00" currency="GBP"/>
+    </coverage>
+    <coverage id="passportAndTravelDocuments" enabled="true">
+      <description>Passport and Travel Documents</description>
+      <limit amount="150.00" currency="GBP"/>
+    </coverage>
+
+    <!-- Disabled coverages -->
+    <coverage id="scheduledAirlineFailure" enabled="false">
+      <description>Scheduled Airline Failure</description>
+      <limit amount="0.00" currency="GBP"/>
+    </coverage>
+    <coverage id="endSupplierFailure" enabled="false">
+      <description>End Supplier Failure</description>
+      <limit amount="0.00" currency="GBP"/>
+    </coverage>
+    <coverage id="conciergeService" enabled="false">
+      <description>Concierge Service</description>
+      <limit amount="0.00" currency="GBP"/>
+    </coverage>
+
+  </section>
+
+  <!-- Four Star cover section -->
+  <section id="fourstar" sectionTypeId="Section" xsi:type="java:com.ail.insurance.policy.Section">
+
+    <!-- Is section enabled? -->
+    <attribute id="sectionEnabled" value="no" format="yesorno" />
+ 
+    <!-- Optional coverages -->
+    <coverage id="winterSports" enabled="false">
+      <description>Winter Sports</description>
+      <limit amount="500.00" currency="GBP"/>
+    </coverage>
+    <coverage id="naturalCatastrophe" enabled="false">
+      <description>Natural Catastrophe</description>
+      <limit amount="5000.00" currency="GBP"/>
+    </coverage>
+    <coverage id="personalAccident" enabled="false">
+      <description>Personal Accident</description>
+      <limit amount="10000.00" currency="GBP"/>
+    </coverage>
+    <coverage id="tripCancellation" enabled="true">
+      <description>Trip Cancellation</description>
+      <limit amount="5000.00" currency="GBP"/>
+    </coverage>
+    <coverage id="lossOfPersonalMoney" enabled="true">
+      <description>Loss Of Personal Money</description>
+      <limit amount="500.00" currency="GBP"/>
+    </coverage>
+    <coverage id="lossOfPersonalBelongings" enabled="true">
+      <description>Loss Of Personal Belongings</description>
+      <limit amount="2000.00" currency="GBP"/>
+    </coverage>
+
+    <!-- Mandatory coverages -->
+    <coverage id="medicalExpenses" enabled="true">
+      <description>Medical Expenses</description>
+      <limit amount="10000000.00" currency="GBP"/>
+    </coverage>
+    <coverage id="personalLiability" enabled="true">
+      <description>Personal Liability</description>
+      <limit amount="2000000.00" currency="GBP"/>
+    </coverage>
+    <coverage id="cuttingYourTripShort" enabled="true">
+      <description>Cutting Your Trip Short</description>
+      <limit amount="3000.00" currency="GBP"/>
+    </coverage>
+    <coverage id="passportAndTravelDocuments" enabled="true">
+      <description>Passport and Travel Documents</description>
+      <limit amount="250.00" currency="GBP"/>
+    </coverage>
+
+    <!-- Disabled coverages -->
+    <coverage id="scheduledAirlineFailure" enabled="true">
+      <description>Scheduled Airline Failure</description>
+      <limit amount="0.00" currency="GBP"/>
+    </coverage>
+    <coverage id="endSupplierFailure" enabled="false">
+      <description>End Supplier Failure</description>
+      <limit amount="0.00" currency="GBP"/>
+    </coverage>
+    <coverage id="conciergeService" enabled="false">
+      <description>Concierge Service</description>
+      <limit amount="0.00" currency="GBP"/>
+    </coverage>
+
+  </section>
+
+  <!-- Five Star cover section -->
+  <section id="fivestar" sectionTypeId="Section" xsi:type="java:com.ail.insurance.policy.Section">
+
+    <!-- Is section enabled? -->
+    <attribute id="sectionEnabled" value="no" format="yesorno" />
+  
+    <!-- Optional coverages -->
+    <coverage id="winterSports" enabled="false">
+      <description>Winter Sports</description>
+      <limit amount="1000.00" currency="GBP"/>
+    </coverage>
+    <coverage id="naturalCatastrophe" enabled="false">
+      <description>Natural Catastrophe</description>
+      <limit amount="10000.00" currency="GBP"/>
+    </coverage>
+    <coverage id="personalAccident" enabled="false">
+      <description>Personal Accident</description>
+      <limit amount="15000.00" currency="GBP"/>
+    </coverage>
+    <coverage id="tripCancellation" enabled="true">
+      <description>Trip Cancellation</description>
+      <limit amount="7500.00" currency="GBP"/>
+    </coverage>
+    <coverage id="lossOfPersonalMoney" enabled="true">
+      <description>Loss Of Personal Money</description>
+      <limit amount="750.00" currency="GBP"/>
+    </coverage>
+    <coverage id="lossOfPersonalBelongings" enabled="true">
+      <description>Loss Of Personal Belongings</description>
+      <limit amount="2000.00" currency="GBP"/>
+    </coverage>
+
+    <!-- Mandatory coverages -->
+    <coverage id="medicalExpenses" enabled="true">
+      <description>Medical Expenses</description>
+      <limit amount="15000000.00" currency="GBP"/>
+    </coverage>
+    <coverage id="personalLiability" enabled="true">
+      <description>Personal Liability</description>
+      <limit amount="2000000.00" currency="GBP"/>
+    </coverage>
+    <coverage id="cuttingYourTripShort" enabled="true">
+      <description>Cutting Your Trip Short</description>
+      <limit amount="4000.00" currency="GBP"/>
+    </coverage>
+    <coverage id="passportAndTravelDocuments" enabled="true">
+      <description>Passport and Travel Documents</description>
+      <limit amount="300.00" currency="GBP"/>
+    </coverage>
+    <coverage id="scheduledAirlineFailure" enabled="true">
+      <description>Scheduled Airline Failure</description>
+      <limit amount="3000.00" currency="GBP"/>
+    </coverage>
+    <coverage id="endSupplierFailure" enabled="true">
+      <description>End Supplier Failure</description>
+      <limit amount="1500.00" currency="GBP"/>
+    </coverage>
+    <coverage id="conciergeService" enabled="true">
+      <description>Concierge Service</description>
+    </coverage>
+	
+  </section>
+
+  <xi:include href="~/Broker.xml" />
+</quotation>

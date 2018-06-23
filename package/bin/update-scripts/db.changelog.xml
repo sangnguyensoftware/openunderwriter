@@ -1,0 +1,61 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <!-- ==================================================== -->
+    <!-- Schema update scripts should be added to this list.  -->
+    <!-- ==================================================== -->
+    <include file="OU-715.schema.xml"/>
+    <include file="YEL-32.schema.xml"/>
+    <include file="OU-756.schema.xml"/>
+    <include file="OU-764.schema.xml"/>
+    <include file="OU-775.schema.xml"/>
+    <include file="OU-796.schema.xml"/>
+    <include file="OU-758.schema.xml"/>
+    <include file="OU-825.schema.xml"/>
+	<include file="OU-843.schema.xml"/>
+	<include file="OU-854.schema.xml"/>
+	<include file="OU-862.schema.xml"/>
+	<include file="OU-877.schema.xml"/>
+	<include file="OU-863.schema.xml"/>
+	<include file="OU-868.schema.xml"/>
+	<include file="OU-887.schema.xml"/>
+	<include file="OU-880.schema.xml"/>
+	<include file="OU-893.schema.xml"/>
+	<include file="OU-896.schema.xml"/>
+    <include file="OU-900.schema.xml"/>
+    <include file="OU-907.schema.xml"/>
+	<include file="OU-931.schema.xml"/>
+    <include file="OU-934.schema.xml"/>
+	<include file="OU-935.schema.xml"/>
+    <include file="OU-780.schema.xml"/>
+    <include file="OU-948.schema.xml"/>
+    <include file="OU-949.schema.xml"/>
+    <include file="OU-951.schema.xml"/>
+    <include file="OU-962.schema.xml"/>
+    <include file="OU-967.schema.xml"/>
+    <include file="OU-993.schema.xml"/>	
+    <include file="OU-970.schema.xml"/>
+    <include file="OU-989.schema.xml"/>
+    <include file="OU-1006.schema.xml"/>
+    <include file="OU-1015.schema.xml"/>
+    <include file="OU-1025.schema.xml"/>
+    <include file="OU-1033.schema.xml"/>
+    <include file="OU-1041.schema.xml"/>
+    <include file="OU-1039.schema.xml"/>
+
+    <!-- ==================================================== -->
+    <!-- Data update scripts should be added to this list.    -->
+    <!-- ==================================================== -->
+    <include file="YEL-32.data.xml"/>
+    <include file="OU-796.data.xml"/>
+    <include file="OU-863.data.xml"/>
+    <include file="OU-758.data.xml"/>
+    <include file="OU-887.data.xml"/>
+    <include file="OU-951.data.xml"/>
+    <include file="OU-989.data.xml"/>
+    <include file="OU-1015.data.xml"/>
+    <include file="OU-1053.data.xml"/>
+</databaseChangeLog>

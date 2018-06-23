@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration
+    xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>TestProduct default config</name>
+    <timeout>600000</timeout>
+    <who>factory</who>
+    <version>$Revision: 1.7 $</version>
+
+    <group name="ListOfThings">
+        <parameter name="Thing One">2000</parameter>
+        <parameter name="Thing Two">House</parameter>
+        <parameter name="Thing Three">A long windy road</parameter>
+        <parameter name="Thing Three and a half">Toad in the hole</parameter>
+    </group>
+
+    <group name="Products">
+    </group>
+
+    <types>
+
+        <!--====================================-->
+        <!--   Define the component's services  -->
+        <!--====================================-->
+
+        <service name="GenDocService" builder="ClassBuilder"
+            key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.core.document.GenerateDocumentService</parameter>
+        </service>
+
+        <!--====================================-->
+        <!--  Bind the commands to services     -->
+        <!--====================================-->
+
+        <command name="GenerateDoc" builder="ClassBuilder"
+            key="com.ail.core.document.GenerateDocumentCommandImpl">
+            <parameter name="Service">GenDocService</parameter>
+        </command>
+
+        <command name='com.ail.core.product.RegisterProductService.RegisterProductCommand' key='com.ail.core.product.RegisterProductCommandImpl'>
+            <parameter name='Service'>com.ail.core.product.catalog.CatalogRegisterProductService</parameter>
+        </command>
+        <command name='com.ail.core.product.UpdateProductService.UpdateProductCommand' key='com.ail.core.product.UpdateProductCommandImpl'>
+            <parameter name='Service'>com.ail.core.product.catalog.CatalogUpdateProductService</parameter>
+        </command>
+        <command name='com.ail.core.product.ScanForProductDefinitionsService.ScanForProductDefinitionsCommand' key='com.ail.core.product.ScanForProductDefinitionsCommandImpl'>
+            <parameter name='Service'>com.ail.core.product.catalog.CatalogScanForProductDefinitionsService</parameter>
+        </command>
+    </types>
+
+</configuration>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documentDefinition xsi:type="java:com.ail.core.document.model.DocumentDefinition" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+    <mergeCommand>MergeDocumentDataCommand</mergeCommand>
+    <styleCommand></styleCommand>
+    <renderCommand>RenderIndustrialStyleDocumentCommand</renderCommand>
+    
+    <documentData>
+        <watermark>product://localhost:8080/AIL/Base/Documents/OpenUnderwriterWatermark.png</watermark>
+    
+        <headerData applicability="all" id="cert.head">
+            <modelData id='head' class='string'>${/productName} insurance certificate number: ${/policyNumber}</modelData>
+        </headerData>
+        
+        <chapterData title="Basic Details" id="cert.base">
+            <blockData placement="body" applicability="all" order="1">
+                <modelData class='string'>This certificate confirms that the insured detailed below has public liability cover from an authorised insurer.</modelData>
+                <modelData class='string'>Below is a summary of the cover.</modelData>
+            </blockData>
+            
+            <blockData placement="body" applicability="all" title="Insurer" order="3">
+                <modelData title="Policy number:" class='string' binding="/policyNumber"/>
+                <modelData title="Insurer name:" class='string' binding="/broker/legalName"/>
+                <modelData title="Insurer address:" class="line" binding="/broker/address/line1"/>
+                <modelData class="line" binding="/broker/address/line2"/>
+                <modelData class="town" binding="/broker/address/town"/>
+                <modelData class="county" binding="/broker/address/county"/>
+                <modelData class="country" binding="/broker/address/country"/>
+                <modelData class="postcode" binding="/broker/address/postcode"/>
+            </blockData>
+
+            <blockData placement="body" applicability="all" title="Policy Holder" order="4">
+                <modelData title="Policy holder name:" class='string'>${/proposer/actualTitle} ${/proposer/firstName} ${proposer/surname}</modelData>
+                <modelData title="Policy holder address:" class="line" binding="/proposer/address/line1"/>
+                <modelData class="line" binding="/proposer/address/line2"/>
+                <modelData class="line" binding="/proposer/address/line3"/>
+                <modelData class="line" binding="/proposer/address/line4"/>
+                <modelData class="line" binding="/proposer/address/line5"/>
+                <modelData class="town" binding="/proposer/address/town"/>
+                <modelData class="county" binding="/proposer/address/county"/>
+                <modelData class="country" binding="/proposer/address/country"/>
+                <modelData class="postcode" binding="/proposer/address/postcode"/>
+            </blockData>
+
+            <blockData placement="body" applicability="all" title="Policy Summary" order="5">
+                <modelData title="Cover start date:" class="String" binding='/inceptionDate'/>
+                <modelData title="Cover end date:" class="String" binding='/expiryDate'/>
+            </blockData>
+
+            <!-- Signature block -->
+            <blockData placement="body" applicability="all" order="100">
+                <modelData class="string">(Signatory)</modelData>
+                <modelData class="string">Signed on behalf of the insurance company</modelData>
+            </blockData>
+
+        </chapterData>
+    </documentData> 
+</documentDefinition>

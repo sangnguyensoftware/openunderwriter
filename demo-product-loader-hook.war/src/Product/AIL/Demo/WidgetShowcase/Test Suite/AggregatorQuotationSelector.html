@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>AggregatorQuotationSelector</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">AggregatorQuotationSelector</td></tr>
+</thead><tbody>
+<tr>
+	<td>setTimeout</td>
+	<td>300000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=resetPageflow</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectAndWait</td>
+	<td>name=selectedPage</td>
+	<td>label=AggregatorQuotationSelector</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>AggregatorQuotationSelector</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>//div[@class='alert alert-info']/text()</td>
+	<td>Quotation aggregation result cannot be displayed. The current quotation is not an aggregator quotation.</td>
+</tr>
+<!--Switch to aggregator quote-->
+<tr>
+	<td>click</td>
+	<td>//input[@value='Reset to aggregator quote']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//img[contains(@src,&quot;id=255837&quot;)]</td>
+	<td></td>
+</tr>
+<!--Test Infinity -->
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//img[contains(@src,&quot;id=255837&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>We're an award-winning</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>£115.23</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@type=&quot;submit&quot; and contains(@name, &quot;InfinityLife&quot;)]</td>
+	<td></td>
+</tr>
+<!--Test Star -->
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//img[contains(@src,&quot;id=59042&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Star Insurance Company is part of the Star Group</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>£125.10</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@type=&quot;submit&quot; and contains(@name, &quot;StarLife&quot;)]</td>
+	<td></td>
+</tr>
+<!--Test Met -->
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//img[contains(@src,&quot;id=59033&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>By choosing the Metropolitan Insurance Company you</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>£105.00</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@type=&quot;submit&quot; and contains(@name, &quot;Met&quot;)]</td>
+	<td></td>
+</tr>
+<!--Switch to normal quote-->
+<tr>
+	<td>click</td>
+	<td>//input[@value='Reset to normal quote']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>//div[@class='alert alert-info']/text()</td>
+	<td>Quotation aggregation result cannot be displayed. The current quotation is not an aggregator quotation.</td>
+</tr>
+</tbody></table>
+</body>
+</html>

@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>ProposerDetailsCommercial</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">ProposerDetailsCommercial</td></tr>
+</thead><tbody>
+<tr>
+	<td>setTimeout</td>
+	<td>300000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=resetPageflow</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectAndWait</td>
+	<td>name=selectedPage</td>
+	<td>label=ProposerDetailsCommercial</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>ProposerDetails-Commercial</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Company name</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Address</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Postcode</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Title</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>First name</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Surname</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Telephone number</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Mobile number</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Email address</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=companyName</td>
+	<td>Company Name Limited</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=address1</td>
+	<td>Address Line 1</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=address2</td>
+	<td>Address Line 2</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=town</td>
+	<td>Town</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=county</td>
+	<td>County</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=postcode</td>
+	<td>POSTCODE</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>exact:Title? Mr. Mrs. Miss. Ms. Dr. Other</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=firstname</td>
+	<td>Tester</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=surname</td>
+	<td>Testerton</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=phone</td>
+	<td>01234 56789</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=mobile</td>
+	<td>02345 67890</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=email</td>
+	<td>testing@testing.com</td>
+</tr>
+<!--Test company name field validaation-->
+<tr>
+	<td>type</td>
+	<td>name=companyName</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=companyName</td>
+	<td>Company Name Limited</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextNotPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<!--Test address line 1 validation-->
+<tr>
+	<td>type</td>
+	<td>name=address1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=address1</td>
+	<td>Address Line 1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextNotPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<!--Test postcode validation-->
+<tr>
+	<td>type</td>
+	<td>name=postcode</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=postcode</td>
+	<td>POSTCODE</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextNotPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<!--Test title & other title-->
+<tr>
+	<td>select</td>
+	<td>id=title</td>
+	<td>label=Title?</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=title</td>
+	<td>label=Mr.</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextNotPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=title</td>
+	<td>label=Other</td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Other title</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=otherTitle</td>
+	<td>Title</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextNotPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<!--Test firstname field-->
+<tr>
+	<td>type</td>
+	<td>name=firstname</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=firstname</td>
+	<td>Tester</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextNotPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<!--Test surname field-->
+<tr>
+	<td>type</td>
+	<td>name=surname</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=surname</td>
+	<td>Testerton</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextNotPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<!--Test phone number field-->
+<tr>
+	<td>type</td>
+	<td>name=phone</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=phone</td>
+	<td>01234 56789</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextNotPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<!--Test email field-->
+<tr>
+	<td>type</td>
+	<td>name=email</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=email</td>
+	<td>testing@testing.com</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextNotPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=email</td>
+	<td>hello</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>invalid</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=email</td>
+	<td>testing@testing.com</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextNotPresent</td>
+	<td>invalid</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

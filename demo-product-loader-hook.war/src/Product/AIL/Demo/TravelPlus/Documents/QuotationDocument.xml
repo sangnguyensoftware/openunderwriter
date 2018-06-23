@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documentDefinition xsi:type="java:com.ail.core.document.model.DocumentDefinition" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+    <documentData>
+        <watermark>product://localhost:8080/AIL/Demo/TravelPlus/Documents/StarWatermark.png</watermark>
+        
+        <chapterData title="Basic Details">
+            <blockData placement="body" applicability="all" title="Proposer">
+                <modelData title="Proposer" class='string'>${/proposer/legalName}</modelData>
+                <modelData class="line" binding="/proposer/address/line1"/>
+                <modelData class="line" binding="/proposer/address/line2"/>
+                <modelData class="line" binding="/proposer/address/line3"/>
+                <modelData class="line" binding="/proposer/address/line4"/>
+                <modelData class="line" binding="/proposer/address/line5"/>
+                <modelData class="town" binding="/proposer/address/town"/>
+                <modelData class="county" binding="/proposer/address/county"/>
+                <modelData class="country" binding="/proposer/address/country"/>
+                <modelData class="postcode" binding="/proposer/address/postcode"/>
+
+                <modelData title='Phone number' class='phone' binding="/proposer/telephoneNumber"/>
+                <modelData title='Email address' class='email' binding="/proposer/emailAddress"/>
+            </blockData>
+            
+            <blockData placement="body" applicability="all" title="Quotation summary">
+                <modelData title='Quotation number' class='string' binding='/quotationNumber'/>
+                <modelData title='Total premium' class='string' binding="/assessmentSheet/line[id='total premium']/amountAsString"/>
+                <modelData title='Quotation date' class='date' binding='c:format(/quotationDate,"d MMMMM, yyyy")'/>
+                <modelData title='Quotation expiry date' class='date' binding='c:format(/quotationExpiryDate,"d MMMMM, yyyy")'/>    
+            </blockData>
+            
+            <blockData placement="body" applicability="all" title="Information about your cover">
+				<modelData title="i18n_policy_type_label" binding="/asset[id='travel']/attribute[id='policyType']/formattedValue" />
+				<modelData title="i18n_winter_sports_label" binding="/asset[id='travel']/attribute[id='winterSportsCover']/formattedValue" />
+				<modelData title="i18n_destination_label" binding="/asset[id='travel']/attribute[id='destination']/formattedValue" />
+				<modelData title="i18n_party_type_label" binding="/asset[id='travel']/attribute[id='partyType']/formattedValue" />
+			</blockData>            
+
+            <blockData applicability="all" placement="body" title="Terms and Conditions">
+                <urlData class="wording" title="Terms and Conditions" url="product://localhost:8080/AIL/Demo/TravelPlus/HTML/TermsAndConditions.html"/> 
+            </blockData>
+        </chapterData>
+    </documentData> 
+</documentDefinition>

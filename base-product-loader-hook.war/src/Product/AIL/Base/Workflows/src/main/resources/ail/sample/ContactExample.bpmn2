@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- origin at X=0.0 Y=0.0 -->
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:java="http://www.java.com/javaTypes" xmlns:tns="http://www.jboss.org/drools" xmlns="http://www.jboss.org/drools" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://www.jboss.org/drools drools.xsd http://www.bpsim.org/schemas/1.0 bpsim.xsd" id="Definition" exporter="org.eclipse.bpmn2.modeler.core" exporterVersion="1.4.2.Final-v20171109-1930-B1" expressionLanguage="http://www.mvel.org/2.0" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+  <bpmn2:itemDefinition id="ItemDefinition_9" isCollection="false" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="ItemDefinition_327" isCollection="false" structureRef="java.lang.Integer"/>
+  <bpmn2:itemDefinition id="ItemDefinition_328" isCollection="false" structureRef="java.lang.Boolean"/>
+  <bpmn2:itemDefinition id="ItemDefinition_368" isCollection="false" structureRef="java.lang.Short"/>
+  <bpmn2:itemDefinition id="ItemDefinition_1" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_2" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_3" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_4" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_5" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_6" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_7" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_8" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_10" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_11" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_12" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_13" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_14" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_15" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_16" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_17" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_18" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_67" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_68" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_69" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_70" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_71" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_72" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_73" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_74" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_123" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_124" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_125" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_126" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_127" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_128" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_129" isCollection="false" structureRef="Object"/>
+  <bpmn2:itemDefinition id="ItemDefinition_130" isCollection="false" structureRef="Object"/>
+  <bpmn2:process id="ail.sample.ContactExample" tns:packageName="ail.sample" tns:adHoc="false" name="ContactExample" isExecutable="true" processType="Private">
+    <bpmn2:property id="policyId" itemSubjectRef="ItemDefinition_9" name="policyId"/>
+    <bpmn2:property id="party" itemSubjectRef="ItemDefinition_9" name="party"/>
+    <bpmn2:property id="message" itemSubjectRef="ItemDefinition_9" name="message"/>
+    <bpmn2:property id="subject" itemSubjectRef="ItemDefinition_9" name="subject"/>
+    <bpmn2:startEvent id="StartEvent_1" name="StartProcess">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[StartProcess]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:endEvent id="EndEvent_1" name="End Event 1">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[End Event 1]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_4</bpmn2:incoming>
+      <bpmn2:terminateEventDefinition id="TerminateEventDefinition_1"/>
+    </bpmn2:endEvent>
+    <bpmn2:task id="ContactByEmailTask" tns:taskName="ContactParty" tns:displayName="Contact" tns:icon="contact.png" name="Contact By Email">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[Contact By Email]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="InputOutputSpecification_1">
+        <bpmn2:dataInput id="DataInput_20" itemSubjectRef="ItemDefinition_9" name="case id"/>
+        <bpmn2:dataInput id="DataInput_50" itemSubjectRef="ItemDefinition_9" name="input1"/>
+        <bpmn2:dataInput id="DataInput_63" itemSubjectRef="ItemDefinition_9" name="case type"/>
+        <bpmn2:dataInput id="DataInput_65" itemSubjectRef="ItemDefinition_9" name="user to contact"/>
+        <bpmn2:dataInput id="DataInput_21" itemSubjectRef="ItemDefinition_9" name="template name"/>
+        <bpmn2:dataInput id="DataInput_30" itemSubjectRef="ItemDefinition_9" name="message"/>
+        <bpmn2:dataInput id="DataInput_40" itemSubjectRef="ItemDefinition_9" name="subject"/>
+        <bpmn2:inputSet id="_InputSet_17">
+          <bpmn2:dataInputRefs>DataInput_20</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_50</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_63</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_65</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_21</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_30</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_40</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="OutputSet_1" name="Output Set 1"/>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_22">
+        <bpmn2:sourceRef>policyId</bpmn2:sourceRef>
+        <bpmn2:targetRef>DataInput_20</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_27">
+        <bpmn2:targetRef>DataInput_50</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_5">
+        <bpmn2:targetRef>DataInput_63</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_9">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_24">policy</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_22">DataInput_63</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_6">
+        <bpmn2:sourceRef>party</bpmn2:sourceRef>
+        <bpmn2:targetRef>DataInput_65</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_1">
+        <bpmn2:targetRef>DataInput_21</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_2">
+        <bpmn2:sourceRef>message</bpmn2:sourceRef>
+        <bpmn2:targetRef>DataInput_30</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_9">
+        <bpmn2:sourceRef>subject</bpmn2:sourceRef>
+        <bpmn2:targetRef>DataInput_40</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" tns:priority="1" sourceRef="StartEvent_1" targetRef="ContactByEmailTask"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_2" tns:priority="1" sourceRef="ContactByEmailTask" targetRef="ContactByPostTask"/>
+    <bpmn2:task id="ContactByPostTask" tns:taskName="ContactParty" tns:displayName="Contact" tns:icon="contact.png" name="Contact By Post">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[Contact By Post]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="InputOutputSpecification_2">
+        <bpmn2:dataInput id="DataInput_19" itemSubjectRef="ItemDefinition_9" name="subject"/>
+        <bpmn2:dataInput id="DataInput_35" itemSubjectRef="ItemDefinition_9" name="case type"/>
+        <bpmn2:dataInput id="DataInput_36" itemSubjectRef="ItemDefinition_9" name="case id"/>
+        <bpmn2:dataInput id="DataInput_44" itemSubjectRef="ItemDefinition_9" name="user to contact"/>
+        <bpmn2:dataInput id="DataInput_15" itemSubjectRef="ItemDefinition_9" name="message"/>
+        <bpmn2:inputSet id="InputSet_1">
+          <bpmn2:dataInputRefs>DataInput_19</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_35</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_36</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_44</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_15</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="OutputSet_2" name="Output Set 1"/>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_10">
+        <bpmn2:sourceRef>subject</bpmn2:sourceRef>
+        <bpmn2:targetRef>DataInput_19</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_23">
+        <bpmn2:targetRef>DataInput_35</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_4">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_11">policy</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_8">DataInput_35</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_24">
+        <bpmn2:sourceRef>policyId</bpmn2:sourceRef>
+        <bpmn2:targetRef>DataInput_36</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_3">
+        <bpmn2:sourceRef>party</bpmn2:sourceRef>
+        <bpmn2:targetRef>DataInput_44</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_7">
+        <bpmn2:sourceRef>message</bpmn2:sourceRef>
+        <bpmn2:targetRef>DataInput_15</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+    </bpmn2:task>
+    <bpmn2:task id="ContactByPreferredTask" tns:taskName="ContactParty" tns:displayName="Contact" tns:icon="contact.png" name="Contact By Preferred">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[Contact By Preferred]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="InputOutputSpecification_3">
+        <bpmn2:dataInput id="DataInput_31" itemSubjectRef="ItemDefinition_9" name="subject"/>
+        <bpmn2:dataInput id="DataInput_33" itemSubjectRef="ItemDefinition_328" name="send using preferred method"/>
+        <bpmn2:dataInput id="DataInput_41" itemSubjectRef="ItemDefinition_9" name="case type"/>
+        <bpmn2:dataInput id="DataInput_42" itemSubjectRef="ItemDefinition_9" name="case id"/>
+        <bpmn2:dataInput id="DataInput_55" itemSubjectRef="ItemDefinition_9" name="user to contact"/>
+        <bpmn2:dataInput id="DataInput_26" itemSubjectRef="ItemDefinition_9" name="message"/>
+        <bpmn2:inputSet id="InputSet_2">
+          <bpmn2:dataInputRefs>DataInput_31</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_33</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_41</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_42</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_55</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_26</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="OutputSet_3" name="Output Set 1"/>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_19">
+        <bpmn2:sourceRef>subject</bpmn2:sourceRef>
+        <bpmn2:targetRef>DataInput_31</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_20">
+        <bpmn2:targetRef>DataInput_33</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_5">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_12">true</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_10">DataInput_33</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_25">
+        <bpmn2:targetRef>DataInput_41</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_6">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_15">policy</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_13">DataInput_41</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_26">
+        <bpmn2:sourceRef>policyId</bpmn2:sourceRef>
+        <bpmn2:targetRef>DataInput_42</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_4">
+        <bpmn2:sourceRef>party</bpmn2:sourceRef>
+        <bpmn2:targetRef>DataInput_55</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_8">
+        <bpmn2:sourceRef>message</bpmn2:sourceRef>
+        <bpmn2:targetRef>DataInput_26</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="SequenceFlow_3" tns:priority="1" sourceRef="ContactByPostTask" targetRef="ContactByPreferredTask"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_4" tns:priority="1" sourceRef="ContactByPreferredTask" targetRef="EndEvent_1"/>
+    <bpmn2:textAnnotation id="TextAnnotation_1">
+      <bpmn2:text>The Contact custom work item takes a number of parameters, manyt of which are optional depending on
+the type of message being sent - NB currently supports only Email, Post and Preferred Method, so long as preferred method is email.
+
+
+To send an email or a letter you must set these parameters:
+
+'send an email' : true
+
+'party' : this can be one of 'PersonalProposer' or 'Broker' to send the default PersonalProposer or Broker
+notifications which will send out either Quotation or Policy messages depending on the policy status.
+Or, it can take the form 'Party:[party type]' where party type may be 'broker', 'client', 'policyHolder', 'proposer'
+which are currently the only available Party types on the Policy. If 'party' starts with 'Party:' then the
+'subject' must be populated as well as the 'message' with a value of 'Template:[template name]', where
+'template name' is the name of a valid email template for the product, e.g. 'QuotationSummary', 'PolicySummary' etc.
+
+'subject' : this is only necessary when 'party' is a 'Party:[party type] and will appear in the email subject.
+
+'message' :  if the 'party' is 'PersonalProposer' or 'Broker' then the content of this parameter will appear in the
+email body. If the 'party' is 'Party:[party type] then the message must be a 'Template:[template name]'.
+
+Example 1:
+
+policyId = [valid external policy id]
+party = 'PersonalProposer'
+message (optional) = 'Hello, please find your insurance documentation attached.'
+
+Example 2:
+
+policyId = [valid external policy id]
+party = 'Party:client'
+subject = 'Quote documents'
+message= 'Template:ProposerQuotationSummary'</bpmn2:text>
+    </bpmn2:textAnnotation>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="ail.sample.ContactExample">
+      <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="StartEvent_1">
+        <dc:Bounds height="36.0" width="36.0" x="110.0" y="150.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_1" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="14.0" width="69.0" x="94.0" y="186.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="EndEvent_1">
+        <dc:Bounds height="36.0" width="36.0" x="992.0" y="150.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_2" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="14.0" width="66.0" x="977.0" y="186.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Task_2" bpmnElement="ContactByEmailTask" isExpanded="true">
+        <dc:Bounds height="50.0" width="110.0" x="290.0" y="143.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_3">
+          <dc:Bounds height="14.0" width="93.0" x="298.0" y="161.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_TextAnnotation_1" bpmnElement="TextAnnotation_1">
+        <dc:Bounds height="501.0" width="651.0" x="94.0" y="230.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_4">
+          <dc:Bounds height="495.0" width="639.0" x="100.0" y="230.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Task_1" bpmnElement="ContactByPostTask" isExpanded="true">
+        <dc:Bounds height="50.0" width="110.0" x="510.0" y="143.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_5">
+          <dc:Bounds height="14.0" width="86.0" x="522.0" y="161.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Task_3" bpmnElement="ContactByPreferredTask" isExpanded="true">
+        <dc:Bounds height="50.0" width="110.0" x="730.0" y="143.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_6">
+          <dc:Bounds height="28.0" width="68.0" x="751.0" y="154.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_Task_2">
+        <di:waypoint xsi:type="dc:Point" x="146.0" y="168.0"/>
+        <di:waypoint xsi:type="dc:Point" x="218.0" y="168.0"/>
+        <di:waypoint xsi:type="dc:Point" x="290.0" y="168.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_7"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_Task_2" targetElement="BPMNShape_Task_1">
+        <di:waypoint xsi:type="dc:Point" x="400.0" y="168.0"/>
+        <di:waypoint xsi:type="dc:Point" x="455.0" y="168.0"/>
+        <di:waypoint xsi:type="dc:Point" x="510.0" y="168.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_8"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_3" sourceElement="BPMNShape_Task_1" targetElement="BPMNShape_Task_3">
+        <di:waypoint xsi:type="dc:Point" x="620.0" y="168.0"/>
+        <di:waypoint xsi:type="dc:Point" x="675.0" y="168.0"/>
+        <di:waypoint xsi:type="dc:Point" x="730.0" y="168.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_9"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="SequenceFlow_4" sourceElement="BPMNShape_Task_3" targetElement="BPMNShape_EndEvent_1">
+        <di:waypoint xsi:type="dc:Point" x="840.0" y="168.0"/>
+        <di:waypoint xsi:type="dc:Point" x="916.0" y="168.0"/>
+        <di:waypoint xsi:type="dc:Point" x="992.0" y="168.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_10"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+    <bpmndi:BPMNLabelStyle id="BPMNLabelStyle_1">
+      <dc:Font name="arial" size="9.0"/>
+    </bpmndi:BPMNLabelStyle>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

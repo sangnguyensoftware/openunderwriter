@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documentDefinition xsi:type="java:com.ail.core.document.model.DocumentDefinition" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+    <documentData>
+        <chapterData id="c1" title="Basic Details">
+            <blockData pd="prop" placement="body" applicability="all" title="Proposer" border="true">
+                <modelData id='pn' title="Proposer&apos;s name" class='string'>${/proposer/actualTitle} ${/proposer/firstName} ${proposer/surname}</modelData>
+                <blockData title="Proposer&apos;s address" class='address'>
+                    <modelData id="line1" class="line" binding="/proposer/address/line1"/>
+                    <modelData id="line2" class="line" binding="/proposer/address/line2"/>
+                    <modelData id="line3" class="line" binding="/proposer/address/line3"/>
+                    <modelData id="line4" class="line" binding="/proposer/address/line4"/>
+                    <modelData id="line5" class="line" binding="/proposer/address/line5"/>
+                    <modelData id="town" class="town" binding="/proposer/address/town"/>
+                    <modelData id="county" class="county" binding="/proposer/address/county"/>
+                    <modelData id="country" class="country" binding="/proposer/address/country"/>
+                    <modelData id="postcode" class="postcode" binding="/proposer/address/postcode"/>
+                </blockData>
+                <modelData id='pn' title='Phone number' class='phone' binding="/proposer/telephoneNumber"/>
+                <modelData id='em' title='Email address' class='email' binding="/proposer/emailAddress"/>
+            </blockData>
+            
+            <blockData placement="body" applicability="all" title="Risk fields" border="true">
+                <modelData id='qn' title='Forename' class='string' binding="/proposer/firstName"/>
+                <modelData id='qn' title='Surname' class='string' binding="/proposer/surname"/>
+                <modelData id='qn' title='Colour' class='number' binding="/asset[id='quotationTestData']/attribute[id='colour']/formattedValue"/>
+                <modelData id='qn' title='Value' class='number' binding="/asset[id='quotationTestData']/attribute[id='value']/formattedValue"/>
+                <modelData id='qn' title='Applicable' class='number' binding="/asset[id='quotationTestData']/attribute[id='applicable']/formattedValue"/>
+            </blockData>            
+
+            <blockData applicability="all" placement="body" title="Terms &amp; Conditions" border="true">
+                <urlData class="wording" title="Terms &amp; Conditions" url="product://localhost:8080/AIL/Demo/WidgetShowcase/HTML/QuoteDocumentTermsAndConditions.html"/> 
+            </blockData>
+        </chapterData>
+    </documentData> 
+</documentDefinition>

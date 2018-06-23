@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documentDefinition xsi:type="java:com.ail.core.document.model.DocumentDefinition" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <documentData>
+        <watermark>product://localhost:8080/AIL/Demo/TravelPlus/Documents/StarWatermark.png</watermark>
+
+        <headerData applicability="all" id="cert.head">
+            <leftLogo>product://localhost:8080/AIL/Demo/TravelPlus/Documents/star_logo.png</leftLogo>
+            <modelData id='head' class='string'>Certificate of Travel Insurance</modelData>
+        </headerData>
+
+        <chapterData title="Basic Details" id="cert.base">
+            <blockData placement="body" applicability="all" order="1">
+                <modelData class='string'>Below is a summary of the cover.</modelData>
+            </blockData>
+
+			<blockData placement="body" applicability="all" title="Cover" order="49" border="false">
+				<modelData title="i18n_policy_type_label" class="String" binding="/asset[id='travel']/attribute[id='policyType']/value" />
+				<modelData title="i18n_winter_sports_label" class="String" binding="/asset[id='travel']/attribute[id='winterSportsCover']/value" />
+				<modelData title="i18n_destination_label" class="String" binding="/asset[id='travel']/attribute[id='destination']/value" />
+				<modelData title="i18n_party_type_label" class="String" binding="/asset[id='travel']/attribute[id='partyType']/value" />
+			</blockData>
+
+            <blockData placement="body" applicability="all" title="i18n_travellers_label" order="50" border="false">
+                <repeatingData binding="asset[assetTypeId='TravellerAsset']" class='table'>
+                    <blockData placement="header">
+                        <modelData>First Name</modelData>
+                        <modelData>Last Name</modelData>
+                        <modelData>Age</modelData>
+                    </blockData>
+                    <blockData placement="body">
+                        <modelData class='string' binding="attribute[id='firstName']/formattedValue"/>
+                        <modelData class='string' binding="attribute[id='lastName']/formattedValue"/>
+                        <modelData class='integer' binding="attribute[id='age']/formattedValue"/>
+                    </blockData>
+                </repeatingData>
+            </blockData>            
+		
+			<blockData placement="body" applicability="all" title="i18n_3_star_protection_label" order="51" border="false" condition="i:test(section[id='threestar']/attribute[id='sectionEnabled' and value='Yes'])">
+				<!-- Optional coverages -->
+				<modelData class="String" title="i18n_winter_sports_limit_label" binding="section[id='threestar']/coverage[id='winterSports']/limit" condition="i:test(section[id='threestar']/coverage[id='winterSports' and enabled='true'])"/>
+				<modelData class="String" title="i18n_winter_sports_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='winterSports' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_natural_catastrophe_limit_label" binding="section[id='threestar']/coverage[id='naturalCatastrophe']/limit" condition="i:test(section[id='threestar']/coverage[id='naturalCatastrophe' and enabled='true'])"/>
+				<modelData class="String" title="i18n_natural_catastrophe_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='naturalCatastrophe' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_personal_accident_limit_label" binding="section[id='threestar']/coverage[id='personalAccident']/limit" condition="i:test(section[id='threestar']/coverage[id='personalAccident' and enabled='true'])"/>
+				<modelData class="String" title="i18n_personal_accident_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='personalAccident' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_trip_cancellation_limit_label" binding="section[id='threestar']/coverage[id='tripCancellation']/limit" condition="i:test(section[id='threestar']/coverage[id='tripCancellation' and enabled='true'])"/>
+				<modelData class="String" title="i18n_trip_cancellation_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='tripCancellation' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_loss_of_personal_money_limit_label" binding="section[id='threestar']/coverage[id='lossOfPersonalMoney']/limit" condition="i:test(section[id='threestar']/coverage[id='lossOfPersonalMoney' and enabled='true'])"/>
+				<modelData class="String" title="i18n_loss_of_personal_money_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='lossOfPersonalMoney' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_loss_of_personal_belongings_limit_label" binding="section[id='threestar']/coverage[id='lossOfPersonalBelongings']/limit" condition="i:test(section[id='threestar']/coverage[id='lossOfPersonalBelongings' and enabled='true'])"/>
+				<modelData class="String" title="i18n_loss_of_personal_belongings_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='lossOfPersonalBelongings' and enabled!='true'])"/>
+				<!-- Mandatory (section determined) coverages -->
+				<modelData class="String" title="i18n_medical_expenses_limit_label" binding="section[id='threestar']/coverage[id='medicalExpenses']/limit" condition="i:test(section[id='threestar']/coverage[id='medicalExpenses' and enabled='true'])"/>
+				<modelData class="String" title="i18n_medical_expenses_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='medicalExpenses' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_personal_liability_limit_label" binding="section[id='threestar']/coverage[id='personalLiability']/limit" condition="i:test(section[id='threestar']/coverage[id='personalLiability' and enabled='true'])"/>
+				<modelData class="String" title="i18n_personal_liability_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='personalLiability' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_cutting_your_trip_short_limit_label" binding="section[id='threestar']/coverage[id='cuttingYourTripShort']/limit" condition="i:test(section[id='threestar']/coverage[id='cuttingYourTripShort' and enabled='true'])"/>
+				<modelData class="String" title="i18n_cutting_your_trip_short_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='cuttingYourTripShort' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_passport_and_travel_documents_limit_label" binding="section[id='threestar']/coverage[id='passportAndTravelDocuments']/limit" condition="i:test(section[id='threestar']/coverage[id='passportAndTravelDocuments' and enabled='true'])"/>
+				<modelData class="String" title="i18n_passport_and_travel_documents_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='passportAndTravelDocuments' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_scheduled_airline_failure_limit_label" binding="section[id='threestar']/coverage[id='personalAccident']/limit" condition="i:test(section[id='threestar']/coverage[id='scheduledAirlineFailure' and enabled='true'])"/>
+				<modelData class="String" title="i18n_scheduled_airline_failure_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='scheduledAirlineFailure' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_end_supplier_failure_limit_label" binding="section[id='threestar']/coverage[id='endSupplierFailure']/limit" condition="i:test(section[id='threestar']/coverage[id='endSupplierFailure' and enabled='true'])"/>
+				<modelData class="String" title="i18n_end_supplier_failure_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='endSupplierFailure' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_concierge_service_limit_label" binding="'included'" condition="i:test(section[id='threestar']/coverage[id='conciergeService' and enabled='true'])"/>
+				<modelData class="String" title="i18n_concierge_service_limit_label" binding="'-'" condition="i:test(section[id='threestar']/coverage[id='conciergeService' and enabled!='true'])"/>
+			</blockData>
+			<blockData placement="body" applicability="all" title="i18n_4_star_protection_label" order="52" border="false" condition="i:test(section[id='fourstar']/attribute[id='sectionEnabled' and value='Yes'])" >
+				<!-- Optional coverages -->
+				<modelData class="String" title="i18n_winter_sports_limit_label" binding="section[id='fourstar']/coverage[id='winterSports']/limit" condition="i:test(section[id='fourstar']/coverage[id='winterSports' and enabled='true'])"/>
+				<modelData class="String" title="i18n_winter_sports_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='winterSports' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_natural_catastrophe_limit_label" binding="section[id='fourstar']/coverage[id='naturalCatastrophe']/limit" condition="i:test(section[id='fourstar']/coverage[id='naturalCatastrophe' and enabled='true'])"/>
+				<modelData class="String" title="i18n_natural_catastrophe_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='naturalCatastrophe' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_personal_accident_limit_label" binding="section[id='fourstar']/coverage[id='personalAccident']/limit" condition="i:test(section[id='fourstar']/coverage[id='personalAccident' and enabled='true'])"/>
+				<modelData class="String" title="i18n_personal_accident_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='personalAccident' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_trip_cancellation_limit_label" binding="section[id='fourstar']/coverage[id='tripCancellation']/limit" condition="i:test(section[id='fourstar']/coverage[id='tripCancellation' and enabled='true'])"/>
+				<modelData class="String" title="i18n_trip_cancellation_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='tripCancellation' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_loss_of_personal_money_limit_label" binding="section[id='fourstar']/coverage[id='lossOfPersonalMoney']/limit" condition="i:test(section[id='fourstar']/coverage[id='lossOfPersonalMoney' and enabled='true'])"/>
+				<modelData class="String" title="i18n_loss_of_personal_money_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='lossOfPersonalMoney' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_loss_of_personal_belongings_limit_label" binding="section[id='fourstar']/coverage[id='lossOfPersonalBelongings']/limit" condition="i:test(section[id='fourstar']/coverage[id='lossOfPersonalBelongings' and enabled='true'])"/>
+				<modelData class="String" title="i18n_loss_of_personal_belongings_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='lossOfPersonalBelongings' and enabled!='true'])"/>
+				<!-- Mandatory (section determined) coverages -->
+				<modelData class="String" title="i18n_medical_expenses_limit_label" binding="section[id='fourstar']/coverage[id='medicalExpenses']/limit" condition="i:test(section[id='fourstar']/coverage[id='medicalExpenses' and enabled='true'])"/>
+				<modelData class="String" title="i18n_medical_expenses_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='medicalExpenses' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_personal_liability_limit_label" binding="section[id='fourstar']/coverage[id='personalLiability']/limit" condition="i:test(section[id='fourstar']/coverage[id='personalLiability' and enabled='true'])"/>
+				<modelData class="String" title="i18n_personal_liability_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='personalLiability' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_cutting_your_trip_short_limit_label" binding="section[id='fourstar']/coverage[id='cuttingYourTripShort']/limit" condition="i:test(section[id='fourstar']/coverage[id='cuttingYourTripShort' and enabled='true'])"/>
+				<modelData class="String" title="i18n_cutting_your_trip_short_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='cuttingYourTripShort' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_passport_and_travel_documents_limit_label" binding="section[id='fourstar']/coverage[id='passportAndTravelDocuments']/limit" condition="i:test(section[id='fourstar']/coverage[id='passportAndTravelDocuments' and enabled='true'])"/>
+				<modelData class="String" title="i18n_passport_and_travel_documents_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='passportAndTravelDocuments' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_scheduled_airline_failure_limit_label" binding="section[id='fourstar']/coverage[id='personalAccident']/limit" condition="i:test(section[id='fourstar']/coverage[id='scheduledAirlineFailure' and enabled='true'])"/>
+				<modelData class="String" title="i18n_scheduled_airline_failure_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='scheduledAirlineFailure' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_end_supplier_failure_limit_label" binding="section[id='fourstar']/coverage[id='endSupplierFailure']/limit" condition="i:test(section[id='fourstar']/coverage[id='endSupplierFailure' and enabled='true'])"/>
+				<modelData class="String" title="i18n_end_supplier_failure_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='endSupplierFailure' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_concierge_service_limit_label" binding="'included'" condition="i:test(section[id='fourstar']/coverage[id='conciergeService' and enabled='true'])"/>
+				<modelData class="String" title="i18n_concierge_service_limit_label" binding="'-'" condition="i:test(section[id='fourstar']/coverage[id='conciergeService' and enabled!='true'])"/>
+			</blockData>
+			<blockData placement="body" applicability="all" title="i18n_5_star_protection_label" order="53" border="false" condition="i:test(section[id='fivestar']/attribute[id='sectionEnabled' and value='Yes'])">
+				<!-- Optional coverages -->
+				<modelData class="String" title="i18n_winter_sports_limit_label" binding="section[id='fivestar']/coverage[id='winterSports']/limit" condition="i:test(section[id='fivestar']/coverage[id='winterSports' and enabled='true'])"/>
+				<modelData class="String" title="i18n_winter_sports_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='winterSports' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_natural_catastrophe_limit_label" binding="section[id='fivestar']/coverage[id='naturalCatastrophe']/limit" condition="i:test(section[id='fivestar']/coverage[id='naturalCatastrophe' and enabled='true'])"/>
+				<modelData class="String" title="i18n_natural_catastrophe_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='naturalCatastrophe' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_personal_accident_limit_label" binding="section[id='fivestar']/coverage[id='personalAccident']/limit" condition="i:test(section[id='fivestar']/coverage[id='personalAccident' and enabled='true'])"/>
+				<modelData class="String" title="i18n_personal_accident_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='personalAccident' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_trip_cancellation_limit_label" binding="section[id='fivestar']/coverage[id='tripCancellation']/limit" condition="i:test(section[id='fivestar']/coverage[id='tripCancellation' and enabled='true'])"/>
+				<modelData class="String" title="i18n_trip_cancellation_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='tripCancellation' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_loss_of_personal_money_limit_label" binding="section[id='fivestar']/coverage[id='lossOfPersonalMoney']/limit" condition="i:test(section[id='fivestar']/coverage[id='lossOfPersonalMoney' and enabled='true'])"/>
+				<modelData class="String" title="i18n_loss_of_personal_money_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='lossOfPersonalMoney' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_loss_of_personal_belongings_limit_label" binding="section[id='fivestar']/coverage[id='lossOfPersonalBelongings']/limit" condition="i:test(section[id='fivestar']/coverage[id='lossOfPersonalBelongings' and enabled='true'])"/>
+				<modelData class="String" title="i18n_loss_of_personal_belongings_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='lossOfPersonalBelongings' and enabled!='true'])"/>
+				<!-- Mandatory (section determined) coverages -->
+				<modelData class="String" title="i18n_medical_expenses_limit_label" binding="section[id='fivestar']/coverage[id='medicalExpenses']/limit" condition="i:test(section[id='fivestar']/coverage[id='medicalExpenses' and enabled='true'])"/>
+				<modelData class="String" title="i18n_medical_expenses_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='medicalExpenses' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_personal_liability_limit_label" binding="section[id='fivestar']/coverage[id='personalLiability']/limit" condition="i:test(section[id='fivestar']/coverage[id='personalLiability' and enabled='true'])"/>
+				<modelData class="String" title="i18n_personal_liability_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='personalLiability' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_cutting_your_trip_short_limit_label" binding="section[id='fivestar']/coverage[id='cuttingYourTripShort']/limit" condition="i:test(section[id='fivestar']/coverage[id='cuttingYourTripShort' and enabled='true'])"/>
+				<modelData class="String" title="i18n_cutting_your_trip_short_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='cuttingYourTripShort' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_passport_and_travel_documents_limit_label" binding="section[id='fivestar']/coverage[id='passportAndTravelDocuments']/limit" condition="i:test(section[id='fivestar']/coverage[id='passportAndTravelDocuments' and enabled='true'])"/>
+				<modelData class="String" title="i18n_passport_and_travel_documents_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='passportAndTravelDocuments' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_scheduled_airline_failure_limit_label" binding="section[id='fivestar']/coverage[id='personalAccident']/limit" condition="i:test(section[id='fivestar']/coverage[id='scheduledAirlineFailure' and enabled='true'])"/>
+				<modelData class="String" title="i18n_scheduled_airline_failure_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='scheduledAirlineFailure' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_end_supplier_failure_limit_label" binding="section[id='fivestar']/coverage[id='endSupplierFailure']/limit" condition="i:test(section[id='fivestar']/coverage[id='endSupplierFailure' and enabled='true'])"/>
+				<modelData class="String" title="i18n_end_supplier_failure_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='endSupplierFailure' and enabled!='true'])"/>
+				<modelData class="String" title="i18n_concierge_service_limit_label" binding="'included'" condition="i:test(section[id='fivestar']/coverage[id='conciergeService' and enabled='true'])"/>
+				<modelData class="String" title="i18n_concierge_service_limit_label" binding="'-'" condition="i:test(section[id='fivestar']/coverage[id='conciergeService' and enabled!='true'])"/>
+			 </blockData>			
+		</chapterData>
+		
+    </documentData> 
+</documentDefinition>

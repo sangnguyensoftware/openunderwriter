@@ -1,0 +1,28 @@
+<choice id="HorseColour" xsi:type="java:com.ail.pageflow.util.Choice" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <choice name="?"/>
+    <choice name="Appaloosa"/>
+    <choice name="Bay"/>
+    <choice name="Black"/>
+    <choice name="Blue Roan"/>
+    <choice name="Bright Bay"/>
+    <choice name="Brown"/>
+    <choice name="Chestnut"/>
+    <choice name="Chocolate Dun"/>
+    <choice name="Cremello"/>
+    <choice name="Dapple Grey"/>
+    <choice name="Dark Bay"/>
+    <choice name="Dun"/>
+    <choice name="Flea Bitten Grey"/>
+    <choice name="Grey"/>
+    <choice name="Grey Roan"/>
+    <choice name="Iron Grey"/>
+    <choice name="Liver Chestnut"/>
+    <choice name="Palamino"/>
+    <choice name="Piebald"/>
+    <choice name="Roan"/>
+    <choice name="Rose Grey"/>
+    <choice name="Skewbald"/>
+    <choice name="Steel Grey"/>
+    <choice name="Strawberry Roan"/>
+    <choice name="Tri Coloured"/>
+</choice>

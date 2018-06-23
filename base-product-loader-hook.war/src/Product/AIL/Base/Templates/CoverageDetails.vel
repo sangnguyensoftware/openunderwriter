@@ -1,0 +1,81 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+#set( $policy = $args.ModelArgRet)
+#set( $pageElement = $args.PageElementArg )
+#set( $renderId = $args.RenderIdArg )
+##
+<div class='pf-coverage-details pf-body' id='$!renderId'>
+	#if( ${policy.Coverage.size()} )
+		#renderCoverages(${policy.Coverage})
+	#end
+	#foreach( $section in ${policy.Section})
+		#if( ${section.Coverage.size()} )
+			#renderCoverages(${section.Coverage})
+		#end
+	#end
+</div>
+##
+#macro(renderCoverages, $coverages)
+	#foreach( $coverage in $coverages )
+		<div class='pf-coverage-section pf-page-section' id='$!coverage.Id'>
+			<div class='pf-item'>
+				<div class='pf-item-label'>Name</div><div class='pf-item-value'>$!{coverage.Name}</div>
+			</div>
+			<div class='pf-item'>
+				<div class='pf-item-label'>Description</div><div class='pf-item-value'>$!{coverage.Description}</div>
+			</div>
+			<div class='pf-item'>
+				<div class='pf-item-label'>Coverage type ID</div><div class='pf-item-value'>$!{coverage.CoverageTypeId}</div>
+			</div>
+			<div class='pf-item'>
+				<div class='pf-item-label'>Coverage ID</div><div class='pf-item-value'>$!{coverage.Id}</div>
+			</div>
+			<div class='pf-item'>
+				<div class='pf-item-label'>Enabled</div><div class='pf-item-value'>$!{coverage.Enabled}</div>
+			</div>
+			<div class='pf-item'>
+				<div class='pf-item-label'>Optional</div><div class='pf-item-value'>$!{coverage.Optional}</div>
+			</div>
+			#if(${coverage.Limit})
+				<div class='pf-item'>
+					<div class='pf-item-label'>Limit</div><div class='pf-item-value'>$!{coverage.Limit.FormattedValue}</div>
+				</div>
+			#end
+			#if(${coverage.Deductible})
+				<div class='pf-item'>
+					<div class='pf-item-label'>Deductible</div><div class='pf-item-value'>${coverage.Deductible.FormattedValue}</div>
+				</div>
+			#end
+			#if(${coverage.EffectiveDate})
+				<div class='pf-item'>
+					<div class='pf-item-label'>Effective date</div><div class='pf-item-value'>${coverage.xpathGet("u:longDate(/effectiveDate)")}</div>
+				</div>
+			#end
+			#if(${coverage.ExpiryDate})
+				<div class='pf-item'>
+					<div class='pf-item-label'>Expiry date</div><div class='pf-item-value'>${coverage.xpathGet("u:longDate(/expiryDate)")}</div>
+				</div>
+			#end
+			#if(${coverage.Broker})
+				<div class='pf-item'>
+					<div class='pf-item-label'>Broker</div><div class='pf-item-value'>$!{coverage.Broker.TradingName} $!{coverage.Broker.ContactName}</div>
+				</div>
+			#end
+		</div>
+	#end
+#end

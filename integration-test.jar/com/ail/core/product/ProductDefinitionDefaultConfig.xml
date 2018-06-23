@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ This file defines the default (factory) configuration for Products. This
+ configuration is shared by all the Product services.
+-->
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd">
+    <name>ProductDefinition default configuration</name>
+    <timeout>60000</timeout>
+    <who>factory</who>
+    <version>$Revision: 1.7 $</version>
+    <manager>com.ail.core.product.createproductdefinition.CreateProductDefinitionService</manager>
+    
+    <types>
+        <!-- This isn't a product as such - but it defines a type in exactly the same way that a product would. -->
+        <type name="SampleProductDefinitionOne" builder="CastorXMLBuilder" key="com.ail.core.Version">
+            <parameter name="Script"><![CDATA[
+<version xsi:type="java:com.ail.core.Version" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <source>Peach and mint</source>
+   <state>state</state>
+   <date>14/10/2002</date>
+   <author>T.S.Elliot</author>
+   <comment>The loganberrys are sweet</comment>
+   <copyright>Copyright us.</copyright>
+   <version>1.0</version>
+</version>
+            ]]></parameter>
+        </type>
+    </types>
+</configuration>

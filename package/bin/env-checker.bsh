@@ -1,0 +1,135 @@
+/*
+ * Copyright Applied Industrial Logic Limited 2017. All rights Reserved
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 51 
+ * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
+import java.net.*;
+import java.util.*;
+import java.sql.*;
+import org.apache.commons.io.*;
+
+JBOSS_PORTS_REQUIRED = new int[]{8080,3528,4447,9990,9999,8443,5445,5455};
+JAVA_REQUIRED = "1.8";
+MYSQL_REQUIRED = "5.7";
+
+main() {
+    if (isEnvironmentOkay()) {
+        System.exit(0);
+    }
+    else {
+        System.exit(1);
+    }
+}
+
+boolean isEnvironmentOkay() {
+	return 	versionOfJavaIsOkay() &&
+			portsAreAvailable() && 
+			mySQLVersionIsOkay(bsh.args[0], bsh.args[1], bsh.args[2]) &&
+			canConnectToMySQL(bsh.args[0], bsh.args[1], bsh.args[2]) &&
+    		mysqlExeIsOnThePATH();
+}
+
+boolean versionOfJavaIsOkay() {
+	String version = System.getProperty("java.version");
+	
+	if (version.startsWith(JAVA_REQUIRED)) {
+		print("Java " + version + " was found.");
+		return true;
+	}
+	else {
+		print("Java "+JAVA_REQUIRED+" is required but "+version+" was found.");
+		return false;
+	}
+}
+
+boolean mysqlExeIsOnThePATH() {
+    try {
+        Runtime rt = Runtime.getRuntime();
+        Process proc = rt.exec("mysql --version");
+        proc.waitFor();
+    } catch(exception) {
+        print("MySQL cannot be executed. Please make sure that the [MySQL HOME]/bin folder is on the PATH.");
+        return false;
+    }
+    return true;
+}
+
+boolean portsAreAvailable() {
+	inUse = "";
+	
+	for(i=0 ; i<JBOSS_PORTS_REQUIRED.length ; i++) {
+		try {
+			new ServerSocket(JBOSS_PORTS_REQUIRED[i],1,InetAddress.getByName("localhost"));
+		}
+		catch(BindException e) {
+			inUse=inUse+", "+JBOSS_PORTS_REQUIRED[i];
+		}
+	}
+	
+	if (inUse.length() > 0) {
+		print("The following port(s) are in use by other applications. Please quit them and then restart OpenUnderwriter.");
+		print("\t"+inUse.substring(2));
+        return false;
+	}
+
+    return true;
+}
+
+boolean mySQLVersionIsOkay(String host, String user, String password) {
+	Connection connection = null;
+	String version;
+	try {
+		Class.forName("com.mysql.jdbc.Driver");
+		connection = DriverManager.getConnection("jdbc:mysql://"+host+"?user="+user+"&password="+password);
+		Statement statement = connection.createStatement();
+		ResultSet rs = statement.executeQuery("SELECT VERSION()");
+		if (rs.next()) {
+			version = rs.getString(1);
+		}
+	} catch(Throwable t) {
+		return false;
+	} finally {
+		try { connection.close(); } catch (Exception e) {}
+	}
+	if (version.startsWith(MYSQL_REQUIRED)) {
+		print("MySQL " + version + " was found.");
+		return true;
+	} else {
+		print("MySQL "+MYSQL_REQUIRED+" is required but " + version + " was found.");
+		return false;
+	}
+}
+
+boolean canConnectToMySQL(String host, String user, String password) {
+	connectionOk=false;
+
+	try {
+		Class.forName("com.mysql.jdbc.Driver");
+		connection=DriverManager.getConnection("jdbc:mysql://"+host+"?user="+user+"&password="+password);
+		connectionOk=connection.isValid(0);
+		connection.close();
+	}
+	catch(Throwable t) {
+		// Nothing to do
+	}
+	
+	if (!connectionOk) {
+		print("MySQL does not appear to be running on "+host+". Please check you MySQL installation.");
+	}
+
+	return connectionOk;
+}
+
+main();

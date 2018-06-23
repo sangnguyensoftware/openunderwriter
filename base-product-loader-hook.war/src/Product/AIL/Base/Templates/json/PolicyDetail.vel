@@ -1,0 +1,126 @@
+## Copyright Applied Industrial Logic Limited 2017. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+#set( $model = $args.ModelArgRet)
+#set( $pageElement = $args.pageElementArg )
+#set( $policy = $args.PolicyArg )
+#set( $id = $args.RenderIdArg )
+##
+{
+	"type": "$pageElement.Class.SimpleName",
+	"id": "$id",
+	#if( $policy )
+		#renderHeader
+		#coverages
+		#assets
+	#else
+		#renderPolicyMessage
+	#end
+}
+##
+#macro(renderHeader)
+	#if( $policy.PolicyNumber )
+		"title": "$pageElement.i18n("i18n_policy_detail_policy_title", $policy.PolicyNumber)",
+	#elseif( $policy.QuotationNumber )
+		"title": "$pageElement.i18n("i18n_policy_detail_quotation_title", $policy.QuotationNumber)",
+	#else
+		"title": "$pageElement.i18n("i18n_policy_detail_application_title", $policy.SystemId)",
+	#end
+	"product": "$policy.ProductName",
+	"status": "$pageElement.i18n($policy.Status.LongName)",
+	#if( $policy.TotalPremiumDefined )
+		"premium": "$policy.TotalPremium",
+	#end
+#end
+##
+#macro(assets)
+	#if( $model.Asset && $model.Asset.size() != 0 )
+		"assets": [
+			#foreach( $asset in $model.Asset )
+				#if( $velocityCount != 1),#end
+				#renderAsset ( $asset )
+			#end
+		],
+	#end
+#end
+##
+#macro(coverages)
+	#if( $model.Coverage && $model.Coverage.size() != 0 )
+		"coverages": {
+			"policy": [
+				#foreach( $coverage in $model.Coverage )
+					#renderCoverage ( $coverage )
+				#end
+			],
+			"sections": [
+	        	#foreach( $section in $model.Section )
+        		{
+	        		#if( $section.Coverage && $section.Coverage.size() != 0 )
+	        			"section": "$section.id.substring(0,1).toUpperCase()$section.id.substring(1)",
+						#foreach( $coverage in $section.Coverage )
+	    	    			#renderCoverage ( $coverage )
+	    	    		#end
+	        		#end
+	        	#end
+			]					
+		},
+	#end
+#end
+##
+#macro( renderAsset $asset )
+{
+	#if( $asset.id )
+		#set( $assetId = $asset.id.substring(0,1).toUpperCase() + $asset.id.substring(1) )
+	#else 
+		#set( $assetId = $asset.assetTypeId.substring(0,1).toUpperCase() + $asset.assetTypeId.substring(1) )
+	#end
+	"assetId": "$assetId"
+	#if ($asset.Attribute && $asset.Attribute.size() != 0)
+		,"attributes": [	
+			#foreach( $attr in $asset.Attribute )
+				#if( $velocityCount != 1),#end
+				#set ( $attrId = $attr.Id.substring(0,1).toUpperCase() + $attr.Id.substring(1) )
+				#summaryRow( $attrId, $attr.Value)
+			#end
+ 		]
+ 	#end
+}
+#end
+##
+#macro( renderCoverage $coverage )
+{
+	#summaryRow( "id", $coverage.Id),
+	#summaryRow( "description", $coverage.Description )
+	#if ( $coverage.Limit )
+		,#summaryRow( "limit", $coverage.Limit.FormattedValue )
+	#end
+	#if ( $coverage.Deductible )
+		,#summaryRow( "deductable", $coverage.Deductable.FormattedValue )
+	#end
+}
+#end
+##
+#macro(renderPolicyMessage)
+	$pageElement.i18n('i18n_no_policy_message')
+#end
+##
+#macro(summaryRow $label $value)
+{
+	"label": "${pageElement.i18n($label)}",
+	"value": #if($value)"${pageElement.i18n($value)}"#else""#end
+}
+#end

@@ -1,0 +1,19 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-825 Change note body column type" author="richard">
+        <sql dbms="mysql">
+            ALTER TABLE notNote MODIFY notBody LONGTEXT;
+        </sql>
+    </changeSet> 
+
+    <changeSet id="OU-825 Change document descrption column type" author="richard">
+        <sql dbms="mysql">
+            ALTER TABLE docDocument MODIFY docDescription LONGTEXT;
+        </sql>
+    </changeSet> 
+
+</databaseChangeLog>

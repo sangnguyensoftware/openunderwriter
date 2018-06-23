@@ -1,0 +1,325 @@
+<!-- This file defines the common section used in all build files Ant build file for the core project. -->
+
+<project name="Common.xml" default="dummy">
+    <!-- Set global properties for this build -->
+    <property environment="env" />
+
+    <!-- Figure out where everything is - everything's relative to project.dir -->
+    <dirname property="project.dir" file="${ant.file.BuildSettings}" />
+    <property name="target.dir" value="${project.dir}/target" />
+    <property name="liferay.dir" value="${target.dir}/liferay-portal-${liferay.version}" />
+    <property name="jboss.dir" value="${liferay.dir}/jboss-${jboss.version}" />
+    <property name="deploy.dir" value="${jboss.dir}/standalone/deployments" />
+    <property name="test.dir" value="${target.dir}/test" />
+    <property name="test.reports.dir" value="${test.dir}/reports" />
+    <property name="buildlib.dir" value="${project.dir}/build/lib" />
+    <property name="bootlib.dir" value="${project.dir}/build/boot" />
+    <property name="tmp.dir" value="${target.dir}/tmp" />
+    <property name="copyfilter.dir" value="${deploy.dir}/lib" />
+    <property name="copyfilter.file" value="${copyfilter.dir}/filter" />
+    <property name="server.base.url" value="localhost:8080" />
+    <property name="java.naming.factory.initial" value="org.jboss.naming.remote.client.InitialContextFactory" />
+    <property name="java.naming.provider.url" value="remote://localhost:4447" />
+    <!-- default build.type is developer, Pipelines overrides this with a -D on the command line -->
+    <property name="build.type" value="developer" />
+    <property name="mysql.root.password" value="root" />
+    <property name="liferay.setup.file" value="${project.dir}/database/content/liferay/Liferay.sql" />
+    <property name="policy.test.data.file" value="${project.dir}/database/content/openunderwriter/TestData-Load.sql" />
+    <property name="mysql.driver" value="com.mysql.jdbc.Driver" />
+    <property name="content.setup.dir" value="${project.dir}/database/content/liferay/content" />
+    <property name="module.dir" value="${jboss.dir}/modules/" />
+    <property name="package.dir" value="${target.dir}/openunderwriter-community-${major.version}.${minor.version}${increment.version}" />
+    <property name="package.lib.dir" value="${package.dir}/lib" />
+    <property name="package.bin.dir" value="${package.dir}/bin" />
+    <property name="package.tmp.dir" value="${package.dir}/tmp" />
+    <property name="package.file" value="${package.dir}.zip" />
+    <property name="sdk.file" value="${target.dir}/openunderwriter-product-sdk-${major.version}.${minor.version}${increment.version}.zip" />
+    <property name="selenium.htmlSuite" value="*firefox" />
+    <property name="text.filetypes" value="**/*.MF, **/*.bat, **/*.bpmn2, **/*.bs, **/*.bsh, **/*.conf, **/*.css, **/*.scss, **/*.drl, **/*.dsl, **/*.dtd, **/*.ftl, **/*.html, **/*.janino, **/*.jnlp, **/*.js, **/*.jscript, **/*.jsp, **/*.properties, **/*.rule, **/*.sh, **/*.tld, **/*.txt, **/*.vm, **/*.wsdl, **/*.xml, **/*.xsl, **/*.xslt, **/*.rptdesign, **/*.rptconfig, **/*.vel, **/*.wid" />
+    <property name="binary.filetypes" value="**/*.Processor, **/*.eot, **/*.gif, **/*.ico, **/*.jpg, **/*.keystore, **/*.md, **/*.pdf, **/*.png, **/*.svg, **/*.swf, **/*.ttf, **/*.woff, **/*.war, **/*.dodeploy, **/*.xls, **/*.docx, **/*.tar" />
+    <property name="test.results.file" value="${test.reports.dir}/test-status.properties" />
+    <property name="ivy.dependency.report.dir" value="${target.dir}/dependency-reports" />
+    <property name="webdav.protocol" value="http" />
+    <property name="webdav.host" value="localhost" />
+    <property name="webdav.port" value="8080" />
+    <property name="webdav.username" value="adam@openunderwriter.org" />
+    <property name="webdav.password" value="adam" />
+  	<property name="threads" value="8" />
+
+    <target name="dummy" />
+
+    <classfileset includes="${buildlib.dir}/*.jar" />
+
+    <macrodef name="_initialise-webdavmkdir-task-macro">
+        <sequential>
+            <script language="beanshell">
+                <classpath>
+                    <dirset dir="${bootlib.dir}" />
+                    <fileset dir="${bootlib.dir}" includes="*.jar" />
+                    <fileset dir="${buildlib.dir}" includes="*.jar" />
+                </classpath>
+                import org.apache.tools.ant.Task;
+                import com.github.sardine.*;
+                public class WebDavMkdir extends Task {
+                    private String url;
+                    private String path;
+                    private String username;
+                    private String password;
+                    public void setUrl(String url) {
+                        this.url=url;
+                    }
+                    public void setPath(String path) {
+                        this.path=path;
+                    }
+                    public void setUsername(String username) {
+                        this.username=username;
+                    }
+                    public void setPassword(String password) {
+                        this.password=password;
+                    }
+                    public void execute() {
+                        Sardine sardine = SardineFactory.begin(username, password);
+                        String fullUrl = url;
+                        for(String dir: path.split("/")) {
+                             fullUrl = fullUrl + "/" + dir;
+                             if (!sardine.exists(fullUrl)) {
+                                 sardine.createDirectory(fullUrl);
+                             }
+                        }
+                    }
+                }
+                project.addTaskDefinition("webdav-mkdir", WebDavMkdir.class);
+            </script>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="_initialise-ant-contribs-macro">
+        <sequential>
+            <taskdef resource="net/sf/antcontrib/antlib.xml">
+                <classpath>
+                    <pathelement location="${bootlib.dir}/ant-contrib-1.0b3.jar" />
+                </classpath>
+            </taskdef>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="_initialise-sardine-macro">
+        <sequential>
+            <typedef resource="com/github/sardine/ant/sardinetask.xml">
+                <classpath>
+                    <dirset dir="${bootlib.dir}" />
+                    <fileset dir="${buildlib.dir}">
+                        <include name="*.jar"/>
+                    </fileset>
+                </classpath>
+            </typedef>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="_intialise-filtersets-macro">
+        <element name="filters" />
+        <sequential>
+            <filterset id="copy.filterset">
+                <filters />
+            </filterset>
+            <filterset id="copy.filterset.sql" begintoken="##" endtoken="##">
+                <filters />
+            </filterset>
+        </sequential>
+    </macrodef>
+
+    <!-- Macro to figure out the deploy path from the ant project name. By convention ant J2EE -->
+    <!-- projects have names like core:something.war. This Beanshell script creates a new      -->
+    <!-- ant property "deploy.unit" trimming off the "core:" bit (e.g."something.war")         -->
+    <macrodef name="_set-output-dir-property-macro">
+        <sequential>
+            <script language="beanshell">
+                <classpath>
+                    <fileset dir="${bootlib.dir}" includes="*.jar" />
+                </classpath>
+        projectName = project.getName();
+        deployUnit = projectName.replaceAll("^.*:", "");
+        project.setProperty("generated.source.dir",
+        project.getProperty("target.dir") + "/generated/" + deployUnit);
+        project.setProperty("deploy.unit", deployUnit);
+        if (projectName.contains(".war") || projectName.contains("-ejb.jar")) {
+            deployDir = project.getProperty("deploy.dir");
+            outputDir = deployDir + "/" + deployUnit;
+        }
+        else if (projectName.contains(":modules")) {
+            deploy.dir = project.getProperty("jboss.dir");
+            if (deployUnit.endsWith(".jar")) {
+                rootPath = deployUnit.replaceAll("/[^/]*$","");
+                name = deployUnit.replaceAll(".*/([^.]*)[.]jar","$1");
+                outputDir = deploy.dir + "/" + rootPath + "/" + name + "/main/" + name + ".jar";
+            }
+            else {
+                outputDir = deploy.dir + "/" + deployUnit;
+            }
+        }
+        else if (projectName.contains(":unit-test.jar")) {
+            outputDir = project.getProperty("test.dir") + "/unit-test.jar";
+        }
+        else if (projectName.contains(":integration-test.jar")) {
+            outputDir = project.getProperty("test.dir") + "/integration-test.jar";
+        }
+        else if (projectName.contains(":test.jar")) {
+            outputDir = project.getProperty("test.dir") + "/test.jar";
+        }
+        else {
+            outputDir = project.getProperty("target.dir") + "/"+deployUnit;
+        }
+        project.setProperty("output.dir", outputDir);
+            </script>
+        </sequential>
+    </macrodef>
+
+    <!-- Convert a product name into a path name -->
+    <!-- e.g. "my.package.name" -> "my/package/name" -->
+    <macrodef name="pathify-product-name-macro">
+        <attribute name="property" />
+        <attribute name="value" />
+        <sequential>
+            <script language="javascript">
+        project.setProperty("@{property}", "@{value}".split(".").join("/"));
+      </script>
+        </sequential>
+    </macrodef>
+
+    <!-- Run a specified target in all the ant files one level down in the directory structure -->
+    <macrodef name="subant-macro">
+        <attribute name="target" />
+        <attribute name="excludes" default="classes/**" />
+        <attribute name="includes" default="*/**/Build.xml" />
+        <sequential>
+            <subant target="@{target}" failonerror="yes">
+                <fileset dir="." includes="@{includes}" excludes="@{excludes}" />
+            </subant>
+        </sequential>
+    </macrodef>
+
+    <!-- Macro to truncate the file copy filter -->
+    <macrodef name="truncate-filter-macro">
+        <sequential>
+            <echo file="${copyfilter.file}" append="no" message="# Build generated file - do not edit!${line.separator}" />
+        </sequential>
+    </macrodef>
+
+    <!-- Verify that the correct version of mysql is installed. -->
+    <macrodef name="verify-mysql-version-macro">
+        <attribute name="required" />
+        <sequential>
+
+            <_initialise-ant-contribs-macro />
+
+            <exec executable="bash" osfamily="unix" outputproperty="mysql.version.output" errorproperty="mysql.error">
+                <arg line="-l -c 'mysql --version' 2>/dev/null" />
+            </exec>
+            <exec executable="cmd" osfamily="windows" outputproperty="mysql.version.output" errorproperty="mysql.error">
+                <arg line='/c "mysql --version 2>null"' />
+            </exec>
+
+            <echo>MySQL Version: ${mysql.version.output}${mysql.error}</echo>
+
+            <if>
+                <not>
+                    <or>
+                        <contains string="${mysql.version.output}" substring="@{required}" />
+                        <isset property="mysql.version.check.override" />
+                    </or>
+                </not>
+                <then>
+                    <fail>/
+            MySQL version is incompatible
+            -----------------------------
+            For development purposes, only MySQL @{required} can be used. We specify such a 
+            precise version number to ensure that the format of files generated by mysqldump
+            are common between developers. As these files are committed to version control, it is 
+            important that we can merge/diff them without the distraction of formatting changes
+            that differing versions of the command might introduce.
+            
+            Your installation of MySQL reported the following version information: 
+            "${mysql.version.output}"
+            
+            You will also get this error if MySQL is either not installed, or if the mysql
+            executable cannot be found on the PATH.
+          </fail>
+                </then>
+            </if>
+        </sequential>
+    </macrodef>
+
+    <!-- Macro which sets the ${mysql-running} to true if mysql is running -->
+    <macrodef name="set-mysql-running-property-macro">
+        <sequential>
+            <condition property="mysql-running">
+                <socket server="${dbhost}" port="3306" />
+            </condition>
+        </sequential>
+    </macrodef>
+
+    <!-- The annotation processor (in development/annotations.jar) generates fragments of config based on -->
+    <!-- the annotations encountered during compilation. This macro aggregates these fragments and outputs -->
+    <!-- a single file. -->
+    <macrodef name="aggregate-annotated-configurations-macro">
+        <sequential>
+
+            <!-- Classpath for running the ConfigurationAggregator -->
+            <path id="aggregate.classpath">
+                <dirset dir="${module.dir}/com/ail/core/main" includes="*.jar" excludes="*-sources.jar, *-javadoc.jar" />
+                <fileset dir="${module.dir}/com/ail/core/main" includes="*.jar" excludes="*-sources.jar, *-javadoc.jar" />
+                <fileset dir="${module.dir}/org/apache/commons/io/main" includes="*.jar" excludes="*-sources.jar, *-javadoc.jar" />
+                <fileset dir="${module.dir}/org/apache/xalan/main" includes="*.jar" excludes="*-sources.jar, *-javadoc.jar" />
+                <fileset dir="${buildlib.dir}" includes="*.jar" excludes="*-sources.jar, *-javadoc.jar" />
+            </path>
+
+            <!-- Define a path to be passed into the configuration aggregator to search for -->
+            <!-- annotation config files. -->
+            <path id="config.search.path">
+                <dirset dir="${test.dir}" includes="unit-test.jar, integration-test.jar" />
+                <fileset dir="${test.dir}" includes="unit-test.jar, integration-test.jar" />
+                <dirset dir="${module.dir}/com/ail" includes="**/core.jar, **/commercial.jar, **/insurance.jar, **/pageflow.jar" />
+                <fileset dir="${module.dir}/com/ail" includes="**/core.jar, **/commercial.jar, **/insurance.jar, **/pageflow.jar" />
+                <dirset dir="${deploy.dir}" includes="*-ejb.jar" />
+                <fileset dir="${deploy.dir}" includes="*-ejb.jar" />
+            </path>
+            <property name="config.search.list" refid="config.search.path" />
+            <tempfile destdir="${tmp.dir}" property="config.search.file" />
+            <echo message="${config.search.list}" file="${config.search.file}" />
+
+            <java classname="com.ail.core.configure.ConfigurationAggregator" fork="yes" failonerror="yes" classpathref="aggregate.classpath">
+                <jvmarg value="-Djava.awt.headless=true" />
+                <!--jvmarg value="-Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y" / -->
+                <arg line="-s ${config.search.file} -o ${module.dir}/com/ail/core/main/core.jar!com/ail/core/AnnotatedTypeConfig.xml" />
+            </java>
+        </sequential>
+    </macrodef>
+
+    <_intialise-filtersets-macro>
+        <filters>
+            <filter token="dbname.openunderwriter" value="${dbname.openunderwriter}" />
+            <filter token="dbname.openunderwriter_audit" value="${dbname.openunderwriter_audit}" />
+            <filter token="dbname.jbpm" value="${dbname.jbpm}" />
+            <filter token="dbname.liferay" value="${dbname.liferay}" />
+            <filter token="dbname.dwh.prefix" value="${dbname.dwh.prefix}" />
+            <filter token="dbhost" value="${dbhost}" />
+            <filter token="dbusername.dwh" value="${dbusername.dwh}" />
+            <filter token="dbpassword.dwh.encrypted" value="${dbpassword.dwh.encrypted}" />
+            <filter token="dbpassword.dwh" value="${dbpassword.dwh}" />
+            <filter token="dbusername" value="${dbusername}" />
+            <filter token="dbpassword" value="${dbpassword}" />
+            <filter token="dbpassword.encrypted" value="${dbpassword.encrypted}" />
+            <filter token="major.version" value="${major.version}" />
+            <filter token="minor.version" value="${minor.version}" />
+            <filter token="liferay.version" value="${liferay.version}" />
+            <filter token="jboss.version" value="${jboss.version}" />
+            <filter token="increment.version" value="${increment.version}" />
+        </filters>
+    </_intialise-filtersets-macro>
+
+    <import file="JavaMacros.xml" />
+    <import file="LiferayMacros.xml" />
+    <import file="RepositoryMacros.xml" />
+    <import file="TestingMacros.xml" />
+</project>
+

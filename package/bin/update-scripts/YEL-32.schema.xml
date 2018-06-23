@@ -1,0 +1,129 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+        <changeSet id="YEL-32 Add payment schedule tables" author="richard">
+        <sql dbms="mysql">
+            CREATE TABLE IF NOT EXISTS `pmePaymentMethod` (
+              `pmeDSC` varchar(31) NOT NULL,
+              `pmeUID` bigint(20) NOT NULL,
+              `pmeAttribute` longtext,
+              `pmeCreatedDate` datetime DEFAULT NULL,
+              `pmeExternalSystemId` varchar(255) NOT NULL,
+              `pmeForeignSystemId` varchar(255) DEFAULT NULL,
+              `pmeLock` bit(1) DEFAULT NULL,
+              `pmeSerialVersion` bigint(20) NOT NULL,
+              `pmeUpdatedDate` datetime DEFAULT NULL,
+              `pmeIdentifier` varchar(255) DEFAULT NULL,
+              `pmeAccountNumber` varchar(255) DEFAULT NULL,
+              `pmeSortCode` varchar(255) DEFAULT NULL,
+              `mprCardHoldersName` varchar(255) DEFAULT NULL,
+              `mprCardNumber` varchar(255) DEFAULT NULL,
+              `mprExpiryDate` datetime DEFAULT NULL,
+              `mprIssueNumber` varchar(255) DEFAULT NULL,
+              `mprIssuer` varchar(255) DEFAULT NULL,
+              `mprSecurityCode` varchar(255) DEFAULT NULL,
+              `mprStartDate` datetime DEFAULT NULL,
+              PRIMARY KEY (`pmeUID`),
+              UNIQUE KEY `pmeExternalSystemId` (`pmeExternalSystemId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            CREATE TABLE IF NOT EXISTS `mprMoneyProvision` (
+              `mprUID` bigint(20) NOT NULL,
+              `mprAttribute` longtext,
+              `mprCreatedDate` datetime DEFAULT NULL,
+              `mprExternalSystemId` varchar(255) NOT NULL,
+              `mprForeignSystemId` varchar(255) DEFAULT NULL,
+              `mprLock` bit(1) DEFAULT NULL,
+              `mprSerialVersion` bigint(20) NOT NULL,
+              `mprUpdatedDate` datetime DEFAULT NULL,
+              `mprAmount` decimal(19,2) DEFAULT NULL,
+              `mprCurrency` varchar(255) DEFAULT NULL,
+              `mprDescription` varchar(255) DEFAULT NULL,
+              `mprFrequency` varchar(255) DEFAULT NULL,
+              `mprNumber` int(11) NOT NULL,
+              `mprPaymentId` varchar(255) DEFAULT NULL,
+              `mprPaymentsEndDate` datetime DEFAULT NULL,
+              `mprPaymentsStartDate` datetime DEFAULT NULL,
+              `mprSaleId` varchar(255) DEFAULT NULL,
+              `mprStatus` varchar(255) DEFAULT NULL,
+              `paymentMethodUIDpme` bigint(20) DEFAULT NULL,
+              PRIMARY KEY (`mprUID`),
+              UNIQUE KEY `mprExternalSystemId` (`mprExternalSystemId`),
+              KEY `FK407B25044212110A` (`paymentMethodUIDpme`),
+              CONSTRAINT `FK407B25044212110A` FOREIGN KEY (`paymentMethodUIDpme`) REFERENCES `pmePaymentMethod` (`pmeUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            CREATE TABLE IF NOT EXISTS `prePaymentRecord` (
+              `preUID` bigint(20) NOT NULL,
+              `preAttribute` longtext,
+              `preCreatedDate` datetime DEFAULT NULL,
+              `preExternalSystemId` varchar(255) NOT NULL,
+              `preForeignSystemId` varchar(255) DEFAULT NULL,
+              `preLock` bit(1) DEFAULT NULL,
+              `preSerialVersion` bigint(20) NOT NULL,
+              `preUpdatedDate` datetime DEFAULT NULL,
+              `preAmount` decimal(19,2) DEFAULT NULL,
+              `preCurrency` varchar(255) DEFAULT NULL,
+              `preDate` datetime DEFAULT NULL,
+              `preDescription` varchar(255) DEFAULT NULL,
+              `preMethodIdentifier` varchar(255) DEFAULT NULL,
+              `preTransactionReference` varchar(255) DEFAULT NULL,
+              `preType` varchar(255) DEFAULT NULL,
+              PRIMARY KEY (`preUID`),
+              UNIQUE KEY `preExternalSystemId` (`preExternalSystemId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            CREATE TABLE IF NOT EXISTS `pscPaymentSchedule` (
+              `pscUID` bigint(20) NOT NULL,
+              `pscAttribute` longtext,
+              `pscCreatedDate` datetime DEFAULT NULL,
+              `pscExternalSystemId` varchar(255) NOT NULL,
+              `pscForeignSystemId` varchar(255) DEFAULT NULL,
+              `pscLock` bit(1) DEFAULT NULL,
+              `pscSerialVersion` bigint(20) NOT NULL,
+              `pscUpdatedDate` datetime DEFAULT NULL,
+              `pscDescription` varchar(255) DEFAULT NULL,
+              PRIMARY KEY (`pscUID`),
+              UNIQUE KEY `pscExternalSystemId` (`pscExternalSystemId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            CREATE TABLE IF NOT EXISTS `jPolPhiPre` (
+              `UIDpol` bigint(20) NOT NULL,
+              `paymentHistoryUIDpre` bigint(20) NOT NULL,
+              UNIQUE KEY `paymentHistoryUIDpre` (`paymentHistoryUIDpre`),
+              KEY `FK65FD2ED515725D3C` (`paymentHistoryUIDpre`),
+              KEY `FK65FD2ED584156FE0` (`UIDpol`),
+              CONSTRAINT `FK65FD2ED515725D3C` FOREIGN KEY (`paymentHistoryUIDpre`) REFERENCES `prePaymentRecord` (`preUID`),
+              CONSTRAINT `FK65FD2ED584156FE0` FOREIGN KEY (`UIDpol`) REFERENCES `polPolicy` (`polUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            CREATE TABLE IF NOT EXISTS `jPolPopPsc` (
+              `UIDpol` bigint(20) NOT NULL,
+              `paymentOptionUIDpsc` bigint(20) NOT NULL,
+              UNIQUE KEY `paymentOptionUIDpsc` (`paymentOptionUIDpsc`),
+              KEY `FK66630212223BE18C` (`paymentOptionUIDpsc`),
+              KEY `FK6663021284156FE0` (`UIDpol`),
+              CONSTRAINT `FK66630212223BE18C` FOREIGN KEY (`paymentOptionUIDpsc`) REFERENCES `pscPaymentSchedule` (`pscUID`),
+              CONSTRAINT `FK6663021284156FE0` FOREIGN KEY (`UIDpol`) REFERENCES `polPolicy` (`polUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            CREATE TABLE IF NOT EXISTS `jPscMprMpr` (
+              `UIDpsc` bigint(20) NOT NULL,
+              `moneyProvisionUIDmpr` bigint(20) NOT NULL,
+              UNIQUE KEY `moneyProvisionUIDmpr` (`moneyProvisionUIDmpr`),
+              KEY `FK24C00B16ABCFDC05` (`moneyProvisionUIDmpr`),
+              KEY `FK24C00B162BCAEBD1` (`UIDpsc`),
+              CONSTRAINT `FK24C00B162BCAEBD1` FOREIGN KEY (`UIDpsc`) REFERENCES `pscPaymentSchedule` (`pscUID`),
+              CONSTRAINT `FK24C00B16ABCFDC05` FOREIGN KEY (`moneyProvisionUIDmpr`) REFERENCES `mprMoneyProvision` (`mprUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            ALTER TABLE `polPolicy` 
+                ADD COLUMN `polPaymentDetailsUIDpsc` bigint(20) DEFAULT NULL AFTER `polProposerUIDpar`,
+                ADD KEY `FKC88695DF9F98CA5F` (`polPaymentDetailsUIDpsc`),
+                ADD CONSTRAINT `FKC88695DF9F98CA5F` FOREIGN KEY (`polPaymentDetailsUIDpsc`) REFERENCES `pscPaymentSchedule` (`pscUID`);
+        </sql>
+    </changeSet>
+</databaseChangeLog>

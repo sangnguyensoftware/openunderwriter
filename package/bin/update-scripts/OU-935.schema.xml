@@ -1,0 +1,17 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+	
+    <changeSet id="OU-935 accountName and branchNname to pmePaymentMethod" author="richardj">
+        <sql dbms="mysql">
+        	ALTER TABLE pmePaymentMethod ADD COLUMN `pmeBankName` varchar(255) DEFAULT NULL;
+ 			ALTER TABLE pmePaymentMethod ADD COLUMN `pmeBranchName` varchar(255) DEFAULT NULL;
+ 			
+ 			ALTER TABLE pmePaymentMethod_ ADD COLUMN `pmeBankName` varchar(255) DEFAULT NULL;
+ 			ALTER TABLE pmePaymentMethod_ ADD COLUMN `pmeBranchName` varchar(255) DEFAULT NULL;
+		</sql>
+    </changeSet>
+
+</databaseChangeLog>

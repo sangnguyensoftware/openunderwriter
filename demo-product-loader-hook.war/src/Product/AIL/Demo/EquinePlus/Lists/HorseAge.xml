@@ -1,0 +1,20 @@
+<choice id="HorseAge" xsi:type="java:com.ail.pageflow.util.Choice" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <choice name="?"/>
+    <choice name="Under one year"/>
+    <choice name="One year"/>
+    <choice name="2 years"/>
+    <choice name="3 years"/>
+    <choice name="4 years"/>
+    <choice name="5 years"/>
+    <choice name="6 years"/>
+    <choice name="7 years"/>
+    <choice name="8 years"/>
+    <choice name="9 years"/>
+    <choice name="10 years"/>
+    <choice name="11 years"/>
+    <choice name="12 years"/>
+    <choice name="13 years"/>
+    <choice name="14 years"/>
+    <choice name="15 years"/>
+    <choice name="Over 15 years"/>
+</choice>

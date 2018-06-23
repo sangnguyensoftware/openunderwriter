@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+    <info organisation="com.ail" module="gwtui" />
+    <dependencies>
+        <dependency name="jakarta-standard-taglib" org="jakarta" rev="1.1.2"  />
+        <dependency name="commons-el" org="commons-el" rev="1.0" />
+        <dependency name="myfaces-api" org="org.apache.myfaces.core" rev="2.1.9" />
+        <dependency name="commons-logging" org="commons-logging" rev="1.1.1" />
+        <dependency org="com.liferay.portal" name="util-java" rev="${liferay.util.version}"/>
+        <dependency org="com.liferay.portal" name="util-bridges" rev="${liferay.util.version}"/>
+        <dependency org="com.liferay.portal" name="util-taglib" rev="${liferay.util.version}"/>
+        <dependency org="com.google.gwt" name="gwt-servlet" rev="2.6.1" />
+      	<dependency org="com.google.guava" name="guava" rev="18.0" />
+      	<dependency org="com.google.guava" name="guava-gwt" rev="18.0" />
+        <exclude org="org.apache.geronimo.specs" />
+        <exclude org="javax.servlet" />
+        <exclude org="log4j" />
+        <exclude org="jspapi" />
+    </dependencies>
+</ivy-module>

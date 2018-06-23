@@ -1,0 +1,60 @@
+<hr />
+<p>
+	An attribute field may be included or excluded from a row scroller (or
+	section scroller) using the
+	<code>columnCondition</code>
+	attribute. In the example here a condition has been applied to the
+	Column 2. If the question &quot;Display conditional column&quot; is
+	answers &quot;Yes&quot; then column will be included; if not, it will
+	be excluded.
+</p>
+<p>
+	Like all other widgets, attributeField also supports the
+	<code>condition</code>
+	attribute. This can be used to excluded/included specific cells in a
+	row scroller, but does not affect whole column. It is also possible to
+	exclude whole rows by manipulating the row scroller's
+	<code>binding</code>
+	expression.
+</p>
+<p>Note that this condition is applied when the page is loaded. Use
+	the Submit Page button at the foot of the page to force the page to
+	reload.</p>
+<u>PageFlow</u>
+<pre>
+&lt;question title=&quot;Display conditional column&quot; binding=&quot;/asset[id=&apos;conditionsData&apos;]/attribute[id=&apos;column&apos;]&quot; /&gt
+&lt;rowScroller binding=&quot;/asset[id=&apos;conditionsColumnData&apos;]&quot; type=&quot;ConditionsColumnData&quot; addAndDeleteEnabled=&quot;false&quot;&gt
+    &lt;attributeField title=&quot;Column 1&quot; binding=&quot;attribute[id=&apos;string1&apos;]&quot; /&gt
+    &lt;attributeField title=&quot;Column 2&quot; subTitle=&quot;(conditional)&quot; binding=&quot;attribute[id=&apos;string2&apos;]&quot; columnCondition=&quot;i:test(/asset[id=&apos;conditionsData&apos;]/attribute[id=&apos;column&apos;]/value[.=&apos;Yes&apos;])&quot; /&gt
+    &lt;attributeField title=&quot;Column 3&quot; binding=&quot;attribute[id=&apos;string3&apos;]&quot; /&gt
+    &lt;attributeField title=&quot;Column 4&quot; binding=&quot;attribute[id=&apos;string4&apos;]&quot; /&gt
+&lt;/rowScroller&gt
+</pre>
+<u>Model</u>
+<pre>
+&lt;asset id=&quot;conditionsData&quot; assetTypeId=&quot;ConditionsData&quot;&gt;
+    &lt;attribute id=&quot;column&quot; value=&quot;No&quot; format=&quot;yesorno&quot; /&gt;
+&lt;/asset&gt;
+ 
+&lt;asset id=&quot;conditionsColumnData&quot; assetTypeId=&quot;ConditionsColumnData&quot;&gt;
+    &lt;attribute id=&quot;string1&quot; value=&quot;&quot; format=&quot;string 1.1&quot; /&gt;
+    &lt;attribute id=&quot;string2&quot; value=&quot;&quot; format=&quot;string 1.2&quot; /&gt;
+    &lt;attribute id=&quot;string3&quot; value=&quot;&quot; format=&quot;string 1.3&quot; /&gt;
+    &lt;attribute id=&quot;string4&quot; value=&quot;&quot; format=&quot;string 1.4&quot; /&gt;
+&lt;/asset&gt;
+
+&lt;asset id=&quot;conditionsColumnData&quot; assetTypeId=&quot;ConditionsColumnData&quot;&gt;
+    &lt;attribute id=&quot;string1&quot; value=&quot;&quot; format=&quot;string 2.1&quot; /&gt;
+    &lt;attribute id=&quot;string2&quot; value=&quot;&quot; format=&quot;string 2.2&quot; /&gt;
+    &lt;attribute id=&quot;string3&quot; value=&quot;&quot; format=&quot;string 2.3&quot; /&gt;
+    &lt;attribute id=&quot;string4&quot; value=&quot;&quot; format=&quot;string 2.4&quot; /&gt;
+&lt;/asset&gt;
+
+&lt;asset id=&quot;conditionsColumnData&quot; assetTypeId=&quot;ConditionsColumnData&quot;&gt;
+    &lt;attribute id=&quot;string1&quot; value=&quot;&quot; format=&quot;string 3.1&quot; /&gt;
+    &lt;attribute id=&quot;string2&quot; value=&quot;&quot; format=&quot;string 3.2&quot; /&gt;
+    &lt;attribute id=&quot;string3&quot; value=&quot;&quot; format=&quot;string 3.3&quot; /&gt;
+    &lt;attribute id=&quot;string4&quot; value=&quot;&quot; format=&quot;string 3.4&quot; /&gt;
+&lt;/asset&gt;
+</pre>
+<hr />

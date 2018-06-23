@@ -1,0 +1,104 @@
+<pageFlow id="QuotationPageFlow" progressBar="true" type="java:com.ail.pageflow.PageFlow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/PageFlow-1.0.xsd">
+    <action id="CreateNewBusinessQuotation" when="onPageFlowEntry" commandName="CreateNewBusinessQuotationCommand" />
+    <action id="Initialise" when="onPageFlowEntry" commandName="InitialiseNewBusiness" />
+
+    <questionPage id="Welcome" title="Shipping Quotation" stage="Shipping Details">
+        <blank id="Welcome" />
+        <questionSection order="2" title="About the shipping:">
+            <question title="What is the total value of the goods being shipped?" binding="/asset/attribute[id='valueOfGoods']" />
+            <question title="Where are the goods being shipped to?" binding="/asset/attribute[id='destination']" />
+            <question title="By what means are the good to be transported?" binding="/asset/attribute[id='modeOfTransport']" />
+            <question title="Would you like cover for shipping delay?" binding="/asset/attribute[id='shippingDelayCover']" />
+        </questionSection>
+        <blank id="SavedQuotes" />
+        <navigationSection order="4" id="Navigation">
+            <commandButtonAction id="Quote" label="Quote" destinationPageId="Referral">
+            	<action when="onProcessActions" commandName="QuotationToApplication" />
+                <action when="onProcessActions" commandName="PremiumCalculation" />
+                <pageForwardAction when="onProcessActions" condition="i:test(status[.='QUOTATION'])" destinationPageId="Quotation" />
+            </commandButtonAction>
+        </navigationSection>
+    </questionPage>
+
+    <informationPage id="Quotation" stage="Quotation">
+        <quotationSummary termsAndConditionsUrl="~/HTML/TermsAndConditions.html">
+
+            <answerSection title="Summary of your cover">
+                <answer title="Start date" binding="/inceptionDate" />
+                <answer title="End date" binding="/expiryDate" />
+            </answerSection>
+
+            <answerSection title="Asset(s)">
+                <answerScroller binding="/asset">
+                    <answer title="Value of goods" binding="attribute[id='valueOfGoods']" />
+                    <answer title="Destination" binding="attribute[id='destination']" />
+                    <answer title="Mode of transport" binding="attribute[id='modeOfTransport']" />
+                </answerScroller>
+            </answerSection>
+            <navigationSection>
+                <saveButtonAction destinationPageId="QuotationSaved" />
+                <requoteButtonAction destinationPageId="Welcome"/>
+                <commandButtonAction label="Quotation document" destinationPageId="QuotationProposer" />
+                <commandButtonAction id="ConfirmAndPay" label="i18n_confirm_and_pay_button_label" destinationPageId="Proposer"/>
+            </navigationSection>
+        </quotationSummary>
+    </informationPage>
+
+    <questionPage id="QuotationProposer" title="Proposer Details" stage="Proposer"> 
+        <proposerDetails id="Proposer" binding="/proposer" />
+        <navigationSection>
+            <commandButtonAction label="i18n_previous_button_label" destinationPageId="Quotation" immediate="true"/>
+            <commandButtonAction label="i18n_next_button_label" destinationPageId="DocumentReady" />
+        </navigationSection>
+    </questionPage>
+
+    <questionPage id="DocumentReady" title="View Quotation" stage="Quotation">
+        <parsedUrlContent url="~/HTML/QuotationReady.html" />
+        <navigationSection>
+            <viewQuotationButtonAction label="i18n_view_quotation_document_button_label" />
+            <commandButtonAction label="i18n_confirm_and_pay_button_label" destinationPageId="CollectPaymentDetails" />
+        </navigationSection>
+    </questionPage>
+
+    <questionPage id="Referral" title="Referral" stage="Quotation">
+ 	      <referralSummary referralNotificationUrl="~/HTML/ReferralNotification.html" requoteDestinationPageId="Welcome">
+
+            <answerSection title="Summary of your cover">
+                <answer title="Start date" binding="inceptionDate" />
+                <answer title="End date" binding="expiryDate" />
+            </answerSection>
+
+            <answerSection title="Asset(s)" >
+                <answerScroller binding="/asset" >
+                    <answer title="Value of goods" binding="attribute[id='valueOfGoods']" />
+                    <answer title="Destination" binding="attribute[id='destination']" />
+                    <answer title="Mode of transport" binding="attribute[id='modeOfTransport']" />
+                </answerScroller>
+            </answerSection>
+        </referralSummary>
+    </questionPage>
+
+    <questionPage id="Proposer" title="Contact Details" stage="Proposer">
+        <navigationSection id="Navigation">
+            <commandButtonAction id="Next" destinationPageId="CollectPaymentDetails" />
+        </navigationSection>
+    </questionPage>
+
+    <questionPage id="CollectPaymentDetails" title="Payment Details" stage="Payment">
+        <action when="onRenderResponse" commandName="AssessPaymentOptions" />
+        <navigationSection id="Navigation">
+            <blank id="Previous" />
+        </navigationSection>        
+    </questionPage>
+
+    <questionPage id="Finish" stage="Finish">
+        <navigationSection id="Navigation">
+            <viewQuotationButtonAction label="i18n_view_quotation_document_button_label" />
+        </navigationSection>
+    </questionPage>
+
+    <questionPage id="QuotationSaved" stage="Finish">
+        <savedQuotations id="SavedQuotes" order="2" requoteDestinationPageId="Welcome" confirmAndPayDestinationPageId="Proposer"/>
+    </questionPage>
+
+</pageFlow>

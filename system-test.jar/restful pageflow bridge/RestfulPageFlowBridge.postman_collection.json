@@ -1,0 +1,974 @@
+{
+	"variables": [],
+	"info": {
+		"name": "RestfulPageFlowBridge",
+		"_postman_id": "ac6b0531-f043-c03f-92ff-6262faead068",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "FreightPlus - Happy Path",
+			"description": "",
+			"item": [
+				{
+					"name": "Welcome (in: nothing; out: questions)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"action\", jsonData.action);",
+									"",
+									"tests[\"success\"] = jsonData.success === true;",
+									"tests[\"action\"] = jsonData.action.includes(\"pageflow/QuotationPageFlow/policy\");",
+									"tests[\"progress 1\"] = jsonData.page.progress.length = 5;",
+									"tests[\"progress 2\"] = jsonData.page.progress[0].state === \"current\" && jsonData.page.progress[0].title === \"Shipping Details\";",
+									"tests[\"progress 3\"] = jsonData.page.progress[1].state === \"todo\" && jsonData.page.progress[1].title === \"Quotation\";",
+									"tests[\"progress 4\"] = jsonData.page.progress[2].state === \"todo\" && jsonData.page.progress[2].title === \"Proposer\";",
+									"tests[\"progress 5\"] = jsonData.page.progress[3].state === \"todo\" && jsonData.page.progress[3].title === \"Payment\";",
+									"tests[\"progress 6\"] = jsonData.page.progress[4].state === \"todo\" && jsonData.page.progress[4].title === \"Finish\";",
+									"",
+									"",
+									"tests[\"page elements 1\"] = jsonData.page.elements.length === 1;",
+									"tests[\"page elements 2\"] = jsonData.page.elements[0].type === \"QuestionSection\";",
+									"tests[\"page elements 3\"] = jsonData.page.elements[0].id === \"OQ0-0-2\";",
+									"tests[\"page elements 3\"] = jsonData.page.elements[0].title === \"About the shipping:\";",
+									"",
+									"tests[\"questions\"] = jsonData.page.elements[0].questions.length = 4;",
+									"",
+									"tests[\"navigation 1\"] = jsonData.page.navigation[0].type === \"NavigationSection\";",
+									"tests[\"navigation 2\"] = jsonData.page.navigation[0].id === \"Navigation\";",
+									"tests[\"navigation 3\"] = jsonData.page.navigation[0].operations[0].type === \"CommandButtonAction\";",
+									"tests[\"navigation 4\"] = jsonData.page.navigation[0].operations[0].id === \"Quote\";",
+									"tests[\"navigation 5\"] = jsonData.page.navigation[0].operations[0].label === \"Quote\";",
+									"tests[\"navigation 6\"] = jsonData.page.navigation[0].operations[0].op === \"op=Quote:immediate=false\";",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{protocol}}://{{host}}:{{port}}/pageflow/QuotationPageFlow/product/AIL.Demo.FreightPlus",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Quote (in: answers; out: quote summary)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"action\", jsonData.action);",
+									"",
+									"tests[\"success\"] = jsonData.success === true;",
+									"tests[\"action\"] = jsonData.action.includes(\"pageflow/QuotationPageFlow/policy\");",
+									"",
+									"tests[\"page\"] = jsonData.page.type === \"InformationPage\";",
+									"tests[\"page\"] = jsonData.page.id === \"Quotation\";",
+									"",
+									"tests[\"progress 1\"] = jsonData.page.progress.length = 5;",
+									"tests[\"progress 2\"] = jsonData.page.progress[0].state === \"done\" && jsonData.page.progress[0].title === \"Shipping Details\";",
+									"tests[\"progress 3\"] = jsonData.page.progress[1].state === \"current\" && jsonData.page.progress[1].title === \"Quotation\";",
+									"tests[\"progress 4\"] = jsonData.page.progress[2].state === \"todo\" && jsonData.page.progress[2].title === \"Proposer\";",
+									"tests[\"progress 5\"] = jsonData.page.progress[3].state === \"todo\" && jsonData.page.progress[3].title === \"Payment\";",
+									"tests[\"progress 6\"] = jsonData.page.progress[4].state === \"todo\" && jsonData.page.progress[4].title === \"Finish\";",
+									"",
+									"tests[\"page elements 1\"] = jsonData.page.elements.length === 1;",
+									"tests[\"page elements 2\"] = jsonData.page.elements[0].type === \"QuotationSummary\";",
+									"",
+									"quotationSummary = jsonData.page.elements[0];",
+									"tests[\"quotation summary 1\"] = quotationSummary.id === \"OQ0-1-0\";",
+									"tests[\"quotation summary 2\"] = quotationSummary.premium === \"£500.00\";",
+									"",
+									"tests[\"quotation summary 3\"] = quotationSummary.quotationNumber.includes(\"QF\");",
+									"tests[\"quotation summary 4\"] = quotationSummary.expiryDate.length > 0;",
+									"tests[\"quotation summary 5\"] = quotationSummary.taxSummary.length === 0;",
+									"",
+									"",
+									"answerSummary = quotationSummary.answerSummary;",
+									"tests[\"answer summary 1\"] = answerSummary.length === 2;",
+									"tests[\"answer summary 2\"] = answerSummary[0].type === \"AnswerSection\";",
+									"tests[\"answer summary 3\"] = answerSummary[0].id === \"OQ0-1-0-0\";",
+									"tests[\"answer summary 3\"] = answerSummary[0].title === \"Summary of your cover\";",
+									"tests[\"answer summary 4\"] = answerSummary[0].answers[0].type === \"Answer\";",
+									"tests[\"answer summary 5\"] = answerSummary[0].answers[0].id === \"OQ0-1-0-0-0\";",
+									"tests[\"answer summary 6\"] = answerSummary[0].answers[0].label === \"Start date\";",
+									"tests[\"answer summary 7\"] = answerSummary[0].answers[0].value.length > 0;",
+									"tests[\"answer summary 8\"] = answerSummary[0].answers[1].type === \"Answer\";",
+									"tests[\"answer summary 9\"] = answerSummary[0].answers[1].id === \"OQ0-1-0-0-1\";",
+									"tests[\"answer summary 10\"] = answerSummary[0].answers[1].label === \"End date\";",
+									"tests[\"answer summary 11\"] = answerSummary[0].answers[1].value.length > 0;",
+									"",
+									"tests[\"answer summary 12\"] = answerSummary[1].type === \"AnswerSection\";",
+									"tests[\"answer summary 13\"] = answerSummary[1].id === \"OQ0-1-0-1\";",
+									"tests[\"answer summary 14\"] = answerSummary[1].title === \"Asset(s)\";",
+									"",
+									"tests[\"answer summary 15\"] = answerSummary[1].answers[0].type === \"AnswerScroller\";",
+									"tests[\"answer summary 16\"] = answerSummary[1].answers[0].id === \"OQ0-1-0-1-0\";",
+									"tests[\"answer summary 17\"] = answerSummary[1].answers[0].rows.length === 1;",
+									"",
+									"tests[\"answer summary 18\"] = answerSummary[1].answers[0].rows[0].answers.length === 3;",
+									"tests[\"answer summary 19\"] = answerSummary[1].answers[0].rows[0].answers[0].value === \"£100,000.00\";",
+									"tests[\"answer summary 20\"] = answerSummary[1].answers[0].rows[0].answers[1].value === \"UK\";",
+									"tests[\"answer summary 21\"] = answerSummary[1].answers[0].rows[0].answers[2].value === \"Road\";",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{action}}",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "op",
+									"value": "op=Quote:immediate=false",
+									"type": "text",
+									"description": ""
+								},
+								{
+									"key": "L2Fzc2V0L2F0dHJpYnV0ZVtpZD0ndmFsdWVPZkdvb2RzJ10",
+									"value": "100,000.00",
+									"type": "text",
+									"description": ""
+								},
+								{
+									"key": "L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nZGVzdGluYXRpb24nXQ",
+									"value": "UK",
+									"type": "text",
+									"description": ""
+								},
+								{
+									"key": "L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nbW9kZU9mVHJhbnNwb3J0J10",
+									"value": "Road",
+									"type": "text",
+									"description": ""
+								},
+								{
+									"key": "L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nc2hpcHBpbmdEZWxheUNvdmVyJ10",
+									"value": "No",
+									"type": "text",
+									"description": ""
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FreightPlus - Happy Path (json params)",
+			"description": "",
+			"item": [
+				{
+					"name": "Welcome (in: nothing; out: questions)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"action\", jsonData.action);",
+									"",
+									"tests[\"success\"] = jsonData.success === true;",
+									"tests[\"action\"] = jsonData.action.includes(\"pageflow/QuotationPageFlow/policy\");",
+									"tests[\"progress 1\"] = jsonData.page.progress.length = 5;",
+									"tests[\"progress 2\"] = jsonData.page.progress[0].state === \"current\" && jsonData.page.progress[0].title === \"Shipping Details\";",
+									"tests[\"progress 3\"] = jsonData.page.progress[1].state === \"todo\" && jsonData.page.progress[1].title === \"Quotation\";",
+									"tests[\"progress 4\"] = jsonData.page.progress[2].state === \"todo\" && jsonData.page.progress[2].title === \"Proposer\";",
+									"tests[\"progress 5\"] = jsonData.page.progress[3].state === \"todo\" && jsonData.page.progress[3].title === \"Payment\";",
+									"tests[\"progress 6\"] = jsonData.page.progress[4].state === \"todo\" && jsonData.page.progress[4].title === \"Finish\";",
+									"",
+									"tests[\"page elements 1\"] = jsonData.page.elements.length === 1;",
+									"tests[\"page elements 2\"] = jsonData.page.elements[0].type === \"QuestionSection\";",
+									"tests[\"page elements 3\"] = jsonData.page.elements[0].id === \"OQ0-0-2\";",
+									"tests[\"page elements 3\"] = jsonData.page.elements[0].title === \"About the shipping:\";",
+									"",
+									"tests[\"questions\"] = jsonData.page.elements[0].questions.length = 4;",
+									"",
+									"tests[\"navigation 1\"] = jsonData.page.navigation[0].type === \"NavigationSection\";",
+									"tests[\"navigation 2\"] = jsonData.page.navigation[0].id === \"Navigation\";",
+									"tests[\"navigation 3\"] = jsonData.page.navigation[0].operations[0].type === \"CommandButtonAction\";",
+									"tests[\"navigation 4\"] = jsonData.page.navigation[0].operations[0].id === \"Quote\";",
+									"tests[\"navigation 5\"] = jsonData.page.navigation[0].operations[0].label === \"Quote\";",
+									"tests[\"navigation 6\"] = jsonData.page.navigation[0].operations[0].op === \"op=Quote:immediate=false\";",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{protocol}}://{{host}}:{{port}}/pageflow/QuotationPageFlow/product/AIL.Demo.FreightPlus",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Quote (in: answers; out: quote summary)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"action\", jsonData.action);",
+									"",
+									"tests[\"success\"] = jsonData.success === true;",
+									"tests[\"action\"] = jsonData.action.includes(\"pageflow/QuotationPageFlow/policy\");",
+									"",
+									"tests[\"page\"] = jsonData.page.type === \"InformationPage\";",
+									"tests[\"page\"] = jsonData.page.id === \"Quotation\";",
+									"",
+									"tests[\"progress 1\"] = jsonData.page.progress.length = 5;",
+									"tests[\"progress 2\"] = jsonData.page.progress[0].state === \"done\" && jsonData.page.progress[0].title === \"Shipping Details\";",
+									"tests[\"progress 3\"] = jsonData.page.progress[1].state === \"current\" && jsonData.page.progress[1].title === \"Quotation\";",
+									"tests[\"progress 4\"] = jsonData.page.progress[2].state === \"todo\" && jsonData.page.progress[2].title === \"Proposer\";",
+									"tests[\"progress 5\"] = jsonData.page.progress[3].state === \"todo\" && jsonData.page.progress[3].title === \"Payment\";",
+									"tests[\"progress 6\"] = jsonData.page.progress[4].state === \"todo\" && jsonData.page.progress[4].title === \"Finish\";",
+									"",
+									"tests[\"page elements 1\"] = jsonData.page.elements.length === 1;",
+									"tests[\"page elements 2\"] = jsonData.page.elements[0].type === \"QuotationSummary\";",
+									"",
+									"quotationSummary = jsonData.page.elements[0];",
+									"tests[\"quotation summary 1\"] = quotationSummary.id === \"OQ0-1-0\";",
+									"tests[\"quotation summary 2\"] = quotationSummary.premium === \"£500.00\";",
+									"",
+									"tests[\"quotation summary 3\"] = quotationSummary.quotationNumber.includes(\"QF\");",
+									"tests[\"quotation summary 4\"] = quotationSummary.expiryDate.length > 0;",
+									"tests[\"quotation summary 5\"] = quotationSummary.taxSummary.length === 0;",
+									"",
+									"",
+									"answerSummary = quotationSummary.answerSummary;",
+									"tests[\"answer summary 1\"] = answerSummary.length === 2;",
+									"tests[\"answer summary 2\"] = answerSummary[0].type === \"AnswerSection\";",
+									"tests[\"answer summary 3\"] = answerSummary[0].id === \"OQ0-1-0-0\";",
+									"tests[\"answer summary 3\"] = answerSummary[0].title === \"Summary of your cover\";",
+									"tests[\"answer summary 4\"] = answerSummary[0].answers[0].type === \"Answer\";",
+									"tests[\"answer summary 5\"] = answerSummary[0].answers[0].id === \"OQ0-1-0-0-0\";",
+									"tests[\"answer summary 6\"] = answerSummary[0].answers[0].label === \"Start date\";",
+									"tests[\"answer summary 7\"] = answerSummary[0].answers[0].value.length > 0;",
+									"tests[\"answer summary 8\"] = answerSummary[0].answers[1].type === \"Answer\";",
+									"tests[\"answer summary 9\"] = answerSummary[0].answers[1].id === \"OQ0-1-0-0-1\";",
+									"tests[\"answer summary 10\"] = answerSummary[0].answers[1].label === \"End date\";",
+									"tests[\"answer summary 11\"] = answerSummary[0].answers[1].value.length > 0;",
+									"",
+									"tests[\"answer summary 12\"] = answerSummary[1].type === \"AnswerSection\";",
+									"tests[\"answer summary 13\"] = answerSummary[1].id === \"OQ0-1-0-1\";",
+									"tests[\"answer summary 14\"] = answerSummary[1].title === \"Asset(s)\";",
+									"",
+									"tests[\"answer summary 15\"] = answerSummary[1].answers[0].type === \"AnswerScroller\";",
+									"tests[\"answer summary 16\"] = answerSummary[1].answers[0].id === \"OQ0-1-0-1-0\";",
+									"tests[\"answer summary 17\"] = answerSummary[1].answers[0].rows.length === 1;",
+									"",
+									"tests[\"answer summary 18\"] = answerSummary[1].answers[0].rows[0].answers.length === 3;",
+									"tests[\"answer summary 19\"] = answerSummary[1].answers[0].rows[0].answers[0].value === \"£100,000.00\";",
+									"tests[\"answer summary 20\"] = answerSummary[1].answers[0].rows[0].answers[1].value === \"UK\";",
+									"tests[\"answer summary 21\"] = answerSummary[1].answers[0].rows[0].answers[2].value === \"Road\";",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{action}}",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "json",
+									"value": "{\"op\":\"op=Quote:immediate=false\",\"L2Fzc2V0L2F0dHJpYnV0ZVtpZD0ndmFsdWVPZkdvb2RzJ10\":\"100,000.00\",\"L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nZGVzdGluYXRpb24nXQ\":\"UK\",\"L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nbW9kZU9mVHJhbnNwb3J0J10\":\"Road\",\"L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nc2hpcHBpbmdEZWxheUNvdmVyJ10\":\"No\"}",
+									"type": "text",
+									"description": ""
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FreightPlus - Stale Request",
+			"description": "",
+			"item": [
+				{
+					"name": "Welcome (in: nothing; out: questions)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"action\", jsonData.action);",
+									"",
+									"tests[\"success\"] = jsonData.success === true;",
+									"tests[\"action\"] = jsonData.action.includes(\"pageflow/QuotationPageFlow/policy\");",
+									"tests[\"progress 1\"] = jsonData.page.progress.length = 5;",
+									"tests[\"progress 2\"] = jsonData.page.progress[0].state === \"current\" && jsonData.page.progress[0].title === \"Shipping Details\";",
+									"tests[\"progress 3\"] = jsonData.page.progress[1].state === \"todo\" && jsonData.page.progress[1].title === \"Quotation\";",
+									"tests[\"progress 4\"] = jsonData.page.progress[2].state === \"todo\" && jsonData.page.progress[2].title === \"Proposer\";",
+									"tests[\"progress 5\"] = jsonData.page.progress[3].state === \"todo\" && jsonData.page.progress[3].title === \"Payment\";",
+									"tests[\"progress 6\"] = jsonData.page.progress[4].state === \"todo\" && jsonData.page.progress[4].title === \"Finish\";",
+									"",
+									"tests[\"page elements 1\"] = jsonData.page.elements.length === 1;",
+									"tests[\"page elements 2\"] = jsonData.page.elements[0].type === \"QuestionSection\";",
+									"tests[\"page elements 3\"] = jsonData.page.elements[0].id === \"OQ0-0-2\";",
+									"tests[\"page elements 3\"] = jsonData.page.elements[0].title === \"About the shipping:\";",
+									"",
+									"tests[\"questions\"] = jsonData.page.elements[0].questions.length = 4;",
+									"",
+									"tests[\"navigation 1\"] = jsonData.page.navigation[0].type === \"NavigationSection\";",
+									"tests[\"navigation 2\"] = jsonData.page.navigation[0].id === \"Navigation\";",
+									"tests[\"navigation 3\"] = jsonData.page.navigation[0].operations[0].type === \"CommandButtonAction\";",
+									"tests[\"navigation 4\"] = jsonData.page.navigation[0].operations[0].id === \"Quote\";",
+									"tests[\"navigation 5\"] = jsonData.page.navigation[0].operations[0].label === \"Quote\";",
+									"tests[\"navigation 6\"] = jsonData.page.navigation[0].operations[0].op === \"op=Quote:immediate=false\";",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{protocol}}://{{host}}:{{port}}/pageflow/QuotationPageFlow/product/AIL.Demo.FreightPlus",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Quote (device 1 - okay)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"action\", jsonData.action);",
+									"",
+									"tests[\"success\"] = jsonData.success === true;",
+									"tests[\"action\"] = jsonData.action.includes(\"pageflow/QuotationPageFlow/policy\");",
+									"",
+									"tests[\"page\"] = jsonData.page.type === \"InformationPage\";",
+									"tests[\"page\"] = jsonData.page.id === \"Quotation\";",
+									"",
+									"tests[\"progress 1\"] = jsonData.page.progress.length = 5;",
+									"tests[\"progress 2\"] = jsonData.page.progress[0].state === \"done\" && jsonData.page.progress[0].title === \"Shipping Details\";",
+									"tests[\"progress 3\"] = jsonData.page.progress[1].state === \"current\" && jsonData.page.progress[1].title === \"Quotation\";",
+									"tests[\"progress 4\"] = jsonData.page.progress[2].state === \"todo\" && jsonData.page.progress[2].title === \"Proposer\";",
+									"tests[\"progress 5\"] = jsonData.page.progress[3].state === \"todo\" && jsonData.page.progress[3].title === \"Payment\";",
+									"tests[\"progress 6\"] = jsonData.page.progress[4].state === \"todo\" && jsonData.page.progress[4].title === \"Finish\";",
+									"",
+									"tests[\"page elements 1\"] = jsonData.page.elements.length === 1;",
+									"tests[\"page elements 2\"] = jsonData.page.elements[0].type === \"QuotationSummary\";",
+									"",
+									"quotationSummary = jsonData.page.elements[0];",
+									"tests[\"quotation summary 1\"] = quotationSummary.id === \"OQ0-1-0\";",
+									"tests[\"quotation summary 2\"] = quotationSummary.premium === \"£500.00\";",
+									"",
+									"tests[\"quotation summary 3\"] = quotationSummary.quotationNumber.includes(\"QF\");",
+									"tests[\"quotation summary 4\"] = quotationSummary.expiryDate.length > 0;",
+									"tests[\"quotation summary 5\"] = quotationSummary.taxSummary.length === 0;",
+									"",
+									"",
+									"answerSummary = quotationSummary.answerSummary;",
+									"tests[\"answer summary 1\"] = answerSummary.length === 2;",
+									"tests[\"answer summary 2\"] = answerSummary[0].type === \"AnswerSection\";",
+									"tests[\"answer summary 3\"] = answerSummary[0].id === \"OQ0-1-0-0\";",
+									"tests[\"answer summary 3\"] = answerSummary[0].title === \"Summary of your cover\";",
+									"tests[\"answer summary 4\"] = answerSummary[0].answers[0].type === \"Answer\";",
+									"tests[\"answer summary 5\"] = answerSummary[0].answers[0].id === \"OQ0-1-0-0-0\";",
+									"tests[\"answer summary 6\"] = answerSummary[0].answers[0].label === \"Start date\";",
+									"tests[\"answer summary 7\"] = answerSummary[0].answers[0].value.length > 0;",
+									"tests[\"answer summary 8\"] = answerSummary[0].answers[1].type === \"Answer\";",
+									"tests[\"answer summary 9\"] = answerSummary[0].answers[1].id === \"OQ0-1-0-0-1\";",
+									"tests[\"answer summary 10\"] = answerSummary[0].answers[1].label === \"End date\";",
+									"tests[\"answer summary 11\"] = answerSummary[0].answers[1].value.length > 0;",
+									"",
+									"tests[\"answer summary 12\"] = answerSummary[1].type === \"AnswerSection\";",
+									"tests[\"answer summary 13\"] = answerSummary[1].id === \"OQ0-1-0-1\";",
+									"tests[\"answer summary 14\"] = answerSummary[1].title === \"Asset(s)\";",
+									"",
+									"tests[\"answer summary 15\"] = answerSummary[1].answers[0].type === \"AnswerScroller\";",
+									"tests[\"answer summary 16\"] = answerSummary[1].answers[0].id === \"OQ0-1-0-1-0\";",
+									"tests[\"answer summary 17\"] = answerSummary[1].answers[0].rows.length === 1;",
+									"",
+									"tests[\"answer summary 18\"] = answerSummary[1].answers[0].rows[0].answers.length === 3;",
+									"tests[\"answer summary 19\"] = answerSummary[1].answers[0].rows[0].answers[0].value === \"£100,000.00\";",
+									"tests[\"answer summary 20\"] = answerSummary[1].answers[0].rows[0].answers[1].value === \"UK\";",
+									"tests[\"answer summary 21\"] = answerSummary[1].answers[0].rows[0].answers[2].value === \"Road\";",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{action}}",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "op",
+									"value": "op=Quote:immediate=false",
+									"type": "text",
+									"description": ""
+								},
+								{
+									"key": "L2Fzc2V0L2F0dHJpYnV0ZVtpZD0ndmFsdWVPZkdvb2RzJ10",
+									"value": "100,000.00",
+									"type": "text",
+									"description": ""
+								},
+								{
+									"key": "L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nZGVzdGluYXRpb24nXQ",
+									"value": "UK",
+									"type": "text",
+									"description": ""
+								},
+								{
+									"key": "L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nbW9kZU9mVHJhbnNwb3J0J10",
+									"value": "Road",
+									"type": "text",
+									"description": ""
+								},
+								{
+									"key": "L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nc2hpcHBpbmdEZWxheUNvdmVyJ10",
+									"value": "No",
+									"type": "text",
+									"description": ""
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Quote (device 2 - stale)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"action\", jsonData.action);",
+									"",
+									"tests[\"response code\"] = responseCode.code === 409;",
+									"tests[\"failure\"] = jsonData.success === false;",
+									"tests[\"error code\"] = jsonData.errorCode === \"i18n_stale_request_error\";",
+									"tests[\"error message\"] = jsonData.errorMessage === \"The operation requested (Quote) is not compatible with the specified data\"; ",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{action}}",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "op",
+									"value": "op=Quote:immediate=false",
+									"type": "text",
+									"description": ""
+								},
+								{
+									"key": "L2Fzc2V0L2F0dHJpYnV0ZVtpZD0ndmFsdWVPZkdvb2RzJ10",
+									"value": "100,000.00",
+									"type": "text",
+									"description": ""
+								},
+								{
+									"key": "L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nZGVzdGluYXRpb24nXQ",
+									"value": "UK",
+									"type": "text",
+									"description": ""
+								},
+								{
+									"key": "L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nbW9kZU9mVHJhbnNwb3J0J10",
+									"value": "Road",
+									"type": "text",
+									"description": ""
+								},
+								{
+									"key": "L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nc2hpcHBpbmdEZWxheUNvdmVyJ10",
+									"value": "No",
+									"type": "text",
+									"description": ""
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FreightPlus - Validation Errors",
+			"description": "",
+			"item": [
+				{
+					"name": "Welcome (in: nothing; out: questions)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"action\", jsonData.action);",
+									"",
+									"tests[\"success\"] = jsonData.success === true;",
+									"tests[\"action\"] = jsonData.action.includes(\"pageflow/QuotationPageFlow/policy\");",
+									"tests[\"progress 1\"] = jsonData.page.progress.length = 5;",
+									"tests[\"progress 2\"] = jsonData.page.progress[0].state === \"current\" && jsonData.page.progress[0].title === \"Shipping Details\";",
+									"tests[\"progress 3\"] = jsonData.page.progress[1].state === \"todo\" && jsonData.page.progress[1].title === \"Quotation\";",
+									"tests[\"progress 4\"] = jsonData.page.progress[2].state === \"todo\" && jsonData.page.progress[2].title === \"Proposer\";",
+									"tests[\"progress 5\"] = jsonData.page.progress[3].state === \"todo\" && jsonData.page.progress[3].title === \"Payment\";",
+									"tests[\"progress 6\"] = jsonData.page.progress[4].state === \"todo\" && jsonData.page.progress[4].title === \"Finish\";",
+									"",
+									"tests[\"page elements 1\"] = jsonData.page.elements.length === 1;",
+									"tests[\"page elements 2\"] = jsonData.page.elements[0].type === \"QuestionSection\";",
+									"tests[\"page elements 3\"] = jsonData.page.elements[0].id === \"OQ0-0-2\";",
+									"tests[\"page elements 3\"] = jsonData.page.elements[0].title === \"About the shipping:\";",
+									"",
+									"tests[\"questions\"] = jsonData.page.elements[0].questions.length = 4;",
+									"",
+									"tests[\"navigation 1\"] = jsonData.page.navigation[0].type === \"NavigationSection\";",
+									"tests[\"navigation 2\"] = jsonData.page.navigation[0].id === \"Navigation\";",
+									"tests[\"navigation 3\"] = jsonData.page.navigation[0].operations[0].type === \"CommandButtonAction\";",
+									"tests[\"navigation 4\"] = jsonData.page.navigation[0].operations[0].id === \"Quote\";",
+									"tests[\"navigation 5\"] = jsonData.page.navigation[0].operations[0].label === \"Quote\";",
+									"tests[\"navigation 6\"] = jsonData.page.navigation[0].operations[0].op === \"op=Quote:immediate=false\";",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{protocol}}://{{host}}:{{port}}/pageflow/QuotationPageFlow/product/AIL.Demo.FreightPlus",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Welcome (in: answers (missing); out: questions (error))",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"action\", jsonData.action);",
+									"",
+									"tests[\"success\"] = jsonData.success === true;",
+									"tests[\"action\"] = jsonData.action.includes(\"pageflow/QuotationPageFlow/policy\");",
+									"",
+									"tests[\"page type\"] = jsonData.page.type === \"QuestionPage\";",
+									"tests[\"page id\"] = jsonData.page.id === \"Welcome\";",
+									"",
+									"tests[\"progress 1\"] = jsonData.page.progress.length = 5;",
+									"tests[\"progress 2\"] = jsonData.page.progress[0].state === \"current\" && jsonData.page.progress[0].title === \"Shipping Details\";",
+									"tests[\"progress 3\"] = jsonData.page.progress[1].state === \"todo\" && jsonData.page.progress[1].title === \"Quotation\";",
+									"tests[\"progress 4\"] = jsonData.page.progress[2].state === \"todo\" && jsonData.page.progress[2].title === \"Proposer\";",
+									"tests[\"progress 5\"] = jsonData.page.progress[3].state === \"todo\" && jsonData.page.progress[3].title === \"Payment\";",
+									"tests[\"progress 6\"] = jsonData.page.progress[4].state === \"todo\" && jsonData.page.progress[4].title === \"Finish\";",
+									"",
+									"tests[\"error indicator\"] = jsonData.page.elements[0].questions[0].error === \"required\";",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{action}}",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "op",
+									"value": "op=Quote:immediate=false",
+									"type": "text",
+									"description": ""
+								},
+								{
+									"key": "L2Fzc2V0L2F0dHJpYnV0ZVtpZD0ndmFsdWVPZkdvb2RzJ10",
+									"value": "",
+									"type": "text",
+									"description": ""
+								},
+								{
+									"key": "L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nZGVzdGluYXRpb24nXQ",
+									"value": "UK",
+									"type": "text",
+									"description": ""
+								},
+								{
+									"key": "L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nbW9kZU9mVHJhbnNwb3J0J10",
+									"value": "Road",
+									"type": "text",
+									"description": ""
+								},
+								{
+									"key": "L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nc2hpcHBpbmdEZWxheUNvdmVyJ10",
+									"value": "No",
+									"type": "text",
+									"description": ""
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Welcome (in: answers (invalid); out: questions (error)) copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"action\", jsonData.action);",
+									"",
+									"tests[\"success\"] = jsonData.success === true;",
+									"tests[\"action\"] = jsonData.action.includes(\"pageflow/QuotationPageFlow/policy\");",
+									"",
+									"tests[\"page\"] = jsonData.page.type === \"InformationPage\";",
+									"tests[\"page\"] = jsonData.page.id === \"Welcome\";",
+									"",
+									"tests[\"progress 1\"] = jsonData.page.progress.length = 5;",
+									"tests[\"progress 2\"] = jsonData.page.progress[0].state === \"current\" && jsonData.page.progress[0].title === \"Shipping Details\";",
+									"tests[\"progress 3\"] = jsonData.page.progress[1].state === \"todo\" && jsonData.page.progress[1].title === \"Quotation\";",
+									"tests[\"progress 4\"] = jsonData.page.progress[2].state === \"todo\" && jsonData.page.progress[2].title === \"Proposer\";",
+									"tests[\"progress 5\"] = jsonData.page.progress[3].state === \"todo\" && jsonData.page.progress[3].title === \"Payment\";",
+									"tests[\"progress 6\"] = jsonData.page.progress[4].state === \"todo\" && jsonData.page.progress[4].title === \"Finish\";",
+									"",
+									"tests[\"error indicator\"] = jsonData.page.elements[0].questions[0].error === \"invalid\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{action}}",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "op",
+									"value": "op=Quote:immediate=false",
+									"type": "text",
+									"description": ""
+								},
+								{
+									"key": "L2Fzc2V0L2F0dHJpYnV0ZVtpZD0ndmFsdWVPZkdvb2RzJ10",
+									"value": "abc",
+									"type": "text",
+									"description": ""
+								},
+								{
+									"key": "L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nZGVzdGluYXRpb24nXQ",
+									"value": "UK",
+									"type": "text",
+									"description": ""
+								},
+								{
+									"key": "L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nbW9kZU9mVHJhbnNwb3J0J10",
+									"value": "Road",
+									"type": "text",
+									"description": ""
+								},
+								{
+									"key": "L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nc2hpcHBpbmdEZWxheUNvdmVyJ10",
+									"value": "No",
+									"type": "text",
+									"description": ""
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FreightPlus - Quote and Search",
+			"description": "",
+			"item": [
+				{
+					"name": "Welcome (in: nothing; out: questions)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"action\", jsonData.action);",
+									"",
+									"tests[\"success\"] = jsonData.success === true;",
+									"tests[\"action\"] = jsonData.action.includes(\"pageflow/QuotationPageFlow/policy\");",
+									"tests[\"progress 1\"] = jsonData.page.progress.length = 5;",
+									"tests[\"progress 2\"] = jsonData.page.progress[0].state === \"current\" && jsonData.page.progress[0].title === \"Shipping Details\";",
+									"tests[\"progress 3\"] = jsonData.page.progress[1].state === \"todo\" && jsonData.page.progress[1].title === \"Quotation\";",
+									"tests[\"progress 4\"] = jsonData.page.progress[2].state === \"todo\" && jsonData.page.progress[2].title === \"Proposer\";",
+									"tests[\"progress 5\"] = jsonData.page.progress[3].state === \"todo\" && jsonData.page.progress[3].title === \"Payment\";",
+									"tests[\"progress 6\"] = jsonData.page.progress[4].state === \"todo\" && jsonData.page.progress[4].title === \"Finish\";",
+									"",
+									"tests[\"page elements 1\"] = jsonData.page.elements.length === 1;",
+									"tests[\"page elements 2\"] = jsonData.page.elements[0].type === \"QuestionSection\";",
+									"tests[\"page elements 3\"] = jsonData.page.elements[0].id === \"OQ0-0-2\";",
+									"tests[\"page elements 4\"] = jsonData.page.elements[0].title === \"About the shipping:\";",
+									"",
+									"tests[\"questions\"] = jsonData.page.elements[0].questions.length = 4;",
+									"",
+									"tests[\"navigation 1\"] = jsonData.page.navigation[0].type === \"NavigationSection\";",
+									"tests[\"navigation 2\"] = jsonData.page.navigation[0].id === \"Navigation\";",
+									"tests[\"navigation 3\"] = jsonData.page.navigation[0].operations[0].type === \"CommandButtonAction\";",
+									"tests[\"navigation 4\"] = jsonData.page.navigation[0].operations[0].id === \"Quote\";",
+									"tests[\"navigation 5\"] = jsonData.page.navigation[0].operations[0].label === \"Quote\";",
+									"tests[\"navigation 6\"] = jsonData.page.navigation[0].operations[0].op === \"op=Quote:immediate=false\";",
+									"",
+									"tests[\"Countries type id \"] = jsonData.header.Countries[1].id === \"UK\";",
+									"tests[\"Countries type value\"] = jsonData.header.Countries[1].value === \"UK\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{protocol}}://{{host}}:{{port}}/pageflow/QuotationPageFlow/product/AIL.Demo.FreightPlus",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Quote (in: answers; out: quote summary)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"action\", jsonData.action);",
+									"",
+									"postman.setGlobalVariable(\"policyId\", jsonData.action.split(\"/\")[6]);",
+									"",
+									"tests[\"success\"] = jsonData.success === true;",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{action}}",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "op",
+									"value": "op=Quote:immediate=false",
+									"type": "text",
+									"description": ""
+								},
+								{
+									"key": "L2Fzc2V0L2F0dHJpYnV0ZVtpZD0ndmFsdWVPZkdvb2RzJ10",
+									"value": "100,000.00",
+									"type": "text",
+									"description": ""
+								},
+								{
+									"key": "L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nZGVzdGluYXRpb24nXQ",
+									"value": "UK",
+									"type": "text",
+									"description": ""
+								},
+								{
+									"key": "L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nbW9kZU9mVHJhbnNwb3J0J10",
+									"value": "Road",
+									"type": "text",
+									"description": ""
+								},
+								{
+									"key": "L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nc2hpcHBpbmdEZWxheUNvdmVyJ10",
+									"value": "No",
+									"type": "text",
+									"description": ""
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Details (in: nothing; out: quote summary)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"tests[\"success\"] = jsonData.success === true;",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{protocol}}://{{host}}:{{port}}/pageflow/PolicyDetailPageFlow/policy/{{policyId}}",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

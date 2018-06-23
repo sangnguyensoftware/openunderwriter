@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project default="build" name="openunderwriter:command-server-ejb.jar">
+  <import file="${basedir}/../BuildSettings.xml" />
+
+  <target name="clean" description="delete everything that the build can generate">
+    <delete-ejb-jar-macro />
+  </target>
+
+  <target name="_build">
+    <compile-ejb-jar-macro>
+      <javac-classpath>
+        <dirset dir="${module.dir}/com/ail" includes="**/*.jar" />
+        <fileset dir="${module.dir}/com/ail" includes="**/*.jar" />
+        <fileset dir="${module.dir}/javax/ejb/api" includes="**/*.jar" />
+        <fileset dir="${module.dir}/javax/jms/api" includes="**/*.jar" />
+        <fileset dir="${module.dir}/javax/persistence/api" includes="**/*.jar" />
+        <fileset dir="${module.dir}/javax/transaction/api" includes="**/*.jar" />     	
+        <fileset dir="${module.dir}/org/hibernate" includes="**/*.jar" />
+      </javac-classpath>
+    </compile-ejb-jar-macro>
+  </target>
+
+  <target name="build" description="compile (generate, copy, etc) all build outputs">
+    <antcall target="_build" />
+  </target>
+
+  <target name="setup" description="run all the one-time-only steps - like copying libs into place">
+  </target>
+
+  <target name="teardown" description="undo whatever setup did">
+  </target>
+</project>

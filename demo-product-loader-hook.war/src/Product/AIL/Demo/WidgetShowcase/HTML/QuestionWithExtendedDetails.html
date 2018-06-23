@@ -1,0 +1,21 @@
+<p>A question / command action widget that forwards the page flow to a subsequent question 
+	page if the user makes a specific selection.</p>
+<p>This widget handles a situation where a form requires further questions of any type 
+	depending on the answer given to a question. A question asking for trading status for instance could prompt for 
+	additional details about the directors.<p>
+
+<u>Pageflow</u>
+<pre>
+	&lt;question title="Choose Red to go to extended questions page" binding="/asset[id='questionAssetData']/attribute[id='choice']" /&gt;
+	&lt;commandButtonAction id="submit" label="Submit" destinationPageId="QuestionWithExtendedDetails" styleClass="submit" /&gt;
+	&lt;pageForwardAction when="onProcessActions" condition="i:test(asset[id='questionAssetData']/attribute[id='choice']/value[.='Red'])" destinationPageId="RedChoicePage"  /&gt;
+	&lt;commandButtonAction /&gt;
+</pre>
+<ul>
+	<li><i>question - binding</i> The value that the conditional test is assessed on.</li>
+    <li><i>commandButtonAction - destinationPageId</i> Default page destination.</li>
+    <li><i>pageForwardAction - destinationPageId</i> Destination page if specific choice is selected.</li>
+    <li><i>condition</i> Page selector.</li>
+    <li><i>when</i> When the action is processed.</li>
+</ul>
+<hr/>

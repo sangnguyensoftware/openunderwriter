@@ -1,0 +1,563 @@
+<quotation xsi:type="java:com.ail.insurance.policy.Policy" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <productName>WidgetShowcase</productName>
+
+    <xi:include href="product://localhost:8080/AIL/Base/Model/Acme.xml" />
+
+    <status xsi:type="java:java.lang.String">QUOTATION</status>
+    <quotationNumber>SAMPLE01</quotationNumber>
+    <policyNumber>POL123</policyNumber>
+
+    <policyHolder xsi:type="java:com.ail.insurance.policy.PersonalProposer">
+        <id>personal proposer</id>
+        <title>MR</title>
+        <otherTitle />
+        <firstName>Tester</firstName>
+        <surname>Testerton</surname>
+        <address>
+            <line1>Address Line 1</line1>
+            <line2>Address Line 2</line2>
+            <line3>Address Line 3</line3>
+            <line4>Address Line 4</line4>
+            <line5>Address Line 5</line5>
+            <town>Town</town>
+            <county>County</county>
+            <postcode>POSTCODE</postcode>
+            <country>United Kingdom</country>
+        </address>
+        <telephoneNumber>01234 56789</telephoneNumber>
+        <mobilephoneNumber>02345 67890</mobilephoneNumber>
+        <emailAddress>testing@testing.com</emailAddress>
+        <attribute id="PubNubChannel" format="string" value="1234" />
+        <paymentMethod xsi:type="directDebit">
+            <status xsi:type="java:java.lang.String">PENDING</status>
+            <bankName>HSBC</bankName>
+            <branchName>Canary Wharf</branchName>
+            <accountNumber>87706054</accountNumber>
+            <sortCode>01-02-03</sortCode>
+            <name>Tester</name>
+        </paymentMethod>
+        <paymentMethod xsi:type="paymentCard">
+            <status xsi:type="java:java.lang.String">PENDING</status>
+            <cardHoldersName>Tester Test</cardHoldersName>
+            <cardNumber>9284 2839 2938 4829</cardNumber>
+            <expiryDate>2030-12-31T00:00:00.000Z</expiryDate>
+            <issuer>MASTERCARD</issuer>
+            <securityCode>000</securityCode>
+        </paymentMethod>
+    </policyHolder>
+
+    <excess id="PL_XS" enabled="true" deductible="false">
+        <title>Public Liability Excess></title>
+        <amount amount="250.00" currency="GBP" />
+    </excess>
+    <excess id="EL_XS" enabled="true" deductible="false">
+        <title>Emploers Liability Excess</title>
+        <amount amount="220.00" currency="GBP" />
+    </excess>
+    
+    <asset id="answerWidgetTestData" assetTypeId='Asset'>
+        <attribute id="testMessage1" value="dynamic absolute piece of text" format="string" />
+        <attribute id="int" value="123" format="number,###" />
+        <attribute id="string" value="value of a string attribute" format="string" />
+        <attribute id="date" value="01/12/1990" format="date,pattern=dd/MM/yyyy" />
+    </asset>
+
+    <asset id="answerScrollerTestData1" assetTypeId='AnswerScrollerData'>
+        <attribute id="index" value="1" format="number" />
+        <attribute id="colour" value="blue" format="string" />
+        <attribute id="date" value="01/12/2010" format="date,pattern=dd/MM/yyyy" />
+    </asset>
+    <asset id="answerScrollerTestData2" assetTypeId='AnswerScrollerData'>
+        <attribute id="index" value="2" format="number" />
+        <attribute id="colour" value="green" format="string" />
+        <attribute id="date" value="21/7/2011" format="date,pattern=dd/MM/yyyy" />
+    </asset>
+    <asset id="answerScrollerTestData3" assetTypeId='AnswerScrollerData'>
+        <attribute id="index" value="3" format="number" />
+        <attribute id="colour" value="orange" format="string" />
+        <attribute id="date" value="18/6/2007" format="date,pattern=dd/MM/yyyy" />
+    </asset>
+    <asset id="workflowTestData" assetTypeId="Asset">
+        <attribute id="policyNumber" value="" format="string" />
+    </asset>
+    <asset id="quotationTestData" assetTypeId="Asset">
+        <attribute id="colour" value="orange" format="string" />
+        <attribute id="value" value="4321" unit="GBP" format="currency" />
+        <attribute id="applicable" value="Yes" format="yesorno" />
+    </asset>
+    <asset id="actionSwitch">
+        <attribute id="switch" value="two" format="string" />
+    </asset>
+
+    <section id="section1" sectionTypeId='Sample Section 1'>
+
+        <assessmentSheet product="default">
+            <sheet lock="false" serialVersion="0" systemId="-1">
+                <assessmentLines>
+                    <line name="note 1">
+                        <detail xsi:type="assessmentNote">
+                            <id>note 1</id>
+                            <reason>Section note added by risk assessment.</reason>
+                            <origin>RiskAssessment</origin>
+                        </detail>
+                    </line>
+                </assessmentLines>
+            </sheet>
+        </assessmentSheet>
+        
+        <clause reference="EXC211.2010" type="EXCLUSION" manuscript="false">
+            <title>Section 1. Insurable Cover Exclusion</title>
+            <text>Duis ac nteger rut ante eu lacus. Aliquam erat volutpat.
+                Duis ac nteger rut ante eu lacus. Quisque nulla. Aliquam erat volutpat.
+                Quisque nulla.</text>
+        </clause>
+
+        <clause reference="GUA052.2009" type="GUARENTEE" manuscript="false">
+            <title>Section 1. Guarentee of Addition</title>
+            <text>Denean auctor wisi et urna. Aliquam erat. Denean auctor wisi et
+                urna. Aliquam erat volutpat. Duis ac nteger. Auris ferment laoreet
+                aliquam leo.
+                Ut tellus dolor dapibus eget elementum vel cursus
+                leifend, elit. Ut tellus dolor dapibus eget elementum vel cursus
+                leifend, elit.
+            </text>
+        </clause>
+
+        <coverage id="S1" coverageTypeId="SectionCoverageExample" enabled="false" optional="true">
+            <name>Section Coverage</name>
+            <description>This example, section level, coverage has all of the standard coverage fields defined.</description>
+            <limit amount="300000" currency="GBP" />
+            <deductible amount="450" currency="GBP" />
+            <effectiveDate>2017-01-01T17:12:55.000Z</effectiveDate>
+            <expiryDate>2018-01-01T00:00:00.000Z</expiryDate>
+        </coverage>
+    </section>
+
+    <assessmentSheet product="default">
+        <sheet lock="false" serialVersion="0" systemId="-1">
+            <assessmentLines>
+                <line name="note 1">
+                    <detail xsi:type="assessmentNote">
+                        <id>note 1</id>
+                        <reason>Note added by risk assessment.</reason>
+                        <origin>RiskAssessment</origin>
+                    </detail>
+                </line>
+                <line name="total premium">
+                    <detail xsi:type="fixedSum">
+                        <id>total premium</id>
+                        <reason>calculated</reason>
+                        <priority>6</priority>
+                        <processedOrder>6</processedOrder>
+                        <origin>CalculatePremium</origin>
+                        <disabled>false</disabled>
+                        <amount amount="276.58" currency="GBP" />
+                    </detail>
+                </line>
+                <line name="#2DEA94D0">
+                    <detail xsi:type="rateBehaviour">
+                        <id>#2DEA94D0</id>
+                        <reason>IPT</reason>
+                        <priority>4</priority>
+                        <processedOrder>8</processedOrder>
+                        <origin>CalculateTax</origin>
+                        <disabled>false</disabled>
+                        <contributesTo>total premium</contributesTo>
+                        <amount amount="14.63" currency="GBP" />
+                        <type>TAX</type>
+                        <dependsOn>total premium</dependsOn>
+                        <rate>
+                            <rate>5%</rate>
+                        </rate>
+                    </detail>
+                </line>
+                <line name="base premium">
+                    <detail xsi:type="fixedSum">
+                        <id>base premium</id>
+                        <reason>Comprehensive cover for a 47 year old driver of a 2,000cc
+                            car
+                            worth £2,000.00</reason>
+                        <priority>1</priority>
+                        <processedOrder>1</processedOrder>
+                        <origin>AssessRisk</origin>
+                        <disabled>false</disabled>
+                        <contributesTo>total premium</contributesTo>
+                        <amount amount="278.74" currency="GBP" />
+                    </detail>
+                </line>
+                <line name="#54C5E844">
+                    <detail xsi:type="rateBehaviour">
+                        <id>#54C5E844</id>
+                        <reason>Commission</reason>
+                        <priority>5</priority>
+                        <processedOrder>7</processedOrder>
+                        <origin>CalculateCommission</origin>
+                        <disabled>false</disabled>
+                        <contributesTo>total premium</contributesTo>
+                        <amount amount="13.94" currency="GBP" />
+                        <type>COMMISSION</type>
+                        <dependsOn>total premium</dependsOn>
+                        <rate>
+                            <rate>5%</rate>
+                        </rate>
+                    </detail>
+                </line>
+                <line name="#441143C9">
+                    <detail xsi:type="rateBehaviour">
+                        <id>#441143C9</id>
+                        <reason>Security devices fitted to all vehicles</reason>
+                        <priority>2</priority>
+                        <processedOrder>9</processedOrder>
+                        <origin>AssessRisk</origin>
+                        <disabled>false</disabled>
+                        <contributesTo>total premium</contributesTo>
+                        <amount amount="30.73" currency="GBP" />
+                        <type>DISCOUNT</type>
+                        <dependsOn>total premium</dependsOn>
+                        <rate>
+                            <rate>10%</rate>
+                        </rate>
+                    </detail>
+                </line>
+            </assessmentLines>
+        </sheet>
+    </assessmentSheet>
+
+    <asset id="accountDetails" assetTypeId="AccountDetails">
+        <attribute id="amount" value="" format="currency" unit="GBP" />
+        <attribute id="direction" value="?" format="choice,options=-1#?|1#Client to Broker|2#Broker to Client" />
+        <attribute id="date" format="date,max=0,format=dd/MM/yyyy" />
+        <attribute id="description" value="" format="string" />
+    </asset>
+
+    <asset id="conditionsData" assetTypeId="ConditionsData">
+        <attribute id="section" value="No" format="yesorno" />
+        <attribute id="if" value="No" format="yesorno" />
+        <attribute id="column" value="No" format="yesorno" />
+    </asset>
+     
+    <asset id="conditionsColumnData" assetTypeId="ConditionsColumnData">
+        <attribute id="string1" value="" format="string 1.1" />
+        <attribute id="string2" value="" format="string 1.2" />
+        <attribute id="string3" value="" format="string 1.3" />
+        <attribute id="string4" value="" format="string 1.4" />
+    </asset>
+
+    <asset id="conditionsColumnData" assetTypeId="ConditionsColumnData">
+        <attribute id="string1" value="" format="string 2.1" />
+        <attribute id="string2" value="" format="string 2.2" />
+        <attribute id="string3" value="" format="string 2.3" />
+        <attribute id="string4" value="" format="string 2.4" />
+    </asset>
+
+    <asset id="conditionsColumnData" assetTypeId="ConditionsColumnData">
+        <attribute id="string1" value="" format="string 3.1" />
+        <attribute id="string2" value="" format="string 3.2" />
+        <attribute id="string3" value="" format="string 3.3" />
+        <attribute id="string4" value="" format="string 3.4" />
+    </asset>
+
+    <asset id="switch">
+        <attribute id="switchSelect" value="" format="string" />
+    </asset>
+
+    <asset id="rowScrollerAssetData" assetTypeId="RowScrollerAssetData">
+        <attribute id="string" value="" format="string" />
+        <attribute id="stringSize" value="" format="string,size=5" />
+        <attribute id="stringMin" value="" format="string,min=2" />
+        <attribute id="stringMax" value="" format="string,max=10" />
+        <attribute id="stringMinAndMax" value="" format="string,min=2,max=10" />
+        <attribute id="stringPattern" value="" format="string,pattern=[0-9ab]*" />
+        <attribute id="stringInitialised" value="intial value" format="string" />
+
+        <attribute id="number" value="0" format="number" />
+        <attribute id="numberMin" value="0" format="number,min=10" />
+        <attribute id="numberMax" value="0" format="number,max=20" />
+        <attribute id="numberMinAndMax" value="0" format="number,min=10,max=20" />
+        <attribute id="numberPattern" value="0" format="number,pattern=###" />
+        <attribute id="numberPercent" value="0" format="number,percent" />
+        <attribute id="numberInitialised" value="12345" format="number" />
+
+        <attribute id="currencyGBP" value="0" format="currency" unit="GBP" />
+        <attribute id="currencyUSD" value="0" format="currency" unit="USD" />
+        <attribute id="currencyMin" value="0" format="currency,min=10" unit="GBP" />
+        <attribute id="currencyMax" value="0" format="currency,max=100" unit="GBP" />
+        <attribute id="currencyMinAndMax" value="0" format="currency,min=10,max=100" unit="GBP" />
+        <attribute id="currencyInitialised" value="92834.12" format="currency,min=10,max=100000" unit="GBP" />
+
+        <attribute id="choice" value="?" format="choice,options=-1#?|1#Red|2#Green|3#Blue" />
+        <attribute id="choiceRadio" value="?" format="choice,options=-1#?|1#Yellow|2#Magenta|3#Cyan" />
+        <attribute id="choiceInitialised" value="Red" format="choice,options=-1#?|1#Red|2#Green|3#Blue" />
+        <attribute id="choiceTypeOption" value="?" format="choice,type=OptionList"/>
+        <attribute id="choiceMaster" value="?" format="choice,type=MasterSlaveChoice,slave=choiceSlave" />
+        <attribute id="choiceSlave" value="?" format="choice,type=MasterSlaveChoice,master=choiceMaster" />
+
+        <attribute id="note" value="should not really be here, but it has to be because selenium can not test TinyMCE" format="note" />
+        <attribute id="noteInitialised" value="note content" format="note" />
+        <attribute id="date" value="" format="date" />
+        <attribute id="datePattern" value="" format="date,pattern=dd.MM.yy" />
+        <attribute id="dateInitialised" value="01/09/08" format="date" />
+
+        <attribute id="yesorno" value="?" format="yesorno" />
+        <attribute id="yesornoRadio" value="?" format="yesorno" />
+        <attribute id="yesornoCheckbox" value="?" format="yesorno" />
+        <attribute id="yesornoInitialised" value="Yes" format="yesorno" />
+    </asset>
+
+    <asset id="submitTarget" assetTypeId="SubmitTarget">
+        <attribute id="inner1" value="" format="string" />
+        <attribute id="inner2" value="" format="string" />
+        <attribute id="outer" value="" format="string" />
+    </asset>
+
+    <asset id="questionAssetData" assetTypeId="QuestionAssetData">
+        <attribute id="string" value="" format="string" />
+        <attribute id="stringSize" value="" format="string,size=5" />
+        <attribute id="stringMin" value="" format="string,min=2" />
+        <attribute id="stringMax" value="" format="string,max=10" />
+        <attribute id="stringMinAndMax" value="" format="string,min=2,max=10" />
+        <attribute id="stringPattern" value="" format="string,pattern=[0-9ab]*" />
+        <attribute id="stringInitialised" value="intial value" format="string" />
+
+        <attribute id="number" value="0" format="number" unit="meter" />
+        <attribute id="numberMin" value="0" format="number,min=10" unit="feet"/>
+        <attribute id="numberMax" value="0" format="number,max=20" unit="lt"/>
+        <attribute id="numberMinAndMax" value="0" format="number,min=10,max=20" />
+        <attribute id="numberPattern" value="0" format="number,pattern=#" />
+        <attribute id="numberPatternWithDecimal" value="0" format="number,pattern=0.0000" />
+        <attribute id="numberPercent" value="0" format="number,percent" />
+        <attribute id="numberInitialised" value="12345" format="number" />
+
+        <attribute id="currencyGBP" value="0" format="currency" unit="GBP" />
+        <attribute id="currencyUSD" value="0" format="currency" unit="USD" />
+        <attribute id="currencyMin" value="0" format="currency,min=10" unit="GBP" />
+        <attribute id="currencyMax" value="0" format="currency,max=100" unit="GBP" />
+        <attribute id="currencyMinAndMax" value="0" format="currency,min=10,max=100" unit="GBP" />
+        <attribute id="currencyInitialised" value="92834.12" format="currency,min=10,max=100000" unit="GBP" />
+
+        <attribute id="choice" value="?" format="choice,options=-1#?|1#Red|2#Green|3#Blue" />
+        <attribute id="choiceRadio" value="?" format="choice,options=-1#?|1#Yellow|2#Magenta|3#Cyan" />
+        <attribute id="choiceInitialised" value="Red" format="choice,options=-1#?|1#Red|2#Green|3#Blue" />
+        <attribute id="choiceType" value="?" format="choice,type=ChoiceType" />
+        <attribute id="choiceMaster" value="?" format="choice,type=MasterSlaveChoice,slave=choiceSlave" />
+        <attribute id="choiceSlave" value="?" format="choice,type=MasterSlaveChoice,master=choiceMaster" />
+
+        <attribute id="note" value="should not really be here, but it has to be because selenium can not test TinyMCE" format="note" />
+        <attribute id="noteInitialised" value="note content" format="note" />
+
+        <attribute id="date" value="" format="date" />
+        <attribute id="datePattern" value="" format="date,pattern=dd.MM.yy" />
+        <attribute id="dateInitialised" value="01-Sep-2008" format="date,pattern=dd-MMM-yyyy" />
+        <attribute id="dateMin" value="" format="date,min=-10" />
+        <attribute id="dateMax" value="" format="date,max=10" />
+        <attribute id="dateMinMax" value="" format="date,min=-10,max=10" />
+        <attribute id="dateNoPicker" value="" format="date" />
+
+        <attribute id="yesorno" value="?" format="yesorno" />
+        <attribute id="yesornoRadio" value="?" format="yesorno" />
+        <attribute id="yesornoCheckbox" value="?" format="yesorno" />
+        <attribute id="yesornoInitialised" value="Yes" format="yesorno" />
+        
+        <attribute id="mandatory" value="value" format="string" />
+        <attribute id="optional" value="" format="string,required=no" />
+        
+    </asset>
+
+    <asset id="questionSeparatorAssetData" assetTypeId="QuestionSeparatorAssetData">
+        <attribute id="string" value="" format="string" />
+        <attribute id="number" value="0" format="number" />
+        <attribute id="currencyGBP" value="0" format="currency" unit="GBP" />
+        <attribute id="choice" value="?" format="choice,options=-1#?|1#Red|2#Green|3#Blue" />
+        <attribute id="note" value="should not really be here, but it has to be because selenium can not test TinyMCE" format="note" />
+        <attribute id="date" value="" format="date" />
+        <attribute id="yesorno" value="?" format="yesorno" />
+    </asset>
+
+    <asset id="questionWithDetailsAssetData" assetTypeId="QuestionWithDetailsSeparatorAssetData">
+        <attribute id="enabled" value="No" format="yesorno" />
+        <attribute id="enabledString" value="" format="string" />
+        <attribute id="checkboxEnabled" value="No" format="yesorno" />
+        <attribute id="checkboxEnabledString" value="" format="string" />
+        <attribute id="radioEnabled" value="No" format="yesorno" />
+        <attribute id="radioEnabledString" value="" format="string" />
+        <attribute id="choiceEnabled" value="No" format="choice,options=-1#?|1#Red|2#Green|3#Blue|4#Cyan|5#Magenta|6#Yellow" />
+        <attribute id="choiceEnabledString" value="" format="string" />
+    </asset>
+
+    <asset id="questionWithSubSectionAssetData" assetTypeId="QuestionWithSubSectionAssetData">
+        <attribute id="enabled" value="No" format="yesorno" />
+        <attribute id="enabledString" value="" format="note" />
+        <attribute id="checkboxEnabled" value="No" format="yesorno" />
+        <attribute id="checkboxEnabledString" value="" format="note" />
+        <attribute id="radioEnabled" value="No" format="yesorno" />
+        <attribute id="radioEnabledString" value="" format="note" />
+        <attribute id="choiceEnabled" value="Red" format="choice,options=-1#?|1#Red|2#Green|3#Blue|4#Cyan|5#Magenta|6#Yellow" />
+        <attribute id="choiceEnabledString" value="" format="note" />
+        <attribute id="choiceRadioEnabled" value="Red" format="choice,options=-1#?|1#Red|2#Green|3#Blue|4#Cyan|5#Magenta|6#Yellow" />
+        <attribute id="choiceRadioEnabledString" value="" format="string" />
+    </asset>
+
+    <asset id="quotationSummaryAssetData" assetTypeId="quotationSummaryAssetData">
+        <attribute id="string" value="test value" format="string" />
+        <attribute id="number" value="1234" format="number" />
+        <attribute id="currencyGBP" value="12.50" format="currency" unit="GBP" />
+    </asset>
+
+    <asset id="commandActionButton" assetTypeId="commandActionButton">
+        <attribute id="string" value="" format="string" />
+        <attribute id="quoteNumberOverride" value="" format="string,required=no" />
+        <attribute id="policyNumberOverride" value="" format="string,required=no" />
+        <attribute id="policyStatusOverride" value="?" format="choice,required=no,options=-1#?|1#i18n_policy_status_on_risk|2#i18n_policy_status_quotation|3#i18n_policy_status_application|4#i18n_policy_status_referred|5#i18n_policy_status_declined|6#i18n_policy_status_submitted"/>
+    </asset>
+    
+    <asset id="sectionScrollerAssetData" assetTypeId="SectionScrollerAssetData">
+        <attribute id="string" value="" format="string" />
+        <attribute id="stringSize" value="" format="string,size=5" />
+        <attribute id="stringMin" value="" format="string,min=2" />
+        <attribute id="stringMax" value="" format="string,max=10" />
+        <attribute id="stringMinAndMax" value="" format="string,min=2,max=10" />
+        <attribute id="stringPattern" value="" format="string,pattern=[0-9ab]*" />
+        <attribute id="stringInitialised" value="intial value" format="string" />
+
+        <attribute id="number" value="0" format="number" />
+        <attribute id="numberMin" value="0" format="number,min=10" />
+        <attribute id="numberMax" value="0" format="number,max=20" />
+        <attribute id="numberMinAndMax" value="0" format="number,min=10,max=20" />
+        <attribute id="numberPattern" value="0" format="number,pattern=0.00" />
+        <attribute id="numberPercent" value="0" format="number,percent" />
+        <attribute id="numberInitialised" value="12345" format="number" />
+
+        <attribute id="currencyGBP" value="0" format="currency" unit="GBP" />
+        <attribute id="currencyUSD" value="0" format="currency" unit="USD" />
+        <attribute id="currencyMin" value="0" format="currency,min=10" unit="GBP" />
+        <attribute id="currencyMax" value="0" format="currency,max=100" unit="GBP" />
+        <attribute id="currencyMinAndMax" value="0" format="currency,min=10,max=100" unit="GBP" />
+        <attribute id="currencyInitialised" value="92834.12" format="currency,min=10,max=100000" unit="GBP" />
+
+        <attribute id="choice" value="?" format="choice,options=-1#?|1#Red|2#Green|3#Blue" />
+        <attribute id="choiceRadio" value="?" format="choice,options=-1#?|1#Yellow|2#Magenta|3#Cyan" />
+        <attribute id="choiceInitialised" value="Red" format="choice,options=-1#?|1#Red|2#Green|3#Blue" />
+        <attribute id="choiceMaster" value="?" format="choice,type=MasterSlaveChoice,slave=choiceSlave" />
+        <attribute id="choiceSlave" value="?" format="choice,type=MasterSlaveChoice,master=choiceMaster" />
+
+        <attribute id="note" value="should not really be here, but it has to be because selenium can not test TinyMCE" format="note" />
+        <attribute id="noteInitialised" value="note content" format="note" />
+        <attribute id="date" value="" format="date" />
+        <attribute id="datePattern" value="" format="date,pattern=dd.MM.yy" />
+        <attribute id="dateInitialised" value="01/09/08" format="date" />
+
+        <attribute id="yesorno" value="?" format="yesorno" />
+        <attribute id="yesornoRadio" value="?" format="yesorno" />
+        <attribute id="yesornoCheckbox" value="?" format="yesorno" />
+        <attribute id="yesornoInitialised" value="Yes" format="yesorno" />
+    </asset>
+    
+    <asset id="pageFlowSections">
+        <attribute id="questionSectionOne" value="test one" format="string" />
+        <attribute id="questionSectionTwo" value="11111" format="number" />
+        <attribute id="answerSectionOne" value="test two" format="string" />
+        <attribute id="answerSectionTwo" value="22222" format="number" />
+        <attribute id="pageSectionOne" value="test three" format="string" />
+        <attribute id="pageSectionTwo" value="33333" format="number" />
+        <attribute id="pageSectionNestedOne" value="test four" format="string" />
+        <attribute id="pageSectionNestedTwo" value="44444" format="number" />
+        <attribute id="pageSectionNestedThree" value="test five" format="string" />
+        <attribute id="pageSectionNestedFour" value="55555" format="number" />
+        <attribute id="pageSectionNestedAssetFive" value="01/01/1920" format="date" />
+        <attribute id="pageSectionNestedAssetSix" value="yes" format="yesorno" />
+        <asset id="nestedAsset">
+            <attribute id="pageSectionNestedAssetOne" value="test six" format="string" />
+            <attribute id="pageSectionNestedAssetTwo" value="66666" format="number" />
+        </asset>
+    </asset> 
+
+    <asset id="PageSection">
+        <attribute id="questionOne" value="test one" format="string" />
+        <attribute id="answerOne" value="test two" format="string" />
+
+        <asset assetTypeId="PageSectionAnswerAsset">
+            <attribute id="a" value="a one" format="string" />
+            <attribute id="b" value="b one" format="string" />
+        </asset>
+        <asset assetTypeId="PageSectionAnswerAsset">
+            <attribute id="a" value="a two" format="string" />
+            <attribute id="b" value="b two" format="string" />
+        </asset>
+
+        <asset assetTypeId="PageSectionRowScrollerAsset">
+            <attribute id="a" value="a one" format="string" />
+            <attribute id="b" value="b one" format="string" />
+        </asset>
+        <asset assetTypeId="PageSectionRowScrollerAsset">
+            <attribute id="a" value="a two" format="string" />
+            <attribute id="b" value="b two" format="string" />
+        </asset>
+
+        <asset assetTypeId="PageSectionSectionScrollerAsset">
+            <attribute id="a" value="a one" format="string" />
+            <attribute id="b" value="b one" format="string" />
+        </asset>
+        <asset assetTypeId="PageSectionSectionScrollerAsset">
+            <attribute id="a" value="a two" format="string" />
+            <attribute id="b" value="b two" format="string" />
+        </asset>
+        
+        <attribute id="questionWithDetailMain" value="?" format="yesorno" />
+        <attribute id="questionWithDetailDetail" value="" format="string" />
+
+        <attribute id="questionWithSubSectionMain" value="?" format="yesorno" />
+        <attribute id="questionWithSubSectionDetail" value="" format="note" />
+
+    </asset> 
+
+    <attribute id="rowScroller2AbsoluteBinding" value="?" format="yesorno" />
+    <xi:include href="~/RowScroller2AssetData.xml"/>
+
+    <xi:include href="~/SectionScroller2AssetData.xml"/>
+
+    <clause reference="CND112.2001" type="CONDITION" manuscript="false">
+        <title>Additional Option Condition</title>
+        <text>Auris ferment laoreet aliquam leo. Ut tellus dolor dapibus eget
+            elementum vel cursus leifend, elit. Ut tellus dolor dapibus eget
+            elementum vel
+            cursus leifend, elit. Denean auctor wisi et urna.
+            Aliquam erat. Denean auctor wisi et urna. Aliquam erat volutpat. Duis
+            ac nteger</text>
+    </clause>
+
+    <clause reference="EXC191.2009" type="EXCLUSION" manuscript="false">
+        <title>Policy Reference Exclusion</title>
+        <text>Quisque nulla. Aliquam erat volutpat. Duis ac nteger rut ante eu
+            lacus. Quisque nulla. Denean auctor wisi et urna. Aliquam erat.
+            Denean auctor
+            wisi et urna.
+        </text>
+    </clause>
+
+    <clause reference="EXC229.2010" type="EXCLUSION" manuscript="false">
+        <title>Insured Person Exclusion</title>
+        <text>Aliquam erat volutpat. Duis ac nteger rut ante eu
+            lacus. Quisque nulla. Aliquam erat volutpat. Duis ac nteger rut ante eu
+            lacus. Quisque nulla.</text>
+    </clause>
+
+    <clause reference="GUA552.2012" type="GUARENTEE" manuscript="false">
+        <title>Value of Asset Guarentee</title>
+        <text>Denean auctor wisi et urna. Aliquam erat. Denean auctor wisi et
+            urna. Aliquam erat volutpat. Duis ac nteger. Auris ferment laoreet
+            aliquam leo.
+            Ut tellus dolor dapibus eget elementum vel cursus
+            leifend, elit. Ut tellus dolor dapibus eget elementum vel cursus
+            leifend, elit.
+        </text>
+    </clause>
+    
+    <coverage id="P1" coverageTypeId="PolicyCoverageExample" enabled="false" optional="true">
+        <name>Policy Coverage</name>
+        <description>This example, policy level, coverage has all of the standard coverage fields defined.</description>
+        <limit amount="100000" currency="GBP" />
+        <deductible amount="250" currency="GBP" />
+        <effectiveDate>2017-01-01T17:12:55.000Z</effectiveDate>
+        <expiryDate>2018-01-01T00:00:00.000Z</expiryDate>
+    </coverage>
+</quotation>

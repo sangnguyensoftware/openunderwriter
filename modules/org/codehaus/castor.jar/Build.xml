@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project default="build" name="openunderwriter:modules/org/codehaus/castor.jar">
+  <import file="../../../../BuildSettings.xml" />
+
+  <target name="clean" description="delete everything that the build can generate" />
+
+  <target name="build" description="compile (generate, copy, etc) all build outputs">
+    <antcall target="_build" />
+  </target>
+
+  <target name="_build">
+    <compile-jar-macro module="yes" merge-configs="false" dependencies="javax.api, org.apache.commons.logging, org.apache.xerces">
+      <javac-classpath>
+        <fileset dir="${module.dir}/org/codehaus/castor" includes="**/*.jar" />
+      </javac-classpath>
+    </compile-jar-macro>
+  </target>
+
+  <target name="setup" description="run all the one-time-only steps - like copying libs into place">
+    <update-module-dependencies-macro  />
+  </target>
+
+  <target name="teardown" description="undo whatever setup did">
+    <delete-module-macro />
+  </target>
+</project>

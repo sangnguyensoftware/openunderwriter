@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Config.xml">
+    
+	<filterset id="127.0.0.1" begintoken="##" endtoken="##">
+        <filter token="jbpm-console-protocol" value="http" />
+        <filter token="jbpm-console-hostname" value="127.0.0.1" />
+        <filter token="jbpm-console-port" value="8080" />
+        <filter token="jbpm-console-username" value="katie@openunderwriter.org" />
+        <filter token="jbpm-console-password" value="katie" />
+	</filterset>
+
+    <filterset id="localhost" begintoken="##" endtoken="##">
+        <filter token="jbpm-console-protocol" value="http" />
+        <filter token="jbpm-console-hostname" value="localhost" />
+        <filter token="jbpm-console-port" value="8080" />
+        <filter token="jbpm-console-username" value="katie@openunderwriter.org" />
+        <filter token="jbpm-console-password" value="katie" />
+    </filterset>
+
+</project>

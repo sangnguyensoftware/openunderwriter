@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Created-By: 1.6.0_37
+Built-By: Applied Industrial Logic
+Dependencies: 
+ com.ail.pageflow, 
+ com.ail.insurance, 
+ com.ail.commercial, 
+ com.ail.core,
+ com.liferay.portal,
+ javax.activation.api,
+ org.apache.commons.jxpath,
+ org.hibernate,
+ org.hibernate.envers,
+ org.javassist,
+ org.spring.spring-context
+

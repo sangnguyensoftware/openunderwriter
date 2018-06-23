@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="" />
+<title>Quote and pay</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Quote and pay</td></tr>
+</thead><tbody>
+<tr>
+	<td>setTimeout</td>
+	<td>480000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/web/lifeplus</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Get A Quote&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td> Some questions to help us: </td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>L2Fzc2V0W2lkPSdhc3NldCddL2F0dHJpYnV0ZVtpZD0nYWdlJ10</td>
+	<td>40</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>L2Fzc2V0W2lkPSdhc3NldCddL2F0dHJpYnV0ZVtpZD0nZ2VuZGVyJ10</td>
+	<td>label=Male</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>L2Fzc2V0W2lkPSdhc3NldCddL2F0dHJpYnV0ZVtpZD0nc21va2VyJ10</td>
+	<td>label=No</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>L2Fzc2V0W2lkPSdhc3NldCddL2F0dHJpYnV0ZVtpZD0nZXhlcmNpc2UnXQ</td>
+	<td>label=No</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Quote&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Your Quotation: GBP126.00</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Confirm and Pay&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Contact Details</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=title</td>
+	<td>label=Mr.</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=firstname</td>
+	<td>Jimbo</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=surname</td>
+	<td>Clucknasty</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=address1</td>
+	<td>Cluck Hall</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=address2</td>
+	<td>Chicken Lane</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=postcode</td>
+	<td>CH13 KN</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=phone</td>
+	<td>01234 123123</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=email</td>
+	<td>client@ouwmail.co.uk</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Pay by DirectDebit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Your quotation</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=cardNumber</td>
+	<td>123412342341234</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=startMonth</td>
+	<td>01</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=startYear</td>
+	<td>12</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=expiryMonth</td>
+	<td>09</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=expiryYear</td>
+	<td>12</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=confirm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Next&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Congratulations, your quotation</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Finish&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Welcome to the LifePlus quotation wizard</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

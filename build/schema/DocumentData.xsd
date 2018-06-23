@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="DocumentData">
+    <xs:annotation>
+      <xs:documentation>Whole document sent to Document renderer</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ChapterData" minOccurs="1" maxOccurs="unbounded"/>
+        <xs:element ref="PageData" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attribute name="watermark" use="optional" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="PageData">
+    <xs:annotation>
+      <xs:documentation>Each chapter starts on the next new page, and allows the document to hold various sub-documents</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="Block" minOccurs="1"/>
+      </xs:sequence>
+      <xs:attribute name="order" use="optional" type="xs:integer"/>
+      <xs:attribute name="watermark" use="optional" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Chapter">
+    <xs:annotation>
+      <xs:documentation>Each chapter starts on the next new page, and allows the document to hold various sub-documents</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="Block" minOccurs="1"/>
+      </xs:sequence>
+      <xs:attribute name="order" use="optional" type="xs:integer"/>
+      <xs:attribute name="watermark" use="optional" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Block">
+    <xs:annotation>
+      <xs:documentation>Either a header, footer or body definition for the document contents</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element ref="Block" maxOccurs="unbounded"/>
+        <xs:element ref="DataItem" maxOccurs="unbounded"/>
+        <xs:element ref="Repeater" maxOccurs="unbounded"/>
+      </xs:choice>
+      <xs:attribute name="position" use="required" type="position"/>
+      <xs:attribute name="applicability" use="optional" type="applicability"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="Repeater">
+    <xs:annotation>
+      <xs:documentation>representation of repeating data, i.e. table</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Block" maxOccurs="unbounded" minOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="DataItem">
+    <xs:annotation>
+      <xs:documentation>Actual content: contains label and format attributes also encapsulating selected data. the format alltribute applies to the data only.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType mixed="true">
+      <xs:attribute name="format" use="optional"/>
+      <xs:attribute name="label" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:simpleType name="position">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="header"/>
+      <xs:enumeration value="footer"/>
+      <xs:enumeration value="body"/>
+      </xs:restriction>
+    </xs:simpleType>
+  
+  <xs:simpleType name="applicability">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="first"/>
+      <xs:enumeration value="rest"/>
+      <xs:enumeration value="odd"/>
+      <xs:enumeration value="even"/>
+      <xs:enumeration value="blank"/>
+      <xs:enumeration value="all"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+</xs:schema>

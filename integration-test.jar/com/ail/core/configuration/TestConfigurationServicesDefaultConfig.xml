@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration 
+               xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <name>Default Service Invocation Configuration</name>
+  <timeout>600000</timeout>
+  <who>factory</who>
+  <version>$Revision: 1.5 $</version>
+
+  <builders>
+    <builder name="ClassBuilder" factory="com.ail.core.factory.ClassFactory"/>
+  </builders>
+
+  <types>
+    <!--====================================-->
+    <!--   Define the component's services  -->
+    <!--====================================-->
+    <service name="GetNamespacesService" key="com.ail.core.command.ClassAccessor">
+      <parameter name="ServiceClass">com.ail.core.configure.server.GetNamespacesService</parameter>
+    </service>
+
+    <service name="GetConfigurationService" key="com.ail.core.command.ClassAccessor">
+      <parameter name="ServiceClass">com.ail.core.configure.server.GetConfigurationService</parameter>
+    </service>
+
+    <service name="SetConfigurationService" key="com.ail.core.command.ClassAccessor">
+      <parameter name="ServiceClass">com.ail.core.configure.server.SetConfigurationService</parameter>
+    </service>
+
+    <service name="GetCommandScriptService" key="com.ail.core.command.ClassAccessor">
+      <parameter name="ServiceClass">com.ail.core.configure.server.GetCommandScriptService</parameter>
+    </service>
+
+    <service name="SetCommandScriptService" key="com.ail.core.command.ClassAccessor">
+      <parameter name="ServiceClass">com.ail.core.configure.server.SetCommandScriptService</parameter>
+    </service>
+
+    <service name="Service" key="com.ail.core.command.ClassAccessor">
+      <parameter name="ServiceClass">com.ail.core.dummyservice.DummyService</parameter>
+    </service>
+
+    <service name="BeanShellService" key="com.ail.core.command.BeanShellAccessor">
+      <parameter name="Script"><![CDATA[
+/* make sure we can refer to our classes */
+version=new com.ail.core.Version();
+
+/* a simple bit of logic */
+if (args.getX()<100) {
+    args.setR(args.getX()+args.getY());
+}
+else {
+  args.setR((2*args.getX())+args.getY());
+}
+      ]]></parameter>
+    </service>
+
+    <service name="DroolsService" key="com.ail.core.command.DroolsAccessor">
+      <parameter name="Script"><![CDATA[
+<rules xmlns="http://drools.org/rules">
+  <semantics module="org.drools.semantics.java"/>
+  <rule-set name="Simple Test Rules" xmlns:java="http://drools.org/semantics/java">
+    <rule name="Add number up when X less than 100">
+      <parameter identifier="args">
+        <java:class type="com.ail.core.dummyservice.TestArgImp"/>
+      </parameter>
+      <condition>
+        <java:condition>args.getX() &lt; 100</java:condition>
+      </condition>
+      <consequence>
+        <java:consequence> args.setR( args.getX()+args.getY() ); </java:consequence>
+      </consequence>
+    </rule>
+    <rule name="Add number up when X more than 100">
+      <parameter identifier="args">
+        <java:class type="com.ail.core.dummyservice.TestArgImp"/>
+      </parameter>
+      <condition>
+        <java:condition>args.getX() &gt;= 100</java:condition>
+      </condition>
+      <consequence>
+        <java:consequence> args.setR( (2*args.getX())+args.getY() ); </java:consequence>
+      </consequence>
+    </rule>
+  </rule-set>
+</rules>
+      ]]></parameter>
+    </service>
+
+    <!--=======================================================================-->
+    <!-- Bind the default core services (above) to Commands used by Core.class -->
+    <!--=======================================================================-->
+    <command name="TestService" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">Service</parameter>
+    </command>
+
+    <command name="TestBeanShellService" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">BeanShellService</parameter>
+    </command>
+
+    <command name="TestDroolsService" key="com.ail.core.dummyservice.DummyCommandImpl">
+      <parameter name="Service">DroolsService</parameter>
+    </command>
+
+    <command name="GetNamespaces" key="com.ail.core.configure.server.GetNamespacesCommandImpl" >
+      <parameter name="Service">GetNamespacesService</parameter>
+    </command>
+
+    <command name="GetConfiguration" key="com.ail.core.configure.server.GetConfigurationCommandImpl" >
+      <parameter name="Service">GetConfigurationService</parameter>
+    </command>
+
+    <command name="SetConfiguration" key="com.ail.core.configure.server.SetConfigurationCommandImpl" >
+      <parameter name="Service">SetConfigurationService</parameter>
+    </command>
+
+    <command name="GetCommandScript" key="com.ail.core.configure.server.GetCommandScriptCommandImpl" >
+      <parameter name="Service">GetCommandScriptService</parameter>
+    </command>
+
+    <command name="SetCommandScript" key="com.ail.core.configure.server.SetCommandScriptCommandImpl" >
+      <parameter name="Service">SetCommandScriptService</parameter>
+    </command>
+  </types>
+</configuration>

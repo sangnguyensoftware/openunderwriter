@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT portal-renderSet (renderSet+)>
+<!ELEMENT renderSet (set+)>
+<!ATTLIST renderSet name CDATA #REQUIRED>
+<!ELEMENT set (region-renderer, window-renderer, portlet-renderer, decoration-renderer)>
+<!ATTLIST set content-type CDATA #REQUIRED>
+<!ELEMENT decoration-renderer (#PCDATA)>
+<!ELEMENT portlet-renderer (#PCDATA)>
+<!ELEMENT region-renderer (#PCDATA)>
+<!ELEMENT window-renderer (#PCDATA)>

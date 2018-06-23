@@ -1,0 +1,177 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+#set( $model = ${args.ModelArgRet})
+#set( $pageElement = ${args.PageElementArg} )
+#set( $id = ${args.RenderIdArg} )
+#set( $dateFormat = 'yyyy-MM-dd' )
+#set( $scratchMoneyProvision = ${pageElement.ScratchMoneyProvision} )
+##
+{
+    "type": "$pageElement.Class.SimpleName",
+    "id": "$id",
+    "title": "$!{pageElement.formattedTitle($args)}",
+    #renderQuestions,
+    #renderProjection,
+    #saveButton
+    #renderHint
+}
+##
+#macro(renderQuestions)
+    "elements": [
+        {
+            "type": "Answer",
+            "id": "$id",
+            "label": "#i18n('i18n_payment_scheduled_details_amount_due_label')",
+            "value": "${pageElement.determineAmountDue()}",
+            "dataType": "currency"
+        },
+        {
+            #set($amount = ${pageElement.selectedAmount()})
+            #set($amountBinding = ${pageElement.encodeId('amount')})
+            "type": "Question",
+            "id": "${id}-amount",
+            "title": "#i18n('i18n_payment_scheduled_details_amount_to_pay_label')",
+            "valueId": "${amountBinding}",
+            "value": "${amount.Amount}",
+            "format": {
+                "type": "currency",
+                "unit": "${amount.Currency}"
+            }
+            #if($pageElement.hasErrorMarker("amount", $scratchMoneyProvision))
+                ,"error": "${pageElement.findError('amount', $scratchMoneyProvision, $pageElement)}"
+            #end
+        },
+        {
+            #set($methodBinding = ${pageElement.encodeId('method')})
+            #set($methodOptions = ${pageElement.determineMethodOptions()})
+            #set($selectedPaymentMethod = ${pageElement.selectedPaymentMethod()})
+            #if(!$selectedPaymentMethod)
+                #set($selectedPaymentMethod = ${methodOptions.get(0)})
+            #end
+            "type": "Question",
+            "id": "${id}-method",
+            "title": "#i18n('i18n_payment_scheduled_details_method_label')",
+            "valueId": "${methodBinding}",
+            "value": "${selectedPaymentMethod.Class.SimpleName}: ${selectedPaymentMethod.Id}",
+            "format": {
+                "type": "choice",
+                "options": [
+                    #foreach($method in $methodOptions)
+                        {
+                            "id": "${method.ExternalSystemId}",
+                            "value": "${method.Class.SimpleName}: ${method.Id}"
+                            #if(${pageElement.selectedPaymentMethod()} && ${method.ExternalSystemId} == $!{pageElement.selectedPaymentMethod().ExternalSystemId}),"selected": "true"#end
+                        }#if($foreach.hasNext),#end
+                    #end
+                ]
+            }
+            #if($pageElement.hasErrorMarker("method", $scratchMoneyProvision))
+                ,"error": "${pageElement.findError('method', $scratchMoneyProvision, $pageElement)}"
+            #end
+        },
+        {
+            #set($frequencyBinding = ${pageElement.encodeId('frequency')})
+            #set($selectedFrequency = ${pageElement.selectedFrequency()})
+            #set($frequencyOptions = ${pageElement.FrequencyOptions})
+            #set($frequencyOptionsList = ${CoreFunctions.getStringArrayFromString($frequencyOptions, ',')})
+            "type": "Question",
+            "id": "${id}-frequency",
+            "title": "#i18n('i18n_payment_scheduled_details_frequency_label')",
+            "valueId": "${frequencyBinding}",
+            "value": "${selectedFrequency}",
+            "format": {
+                "type": "choice",
+                "options": [
+                    #foreach($opt in $frequencyOptionsList)
+                        {
+                            "id": "$opt",
+                            "value": "$opt"
+                            #if($opt==${pageElement.selectedFrequency()}),"selected": "true"#end
+                        }#if($foreach.hasNext),#end
+                    #end
+                ]
+            }
+            #if($pageElement.hasErrorMarker("frequency", $scratchMoneyProvision))
+                ,"error": "${pageElement.findError('frequency', $scratchMoneyProvision, $pageElement)}"
+            #end
+        },
+        {
+            #set($dateBinding = ${pageElement.encodeId('date')})
+            #set($selectedDate = ${pageElement.selectedPaymentDate()})
+            "type": "Question",
+            "id": "${id}-date",
+            "title": "#i18n('i18n_payment_scheduled_details_date_label')",
+            "valueId": "${dateBinding}",
+            "value": "${CoreFunctions.format(${selectedDate}, ${dateFormat})}",
+            "format": {
+                "type": "date",
+                "min": "0",
+                "pattern": "$dateFormat"
+            }
+            #if($pageElement.hasErrorMarker("date", $scratchMoneyProvision))
+                ,"error": "${pageElement.findError('date', $scratchMoneyProvision, $pageElement)}"
+            #end
+        },
+        {
+            #set($numberBinding = ${pageElement.encodeId('number')})
+            "type": "Question",
+            "id": "${id}-number",
+            "title": "#i18n('i18n_payment_scheduled_details_number_label')",
+            "valueId": "$numberBinding",
+            "value": "${pageElement.selectedNumberOfPayments()}",
+            "format": {
+                "type": "number",
+                "min": "${pageElement.MinimumNumberOfPayments}",
+                "max": "${pageElement.MaximumNumberOfPayments}"
+            }
+            #if($pageElement.hasErrorMarker("number", $scratchMoneyProvision))
+                ,"error": "${pageElement.findError('number', $scratchMoneyProvision, $pageElement)}"
+            #end
+        }
+    ]
+#end
+##
+#macro(renderProjection)
+    "schedule": {
+        "payments": [
+            #foreach($payment in ${pageElement.determinActualizedPayments()})
+                {
+                    "date": "${CoreFunctions.format($payment.PaymentsStartDate, $dateFormat)}",
+                    "amount": "${payment.Amount}"
+                }#if($foreach.hasNext),#end
+            #end
+        ],
+        #calculateButton
+    }
+#end
+##
+#macro(calculateButton)
+    "calculateOp": "op=${pageElement.Class.SimpleName}-calculate"
+#end
+##
+#macro(saveButton)
+    "saveOp": "op=${pageElement.Class.SimpleName}-save"
+#end
+##
+#macro(renderHint)
+    #if( $args.RenderHintArg )       
+        ,"clientHint": "$args.RenderHintArg"
+    #end
+#end
+##
+#macro(i18n $id)$pageElement.i18n("$id")#end

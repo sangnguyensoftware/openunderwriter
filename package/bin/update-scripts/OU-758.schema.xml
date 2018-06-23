@@ -1,0 +1,55 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-758 Add assAsset table" author="richard">
+        <sql dbms="mysql">
+            CREATE TABLE `assAsset` (
+              `assUID` bigint(20) NOT NULL,
+              `assAttribute` longtext,
+              `assCreatedBy` bigint(20) DEFAULT NULL,
+              `assCreatedDate` datetime DEFAULT NULL,
+              `assExternalSystemId` varchar(255) NOT NULL,
+              `assForeignSystemId` varchar(255) DEFAULT NULL,
+              `assLock` bit(1) DEFAULT NULL,
+              `assSerialVersion` bigint(20) NOT NULL,
+              `assUpdatedBy` bigint(20) DEFAULT NULL,
+              `assUpdatedDate` datetime DEFAULT NULL,
+              `assAssetTypeId` varchar(255) DEFAULT NULL,
+              `assId` varchar(255) DEFAULT NULL,
+              PRIMARY KEY (`assUID`),
+              UNIQUE KEY `assExternalSystemId` (`assExternalSystemId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
+    <changeSet id="OU-758 Add jAssAssAss table" author="richard">
+        <sql dbms="mysql">
+            CREATE TABLE `jAssAssAss` (
+              `UIDass` bigint(20) NOT NULL,
+              `assetUIDass` bigint(20) NOT NULL,
+              UNIQUE KEY `assetUIDass` (`assetUIDass`),
+              KEY `FKAED1A4D7C30A5D40` (`assetUIDass`),
+              KEY `FKAED1A4D7C7D6650` (`UIDass`),
+              CONSTRAINT `FKAED1A4D7C30A5D40` FOREIGN KEY (`assetUIDass`) REFERENCES `assAsset` (`assUID`),
+              CONSTRAINT `FKAED1A4D7C7D6650` FOREIGN KEY (`UIDass`) REFERENCES `assAsset` (`assUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+        </sql> 
+    </changeSet>
+
+    <changeSet id="OU-758 Add jPolAssAss table" author="richard">
+        <sql dbms="mysql">
+             CREATE TABLE `jPolAssAss` (
+              `UIDpol` bigint(20) NOT NULL,
+              `assetUIDass` bigint(20) NOT NULL,
+              UNIQUE KEY `assetUIDass` (`assetUIDass`),
+              KEY `FK4D03D3A384156FE0` (`UIDpol`),
+              KEY `FK4D03D3A3C30A5D40` (`assetUIDass`),
+              CONSTRAINT `FK4D03D3A384156FE0` FOREIGN KEY (`UIDpol`) REFERENCES `polPolicy` (`polUID`),
+              CONSTRAINT `FK4D03D3A3C30A5D40` FOREIGN KEY (`assetUIDass`) REFERENCES `assAsset` (`assUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+        </sql> 
+    </changeSet>
+</databaseChangeLog>

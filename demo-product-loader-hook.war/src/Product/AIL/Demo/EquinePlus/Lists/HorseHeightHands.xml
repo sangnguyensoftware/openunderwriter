@@ -1,0 +1,17 @@
+<choice id="HorseHeightHands" xsi:type="java:com.ail.pageflow.util.Choice" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <choice name="?"/>
+    <choice name="6"/>
+    <choice name="7"/>
+    <choice name="8"/>
+    <choice name="9"/>
+    <choice name="10"/>
+    <choice name="11"/>
+    <choice name="12"/>
+    <choice name="13"/>
+    <choice name="14"/>
+    <choice name="15"/>
+    <choice name="16"/>
+    <choice name="17"/>
+    <choice name="18"/>
+    <choice name="19"/>
+</choice>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>Ethan Administrator Star</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Ethan Administrator Star</td></tr>
+</thead><tbody>
+<tr>
+	<td>setTimeout</td>
+	<td>240000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>http://localhost:8080</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTitle</td>
+	<td>Welcome - OpenUnderwriter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=p</td>
+	<td>OpenUnderwriter is a suite of web enabled open source insurance applications which can work independently of each other, or together. The suite provides support for the full insurance lifecycle.</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_58_login</td>
+	<td>adam@openunderwriter.org</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_58_password</td>
+	<td>adam</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=//button[text()=&quot; Sign In &quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=i[class=icon-wrench]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Users and Organizations</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=[class=organization-details]</td>
+	<td>3 Suborganizations and 4 Users</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=a[href*='organizationId=13114']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=Metropolitan Insurance Company</td>
+	<td>Metropolitan Insurance Company</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=Adam</td>
+	<td>Adam</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=Emily</td>
+	<td>Emily</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=James</td>
+	<td>James</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=Katie</td>
+	<td>Katie</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//em[@class=&quot;organization-details&quot;]</td>
+	<td>1 Suborganization and 7 Users</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Metropolitan Insurance Company</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//em[@class=&quot;organization-details&quot;]</td>
+	<td>7 Users</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=Amelia</td>
+	<td>Amelia</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=Charlie</td>
+	<td>Charlie</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=David</td>
+	<td>David</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=Jack</td>
+	<td>Jack</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=Lily</td>
+	<td>Lily</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=Oliver</td>
+	<td>Oliver</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=Jo</td>
+	<td>Jo</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Star Insurance Agency</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=span.title-text</td>
+	<td>7 Users</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=Ethan</td>
+	<td>Ethan</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=George</td>
+	<td>George</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=Isabelle</td>
+	<td>Isabelle</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=Karen</td>
+	<td>Karen</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=Sophie</td>
+	<td>Sophie</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=Thomas</td>
+	<td>Thomas</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=Peter</td>
+	<td>Peter</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=a[role~='menuitem'][href$='/logout']</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

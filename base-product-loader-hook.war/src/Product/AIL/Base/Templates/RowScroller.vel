@@ -1,0 +1,108 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the RowScroller widget.
+##
+#set( $model = $args.ModelArgRet)
+#set( $rowScroller = $args.PageElementArg )
+#set( $renderId = $args.RenderIdArg )
+#set( $response = $args.ResponseArgRet )
+##
+#set( $title = $rowScroller.formattedTitle($args) ) 
+#set( $columns = $rowScroller.Item.size() )
+##
+<div class='pf-row-scroller' id='$!{renderId}'>
+    #if( $title )
+        <div class='pf-section-heading'>
+            $title
+        </div>
+    #end
+    <div class='pf-row-scroller-table'>
+        ##
+        ## Render heading row
+        ##
+        <div class='pf-row-scroller-table-header-row'>
+            #foreach( $column in $rowScroller.Item )
+                #if( $column.columnConditionIsMet($model) )
+                    <div class='pf-row-scroller-table-header-cell'>
+                        <div class='pf-row-scroller-header-title'>
+                            #if( $rowScroller.isBoundToRequiredColumnAttribute($model, $column.Binding) )
+                                <div class='pf-input-required'></div>
+                            #else
+                                <div class='pf-input-optional'></div>
+                            #end
+                            $column.formattedTitle($args)
+                        </div>
+                        <div class='pf-row-scroller-header-sub-title'>
+                            $!column.formattedSubTitle($args)
+                        </div>
+                    </div> 
+                #end
+            #end
+            #if( $rowScroller.AddAndDeleteEnabled )
+                <div class='pf-row-scroller-table-header-cell'></div>
+            #end
+        </div>
+        ##
+        ## Render data rows
+        ##
+        #set( $rowCount = 0 )
+        #foreach( $t in ${rowScroller.fetchBoundCollection($model)} )
+            <div class='pf-row-scroller-table-data-row pf-scroller-data'>
+                #foreach( $a in $rowScroller.Item )
+                    #if( $a.columnConditionIsMet($model) ) 
+                        <div class='pf-row-scroller-table-data-cell'>
+                            #set( $a = $a.renderResponse($t, "${rowScroller.Binding}[${rowCount}]") )
+                        </div>
+                    #end 
+                #end
+                #if( $rowScroller.AddAndDeleteEnabled )
+                    <div class='pf-row-scroller-table-data-cell'>
+                        #if( $rowCount >= $rowScroller.MinRows )
+                            <div class='pf-delete'>
+                                   <input class="pf-delete-button" id="delete" type="button" value="" onclick="callServeResource('${response.createResourceURL()}', 'op=delete:id=${rowScroller.Id}:row=${rowCount}:immediate=true:'); return false;"/>
+                            </div>
+                        #end
+                    </div>
+                #end
+            </div>
+            #set( $rowCount = $rowCount + 1 )
+        #end
+        ##
+        ## If Add and Delete are enabled, put an 'Add' button to the bottom right of the scroller.
+        ##
+        #if( $rowScroller.AddAndDeleteEnabled )
+            <div class='pf-row-scroller-table-footer-row'>
+                #foreach( $a in $rowScroller.Item )
+                    <div class='pf-row-scroller-table-data-cell'></div>
+                #end
+                <div class='pf-row-scroller-add-section pf-row-scroller-table-data-cell'>
+                    #if( $rowScroller.MaxRows != -1 && $rowScroller.MaxRows == $rowCount )
+                        <div class='pf-add-disabled'>
+                            <input id="add-disabled" type="button"  class="pf-add-button" value="" disabled="true"/>
+                        </div>
+                    #else
+                        <div class='pf-add'>
+                           <input id="add" type="button" class="pf-add-button" value="" onclick="callServeResource('${response.createResourceURL()}', 'op=add:id=${rowScroller.Id}:immediate=true:'); return false;"/>
+                        </div>
+                    #end
+                </div>
+            </div>
+        #end
+    </div>  
+</div>

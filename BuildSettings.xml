@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- 
+  This ant include file defines settings that are specific to this project, and 
+  imports settings that are common to all projects. 
+-->
+<project name="BuildSettings" default="dummy">
+  <!-- Release version numbers (BTW the build number comes from bamboo.) -->
+  <property name="major.version" value="developer" />
+  <property name="minor.version" value="build" />
+  <property name="increment.version" value="" />
+
+  <!-- Version of Liferay to use for this project, and the version of jboss bundled within it -->
+  <property name="liferay.version" value="6.2-ce-ga6" />
+  <property name="liferay.util.version" value="6.2.5" />
+  <property name="jboss.version" value="7.1.1" />
+  <property name="gwt.version" value="2.6.0" />
+	
+  <!-- Define which database we're working with -->
+  <property name="dbname.prefix" value="OU_trunk_trunk" />
+  <property name="dbname.openunderwriter" value="${dbname.prefix}_OpenUnderwriter" />
+  <property name="dbname.jbpm" value="${dbname.prefix}_JBPM" />
+  <property name="dbname.liferay" value="${dbname.prefix}_Liferay" />
+  <property name="dbname.dwh.prefix" value="${dbname.prefix}_DWH" />
+  <property name="dbusername.dwh" value="report" />
+  <property name="dbpassword.dwh" value="e98d2f001da5678b39482efbdf5770dc" />
+  <property name="dbhost" value="localhost" /> 
+  <property name="dbusername" value="openquote" />
+  <property name="dbpassword" value="password" />
+
+  <!-- Pull in the Common stuff - all projects us these. -->
+  <dirname property="project.dir" file="${ant.file.BuildSettings}" />
+  <import file="build/macros/Common.xml" />
+  <import file="${basedir}/Config.xml" optional="true" />
+</project>

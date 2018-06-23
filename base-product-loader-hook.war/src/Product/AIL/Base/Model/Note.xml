@@ -1,0 +1,5 @@
+<note xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="java:com.ail.core.Note" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Model-1.0.xsd">
+    <type>i18n_label_note_general</type>
+    <title></title>
+    <body></body>
+</note>

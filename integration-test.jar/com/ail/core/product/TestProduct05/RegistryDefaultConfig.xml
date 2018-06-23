@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ This file defines a test product for use in the core system. This product configuration is
+ not required in live deployments and is only used for testing purposes.
+-->
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd">
+    <name>Configuration for Test Product 5</name>
+    <timeout>60000</timeout>
+    <who>factory</who>
+    <version>1.0</version>
+    <manager>com.ail.core.product.resetproduct.ResetProductService</manager>
+    <parentNamespace>com.ail.core.product.TestProduct04.Registry</parentNamespace>
+    
+    <types>
+        <service name="PolicyRule" key="com.ail.core.command.BeanShellAccessor" >
+            <parameter name="Script"><![CDATA[
+                import com.ail.financial.CurrencyAmount;
+                import com.ail.financial.Currency;
+                import com.ail.insurance.policy.*;
+                
+                /* get hold of the as */
+                as=args.getAssessmentSheetArgRet();
+                
+                /* add a 'flag' - just to show that this rule has been run */
+                line=new FixedSum();
+                line.setId("flag");
+                line.setAmount(new CurrencyAmount(0.0, Currency.GBP));
+                as.addLine(line);
+            ]]></parameter>
+        </service>
+
+        <service name="SectionRule" key="com.ail.core.command.BeanShellAccessor">
+            <parameter name="Script"><![CDATA[
+                import com.ail.financial.CurrencyAmount;
+                import com.ail.financial.Currency;
+                import com.ail.util.Rate;
+                import com.ail.insurance.policy.*;
+                
+                /* get hold of the as */
+                as=args.getAssessmentSheetArgRet();
+                
+                /* add a 'sum insured' for 500.00 GBP*/
+                line=new FixedSum();
+                line.setId("sum insured");
+                line.setAmount(new CurrencyAmount(500.00, Currency.GBP));
+                as.addLine(line);
+                
+                /* add a loading of 5% for no reason! */
+                line=new RateBehaviour();
+                line.setId("loading1");
+                line.setDependsOn("sum insured");
+                line.setContributesTo("policy.total premium");
+                line.setRate(new Rate("50%"));;
+                line.setType(BehaviourType.LOAD);
+                line.setReason("No reason what so ever!");
+                as.addLine(line);
+            ]]></parameter>
+        </service>
+        
+        <!-- Tax calc rules (command & service) for this product -->
+        <command name="CalculatePolicyTax" key="com.ail.insurance.quotation.CalculatePolicyTaxCommandImpl">
+            <parameter name="Service">com.ail.core.NullService</parameter>
+        </command>
+
+        <!-- Risk assessment rules (command & service) for all products unless they override -->
+        <command name="AssessPolicyRisk" key="com.ail.insurance.quotation.AssessPolicyRiskCommandImpl">
+            <parameter name="Service">PolicyRule</parameter>
+        </command>
+
+        <command name="AssessSectionRisk/TestSectionTwoID" key="com.ail.insurance.quotation.AssessSectionRiskCommandImpl">
+            <parameter name="Service">SectionRule</parameter>
+        </command>
+
+        <type name="TestProduct05" key="com.ail.core.Type" builder="BeanShellBuilder">
+            <parameter name="Script"><![CDATA[
+                import com.ail.insurance.policy.*;
+                
+                policy=new Policy();
+                policy.setProductTypeId("com.ail.core.product.TestProduct05");
+                section=new Section();
+                section.setId("sec1");
+                section.setSectionTypeId("TestSectionTwoID");
+                policy.addSection(section);
+                policy.setStatus(PolicyStatus.APPLICATION);
+                type=policy;
+            ]]></parameter>
+        </type>
+    </types>
+</configuration>

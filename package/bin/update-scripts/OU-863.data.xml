@@ -1,0 +1,23 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-863 replace strings in Reference attributes with class names" author="richard">
+        <sql dbms="mysql">
+        		UPDATE `ashAssessmentSheet` SET ashAssessmentLines = REPLACE(ashAssessmentLines, 'ASSET', 'com.ail.insurance.policy.Asset') WHERE ashAssessmentLines like '%type="ASSET"%';
+        		UPDATE `ashAssessmentSheet` SET ashAssessmentLines = REPLACE(ashAssessmentLines, 'SECTION', 'com.ail.insurance.policy.Section') WHERE ashAssessmentLines like '%type="SECTION"%';
+        		UPDATE `ashAssessmentSheet` SET ashAssessmentLines = REPLACE(ashAssessmentLines, 'EXCESS', 'com.ail.insurance.policy.Excess') WHERE ashAssessmentLines like '%type="EXCESS"%';
+        		UPDATE `ashAssessmentSheet` SET ashAssessmentLines = REPLACE(ashAssessmentLines, 'ASSESSMENT_LINE', 'com.ail.insurance.policy.AssessmentLine') WHERE ashAssessmentLines like '%type="ASSESSMENT_LINE"%';
+        		UPDATE `ashAssessmentSheet` SET ashAssessmentLines = REPLACE(ashAssessmentLines, 'XPATH', 'javax.xml.xpath.XPath') WHERE ashAssessmentLines like '%type="javax.xml.xpath.XPath"%';
+
+        		UPDATE `polPolicy` SET polClause = REPLACE(polClause, 'ASSET', 'com.ail.insurance.policy.Asset') WHERE polClause like '%type="ASSET"%';
+        		UPDATE `polPolicy` SET polClause = REPLACE(polClause, 'SECTION', 'com.ail.insurance.policy.Section') WHERE polClause like '%type="SECTION"%';
+        		UPDATE `polPolicy` SET polClause = REPLACE(polClause, 'EXCESS', 'com.ail.insurance.policy.Excess') WHERE polClause like '%type="EXCESS"%';
+        		UPDATE `polPolicy` SET polClause = REPLACE(polClause, 'ASSESSMENT_LINE', 'com.ail.insurance.policy.AssessmentLine') WHERE polClause like '%type="ASSESSMENT_LINE"%';
+        		UPDATE `polPolicy` SET polClause = REPLACE(polClause, 'XPATH', 'javax.xml.xpath.XPath') WHERE polClause like '%type="javax.xml.xpath.XPath"%';
+        </sql>
+    </changeSet> 
+
+</databaseChangeLog>

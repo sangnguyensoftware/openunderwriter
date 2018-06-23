@@ -1,0 +1,30 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-1033 add pulProductUpgradeLog" author="mattc">
+        <sql dbms="mysql">
+            CREATE TABLE `pulProductUpgradeLog` (
+              `pulUID` bigint(20) NOT NULL,
+              `pulAttribute` longtext,
+              `pulCreatedBy` bigint(20) DEFAULT NULL,
+              `pulCreatedDate` datetime DEFAULT NULL,
+              `pulExternalSystemId` varchar(255) NOT NULL,
+              `pulForeignSystemId` varchar(255) DEFAULT NULL,
+              `pulLock` bit(1) DEFAULT NULL,
+              `pulSerialVersion` bigint(20) NOT NULL,
+              `pulUpdatedBy` bigint(20) DEFAULT NULL,
+              `pulUpdatedDate` datetime DEFAULT NULL,
+              `pulCheckSum` bigint(20) DEFAULT NULL,
+              `pulCommandName` varchar(255) DEFAULT NULL,
+              `pulProductName` varchar(255) DEFAULT NULL,
+              `pulRunDate` timestamp(4) NULL DEFAULT NULL,
+              PRIMARY KEY (`pulUID`),
+              UNIQUE KEY `pulExternalSystemId` (`pulExternalSystemId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

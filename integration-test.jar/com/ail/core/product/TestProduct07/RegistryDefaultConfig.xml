@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ This file defines a test product for use in the core system. This product configuration is
+ not required in live deployments and is only used for testing purposes.
+-->
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd">
+    <name>Configuration for Test Product 7</name>
+    <timeout>60000</timeout>
+    <who>factory</who>
+    <version>1.0</version>
+    <manager>com.ail.core.product.resetproduct.ResetProductService</manager>
+    <parentNamespace>com.ail.core.product.Product.Registry</parentNamespace>
+    
+    <types>
+        <type name="TestProduct07" key="com.ail.core.Type" builder="BeanShellBuilder">
+            <parameter name="Script"><![CDATA[
+                import com.ail.insurance.policy.*;
+                import com.ail.party.*;
+                import com.ail.core.*;
+                import com.ail.util.*;
+                import com.ail.financial.*;
+                
+                policy=new Policy();
+
+                policy.setProductTypeId("com.ail.core.product.TestProduct07");
+                policy.setStatus(PolicyStatus.APPLICATION);
+                policy.setId("0101010");
+                policy.setInceptionDate(new Date());
+                policy.setExpiryDate(new Date());
+                policy.setPolicyNumber("POL1234");
+                policy.setQuotationNumber("QUO4321");
+                
+                policyHolder=new Person();
+                policyHolder.setTitle(Title.MR);
+                policyHolder.setOtherTitle("Lord");
+                policyHolder.setFirstName("Jimbo");
+                policyHolder.setSurname("Clucknasty");
+                policyHolder.setDateOfBirth(new DateOfBirth(1964,11,8));                
+                address=new Address();
+                address.setLine1("The Top Flat");
+                address.setLine2("East Wing");
+                address.setLine3("Plugsmear House");
+                address.setLine4("Snorberry Lane");
+                address.setLine5("Frobmarshington");
+                address.setTown("Upper Wallingham");
+                address.setCounty("Kunt");
+                address.setCountry("UK");
+                address.setPostcode("KU19 3FS");
+                
+                policyHolder.setAddress(address);
+                                
+                policy.setPolicyHolder(policyHolder);
+
+                a1=new Asset();
+                a1.setId("a11");
+                a1.setAssetTypeId("vehicle");
+                a1.addAttribute(new Attribute("make", "?", "choice"));
+                a1.addAttribute(new Attribute("model", "?", "choice"));
+                a1.addAttribute(new Attribute("cc", "0", "number,####"));
+                a1.addAttribute(new Attribute("bodytype", "?", "choice,-1#?|1#Saloon|2#Coupe|3#Convertable"));
+                a1.addAttribute(new Attribute("year", "", "date,yyyy"));
+                a1.addAttribute(new Attribute("registration", "", "string,10"));
+                a1.addAttribute(new Attribute("datebought", "", "date,dd/MM/yyyy"));
+                a1.addAttribute(new Attribute("cost", "0", "currency", "GBP"));
+                a1.addAttribute(new Attribute("value", "0", "currency", "GBP"));
+                a1.addAttribute(new Attribute("lefthanddrive", "No", "yesorno"));
+                a1.addAttribute(new Attribute("registeredinproposersname", "Yes", "yesorno"));
+                a1.addAttribute(new Attribute("ownedbyproposer", "Yes", "yesorno"));
+                a1.addAttribute(new Attribute("driventoandfromwork", "Yes", "yesorno"));
+                a1.addAttribute(new Attribute("modified", "No", "yesorno"));
+                a1.addAttribute(new Attribute("modification", "?", "choice,-1#?|1#Increased power|2#Left hand drive conversion|3#Other"));
+                a1.addAttribute(new Attribute("securitydevice", "Yes", "yesorno"));
+                a1.addAttribute(new Attribute("keptatproposersaddress", "Yes", "yesorno"));
+                a1.addAttribute(new Attribute("storedingarage", "Yes", "yesorno"));
+                a1.addAttribute(new Attribute("garageofsolidconstruction", "Yes", "yesorno"));
+
+                policy.addAsset(a1);
+        
+                s1=new Section();
+                s1.setId("s11");
+                s1.setSectionTypeId("motor section");
+                s1.setIncluded(YesNo.YES);
+                s1.setExcluded(YesNo.NO);
+                s1.addAssetId("a11");
+                
+                policy.addSection(s1);
+                
+                c1=new Coverage();
+                c1.setId("c1");
+                c1.setEnabled(true);
+                c1.setOptional(false);
+                c1.setDescription("East river tea bag cover");
+                c1.setLimit(new CurrencyAmount(1000, Currency.GBP));
+                c1.setDeductible(new CurrencyAmount(500, Currency.GBP));
+                
+                policy.addCoverage(c1);
+
+                policy.setAssessmentSheet(new AssessmentSheet());
+                policy.getAssessmentSheet().setLockingActor("test");
+
+                policy.getAssessmentSheet().addLine(new AssessmentNote("note1", "because i want to", null));
+                policy.getAssessmentSheet().addLine(new MarkerResolution("res1", "because I've resolved it", null, "note1"));
+                policy.getAssessmentSheet().addLine(new Marker("mkr1", "declines are good", new Reference(Asset.class, "as1"), MarkerType.DECLINE));
+                policy.getAssessmentSheet().addLine(new FixedSum("fix1", "fixed sums are good", new Reference(Asset.class, "as1"), "final premium", new CurrencyAmount("123.00", Currency.GBP)));
+                policy.getAssessmentSheet().addLine(new Totalizer("tot", "totals are nice", new Reference(Asset.class, "as1"), "final premium", "one,two,tree"));
+                policy.getAssessmentSheet().addLine(new RateBehaviour("rat", "I rate rates", new Reference(Asset.class, "as2"), "total premium", "one", BehaviourType.LOAD, new Rate("2%")));
+                policy.getAssessmentSheet().addLine(new SumBehaviour("sum", "Sum do sum dont", new Reference(Asset.class, "as2"), "final premium", BehaviourType.LOAD, new CurrencyAmount("321.00", Currency.GBP)));
+
+                policy.getAssessmentSheet().clearLockingActor();
+
+                type=policy;
+            ]]></parameter>
+        </type>
+
+        <type name="Policy" key="com.ail.core.Type" builder="BeanShellBuilder">
+            <parameter name="Script"><![CDATA[
+                import com.ail.insurance.policy.*;
+                import com.ail.party.*;
+                import com.ail.core.*;
+                import com.ail.util.*;
+                import com.ail.financial.*;
+                
+                policy=new Policy();
+
+                policy.setProductTypeId("com.ail.core.product.TestProduct07");
+                policy.setStatus(PolicyStatus.APPLICATION);
+                policy.setId("0101010");
+                policy.setInceptionDate(new Date());
+                policy.setExpiryDate(new Date());
+                policy.setPolicyNumber("POL1234");
+                policy.setQuotationNumber("QUO4321");
+                
+                policyHolder=new Person();
+                policyHolder.setTitle(Title.MR);
+                policyHolder.setOtherTitle("Lord");
+                policyHolder.setFirstName("Jimbo");
+                policyHolder.setSurname("Clucknasty");
+                policyHolder.setDateOfBirth(new DateOfBirth(1964,11,8));                
+                address=new Address();
+                address.setLine1("The Top Flat");
+                address.setLine2("East Wing");
+                address.setLine3("Plugsmear House");
+                address.setLine4("Snorberry Lane");
+                address.setLine5("Frobmarshington");
+                address.setTown("Upper Wallingham");
+                address.setCounty("Kunt");
+                address.setCountry("UK");
+                address.setPostcode("KU19 3FS");
+                
+                policyHolder.setAddress(address);
+                                
+                policy.setPolicyHolder(policyHolder);
+
+                a1=new Asset();
+                a1.setId("a11");
+                a1.setAssetTypeId("vehicle");
+                a1.addAttribute(new Attribute("make", "?", "choice"));
+                a1.addAttribute(new Attribute("model", "?", "choice"));
+                a1.addAttribute(new Attribute("cc", "0", "number,####"));
+                a1.addAttribute(new Attribute("bodytype", "?", "choice,-1#?|1#Saloon|2#Coupe|3#Convertable"));
+                a1.addAttribute(new Attribute("year", "", "date,yyyy"));
+                a1.addAttribute(new Attribute("registration", "", "string,10"));
+                a1.addAttribute(new Attribute("datebought", "", "date,dd/MM/yyyy"));
+                a1.addAttribute(new Attribute("cost", "0", "currency", "GBP"));
+                a1.addAttribute(new Attribute("value", "0", "currency", "GBP"));
+                a1.addAttribute(new Attribute("lefthanddrive", "No", "yesorno"));
+                a1.addAttribute(new Attribute("registeredinproposersname", "Yes", "yesorno"));
+                a1.addAttribute(new Attribute("ownedbyproposer", "Yes", "yesorno"));
+                a1.addAttribute(new Attribute("driventoandfromwork", "Yes", "yesorno"));
+                a1.addAttribute(new Attribute("modified", "No", "yesorno"));
+                a1.addAttribute(new Attribute("modification", "?", "choice,-1#?|1#Increased power|2#Left hand drive conversion|3#Other"));
+                a1.addAttribute(new Attribute("securitydevice", "Yes", "yesorno"));
+                a1.addAttribute(new Attribute("keptatproposersaddress", "Yes", "yesorno"));
+                a1.addAttribute(new Attribute("storedingarage", "Yes", "yesorno"));
+                a1.addAttribute(new Attribute("garageofsolidconstruction", "Yes", "yesorno"));
+
+                policy.addAsset(a1);
+        
+                s1=new Section();
+                s1.setId("s11");
+                s1.setSectionTypeId("motor section");
+                s1.setIncluded(YesNo.YES);
+                s1.setExcluded(YesNo.NO);
+                s1.addAssetId("a11");
+                
+                policy.addSection(s1);
+                
+                c1=new Coverage();
+                c1.setId("c1");
+                c1.setEnabled(true);
+                c1.setOptional(false);
+                c1.setDescription("East river tea bag cover");
+                c1.setLimit(new CurrencyAmount(1000, Currency.GBP));
+                c1.setDeductible(new CurrencyAmount(500, Currency.GBP));
+                
+                policy.addCoverage(c1);
+
+                policy.setAssessmentSheet(new AssessmentSheet());
+                policy.getAssessmentSheet().setLockingActor("test");
+
+                policy.getAssessmentSheet().addLine(new AssessmentNote("note1", "because i want to", null));
+                policy.getAssessmentSheet().addLine(new MarkerResolution("res1", "because I've resolved it", null, "note1"));
+                policy.getAssessmentSheet().addLine(new Marker("mkr1", "declines are good", new Reference(Asset.class, "as1"), MarkerType.DECLINE));
+                policy.getAssessmentSheet().addLine(new FixedSum("fix1", "fixed sums are good", new Reference(Asset.class, "as1"), "final premium", new CurrencyAmount("123.00", Currency.GBP)));
+                policy.getAssessmentSheet().addLine(new Totalizer("tot", "totals are nice", new Reference(Asset.class, "as1"), "final premium", "one,two,tree"));
+                policy.getAssessmentSheet().addLine(new RateBehaviour("rat", "I rate rates", new Reference(Asset.class, "as2"), "total premium", "one", BehaviourType.LOAD, new Rate("2%")));
+                policy.getAssessmentSheet().addLine(new SumBehaviour("sum", "Sum do sum dont", new Reference(Asset.class, "as2"), "final premium", BehaviourType.LOAD, new CurrencyAmount("321.00", Currency.GBP)));
+
+                policy.getAssessmentSheet().clearLockingActor();
+
+                type=policy;
+            ]]></parameter>
+        </type>
+    </types>        
+</configuration>

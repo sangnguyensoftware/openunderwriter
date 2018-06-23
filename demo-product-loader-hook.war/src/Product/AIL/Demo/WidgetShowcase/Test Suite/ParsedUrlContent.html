@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>ParsedUrlContent</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">ParsedUrlContent</td></tr>
+</thead><tbody>
+<tr>
+	<td>setTimeout</td>
+	<td>300000</td>
+	<td></td>
+</tr>
+<tr>
+    <td>clickAndWait</td>
+    <td>name=resetPageflow</td>
+    <td></td>
+</tr>
+<tr>
+    <td>selectAndWait</td>
+    <td>name=selectedPage</td>
+    <td>label=ParsedUrlContent</td>
+</tr>
+<tr>
+    <td>verifyTextPresent</td>
+    <td>ParsedUrContent renders the content from a specified URL within the page. Before being rendered, the content is parsed for embedded JXPath expressions and the expressions evaluated against the Policy being processed. The results of the evaluation inserted into the content.</td>
+    <td></td>
+</tr>
+<tr>
+    <td>verifyTextPresent</td>
+    <td>For example, if the content returned included:</td>
+    <td></td>
+</tr>
+<tr>
+    <td>verifyTextPresent</td>
+    <td>&quot;The proposer's name is: &lt;b&gt;${/proposer/firstName}&lt;/b&gt;&quot;</td>
+    <td></td>
+</tr>
+<tr>
+    <td>verifyTextPresent</td>
+    <td>Then the rendered output might read:</td>
+    <td></td>
+</tr>
+<tr>
+    <td>verifyTextPresent</td>
+    <td>&quot;The proposer's name is: Tester &quot;.</td>
+    <td></td>
+</tr>
+<tr>
+    <td>verifyTextPresent</td>
+    <td>Note: This element takes no special steps to ensure that the content read is suitable for use within the PageFlow or in a portal context.</td>
+    <td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

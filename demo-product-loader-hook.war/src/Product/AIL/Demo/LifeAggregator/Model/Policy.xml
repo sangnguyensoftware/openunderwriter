@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quotation xsi:type="java:com.ail.insurance.policy.Policy" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <productName>LifeAggregator</productName>
+
+	<baseCurrency xsi:type="java:java.lang.String">GBP</baseCurrency>
+	
+    <aggregator>true</aggregator>
+
+    <section id="section" sectionTypeId="Section"/>
+    
+    <asset id="asset" assetTypeId="Asset">
+        <attribute id="gender" value="?" format="choice,options=-1#?|1#Male|2#Female"/>
+        <attribute id="age" format="number,###"/>
+        <attribute id="smoker" format="yesorno"/>
+        <attribute id="exercise" format="yesorno"/>
+    </asset>
+    
+</quotation>

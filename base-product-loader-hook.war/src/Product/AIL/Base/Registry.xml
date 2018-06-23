@@ -1,0 +1,1501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This is the 'Base' product. This is the base of the OpenUnderwriter product hierarchy. -->
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd">
+    <name>Configuration for the Base product</name>
+    <timeout>-1</timeout>
+    <who>factory</who>
+    <version>1.0</version>
+    <manager>com.ail.core.product.resetproduct.ResetProductService</manager>
+
+    <!-- Specify which number generators to use for this product. -->
+    <!-- Products may override the parameter values for "ID" and "Range" -->
+    <!-- to define their own private generators (by overriding ID), and -->
+    <!-- valid value ranges (by overriding Range). -->
+    <!-- Range defines the valid values in the form: "min-max"; e.g.: -->
+    <!-- "1000-5000", or multiple ranges: "1000-5000, 6000-7000". When the -->
+    <!-- generator runs out of values in one range, it will automatically -->
+    <!-- start using values from the next range. When the upper-most range -->
+    <!-- is exhausted generation will fail with a system error. If no max -->
+    <!-- value is defined, generation will continue up to the system -->
+    <!-- maximum of 2^63-1. -->
+    <group name="KeyGenerators">
+        <group name="QuoteNumber">
+            <parameter name="ID">Base.QuoteNumber</parameter>
+            <parameter name="Range">1000-*</parameter>
+        </group>
+        <group name="PolicyNumber">
+            <parameter name="ID">Base.PolicyNumber</parameter>
+            <parameter name="Range">1000-*</parameter>
+        </group>
+        <group name="ClaimNumber">
+            <parameter name="ID">Base.ClaimNumber</parameter>
+            <parameter name="Range">1000-*</parameter>
+        </group>
+        <group name="InvoiceNumber">
+            <parameter name="ID">Base.InvoiceNumber</parameter>
+            <parameter name="Range">1000-*</parameter>
+        </group>
+    </group>
+
+    <!-- Email server settings used by the email notification services. You can -->
+    <!-- use any JavaMail API's protocol property here. -->
+    <group name="SMTPServerProperties">
+        <parameter name="mail.smtp.host">ouwmail.co.uk</parameter>
+        <parameter name="mail.smtp.port">25</parameter>
+        <parameter name="mail.smtp.auth">true</parameter>
+        <parameter name="mail.smtp.user">system</parameter>
+        <parameter name="mail.smtp.password">system</parameter>
+    </group>
+    
+    <group name="PubNubProperties">
+        <parameter name="PublishKey">pub-c-51c25dab-5efe-45eb-aa6a-10623ba3c3bc</parameter>
+        <parameter name="SubscribeKey">sub-c-e303d356-1c18-11e6-9a17-0619f8945a4f</parameter>
+    </group>
+
+    <!-- List of commands (PageFlow Action Commands) that are to be executed -->
+    <!-- during pageflow initialisation. -->
+    <group name="PageFlowInitialisationActions">
+        <parameter name="InitialisePageFlowSessionTypeCommand" />
+        <parameter name="AddOperationParametersToPageFlowContextCommand" />
+        <parameter name="AddProductNameToPageFlowContextCommand" />
+        <parameter name="AddPageFlowNameToPageFlowContextCommand" />
+        <parameter name="SelectPageFlowCommand" />
+        <parameter name="FetchPolicyForPageFlowCommand" />
+        <parameter name="SelectVersionEffectiveDateForPageFlowCommand" />
+        <parameter name="SaveRedirectsInSessionCommand" />
+    </group>
+
+    <group name="PaymentMethods">
+        <group name="eWAY">
+            <parameter name="RapidEndpoint">sandbox</parameter>
+            <parameter name="APIKey">F9802DI1y18Z4vxQpUGyLmd71tB1lLhGT8MVvPbdUOVmrnv3aAguQUIIs9wm48RF+6PW8X</parameter>
+            <parameter name="Password">v8C1Yx8ir7wP</parameter>
+        </group>
+        <group name="PayPal">
+            <parameter name="Mode">sandbox</parameter>
+            <parameter name="ClientID">AQkquBDf1zctJOWGKWUEtKXm6qVhueUEMvXO_-MCI4DQQ4-LWvkDLIN2fGsd</parameter>
+            <parameter name="ClientSecret">EL1tVxAjhT7cJimnz5-Nsx9k2reTKSVfErNQF-CmrwJgxRtylkGTKlU4RvrX</parameter>
+        </group>
+        <group name="SagePay">
+            <!-- Mandatory SagePay parameters -->
+            <parameter name="URL">https://test.sagepay.com/gateway/service/vspform-register.vsp</parameter>
+            <parameter name="Vendor">Vendor</parameter>
+            <parameter name="EncryptionPassword">PasswordPassword</parameter>
+            <parameter name="Apply3dSecure">0</parameter>
+            <parameter name="SendMail">0</parameter>
+            <parameter name="VPSProtocol">3.00</parameter>
+
+            <!-- Optional SagePay parameters -->
+            <parameter name="PartnerID"></parameter>
+            <parameter name="SurchargeXml"></parameter>
+            <parameter name="EmailMessage"></parameter>
+            <parameter name="VendorEmail"></parameter>
+        </group>
+        <group name="iWinPay">
+            <parameter name="URL">https://api.eu.apim.ibmcloud.com/tech-equity-demo/swifin/web-rpc</parameter>
+            <parameter name="ClientID">37e29eb8-69d8-486f-80a0-f9c19fbc84e5</parameter>
+            <parameter name="ClientSecret">rO3lP7rR5rJ7qQ0rJ8eY0mK5lM3vC1qH1eK0sC6uV1aC0sV2eU</parameter>
+            <!-- target account: 5017771207133835, pin: XXXX, USD base currency -->
+            <parameter name="Credentials">Basic NTAxNzc3MTIwNzEzMzgzNTpqbWow</parameter>
+            <parameter name="WalletCurrency">USD</parameter>
+        </group>
+    </group>
+
+    <group name="SecuredServices">
+        <parameter name="UploadDocument">Administrator</parameter>
+        <parameter name="UploadDocumentPlaceholder">Administrator</parameter>
+        <parameter name="UpgradeProduct">Administrator</parameter>
+        <parameter name="ListAccountingPeriods">Administrator</parameter>
+        <parameter name="CloseAccountingPeriod">Administrator</parameter>
+        <parameter name="GetData">PermitAll</parameter>
+        <parameter name="SetData">PermitAll</parameter>
+        <parameter name="VariableExpansion">PermitAll</parameter>
+        <parameter name="PageflowForTask">PermitAll</parameter>
+        <parameter name="SendViaEmail">PermitAll</parameter>
+        <parameter name="SendViaPost">PermitAll</parameter>
+        <parameter name="SendViaSMS">PermitAll</parameter>
+        <parameter name="SendToPortal">PermitAll</parameter>
+        <parameter name="GetDocument">PermitAll</parameter>
+        <parameter name="StartWorkflow">PermitAll</parameter>
+        <parameter name="SignalWorkflow">PermitAll</parameter>
+        <parameter name="CreateParty">Administrator</parameter>
+        <parameter name="CreateOrganisation">Administrator</parameter>
+        <parameter name="GetChoiceOptions">PermitAll</parameter>
+    </group>
+    
+    <group name="jBPMProperties">
+        <parameter name="jbpm.console.protocol">http</parameter>
+        <parameter name="jbpm.console.hostname">localhost</parameter>
+        <parameter name="jbpm.console.port">8080</parameter>
+        <parameter name="jbpm.console.username">katie@openunderwriter.org</parameter>
+        <parameter name="jbpm.console.password">katie</parameter>
+        <parameter name="jbpm.deployment.id">ail:base-workflows:1.0</parameter>
+        <parameter name="jbpm.policy.pageflow.default">PolicyDetailPageFlow</parameter>
+        <parameter name="jbpm.policy.page.default">Main</parameter>
+        <parameter name="jbpm.party.pageflow.default">ClientDetailsPageFlow</parameter>
+        <parameter name="jbpm.party.page.default">Main</parameter>
+    </group>
+    
+    <group name="Ledgers">
+    		<parameter name="AutoCreateAccountingPeriods">true</parameter>
+    </group>
+
+    <group name="PaymentHoliday">
+   		<parameter name="daysNoticeRequired">0</parameter>
+   		<parameter name="lifetimeMonthsPermitted">0</parameter>
+   		<parameter name="minimumMonthsPermitted">0</parameter>
+   		<parameter name="consectutiveMonthsPermitted">0</parameter>
+   		<parameter name="daysPriorEndNotification">0</parameter>
+   		<parameter name="EndNotificationWorkflow"></parameter>
+    </group>
+    
+    <!-- Group of parameters to specify comma-separated lists of source folders under the product folder -->
+    <group name="SourceFolders">
+    	<parameter name="Java">JavaServices,Services,Rules</parameter>
+    </group>
+
+    <group name="ProductUpgradeCommands"> 
+        <group name="AIL.Base">
+            <parameter name="OU-1077 remove redundant classes" />
+        </group>
+    </group>
+
+    <types>
+        <!-- ================================================================== -->
+        <!-- Default product services -->
+        <!-- ================================================================== -->
+
+        <service name="CalculatePolicyTaxRule" builder="CachingClassBuilder" key="com.ail.core.command.JavaAccessor" />
+
+        <service name="CalculatePremiumSplitRule" builder="CachingClassBuilder" key="com.ail.core.command.JavaAccessor" />
+
+        <service name="CalculatePolicyCommissionRule" builder="CachingClassBuilder" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.core.NullService</parameter>
+        </service>
+
+        <service name="CalculatePolicyBrokerageRule" builder="CachingClassBuilder" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.core.NullService</parameter>
+        </service>
+
+        <service name="CalculatePolicyManagementChargeService" builder="CachingClassBuilder" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.core.NullService</parameter>
+        </service>
+
+        <service name="EnforcePolicyComplianceRule" builder="CachingClassBuilder" key="com.ail.core.command.JavaAccessor" />
+
+        <service name="AssessPaymentOptionsRule" builder="CachingClassBuilder" key="com.ail.core.command.JavaAccessor" />
+
+        <service name="MergeDocumentDataJavaService" builder="CachingClassBuilder" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.core.document.JavaMergeDataService</parameter>
+        </service>
+
+        <service name="StyleDocumentService" key="com.ail.core.command.XSLTAccessor">
+            <parameter name="Url">http://localhost:8080/openunderwriter-theme/documents/style.xslt</parameter>
+        </service>
+
+        <service name="RenderPdfDocumentService" key="com.ail.core.command.ClassAccessor">
+            <!-- Uncomment the following to get a full dump of what goes and and comes back from doc prod -->
+            <!-- parameter name="LoggingIndicatorAsString">FULL</parameter -->
+            <parameter name="ServiceClass">com.ail.core.document.RenderFopPdfDocumentService</parameter>
+        </service>
+
+        <service name="GuessUsernameService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.core.user.liferay.GuessUsernameService</parameter>
+        </service>
+
+        <!-- ================================================================== -->
+        <!-- Default PageFlow actions -->
+        <!-- ================================================================== -->
+        <service name="AddPageFlowNameToPageFlowContextService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.pageflow.service.AddPageFlowNameToPageFlowContextService</parameter>
+        </service>
+
+        <service name="AddProductNameToPageFlowContextService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.pageflow.service.AddProductNameToPageFlowContextService</parameter>
+        </service>
+
+        <service name="AddOperationParametersToPageFlowContextService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.pageflow.service.AddOperationParametersToPageFlowContextService</parameter>
+        </service>
+
+        <service name="CreateNewBusinessQuotationService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.pageflow.service.CreateNewBusinessQuotationService</parameter>
+        </service>
+
+        <service name="FetchPolicyForPageFlowService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.pageflow.service.FetchPolicyForPageFlowService</parameter>
+        </service>
+
+        <service name="PersistPolicyFromPageFlowService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.pageflow.service.PersistPolicyFromPageFlowService</parameter>
+        </service>
+
+        <service name="PersistClaimFromPageFlowService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.pageflow.service.PersistClaimFromPageFlowService</parameter>
+        </service>
+
+        <service name="PersistPartyFromPageFlowService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.pageflow.service.PersistPartyFromPageFlowService</parameter>
+        </service>
+
+        <service name="SelectPageFlowService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.pageflow.service.SelectPageFlowService</parameter>
+        </service>
+
+        <service name="InitialisePageFlowSessionTypeService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.pageflow.service.InitialisePageFlowSessionTypeService</parameter>
+        </service>
+
+        <service name="SelectVersionEffectiveDateForPageFlowService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.pageflow.service.SelectVersionEffectiveDateForPageFlowService</parameter>
+        </service>
+
+        <service name="SaveRedirectsInSessionService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.pageflow.service.SaveRedirectsInSessionService</parameter>
+        </service>
+
+        <!-- ================================================================== -->
+        <!-- Default widget service bindings -->
+        <!-- ================================================================== -->
+        <service name="AggregatorQuotationSelector/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/AggregatorQuotationSelector.vel</parameter>
+        </service>
+
+        <service name="AccountDetails/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/AccountDetails.vel</parameter>
+        </service>
+
+        <service name="AccountDetails/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/AccountDetails.vel</parameter>
+        </service>
+
+        <service name="Answer/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/Answer.vel</parameter>
+        </service>
+
+        <service name="Answer/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/Answer.vel</parameter>
+        </service>
+        
+        <service name="ContactSystemDetails/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/ContactSystemDetails.vel</parameter>
+        </service>
+
+        <service name="ContactSystemDetails/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/ContactSystemDetails.vel</parameter>
+        </service>
+
+
+        <service name="CustomLetterBuilder/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/CustomLetterBuilder.vel</parameter>
+        </service>
+
+        <service name="CustomLetterBuilder/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/CustomLetterBuilder.vel</parameter>
+        </service>
+
+        <service name="AnswerScroller/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/AnswerScroller.vel</parameter>
+        </service>
+
+        <service name="AnswerScroller/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/AnswerScroller.vel</parameter>
+        </service>
+        
+        <service name="PageElementScroller/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/PageElementScroller.vel</parameter>
+        </service>
+        
+        <service name="PageElementScroller/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/PageElementScroller.vel</parameter>
+        </service>
+
+        <service name="Alerts/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/Alerts.vel</parameter>
+        </service>
+
+        <service name="Alerts/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/Alerts.vel</parameter>
+        </service>
+
+        <service name="AnswerSection/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/AnswerSection.vel</parameter>
+        </service>
+
+        <service name="AnswerSection/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/AnswerSection.vel</parameter>
+        </service>
+
+        <service name="AssessmentSheetDetails/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/AssessmentSheetDetails.vel</parameter>
+        </service>
+
+        <service name="AttributeField/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/AttributeField.vel</parameter>
+        </service>
+
+        <service name="AttributeField/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/AttributeField.vel</parameter>
+        </service>
+
+        <service name="AttributeFieldPageLevel/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/AttributeFieldPageLevel.vel</parameter>
+        </service>
+
+        <service name="AttributeFieldPageLevel/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/AttributeFieldPageLevel.vel</parameter>
+        </service>
+
+        <service name="AuditDetails/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/AuditDetails.vel</parameter>
+        </service>
+
+        <service name="Blank/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/Blank.vel</parameter>
+        </service>
+
+        <service name="RenderProposerQuotationSummaryService/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/ProposerQuotationSummary.vel</parameter>
+        </service>
+
+        <service name="BrokerQuotationSummary/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/BrokerQuotationSummary.vel</parameter>
+        </service>
+
+        <service name="BuyNowWithPayPalButton/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/BuyNowWithPayPalButton.vel</parameter>
+        </service>
+
+        <service name="BuyNowWithEwayButton/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/BuyNowWithEwayButton.vel</parameter>
+        </service>
+
+        <service name="BuyNowWithIWinPayButton/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/BuyNowWithIWinPayButton.vel</parameter>
+        </service>
+
+        <service name="BuyNowWithSagePayButton/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/BuyNowWithSagePayButton.vel</parameter>
+        </service>
+
+        <service name="CommandButtonAction/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/CommandButtonAction.vel</parameter>
+        </service>
+
+        <service name="CommandButtonAction/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/CommandButtonAction.vel</parameter>
+        </service>
+
+        <service name="ClaimHistoryDetails/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/ClaimHistoryDetails.vel</parameter>
+        </service>
+
+        <service name="ClaimHistoryDetails/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/ClaimHistoryDetails.vel</parameter>
+        </service>
+
+        <service name="ClauseDetails/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/ClauseDetails.vel</parameter>
+        </service>
+
+        <service name="CoverageDetails/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/CoverageDetails.vel</parameter>
+        </service>
+
+        <service name="CoverageDetails/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/CoverageDetails.vel</parameter>
+        </service>
+
+        <service name="DocumentManager/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/DocumentManager.vel</parameter>
+        </service>
+        
+        <service name="DocumentManager/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/DocumentManager.vel</parameter>
+        </service>
+        
+        <service name="SubjectivityManager/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/SubjectivityManager.vel</parameter>
+        </service>
+
+        <service name="ExceptionDetails/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/ExceptionDetails.vel</parameter>
+        </service>
+
+        <service name="InformationPage/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/InformationPage.vel</parameter>
+        </service>
+
+        <service name="LabelDetails/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/LabelDetails.vel</parameter>
+        </service>
+
+        <service name="LabelDetails/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/LabelDetails.vel</parameter>
+        </service>
+
+        <service name="InformationPage/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/InformationPage.vel</parameter>
+        </service>
+
+        <service name="LoginSection/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/LoginSection.vel</parameter>
+        </service>
+
+        <service name="LoginSectionActionService" builder="CachingClassBuilder" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.pageflow.action.LoginSectionActionService</parameter>
+        </service>
+
+        <service name="NavigationSection/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/NavigationSection.vel</parameter>
+        </service>
+
+        <service name="NavigationSection/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/NavigationSection.vel</parameter>
+        </service>
+
+        <service name="NoteDetails/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/NoteDetails.vel</parameter>
+        </service>
+
+        <service name="NoteDetails/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/NoteDetails.vel</parameter>
+        </service>
+
+        <service name="NoteRecorder/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/NoteRecorder.vel</parameter>
+        </service>
+
+        <service name="NoteRecorder/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/NoteRecorder.vel</parameter>
+        </service>
+
+        <service name="Page/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/Page.vel</parameter>
+        </service>
+
+        <service name="Page/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/Page.vel</parameter>
+        </service>
+
+        <service name="PageHeader/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/PageHeader.vel</parameter>
+        </service>
+
+        <service name="PageHeader/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/PageHeader.vel</parameter>
+        </service>
+
+        <service name="PageFooter/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/PageFooter.vel</parameter>
+        </service>
+
+        <service name="PageFooter/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/PageFooter.vel</parameter>
+        </service>
+
+        <service name="PageSection/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/PageSection.vel</parameter>
+        </service>
+
+        <service name="PageSection/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/PageSection.vel</parameter>
+        </service>
+
+        <service name="PageSectionHeader/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/PageSectionHeader.vel</parameter>
+        </service>
+
+        <service name="PageSectionHeader/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/PageSectionHeader.vel</parameter>
+        </service>
+
+        <service name="PageScript/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/PageScript.vel</parameter>
+        </service>
+
+        <service name="ParsedUrlContent/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/ParsedUrlContent.vel</parameter>
+        </service>
+
+        <service name="ParsedUrlContent/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/ParsedUrlContent.vel</parameter>
+        </service>
+
+        <service name="PaymentDetails/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/PaymentDetails.vel</parameter>
+        </service>
+
+        <service name="PaymentRecorder/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/PaymentRecorder.vel</parameter>
+        </service>
+
+        <service name="PaymentRecorder/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/PaymentRecorder.vel</parameter>
+        </service>
+
+        <service name="PaymentHolidayDetails/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/PaymentHolidayDetails.vel</parameter>
+        </service>
+
+        <service name="PaymentHolidayDetails/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/PaymentHolidayDetails.vel</parameter>
+        </service>
+
+        <service name="PaymentMethodDetails/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/PaymentMethodDetails.vel</parameter>
+        </service>
+
+        <service name="PaymentMethodDetails/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/PaymentMethodDetails.vel</parameter>
+        </service>
+
+        <service name="PaymentOptionSelector/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/PaymentOptionSelector.vel</parameter>
+        </service>
+
+        <service name="PaymentScheduleDetails/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/PaymentScheduleDetails.vel</parameter>
+        </service>
+
+        <service name="PaymentScheduleDetails/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/PaymentScheduleDetails.vel</parameter>
+        </service>
+
+        <service name="ProposerDetails/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/ProposerDetails.vel</parameter>
+        </service>
+
+        <service name="ProposerDetails/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/ProposerDetails.vel</parameter>
+        </service>
+
+        <service name="ProposerQuotationSummary/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/ProposerQuotationSummary.vel</parameter>
+        </service>
+
+        <service name="RedirectButtonAction/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/RedirectButtonAction.vel</parameter>
+        </service>
+
+        <service name="RedirectButtonAction/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/RedirectButtonAction.vel</parameter>
+        </service>
+
+        <service name="ReferralOverride/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/ReferralOverride.vel</parameter>
+        </service>
+
+        <service name="QuoteToOnRisk/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/QuoteToOnRisk.vel</parameter>
+        </service>
+
+        <service name="Question/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/Question.vel</parameter>
+        </service>
+
+        <service name="Question/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/Question.vel</parameter>
+        </service>
+
+        <service name="QuestionPage/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/QuestionPage.vel</parameter>
+        </service>
+
+        <service name="QuestionPage/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/QuestionPage.vel</parameter>
+        </service>
+
+        <service name="QuestionSection/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/QuestionSection.vel</parameter>
+        </service>
+
+        <service name="QuestionSection/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/QuestionSection.vel</parameter>
+        </service>
+
+        <service name="QuestionSeparator/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/QuestionSeparator.vel</parameter>
+        </service>
+
+        <service name="QuestionSeparator/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/QuestionSeparator.vel</parameter>
+        </service>
+
+        <service name="QuestionWithDetails/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/QuestionWithDetails.vel</parameter>
+        </service>
+
+        <service name="QuestionWithSubSection/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/QuestionWithSubSection.vel</parameter>
+        </service>
+
+        <service name="QuestionWithSubSection/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/QuestionWithSubSection.vel</parameter>
+        </service>
+
+        <service name="QuitButtonAction/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/QuitButtonAction.vel</parameter>
+        </service>
+
+        <service name="QuitButtonAction/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/QuitButtonAction.vel</parameter>
+        </service>
+
+        <service name="QuotationSummary/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/QuotationSummary.vel</parameter>
+        </service>
+
+        <service name="QuotationSummary/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/QuotationSummary.vel</parameter>
+        </service>
+
+        <service name="PolicySummary/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/PolicySummary.vel</parameter>
+        </service>
+        
+        <service name="PolicyAdmin/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/PolicyAdmin.vel</parameter>
+        </service>
+        
+        <service name="PolicyPayments/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/PolicyPayments.vel</parameter>
+        </service>
+
+        <service name="DocumentUpload/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/DocumentUpload.vel</parameter>
+        </service>
+        
+        <service name="DocumentUpload/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/DocumentUpload.vel</parameter>
+        </service>
+
+        <service name="ImageViewer/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/ImageViewer.vel</parameter>
+        </service>
+
+        <service name="PolicyDetail/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/PolicyDetail.vel</parameter>
+        </service>
+
+        <service name="PolicyDetail/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/PolicyDetail.vel</parameter>
+        </service>
+
+		<service name="Logs/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/Logs.vel</parameter>
+        </service>
+        
+        <service name="PolicyDocuments/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/PolicyDocuments.vel</parameter>
+        </service>
+
+        <service name="ReferralSummary/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/ReferralSummary.vel</parameter>
+        </service>
+
+        <service name="RequoteButtonAction/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/RequoteButtonAction.vel</parameter>
+        </service>
+
+        <service name="RequoteButtonAction/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/RequoteButtonAction.vel</parameter>
+        </service>
+
+        <service name="RowScroller/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/RowScroller.vel</parameter>
+        </service>
+
+        <service name="RowScroller/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/RowScroller.vel</parameter>
+        </service>
+
+        <service name="SaveButtonAction/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/SaveButtonAction.vel</parameter>
+        </service>
+
+        <service name="SaveButtonAction/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/SaveButtonAction.vel</parameter>
+        </service>
+
+        <service name="SavedQuotations/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/SavedQuotations.vel</parameter>
+        </service>
+
+        <service name="SectionScroller/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/SectionScroller.vel</parameter>
+        </service>
+        
+        <service name="SectionScroller/json" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/json/SectionScroller.vel</parameter>
+        </service>
+        
+        <service name="ViewCertificateButtonService/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/ViewCertificateButton.vel</parameter>
+        </service>
+
+        <service name="ViewQuotationButtonService/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/ViewQuotationButton.vel</parameter>
+        </service>
+
+        <service name="ViewScheduleButtonService/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/ViewScheduleButton.vel</parameter>
+        </service>
+
+        <service name="ViewPolicyButtonService/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/ViewPolicyButton.vel</parameter>
+        </service>
+
+        <service name="ViewWordingButtonService/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/ViewWordingButton.vel</parameter>
+        </service>
+
+        <service name="ViewInvoiceButtonService/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+            <parameter name="Url">~/Templates/ViewInvoiceButton.vel</parameter>
+        </service>
+
+        <!-- ================================================================== -->
+        <!-- Default service bindings -->
+        <!-- ================================================================== -->
+        <service name="CreateNewBusinessReferralWorkflowService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.workflow.CreateNewBusinessReferralWorkflowService</parameter>
+        </service>
+
+        <service name="GenerateDocumentService" builder="CachingClassBuilder" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.core.document.GenerateDocumentService</parameter>
+        </service>
+
+        <!-- ================================================================== -->
+        <!-- Product upgrade services -->
+        <!-- ================================================================== -->
+        
+        <service name="OU-1077 remove redundant classes.bsh"  builder="CachingClassBuilder" key="com.ail.core.command.BeanShellAccessor">
+            <parameter name="Url">~/Upgrade/OU-1077 remove redundant classes.bsh</parameter>
+        </service>
+
+        <!-- ================================================================== -->
+        <!-- Default product commands -->
+        <!-- ================================================================== -->
+        <command name="AssessPolicyRisk" key="com.ail.insurance.quotation.AssessPolicyRiskCommandImpl">
+            <parameter name="Service">AssessPolicyRiskRule</parameter>
+        </command>
+
+        <command name="CalculatePolicyTax" key="com.ail.insurance.quotation.CalculatePolicyTaxCommandImpl">
+            <parameter name="Service">CalculatePolicyTaxRule</parameter>
+        </command>
+
+        <command name="CalculatePremiumSplit" key="com.ail.insurance.payment.CalculatePremiumSplitCommandImpl">
+            <parameter name="Service">CalculatePremiumSplitRule</parameter>
+        </command>
+
+        <command name="CalculatePolicyCommission" key="com.ail.insurance.quotation.CalculatePolicyCommissionCommandImpl">
+            <parameter name="Service">CalculatePolicyCommissionRule</parameter>
+        </command>
+
+        <command name="CalculatePolicyBrokerage" key="com.ail.insurance.quotation.CalculatePolicyBrokerageCommandImpl">
+            <parameter name="Service">com.ail.core.NullService</parameter>
+        </command>
+
+        <command name="CalculatePolicyManagementCharge" key="com.ail.insurance.quotation.CalculatePolicyManagementChargeCommandImpl">
+            <parameter name="Service">CalculatePolicyManagementChargeService</parameter>
+        </command>
+
+        <command name="GenerateClaimNumber" key="com.ail.insurance.quotation.GenerateClaimNumberCommandImpl">
+            <parameter name="Service">GenerateClaimNumberService</parameter>
+        </command>
+
+        <command name="GeneratePolicyNumber" key="com.ail.insurance.quotation.GeneratePolicyNumberCommandImpl">
+            <parameter name="Service">GeneratePolicyNumberService</parameter>
+        </command>
+
+        <command name="GenerateQuoteNumber" key="com.ail.insurance.quotation.GenerateQuoteNumberCommandImpl">
+            <parameter name="Service">GenerateQuoteNumberService</parameter>
+        </command>
+
+        <command name="EnforcePolicyCompliance" key="com.ail.insurance.quotation.EnforcePolicyComplianceCommandImpl">
+            <parameter name="Service">EnforcePolicyComplianceRule</parameter>
+        </command>
+
+		<command name="SendEmail" key="com.ail.core.email.SendEmailCommandImpl">
+            <parameter name="Service">JMSOrderedQueueService</parameter>
+        </command>
+
+        <command name="AssessPaymentOptions" builder="ClassBuilder" key="com.ail.insurance.acceptance.AssessPaymentOptionsCommandImpl">
+            <parameter name="Accessor">AssessPaymentOptionsRule</parameter>
+        </command>
+
+        <command name="MergeDocumentDataCommand" key="com.ail.core.document.MergeDataCommandImpl">
+            <parameter name="Service">MergeDocumentDataJavaService</parameter>
+        </command>
+
+        <command name="StyleDocumentCommand" key="com.ail.core.document.StyleDocumentCommandImpl">
+            <parameter name="Service">StyleDocumentXsltService</parameter>
+        </command>
+
+        <command name="RenderIndustrialStyleDocumentCommand" key="com.ail.core.document.RenderDocumentCommandImpl">
+            <parameter name="Service">RenderPdfDocumentService</parameter>
+            <parameter name="RenderOptionsArg">allowCopyContent=FALSE,allowPrint=TRUE</parameter>
+            <parameter name="TranslationUrlArg">http://localhost:8080/openunderwriter-theme/documents/document-style.xsl</parameter>
+        </command>
+
+        <command name="GuessUsernameCommand" key="com.ail.core.user.GuessUsernameCommandImpl">
+            <parameter name="Service">GuessUsernameService</parameter>
+            <parameter name="UsernameLocationsArg">/username,/proposer/emailAddress,/attribute[id='username']/value</parameter>
+        </command>
+
+        <command name="ConfirmObjectAccessibilityToUserCommand" key="com.ail.core.security.ConfirmObjectAccessibilityToUserCommandImpl">
+            <parameter name="Service">com.ail.core.security.strategy.OwnerOrganisationAndAdministratorAccessibilityService</parameter>
+            <parameter name="OverrideRoleNameArg">Administrator,Policy Administrator</parameter>
+        </command>
+
+        <command name="FilterListAccessibilityToUserCommand" key="com.ail.core.security.FilterListAccessibilityToUserCommandImpl">
+            <parameter name="Service">com.ail.core.security.strategy.OwnerAndAdministratorAccessibilityFilterService</parameter>
+            <parameter name="OverrideRoleNameArg">Administrator,Policy Administrator</parameter>
+        </command>
+
+        <!-- ================================================================== -->
+        <!-- Default PageFlow action command bindings -->
+        <!-- ================================================================== -->
+        <command name="AddPageFlowNameToPageFlowContextCommand" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">AddPageFlowNameToPageFlowContextService</parameter>
+        </command>
+
+        <command name="AddProductNameToPageFlowContextCommand" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">AddProductNameToPageFlowContextService</parameter>
+        </command>
+
+        <command name="AddOperationParametersToPageFlowContextCommand" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">AddOperationParametersToPageFlowContextService</parameter>
+        </command>
+
+        <command name="CreateNewBusinessQuotationCommand" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">CreateNewBusinessQuotationService</parameter>
+        </command>
+
+        <command name="FetchPolicyForPageFlowCommand" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">FetchPolicyForPageFlowService</parameter>
+        </command>
+
+        <command name="PersistPolicyFromPageFlowCommand" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">PersistPolicyFromPageFlowService</parameter>
+        </command>
+
+        <command name="PersistClaimFromPageFlowCommand" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">PersistClaimFromPageFlowService</parameter>
+        </command>
+
+        <command name="PersistPartyFromPageFlowCommand" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">PersistPartyFromPageFlowService</parameter>
+        </command>
+
+        <command name="SelectPageFlowCommand" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">SelectPageFlowService</parameter>
+        </command>
+
+        <command name="InitialisePageFlowSessionTypeCommand" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">InitialisePageFlowSessionTypeService</parameter>
+        </command>
+
+        <command name="SelectVersionEffectiveDateForPageFlowCommand" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">SelectVersionEffectiveDateForPageFlowService</parameter>
+        </command>
+
+        <command name="SaveRedirectsInSessionCommand" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">SaveRedirectsInSessionService</parameter>
+        </command>
+        
+        <command name="RenderXDocDocumentCommand" key="com.ail.core.document.RenderDocumentCommandImpl">
+            <parameter name="Service">com.ail.core.document.RenderXDocReportPdfDocumentService</parameter>
+        </command>
+        
+        <!-- ================================================================== -->
+        <!-- Default widget command bindings -->
+        <!-- ================================================================== -->
+        <command name="AggregatorQuotationSelector/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">AggregatorQuotationSelector/html</parameter>
+        </command>
+
+        <command name="AccountDetails/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">AccountDetails/html</parameter>
+        </command>
+        <command name="AccountDetails/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">AccountDetails/json</parameter>
+        </command>
+
+        <command name="Answer/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">Answer/html</parameter>
+        </command>
+        <command name="Answer/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">Answer/json</parameter>
+        </command>
+
+        <command name="ContactSystemDetails/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">ContactSystemDetails/html</parameter>
+        </command>
+        <command name="ContactSystemDetails/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">ContactSystemDetails/json</parameter>
+        </command>
+
+        <command name="CustomLetterBuilder/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">CustomLetterBuilder/html</parameter>
+        </command>
+        <command name="CustomLetterBuilder/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">CustomLetterBuilder/json</parameter>
+        </command>
+
+        <command name="AnswerScroller/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">AnswerScroller/html</parameter>
+        </command>
+        <command name="AnswerScroller/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">AnswerScroller/json</parameter>
+        </command>
+
+ 		<command name="PageElementScroller/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PageElementScroller/json</parameter>
+        </command>
+        <command name="PageElementScroller/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PageElementScroller/html</parameter>
+        </command>
+        
+        <command name="Alerts/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">Alerts/html</parameter>
+        </command>
+        <command name="Alerts/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">Alerts/json</parameter>
+        </command>
+        
+        <command name="AnswerSection/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">AnswerSection/html</parameter>
+        </command>
+        <command name="AnswerSection/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">AnswerSection/json</parameter>
+        </command>
+
+        <command name="AssessmentSheetDetails/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">AssessmentSheetDetails/html</parameter>
+        </command>
+
+        <command name="AttributeField/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">AttributeField/html</parameter>
+        </command>
+        <command name="AttributeField/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">AttributeField/json</parameter>
+        </command>
+
+        <command name="AttributeFieldPageLevel/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">AttributeFieldPageLevel/html</parameter>
+        </command>
+        <command name="AttributeFieldPageLevel/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">AttributeFieldPageLevel/json</parameter>
+        </command>
+
+        <command name="AuditDetails/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">AuditDetails/html</parameter>
+        </command>
+
+        <command name="Blank/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">Blank/html</parameter>
+        </command>
+        <command name="Blank/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">com.ail.core.NullService</parameter>
+        </command>
+
+        <command name="BrokerQuotationSummary/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">BrokerQuotationSummary/html</parameter>
+        </command>
+
+        <command name="BuyNowWithIWinPayButton/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">BuyNowWithIWinPayButton/html</parameter>
+        </command>
+
+        <command name="BuyNowWithEwayButton/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">BuyNowWithEwayButton/html</parameter>
+        </command>
+
+        <command name="BuyNowWithPayPalButton/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">BuyNowWithPayPalButton/html</parameter>
+        </command>
+
+        <command name="BuyNowWithSagePayButton/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">BuyNowWithSagePayButton/html</parameter>
+        </command>
+
+        <command name="ClaimHistoryDetails/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">ClaimHistoryDetails/json</parameter>
+        </command>
+        
+        <command name="ClaimHistoryDetails/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">ClaimHistoryDetails/html</parameter>
+        </command>
+
+        <command name="ClauseDetails/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">ClauseDetails/html</parameter>
+        </command>
+
+        <command name="CommandButtonAction/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">CommandButtonAction/html</parameter>
+        </command>
+        <command name="CommandButtonAction/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">CommandButtonAction/json</parameter>
+        </command>
+
+        <command name="CoverageDetails/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">CoverageDetails/html</parameter>
+        </command>
+        <command name="CoverageDetails/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">CoverageDetails/json</parameter>
+        </command>
+
+        <command name="DocumentManager/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">DocumentManager/html</parameter>
+        </command>
+        <command name="DocumentManager/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">DocumentManager/json</parameter>
+        </command>
+
+        <command name="SubjectivityManager/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">SubjectivityManager/html</parameter>
+        </command>
+
+        <command name="InformationPage/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">InformationPage/html</parameter>
+        </command>
+
+        <command name="InformationPage/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">InformationPage/json</parameter>
+        </command>
+
+        <command name="LabelDetails/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">LabelDetails/html</parameter>
+        </command>
+
+        <command name="LabelDetails/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">LabelDetails/json</parameter>
+        </command>
+
+        <command name="ExceptionDetails/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">ExceptionDetails/html</parameter>
+        </command>
+
+        <command name="LoginSection/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">LoginSection/html</parameter>
+        </command>
+        <command name="LoginSectionAction" key="com.ail.pageflow.action.ActionCommandImpl">
+            <parameter name="Service">LoginSectionActionService</parameter>
+        </command>
+
+        <command name="NavigationSection/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">NavigationSection/html</parameter>
+        </command>
+        <command name="NavigationSection/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">NavigationSection/json</parameter>
+        </command>
+
+        <command name="NoteDetails/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">NoteDetails/html</parameter>
+        </command>
+        <command name="NoteDetails/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">NoteDetails/json</parameter>
+        </command>
+
+        <command name="NoteRecorder/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">NoteRecorder/html</parameter>
+        </command>
+        <command name="NoteRecorder/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">NoteRecorder/json</parameter>
+        </command>
+
+        <command name="Page/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">Page/html</parameter>
+        </command>
+        <command name="Page/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">Page/json</parameter>
+        </command>
+
+        <command name="PageHeader/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PageHeader/html</parameter>
+        </command>
+        <command name="PageHeader/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PageHeader/json</parameter>
+        </command>
+
+        <command name="PageFooter/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PageFooter/html</parameter>
+        </command>
+        <command name="PageFooter/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PageFooter/json</parameter>
+        </command>
+
+        <command name="PageSection/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PageSection/html</parameter>
+        </command>
+        <command name="PageSection/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PageSection/json</parameter>
+        </command>
+
+        <command name="PageSectionHeader/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PageSectionHeader/html</parameter>
+        </command>
+        <command name="PageSectionHeader/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PageSectionHeader/json</parameter>
+        </command>
+
+        <command name="PageScript/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PageScript/html</parameter>
+        </command>
+
+        <command name="PaymentDetails/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PaymentDetails/html</parameter>
+        </command>
+        
+        <command name="PaymentRecorder/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PaymentRecorder/html</parameter>
+        </command>
+        
+        <command name="PaymentRecorder/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PaymentRecorder/json</parameter>
+        </command>          
+
+        <command name="PaymentMethodDetails/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PaymentMethodDetails/html</parameter>
+        </command>
+        <command name="PaymentMethodDetails/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PaymentMethodDetails/json</parameter>
+        </command>
+
+        <command name="PaymentOptionSelector/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PaymentOptionSelector/html</parameter>
+        </command>
+
+        <command name="PaymentScheduleDetails/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PaymentScheduleDetails/html</parameter>
+        </command>
+        <command name="PaymentScheduleDetails/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PaymentScheduleDetails/json</parameter>
+        </command>
+
+        <command name="ProposerDetails/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">ProposerDetails/html</parameter>
+        </command>
+        <command name="ProposerDetails/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">ProposerDetails/json</parameter>
+        </command>
+
+        <command name="ParsedUrlContent/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">ParsedUrlContent/html</parameter>
+        </command>
+        <command name="ParsedUrlContent/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">ParsedUrlContent/json</parameter>
+        </command>
+
+        <command name="ProposerQuotationSummary/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">ProposerQuotationSummary/html</parameter>
+        </command>
+
+        <command name="PaymentHolidayDetails/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PaymentHolidayDetails/json</parameter>
+        </command>
+        <command name="PaymentHolidayDetails/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PaymentHolidayDetails/html</parameter>
+        </command>
+
+        <command name="RedirectButtonAction/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">RedirectButtonAction/html</parameter>
+        </command>
+        <command name="RedirectButtonAction/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">RedirectButtonAction/json</parameter>
+        </command>
+
+        <command name="ReferralOverride/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">ReferralOverride/html</parameter>
+        </command>
+
+        <command name="QuoteToOnRisk/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">QuoteToOnRisk/html</parameter>
+        </command>
+
+        <command name="Question/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">Question/html</parameter>
+        </command>
+        <command name="Question/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">Question/json</parameter>
+        </command>
+
+        <command name="QuestionPage/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">QuestionPage/html</parameter>
+        </command>
+        <command name="QuestionPage/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">QuestionPage/json</parameter>
+        </command>
+
+        <command name="QuestionSection/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">QuestionSection/html</parameter>
+        </command>
+        <command name="QuestionSection/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">QuestionSection/json</parameter>
+        </command>
+
+        <command name="QuestionSeparator/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">QuestionSeparator/html</parameter>
+        </command>
+        <command name="QuestionSeparator/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">QuestionSeparator/json</parameter>
+        </command>
+
+        <command name="QuestionWithDetails/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">QuestionWithDetails/html</parameter>
+        </command>
+        
+        <command name="QuestionWithSubSection/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">QuestionWithSubSection/json</parameter>
+        </command>
+        
+        <command name="QuestionWithSubSection/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">QuestionWithSubSection/html</parameter>
+        </command>
+
+        <command name="QuitButtonAction/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">QuitButtonAction/html</parameter>
+        </command>
+        <command name="QuitButtonAction/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">QuitButtonAction/json</parameter>
+        </command>
+
+        <command name="QuotationSummary/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">QuotationSummary/html</parameter>
+        </command>
+        <command name="QuotationSummary/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">QuotationSummary/json</parameter>
+        </command>
+
+        <command name="PolicySummary/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PolicySummary/html</parameter>
+        </command>
+        
+        <command name="PolicyAdmin/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PolicyAdmin/html</parameter>
+        </command>
+        
+        <command name="PolicyPayments/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PolicyPayments/html</parameter>
+        </command>
+
+        <command name="DocumentUpload/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">DocumentUpload/html</parameter>
+        </command>
+        <command name="DocumentUpload/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">DocumentUpload/json</parameter>
+        </command>
+        
+        <command name="ImageViewer/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">ImageViewer/html</parameter>
+        </command>
+
+        <command name="PolicyDetail/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PolicyDetail/html</parameter>
+        </command>
+        <command name="PolicyDetail/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PolicyDetail/json</parameter>
+        </command>
+        
+        <command name="Logs/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">Logs/html</parameter>
+        </command>
+
+        <command name="PolicyDocuments/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">PolicyDocuments/html</parameter>
+        </command>
+
+        <command name="ReferralSummary/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">ReferralSummary/html</parameter>
+        </command>
+
+        <command name="RequoteButtonAction/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">RequoteButtonAction/html</parameter>
+        </command>
+        <command name="RequoteButtonAction/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">RequoteButtonAction/json</parameter>
+        </command>
+
+        <command name="RowScroller/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">RowScroller/html</parameter>
+        </command>
+        <command name="RowScroller/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">RowScroller/json</parameter>
+        </command>
+
+        <command name="SaveButtonAction/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">SaveButtonAction/html</parameter>
+        </command>
+        <command name="SaveButtonAction/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">SaveButtonAction/json</parameter>
+        </command>
+
+        <command name="SavedQuotations/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">SavedQuotations/html</parameter>
+        </command>
+
+        <command name="SectionScroller/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">SectionScroller/html</parameter>
+        </command>
+        <command name="SectionScroller/application/json" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">SectionScroller/json</parameter>
+        </command>
+
+        <command name="ViewCertificateButtonCommand/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">ViewCertificateButtonService/html</parameter>
+        </command>
+
+        <command name="ViewQuotationButtonCommand/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">ViewQuotationButtonService/html</parameter>
+        </command>
+
+        <command name="ViewScheduleButtonCommand/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">ViewScheduleButtonService/html</parameter>
+        </command>
+
+        <command name="ViewPolicyButtonCommand/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">ViewPolicyButtonService/html</parameter>
+        </command>
+
+        <command name="ViewWordingButtonCommand/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">ViewWordingButtonService/html</parameter>
+        </command>
+
+        <command name="ViewInvoiceButtonCommand/text/html" key="com.ail.pageflow.render.RenderCommandImpl">
+            <parameter name="Service">ViewInvoiceButtonService/html</parameter>
+        </command>
+
+        <!-- ================================================================== -->
+        <!-- Default workflow commands -->
+        <!-- ================================================================== -->
+
+        <command name="CreateNewBusinessReferralWorkflow" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">CreateNewBusinessReferralWorkflowService</parameter>
+        </command>
+
+        <command name="GenerateDocument" builder="ClassBuilder" key="com.ail.core.document.GenerateDocumentCommandImpl">
+            <parameter name="Service">GenerateDocumentService</parameter>
+        </command>
+
+        <!-- ================================================================== -->
+        <!-- Product upgrade commands -->
+        <!-- ================================================================== -->
+
+        <command name="OU-1077 remove redundant classes" key="com.ail.core.product.UpgradeProductCommandImpl">
+            <parameter name="Service">OU-1077 remove redundant classes.bsh</parameter>
+        </command>
+
+        <!-- ================================================================== -->
+        <!-- Default product types -->
+        <!-- ================================================================== -->
+
+        <type name="Policy" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Policy">
+            <parameter name="Url">product://localhost:8080/AIL/Base/Model/Policy.xml</parameter>
+        </type>
+
+        <type name="Claim" builder="CastorXMLBuilder" key="com.ail.insurance.claim.Claim">
+            <parameter name="Url">product://localhost:8080/AIL/Base/Model/Claim.xml</parameter>
+        </type>
+
+        <type name="PersonalProposer" builder="CastorXMLBuilder" key="com.ail.insurance.policy.PersonalProposer">
+            <parameter name="Url">~/Model/PersonalProposer.xml</parameter>
+        </type>
+
+        <type name="CommercialProposer" builder="CastorXMLBuilder" key="com.ail.insurance.policy.CommercialProposer">
+            <parameter name="Url">~/Model/CommercialProposer.xml</parameter>
+        </type>
+
+		<type name="ClientDetailsPageFlow" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.PageFlow">
+            <parameter name="Url">product://localhost:8080/AIL/Base/PageFlows/ClientDetailsPageFlow.xml</parameter>
+        </type>
+        
+        <type name="DocumentTypes" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.util.Choice">
+            <parameter name="Url">product://localhost:8080/AIL/Base/Model/DocumentTypes.xml</parameter>
+        </type>
+
+        <type name="QuotationPageFlow" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.PageFlow">
+            <parameter name="Url">product://localhost:8080/AIL/Base/PageFlows/QuotationPageFlow.xml</parameter>
+        </type>
+
+        <type name="AssessmentSheetPageFlow" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.PageFlow">
+            <parameter name="Url">product://localhost:8080/AIL/Base/PageFlows/AssessmentSheetPageFlow.xml</parameter>
+        </type>
+
+        <type name="PolicySummaryPageFlow" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.PageFlow">
+            <parameter name="Url">product://localhost:8080/AIL/Base/PageFlows/PolicySummaryPageFlow.xml</parameter>
+        </type>
+        
+        <type name="PolicyAdminPageFlow" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.PageFlow">
+            <parameter name="Url">product://localhost:8080/AIL/Base/PageFlows/PolicyAdminPageFlow.xml</parameter>
+        </type>
+        
+        <type name="LogsPageFlow" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.PageFlow">
+            <parameter name="Url">product://localhost:8080/AIL/Base/PageFlows/LogsPageFlow.xml</parameter>
+        </type>
+        
+        <type name="PaymentsPageFlow" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.PageFlow">
+            <parameter name="Url">product://localhost:8080/AIL/Base/PageFlows/PaymentsPageFlow.xml</parameter>
+        </type>
+
+        <type name="PolicyDetailPageFlow" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.PageFlow">
+            <parameter name="Url">product://localhost:8080/AIL/Base/PageFlows/PolicyDetailPageFlow.xml</parameter>
+        </type>
+
+        <type name="ReferralDetailPageFlow" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.PageFlow">
+            <parameter name="Url">product://localhost:8080/AIL/Base/PageFlows/ReferralDetailPageFlow.xml</parameter>
+        </type>
+
+        <type name="QuoteToOnRiskPageFlow" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.PageFlow">
+            <parameter name="Url">product://localhost:8080/AIL/Base/PageFlows/QuoteToOnRiskPageFlow.xml</parameter>
+        </type>
+
+        <type name="PolicyDocumentsPageFlow" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.PageFlow">
+            <parameter name="Url">product://localhost:8080/AIL/Base/PageFlows/PolicyDocumentsPageFlow.xml</parameter>
+        </type>
+
+        <type name="AilDemoBroker" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Broker">
+            <parameter name="Url">~/Model/Acme.xml</parameter>
+        </type>
+
+        <type name="Labels" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.label.Labels">
+            <parameter name="Url">product://localhost:8080/AIL/Base/Labels.xml</parameter>
+        </type>
+
+        <type name="Note" builder="CastorXMLBuilder" singleInstance="false" key="com.ail.core.Note">
+            <parameter name="Url">product://localhost:8080/AIL/Base/Model/Note.xml</parameter>
+        </type>
+
+        <type name="Translations" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.language.Translations">
+            <parameter name="Url">product://localhost:8080/AIL/Base/Translations.xml</parameter>
+        </type>
+ 
+        <type name="DataDictionary" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.data.DataDictionary">
+            <parameter name="Url">product://localhost:8080/AIL/Base/DataDictionary.xml</parameter>
+        </type>
+
+        <type name="QuotationDocument" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.document.model.DocumentDefinition">
+            <parameter name="Url">product://localhost:8080/AIL/Base/Documents/QuotationDocument.xml</parameter>
+        </type>
+
+        <type name="CertificateDocument" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.document.model.DocumentDefinition">
+            <parameter name="Url">product://localhost:8080/AIL/Base/Documents/CertificateDocument.xml</parameter>
+        </type>
+
+        <type name="InvoiceDocument" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.document.model.DocumentDefinition">
+            <parameter name="Url">product://localhost:8080/AIL/Base/Documents/InvoiceDocument.xml</parameter>
+        </type>
+
+        <type name="WordingDocument" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.document.model.DocumentDefinition">
+            <parameter name="Url">product://localhost:8080/AIL/Base/Documents/WordingDocument.xml</parameter>
+        </type>
+
+        <type name="ScheduleDocument" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.document.model.DocumentDefinition">
+            <parameter name="Url">product://localhost:8080/AIL/Base/Documents/ScheduleDocument.xml</parameter>
+        </type>
+
+        <type name="PolicyDocument" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.document.model.DocumentDefinition">
+            <parameter name="Url">product://localhost:8080/AIL/Base/Documents/PolicyDocument.xml</parameter>
+        </type>
+    </types>
+</configuration>

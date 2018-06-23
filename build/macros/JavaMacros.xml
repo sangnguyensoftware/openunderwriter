@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ Build Macros for building J2EE projects
+-->
+
+<project default="dummy" name="BuildJ2EEMacros.xml">
+
+  <target name="dummy" />
+
+  <macrodef name="_copy-resources-macro">
+    <attribute name="srcdir" />
+    <attribute name="destdir" />
+  	<attribute name="overwrite" default="false" />
+    <sequential>
+      <!-- install text files (properties, xml, etc) with the filter turned on -->
+      <copy todir="@{destdir}" overwrite="@{overwrite}">
+        <filterset refid="copy.filterset" />
+        <fileset dir="@{srcdir}" includes="${text.filetypes}" excludes="Build.xml, Ivy.xml, src/**, */src/**, */.sass-cache/**" />
+        <fileset dir="@{srcdir}" includes="META-INF/**/*" />
+      </copy>
+
+      <!-- copy binary files with the filter turned off -->
+      <copy todir="@{destdir}" overwrite="@{overwrite}">
+        <fileset dir="@{srcdir}" excludes="src/**, */src/**" includes="${binary.filetypes}" />
+      </copy>
+
+    </sequential>
+  </macrodef>
+
+  <!-- replace an exploded jar folder with a jar file -->
+  <macrodef name="package-exploded-jar-macro">
+    <sequential>
+      <_initialise-ant-contribs-macro />
+      <_set-output-dir-property-macro />
+      <if>
+        <available file="${output.dir}/META-INF/MANIFEST.MF" />
+        <then>
+          <jar basedir="${output.dir}" destfile="${output.dir}.tmp" manifest="${output.dir}/META-INF/MANIFEST.MF" />
+        </then>
+        <else>
+          <jar basedir="${output.dir}" destfile="${output.dir}.tmp" />
+        </else>
+      </if>
+      <delete dir="${output.dir}" />
+      <move file="${output.dir}.tmp" tofile="${output.dir}" />
+    </sequential>
+  </macrodef>
+
+  <!-- replace an exploded ejb jar folder with a jar file -->
+  <macrodef name="package-exploded-ejb-jar-macro">
+    <sequential>
+      <package-exploded-jar-macro />
+    </sequential>
+  </macrodef>
+
+  <!-- replace an exploded war folder with a jar file -->
+  <macrodef name="package-exploded-war-macro">
+    <sequential>
+      <package-exploded-jar-macro />
+    </sequential>
+  </macrodef>
+
+  <!-- Macro to build an exploded jar from a source folder.                                         -->
+  <!-- The output folder for the compilation is derived from the ant project name. For example, if  -->
+  <!-- the ant project's name (taken from it's 'name' attribute) is "core.ear/core.jar", the output -->
+  <!-- folder will be ${deploy.dir}/deploy/core.ear/core.jar.                                       -->
+  <macrodef name="compile-jar-macro">
+    <attribute name="merge-configs" default="true" />
+    <attribute name="module" default="no" />
+    <attribute name="dependencies" default="" />
+    <attribute name="packagable" default="yes" />
+  	<attribute name="src-path" default="." />
+  	<attribute name="out-path" default="" />
+    <element name="javac-classpath" optional="no" />
+    <sequential>
+
+      <_initialise-ant-contribs-macro />
+
+      <if>
+      	<length string="@{out-path}" length="0"/>
+      	<then>
+	        <_set-output-dir-property-macro />
+      	</then>
+      	<else>
+			<property name="output.dir" value="@{out-path}" /> 
+      	</else>
+      </if>
+
+      <mkdir dir="${output.dir}" />
+      <mkdir dir="${generated.source.dir}" />
+
+      <!-- compile the java source -->
+      <javac destdir="${output.dir}" debug="yes" includeantruntime="false" target="1.8">
+        <compilerarg line="-s ${generated.source.dir}" />
+        <src path="@{src-path}" />
+        <classpath>
+          <fileset dir="${buildlib.dir}" includes="*.jar" />
+          <javac-classpath />
+        </classpath>
+      </javac>
+
+      <_copy-resources-macro srcdir="." destdir="${output.dir}" />
+
+      <if>
+        <istrue value="@{merge-configs}" />
+        <then>
+          <aggregate-annotated-configurations-macro />
+        </then>
+      </if>
+
+      <if>
+        <istrue value="@{module}" />
+        <then>
+          <generate-module-descriptor-macro dependencies="@{dependencies}" />
+        </then>
+      </if>
+
+      <if>
+        <and>
+          <equals arg1="@{packagable}" arg2="yes" />
+          <equals arg1="${build.type}" arg2="integration" />
+        </and>
+        <then>
+          <package-exploded-jar-macro />
+        </then>
+      </if>
+
+    </sequential>
+  </macrodef>
+
+  <!-- Macro to build an exploded ejb jar file. -->
+  <macrodef name="compile-ejb-jar-macro">
+    <attribute name="merge-configs" default="true" />
+    <element name="javac-classpath" optional="no" />
+    <sequential>
+
+      <_initialise-ant-contribs-macro />
+      <_set-output-dir-property-macro />
+
+      <mkdir dir="${output.dir}" />
+
+      <!-- compile the java source -->
+      <javac destdir="${output.dir}" srcdir="." verbose="no" debug="yes" includeantruntime="false" target="1.8">
+        <classpath>
+          <fileset dir="${buildlib.dir}" includes="*.jar" />
+          <javac-classpath />
+        </classpath>
+      </javac>
+
+      <_copy-resources-macro srcdir="." destdir="${output.dir}" />
+
+      <if>
+        <istrue value="@{merge-configs}" />
+        <then>
+          <aggregate-annotated-configurations-macro />
+        </then>
+      </if>
+
+      <if>
+        <equals arg1="${build.type}" arg2="integration" />
+        <then>
+          <package-exploded-jar-macro />
+        </then>
+      </if>
+
+      <touch file="${output.dir}.dodeploy" />
+
+    </sequential>
+  </macrodef>
+
+  <!-- Macro to compile a war project into an exploded war deployment folder -->
+  <macrodef name="compile-war-macro">
+    <element name="javac-classpath" optional="no" />
+    <element name="additional-resources" optional="yes" />
+    <sequential>
+
+      <_initialise-ant-contribs-macro />
+      <_set-output-dir-property-macro />
+
+      <mkdir dir="${output.dir}" />
+      <mkdir dir="${output.dir}/WEB-INF/classes" />
+      <mkdir dir="${generated.source.dir}" />
+
+      <_copy-resources-macro srcdir="." destdir="${output.dir}" />
+      
+      <additional-resources />
+
+      <if>
+        <available file="${basedir}/WEB-INF/src" type="dir" />
+        <then>
+
+          <javac destdir="${output.dir}/WEB-INF/classes" verbose="no" debug="yes" includeantruntime="false" target="1.8">
+            <compilerarg line="-s ${generated.source.dir}" />
+            <src path="./WEB-INF/src" />
+            <classpath>
+              <fileset dir="${buildlib.dir}" includes="*.jar" />
+              <javac-classpath />
+            </classpath>
+          </javac>
+
+          <_copy-resources-macro srcdir="./WEB-INF/src" destdir="${output.dir}/WEB-INF/classes" />
+        </then>
+      </if>
+
+      <if>
+        <equals arg1="${build.type}" arg2="integration" />
+        <then>
+          <package-exploded-war-macro />
+        </then>
+      </if>
+
+      <touch file="${output.dir}.dodeploy" />
+
+    </sequential>
+  </macrodef>
+
+  <macrodef name="gwt-compile-macro">
+  	<attribute name="gwtModule" />
+  	<attribute name="module" />
+    <sequential>
+      <_set-output-dir-property-macro />
+      <antcall target="create-webinf" />
+      <java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
+      	<arg value="-war" />
+      	<arg value="${output.dir}" />
+      	<classpath>
+      	  <pathelement location="${basedir}/WEB-INF/src"/>
+      	  <pathelement location="${project.dir}/modules/com/ail/@{module}.jar"/>
+      	  <fileset dir="${module.dir}/com/ail/@{module}/main" />
+    	</classpath>
+    	<jvmarg value="-Xmx512M" />
+    	<arg value="@{gwtModule}" />
+      </java>
+    </sequential>
+  </macrodef>
+	
+  <target name="check-webinf-dir">
+	<available file="${output.dir}/WEB-INF" type="dir" property="webinf.dir.present"/>
+  </target>
+	
+  <target name="create-webinf" depends="check-webinf-dir" unless="webinf.dir.present">
+  	<mkdir dir="${output.dir}/WEB-INF"/>
+  </target>
+	
+  <!-- Delete an exploded jar projects output folder -->
+  <macrodef name="delete-jar-macro">
+    <sequential>
+      <_set-output-dir-property-macro />
+      <delete dir="${generated.source.dir}" failonerror="no" />
+      <delete dir="${output.dir}" failonerror="no" />
+      <delete file="${output.dir}" failonerror="no" />
+    </sequential>
+  </macrodef>
+
+  <!-- Delete an exploded jar projects output folder -->
+  <macrodef name="delete-module-macro">
+    <sequential>
+      <_set-output-dir-property-macro />
+      <delete dir="${output.dir}/.." failonerror="no" />
+    </sequential>
+  </macrodef>
+
+  <!-- Delete an exploded ejb jar projects output folder -->
+  <macrodef name="delete-ejb-jar-macro">
+    <sequential>
+      <delete-jar-macro />
+    </sequential>
+  </macrodef>
+
+  <!-- Delete an exploded war projects output folder -->
+  <macrodef name="delete-war-macro">
+    <sequential>
+      <_set-output-dir-property-macro />
+      <delete dir="${output.dir}" failonerror="no" />
+      <delete file="${output.dir}.deployed" />
+    </sequential>
+  </macrodef>
+
+  <!-- Fork a new ant process with a classpath that includes all of the jars in the -->
+  <!-- ${buildlib.dir} folder.                                                      -->
+  <macrodef name="fork-ant-macro">
+    <attribute name="dir" />		<!-- Directory to execute ant in. -->
+    <attribute name="antfile" />	<!-- The build file to pass to ant. -->
+    <attribute name="target" />		<!-- The ant target within the build file to be run. -->
+    <sequential>
+      <java fork="yes" dir="@{dir}" classname="org.apache.tools.ant.Main">
+        <arg line="-f @{antfile} @{target}" />
+        <classpath>
+          <fileset dir="${buildlib.dir}" includes="*.jar" />
+        </classpath>
+      </java>
+    </sequential>
+  </macrodef>
+</project>

@@ -1,0 +1,7 @@
+import com.ail.core.Version;
+import com.ail.core.dummyservice.DummyService;
+
+public class TestServiceInvocationJaninoClassBadArgument {
+    public static void invoke(DummyService args) {
+    }
+}

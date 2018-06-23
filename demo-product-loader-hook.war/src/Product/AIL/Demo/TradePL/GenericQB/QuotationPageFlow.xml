@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GenericQB page flow definition.
+     The QuotationPageFlow.xml defines:
+     * the questions that are asked
+     * what data those questions are bound to in the Quotation.xml document
+     * what pages those questions appear on
+     * when different rulesets are applied
+-->
+<pageFlow id="QuotationPageFlow" xsi:type="java:com.ail.pageflow.PageFlow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <action when="onPageFlowEntry" id="CreateNewBusinessQuotation" commandName="CreateNewBusinessQuotationCommand" />
+  <action when="onPageFlowEntry" id="Initialise" commandName="InitialiseNewBusiness" />
+
+  <!-- Referral page - mainly html content -->
+  <questionPage id="Referral" title="Thank you for your enquiry." quitDisabled="true">
+    <parsedUrlContent id="Content" url="product://localhost:8080/AIL/Demo/TradePL/GenericQB/HTML/ReferralNotification.html"/>
+    <navigationSection quitDisabled="true">
+    </navigationSection>
+  </questionPage>
+
+</pageFlow>

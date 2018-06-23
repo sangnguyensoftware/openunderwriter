@@ -1,0 +1,100 @@
+## Copyright Applied Industrial Logic Limited 2017. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+#set( $pageElement = $args.PageElementArg )		## Instance of com.ail.pageflow.CustomLetterBuilder
+#set( $id = $args.RenderIdArg )
+#set( $model = $args.ModelArgRet)
+#set( $context = $model )
+#set( $response = $args.ResponseArgRet )        ## Instance of com.ail.core.context.ResponseWrapper
+##
+#if( $pageElement.Binding ) 
+    #set( $context = ${model.xpathGet($pageElement.Binding, null)} )
+#end
+##
+{
+	"type": "PageSection",
+	"id": "$id",
+	"elements": [
+		{
+			#set($encodedId="${pageElement.SelectedDocumentTypeFieldId}")
+			"type": "Question",
+			"title": "#i18n('i18n_custom_letter_builder_document_type_label')",
+			"value": "$!pageElement.SelectedDocumentType",
+			"valueId": "$encodedId",
+			"format": {
+				"type": "choice",
+				"options": [
+					#foreach($templateId in $pageElement.fetchValidDocumentTypes())
+					{
+					"id": "$templateId",
+					"value": "#i18n($templateId)"
+					}#if( $foreach.hasNext ),#end
+					#end
+				]
+			}
+		},
+		{
+			#set($encodedId="${pageElement.SelectedRecipientFieldId}")
+			"type": "Question",
+			"title": "#i18n('i18n_custom_letter_builder_recipient_label')",
+			"value": "",
+			"valueId": "$encodedId",
+			"format": {
+				"type": "choice",
+				"options": [
+					#foreach($partyRole in $pageElement.fetchValidRecipients($model))
+					{
+					"id": "${partyRole.Party.ExternalSystemId}",
+					"value": "#party($partyRole)"
+					}#if( $foreach.hasNext ),#end
+					#end
+				]
+			}
+		},
+		{
+			#set($encodedId="${pageElement.CustomContentFieldId}")
+			"type": "Question",
+			"title": "#i18n('i18n_custom_letter_builder_custom_content_label')",
+			"valueId": "$encodedId",
+			"value": "$!{pageElement.getCustomContent($context, ${pageElement.SelectedDocumentType})}",
+			"clientHint": "template__wysiwyg",
+			"format": {
+				"type": "note"
+			}
+		}
+		#if( $pageElement.PageElement.size()!=0 )
+			,
+			#set( $mark = $response.writerMark() )
+			#foreach( $element in $pageElement.PageElement )
+				#if( $mark != $response.writerMark()),#end
+				#set( $mark = $response.writerMark() )
+				#set( $tmp = ${element.renderResponse($context)} )
+			#end
+		#end
+	]
+	#renderHint
+}
+##
+#macro(renderHint)
+    #if( $args.RenderHintArg )       
+        ,"clientHint": "$args.RenderHintArg"
+    #end
+#end
+##
+#macro(i18n $id)$pageElement.i18n("$id")#end
+##
+#macro(party $partyRole)${partyRole.Party.LegalName} (#i18n(${partyRole.Role})) - $!{partyRole.Party.Address.FullAddress}#end

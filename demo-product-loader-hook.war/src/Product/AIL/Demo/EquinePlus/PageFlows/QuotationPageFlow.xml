@@ -1,0 +1,160 @@
+<pageFlow id="EquinePlusQuotation" startPage="Welcome" type="java:com.ail.pageflow.PageFlow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/PageFlow-1.1.xsd">
+    
+    <page id="Welcome" title="Equine Plus - Online Horse Insurance">
+        <pageSection>
+            <parsedUrlContent id="Content" url="~/HTML/Welcome.html" />
+        </pageSection>
+        <savedQuotations requoteDestinationPageId="HorseDetails" confirmAndPayDestinationPageId="CollectPaymentDetails"/>
+        <navigationSection quitDisabled='true'>
+            <commandButtonAction label="Get A Quote" destinationPageId="Proposer">
+                <action when="onProcessActions" commandName="CreateNewBusinessQuotationCommand" />
+            </commandButtonAction>
+        </navigationSection>
+    </page>
+    
+    <page id="Proposer" title="About You - The Proposer">
+        <proposerDetails binding="/proposer"/>
+        <navigationSection>
+            <commandButtonAction label="Next" destinationPageId="HorseDetails">
+				<startWorkflowAction when="onStartProcessAction" workflowId="ail.sample.HelloWorld" abortExisting="false">
+					<onChangeField>proposer/firstName</onChangeField>
+					<onChangeField>proposer/surname</onChangeField>
+				</startWorkflowAction>
+            	<action when="onProcessActions" commandName="QuotationToApplication" />
+            </commandButtonAction>
+        </navigationSection>
+    </page>
+    
+    <page id="HorseDetails" title="About Your Horse">
+        <pageSection>
+            <question title="What is the name of the horse?" binding="Horse/Name"/>
+            <question title="How old is the horse?" binding="Horse/Age"/>
+            <question title="What is the horse's gender?" binding="Horse/Gender"/>
+            <question title="What colour is the horse?" binding="Colour"/>
+            <question title="What is the horse's height (in hands and inches)?" binding="Height"/>
+            <question title="What is the freeze brand?" binding="Freeze Brand"/>
+            <question title="What is the horse's passport number" binding="Passport Number"/>
+            <question title="On what basis do you owned the horse" binding="Ownership"/>
+            <question title="On what date did you buy (or start the loan of) the horse?" binding="Purchase Date"/>
+            <question title="What is the current value of the horse?" binding="Value"/>
+        </pageSection>
+        <navigationSection>
+            <commandButtonAction label="Previous" destinationPageId="Proposer" immediate="true">
+                <action commandName="CalculateHorsesAge"/>
+				<startWorkflowAction when="onStartProcessAction" workflowId="ail.sample.HelloWorld">
+					<onChangeField>Horse/Name</onChangeField>
+					<onChangeField>Horse/Age</onChangeField>
+				</startWorkflowAction>
+            </commandButtonAction>
+            <commandButtonAction label="Next" destinationPageId="TypesOfUse">
+                <action commandName="CalculateHorsesAge"/>
+				<startWorkflowAction when="onStartProcessAction" workflowId="ail.sample.HelloWorld">
+					<onChangeField>Horse/Name</onChangeField>
+					<onChangeField>Horse/Age</onChangeField>
+				</startWorkflowAction>
+            </commandButtonAction>
+        </navigationSection>
+    </page> 
+
+    <page id="TypesOfUse" title="Activities">
+        <pageSection title="What Class of Activities will you be participating in:">
+            <question title="Please select a class of use (see below):" binding="Type of Use"/>
+		</pageSection>
+        <pageSection>
+            <parsedUrlContent url="~/HTML/TypesOfUseDescription.html"/>
+        </pageSection>
+        <navigationSection>
+            <commandButtonAction label="Previous" destinationPageId="HorseDetails" immediate="true"/>
+            <commandButtonAction label="Next" destinationPageId="Covers"/>
+        </navigationSection>
+    </page> 
+
+   <page id="Covers" title="Cover">
+        <pageSection title="What level of cover is required:" binding="/asset[assetTypeId='CoverageAsset']">
+            <question title="What level of cover you require in the event of the death of the horse?" binding="attribute[id='death']"/>
+            <question title="What public liability cover do you require?" binding="attribute[id='publicLiability']"/>
+            <question title="What cover do you require in the event of the theft or loss of the horse?" binding="attribute[id='theft']"/>
+            <question title="What level of personal injury cover do you require?" binding="attribute[id='personalInjury']"/>
+            <question title="What dental fees cover do you require?" binding="attribute[id='dental']"/>
+            <question title="What cover do you require for stablling?" binding="attribute[id='stables']"/>
+            <question title="What level of cover do you require for vets fees?" binding="attribute[id='vetFees']"/>
+            <question title="What saddlery and tack cover do you require?" binding="attribute[id='saddlery']"/>
+		</pageSection>
+        <navigationSection>
+            <commandButtonAction label="Previous" destinationPageId="TypesOfUse" immediate="true"/>
+            <commandButtonAction label="Next" destinationPageId="Referral">
+                <action when="onProcessActions" commandName="PremiumCalculation"/>
+                <pageForwardAction when="onProcessActions" condition="i:test(status[.='QUOTATION'])" destinationPageId="Quotation"/>
+            </commandButtonAction>
+        </navigationSection>
+    </page> 
+    
+
+    <page id="Quotation">
+        <quotationSummary termsAndConditionsUrl="~/HTML/TermsAndConditions.html" 
+            requoteDestinationPageId="HorseDetails"
+            saveDestinationPageId="SavedQuotes"
+            confirmAndPayDestinationPageId="CollectPaymentDetails">
+
+            <pageSection title="Summary of your cover">
+                <answer title="Usage" binding="Type of Use"/>
+                <answer title="Start date" binding="inceptionDate"/>
+                <answer title="End date" binding="expiryDate"/>
+            </pageSection>
+            
+            <pageSection title="Horse(s)">
+	            <answer title="Name:" binding="/asset[id='horse1']/attribute[id='name']"/>
+	            <answer title="Age:" binding="/asset[id='horse1']/attribute[id='age']"/>
+	            <answer title="Gender:" binding="/asset[id='horse1']/attribute[id='gender']"/>
+	            <answer title="Colour:" binding="/asset[id='horse1']/attribute[id='colour']"/>
+	            <answer title="Height:" binding="/asset[id='horse1']/attribute[id='height']"/>
+	            <answer title="Freeze brand:" binding="/asset[id='horse1']/attribute[id='freezebrand']"/>
+	            <answer title="Passport:" binding="/asset[id='horse1']/attribute[id='passport']"/>
+	            <answer title="Owned:" binding="/asset[id='horse1']/attribute[id='owned']"/>
+	            <answer title="Date bought/start of loan:" binding="/asset[id='horse1']/attribute[id='datebought']"/>
+	            <answer title="Purchase price/value:" binding="/asset[id='horse1']/attribute[id='currentvalue']"/>
+            </pageSection>
+    	</quotationSummary>
+    </page>
+
+    <page id="Referral" title="Referral">
+        <referralSummary referralNotificationUrl="~/HTML/ReferralNotification.html" requoteDestinationPageId="HorseDetails">
+            <pageSection title="Summary of your application">
+                <answer title="Usage" binding="Type of Use"/>
+                <answer title="Start date" binding="inceptionDate"/>
+                <answer title="End date" binding="expiryDate"/>
+            </pageSection>
+            
+            <pageSection title="Horse(s)">
+	            <answer title="Name:" binding="Horse/Name"/>
+	            <answer title="Age:" binding="Horse/Age"/>
+	            <answer title="Gender:" binding="Horse/Gender"/>
+	            <answer title="Colour:" binding="Colour"/>
+	            <answer title="Height:" binding="Height"/>
+	            <answer title="Freeze brand:" binding="Freeze Brand"/>
+	            <answer title="Passport:" binding="Passport Number"/>
+	            <answer title="Owned:" binding="Ownership"/>
+	            <answer title="Date bought/start of loan:" binding="Purchase Date"/>
+	            <answer title="Purchase price/value:" binding="Value"/>
+            </pageSection>
+        </referralSummary>
+    </page>
+
+    <page id="CollectPaymentDetails" title="Payment details">
+        <action when="onRenderResponse" commandName="AssessPaymentOptions"/>
+        <paymentDetails/>
+        <navigationSection>
+            <commandButtonAction label="Previous" immediate='true' destinationPageId="Quotation"/>
+            <commandButtonAction label="Next" destinationPageId="Finish"/>
+        </navigationSection>
+    </page>
+
+    <page id="Finish" title="Thank you">
+        <pageSection>
+            <parsedUrlContent url="~/HTML/ThankYou.html"/>
+        </pageSection>
+        <navigationSection >
+            <quitButtonAction label="Finish" destinationPageId="Finish"/>
+        </navigationSection>
+    </page>
+</pageFlow>

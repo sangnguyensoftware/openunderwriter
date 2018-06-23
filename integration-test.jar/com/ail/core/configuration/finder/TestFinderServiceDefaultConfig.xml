@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Default Configuration</name>
+    <timeout>600000</timeout>
+    <who>factory</who>
+    <version>$Revision: 1.6 $</version>
+</configuration>

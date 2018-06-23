@@ -1,0 +1,304 @@
+<?xml version="1.0"?>
+<portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd"
+	version="2.0">
+	<portlet>
+		<portlet-name>reportWidget</portlet-name>
+		<display-name>Report Widget</display-name>
+		<portlet-class>com.liferay.util.bridges.mvc.MVCPortlet</portlet-class>
+		<init-param>
+			<name>view-template</name>
+			<value>/genericwidget/jsp/view.jsp</value>
+		</init-param>
+		<init-param>
+			<name>config-template</name>
+			<value>/genericwidget/jsp/configure.jsp</value>
+		</init-param>
+		<init-param>
+			<name>reportName</name>
+			<value>ReportWidget</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<resource-bundle>reportwidget-resources</resource-bundle>
+		<portlet-info>
+			<title>Generic reporting widget</title>
+			<short-title>reporting widget</short-title>
+			<keywords>report widget</keywords>
+		</portlet-info>
+        <security-role-ref>
+            <role-name>administrator</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>guest</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>power-user</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>user</role-name>
+        </security-role-ref>
+	</portlet>
+	<portlet>
+		<portlet-name>policiesByProductQtr</portlet-name>
+		<display-name>Policies by Product - Qtr</display-name>
+		<portlet-class>com.liferay.util.bridges.mvc.MVCPortlet</portlet-class>
+		<init-param>
+			<name>view-template</name>
+			<value>/jsp/view.jsp</value>
+		</init-param>
+		<init-param>
+			<name>reportName</name>
+			<value>PoliciesByProduct_Qtr</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<resource-bundle>reportwidget-resources</resource-bundle>
+		<portlet-info>
+			<title>Policies by Product - Qtr</title>
+			<short-title>Policies by Product</short-title>
+			<keywords>report widget</keywords>
+		</portlet-info>
+        <security-role-ref>
+            <role-name>administrator</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>guest</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>power-user</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>user</role-name>
+        </security-role-ref>
+	</portlet>
+	<portlet>
+		<portlet-name>premiumsByProductQtr</portlet-name>
+		<display-name>Premiums by Product - Qtr</display-name>
+		<portlet-class>com.liferay.util.bridges.mvc.MVCPortlet</portlet-class>
+		<init-param>
+			<name>view-template</name>
+			<value>/jsp/view.jsp</value>
+		</init-param>
+		<init-param>
+			<name>reportName</name>
+			<value>PremiumsByProduct_Qtr</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<resource-bundle>reportwidget-resources</resource-bundle>
+		<portlet-info>
+			<title>Premiums by Product - Qtr</title>
+			<short-title>Premiums by Product</short-title>
+			<keywords>report widget</keywords>
+		</portlet-info>
+        <security-role-ref>
+            <role-name>administrator</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>guest</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>power-user</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>user</role-name>
+        </security-role-ref>
+	</portlet>
+	<portlet>
+		<portlet-name>quotedVsTakenPremiumPerWeekQtr</portlet-name>
+		<display-name>Quoted vs Taken Premium per Week - Qtr</display-name>
+		<portlet-class>com.liferay.util.bridges.mvc.MVCPortlet</portlet-class>
+		<init-param>
+			<name>view-template</name>
+			<value>/jsp/view.jsp</value>
+		</init-param>
+		<init-param>
+			<name>reportName</name>
+			<value>QuotedVsTakenPremiumPerWeek_Qtr</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<resource-bundle>reportwidget-resources</resource-bundle>
+		<portlet-info>
+			<title>Quoted vs Taken Premium per Week - Qtr</title>
+			<short-title>Quoted vs Taken Premium</short-title>
+			<keywords>report widget</keywords>
+		</portlet-info>
+        <security-role-ref>
+            <role-name>administrator</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>guest</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>power-user</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>user</role-name>
+        </security-role-ref>
+	</portlet>
+	<portlet>
+		<portlet-name>quotesPerWeekQtr</portlet-name>
+		<display-name>Quotes per Week - Qtr</display-name>
+		<portlet-class>com.liferay.util.bridges.mvc.MVCPortlet</portlet-class>
+		<init-param>
+			<name>view-template</name>
+			<value>/jsp/view.jsp</value>
+		</init-param>
+		<init-param>
+			<name>reportName</name>
+			<value>QuotesPerWeek_Qtr</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<resource-bundle>reportwidget-resources</resource-bundle>
+		<portlet-info>
+			<title>Quotes per Week - Qtr</title>
+			<short-title>Quotes per Week - Qtr</short-title>
+			<keywords>report widget</keywords>
+		</portlet-info>
+        <security-role-ref>
+            <role-name>administrator</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>guest</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>power-user</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>user</role-name>
+        </security-role-ref>
+	</portlet>
+	<portlet>
+		<portlet-name>quotesVsTakenUpPerWeekQtr</portlet-name>
+		<display-name>Quotes vs Taken Up per Week - Qtr</display-name>
+		<portlet-class>com.liferay.util.bridges.mvc.MVCPortlet</portlet-class>
+		<init-param>
+			<name>view-template</name>
+			<value>/jsp/view.jsp</value>
+		</init-param>
+		<init-param>
+			<name>reportName</name>
+			<value>QuotesVsTakenUpPerWeek_Qtr</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<resource-bundle>reportwidget-resources</resource-bundle>
+		<portlet-info>
+			<title>Quotes vs Taken up per Week - Qtr</title>
+			<short-title>Quotes vs Taken up per Week</short-title>
+			<keywords>report widget</keywords>
+		</portlet-info>
+        <security-role-ref>
+            <role-name>administrator</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>guest</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>power-user</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>user</role-name>
+        </security-role-ref>
+	</portlet>
+	<portlet>
+		<portlet-name>quotedVsTakenPremiumPerMonthYear</portlet-name>
+		<display-name>Quoted vs Received Premium per Month - Year</display-name>
+		<portlet-class>com.liferay.util.bridges.mvc.MVCPortlet</portlet-class>
+		<init-param>
+			<name>view-template</name>
+			<value>/jsp/view.jsp</value>
+		</init-param>
+		<init-param>
+			<name>reportName</name>
+			<value>QuotedVsTakenPremiumPerMonth_Year</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<resource-bundle>reportwidget-resources</resource-bundle>
+		<portlet-info>
+			<title>Quoted vs Received Premium per Month - Year</title>
+			<short-title>Quoted vs Received Premium per Month</short-title>
+			<keywords>report widget</keywords>
+		</portlet-info>
+        <security-role-ref>
+            <role-name>administrator</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>guest</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>power-user</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>user</role-name>
+        </security-role-ref>
+	</portlet>
+	<portlet>
+		<portlet-name>quotesVsTakenUpPerMonthYear</portlet-name>
+		<display-name>Quotes vs Taken up per Month - Year</display-name>
+		<portlet-class>com.liferay.util.bridges.mvc.MVCPortlet</portlet-class>
+		<init-param>
+			<name>view-template</name>
+			<value>/jsp/view.jsp</value>
+		</init-param>
+		<init-param>
+			<name>reportName</name>
+			<value>QuotesVsTakenUpPerMonth_Year</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<resource-bundle>reportwidget-resources</resource-bundle>
+		<portlet-info>
+			<title>Quotes vs Taken up per Month - Year</title>
+			<short-title>Quotes vs Taken up per Month</short-title>
+			<keywords>report widget</keywords>
+		</portlet-info>
+        <security-role-ref>
+            <role-name>administrator</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>guest</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>power-user</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>user</role-name>
+        </security-role-ref>
+	</portlet>
+	
+	<filter>
+		<filter-name>HibernateSessionFilter</filter-name>
+		<filter-class>com.ail.core.persistence.hibernate.HibernateSessionPortletFilter</filter-class>
+		<lifecycle>RENDER_PHASE</lifecycle>
+		<lifecycle>RESOURCE_PHASE</lifecycle>
+		<lifecycle>EVENT_PHASE</lifecycle>	
+		<lifecycle>ACTION_PHASE</lifecycle>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>HibernateSessionFilter</filter-name>
+		<portlet-name>reportWidget</portlet-name>
+	</filter-mapping>
+</portlet-app>

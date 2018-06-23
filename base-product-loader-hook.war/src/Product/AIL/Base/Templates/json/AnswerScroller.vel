@@ -1,0 +1,51 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+#set( $model = $args.ModelArgRet)
+#set( $pageElement = $args.PageElementArg )             ## Instance of com.aio.pageflow.AnswerScroller
+#set( $response = $args.ResponseArgRet )                ## Instance of com.ail.core.context.ResponseWrapper
+#set( $id = $args.RenderIdArg )
+##
+{
+    "type": "$pageElement.Class.SimpleName",
+    "id": "$id",
+    "rows": [
+        #foreach($t in ${model.xpathIterate($pageElement.Binding)})
+            #if( $velocityCount != 1),#end
+            {
+                #if( $pageElement.Title && ${pageElement.Title.length} != 0 )
+                    "title": "${pageElement.formattedTitle($args)}",
+                #end
+                "answers": [
+                    #set( $mark = $response.writerMark() )
+                    #foreach($a in ${pageElement.Answer})
+                        #if( $mark != $response.writerMark()),#end
+                        #set( $mark = $response.writerMark() )
+                        #set( $tmp = ${a.renderResponse(${t})} )
+                    #end
+                ]
+            }
+        #end
+    ]
+    #renderHint
+}
+##
+#macro(renderHint)
+    #if( $args.RenderHintArg )       
+        ,"clientHint": "$args.RenderHintArg"
+    #end
+#end

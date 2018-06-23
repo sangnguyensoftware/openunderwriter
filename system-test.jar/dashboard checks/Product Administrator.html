@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>Product Administrator</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Product Administrator</td></tr>
+</thead><tbody>
+<tr>
+	<td>setTimeout</td>
+	<td>240000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/web/ou</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_58_login</td>
+	<td>katie@openunderwriter.org</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_58_password</td>
+	<td>katie</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=//button[text()=&quot; Sign In &quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=a[role~='menuitem'][href$='/dashboard']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTitle</td>
+	<td>Dashboard - OpenUnderwriter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//div[contains(@class,&quot;portlet-workflow-tasks&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//span[text()=&quot;Generic reporting widget&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=//span[@id=&quot;gui-QUICKSEARCH-search-field-container&quot;] </td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//span[@id=&quot;gui-QUICKSEARCH-search-button-container&quot;]/button[text()=&quot;Search&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=//div[text()=&quot;Please enter a valid quote or policy number&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=gui-quick-search-input</td>
+	<td>XXX</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//span[@id=&quot;gui-QUICKSEARCH-search-button-container&quot;]/button[text()=&quot;Search&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//div[text()=&quot;No Results Found&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=a[role~='menuitem'][href$='/logout']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTitle</td>
+	<td>Welcome - OpenUnderwriter</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

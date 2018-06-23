@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+<!DOCTYPE jboss-web PUBLIC
+   "-//JBoss Portal//DTD JBoss Portlet 2.0//EN"
+   "http://www.jboss.org/portal/dtd/jboss-portlet_2_0.dtd">
+-->
+
+<!--
+For all the portlet defined in portlet.xml, it is possible to configure specific settings to jboss portal for each portlet.
+-->
+<!ELEMENT portlet-app (portlet*)>
+
+<!--
+Additional configuration for a portlet.
+-->
+<!ELEMENT portlet (portlet-name,config-name?,session-config?,cache-config?,security?)>
+
+<!--
+The portlet configuration name.
+-->
+<!ELEMENT config-name (#PCDATA)>
+
+<!--
+The session-config element configures additional session behaviour at the portlet level.
+-->
+<!ELEMENT session-config (distributed?)>
+
+<!--
+The distributed value specify if the portlet session is replicated. Accepted values are
+true or false. The default value is false.
+-->
+<!ELEMENT ref-type (#PCDATA)>
+
+<!--
+The cache-config element configures additional cache behaviour at the portlet level.
+-->
+<!ELEMENT cache-config (ref-type?)>
+
+<!--
+The ref-type value specify what kind of reference type to use when the content is cached. The value
+accepted are strong or soft. The default value if not specified is strong.
+-->
+<!ELEMENT ref-type (#PCDATA)>
+
+<!--
+The security element configures the security at the portlet level.
+-->
+<!ELEMENT security (model?)>
+
+<!--
+The model element configures the security model for the portlet. It consists in the content provider, the description
+of the permission and default scheme.
+-->
+<!ELEMENT model (content-provider-class,permission-description*,scheme)>
+
+<!--
+The content provider class is used by the container to access at runtime the tree model offered by the portlet. The model
+consist in a tree of items where each item can be assigned a set of permission associated to security roles.
+-->
+<!ELEMENT content-provider-class (#PCDATA)>
+
+<!--
+Each permission description element describe one permission and the set of permission it implies.
+-->
+<!ELEMENT permission-description (permission-name,description,implies*)>
+
+<!--
+The permission name.
+-->
+<!ELEMENT permission-name (#PCDATA)>
+
+<!--
+The permission description.
+-->
+<!ELEMENT description (#PCDATA)>
+
+<!--
+An imply element is used to indicate that a permission implies another permission.
+-->
+<!ELEMENT implies (#PCDATA)>
+
+<!--
+The scheme element describe the default scheme. It consists in a tree of item elements.
+-->
+<!ELEMENT scheme (item*)
+
+<!--
+Describe an item of the scheme. Each item has a path and a set of permission attached to it.
+-->
+<!ELEMENT item (path,permission*)>
+
+<!--
+Grant a permission to a set of roles.
+-->
+<!ELEMENT permission (permission-name,(role-name*|unchecked?)>
+
+<!--
+Name a role
+-->
+<!ELEMENT role-name (#PCDATA)>
+
+<!--
+Say that the permission is not checked
+-->
+<!ELEMENT unchecked EMPTY>

@@ -1,0 +1,47 @@
+<p>The note and date types supports the entry of formatted text and
+	date values respectively. The format options supported by the
+	type&apos;s attribute affect the rendering/validate in the follow ways:</p>
+<u>PageFlow</u>
+<pre>
+	&lt;rowScroller [row scroller options]&gt;
+		&lt;attributeField title="<i>title</i>" subTitle="<i>sub title</i>" binding="<i>xpath binding</i>" [condition="<i>XPath expression</i>"] [columnCondition="<i>XPath expression</i>"]/&gt;
+ 	&lt;/rowScroller&gt;
+</pre>
+<ul>
+	<li><i>title</i> Title rendered at the top of the column.</li>
+	<li><i>subTitle</i> Rendered below the main title.</li>
+	<li><i>binding</i> xpath binding referring to an Attribute in the
+		model to which this column is bound.</li>
+	<li><i>condition</i> An optional XPath condition that controls
+		whether a given cell appears in the table or is hidden.</li>
+	<li><i>columnCondition</i> An optional XPath expression that can
+		be used to show/hide the entire column.</li>
+</ul>
+<u>Model</u>
+<ol>
+	<li>Note: <pre>&lt;attribute id="<i>id</i>" value="<i>value</i>" format="note,[min=<i>min length</i>],[max=<i>max length</i>],[size=<i>field size</i>],[pattern=<i>reg exp</i>]"/&gt;</pre></li>
+	<li>Date: <pre>&lt;attribute id="<i>id</i>" value="<i>value</i>" format="date,[pattern=<i>pattern</i>]"/&gt;</pre></li>
+</ol>
+<ol>
+	<li>Note:
+		<ul>
+			<li><i>min</i> Used during validation to define the minimum
+				length of string that will be accepted.</li>
+			<li><i>max</i> Used during validation to define the maximum
+				length of string that will be accepted.</li>
+			<li><i>size</i> Used during rendering to limit the size of the
+				field that will appear on the user interface</li>
+			<li><i>pattern</i> Used during validation, this option defines a
+				regular expression that the content of the string will be validated
+				against.</li>
+		</ul>
+	</li>
+	<li>Date:
+		<ul>
+			<li><i>pattern</i> Used during validation, this option defines a
+				regular expression that the content of the string will be validated
+				against.</li>
+		</ul>
+	</li>
+</ol>
+<hr />

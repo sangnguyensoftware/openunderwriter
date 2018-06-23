@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd">
+    <name>Equine Plus product configuration</name>
+    <timeout>-1</timeout>
+    <parentNamespace>AIL.Base.Registry</parentNamespace>
+    <who>Applied Industrial Logic</who>
+    <version>1.1</version>
+    <manager>com.ail.core.product.resetproduct.ResetProductService</manager>
+
+    <group name="SecuredServices">
+        <parameter name="CreatePolicy">PermitAll</parameter>
+    </group>
+    
+    <group name="jBPMProperties">
+        <parameter name="jbpm.console.protocol">http</parameter>
+        <parameter name="jbpm.console.hostname">localhost</parameter>
+        <parameter name="jbpm.console.port">8080</parameter>
+        <parameter name="jbpm.console.username">katie@openunderwriter.org</parameter>
+        <parameter name="jbpm.console.password">katie</parameter>
+        <parameter name="jbpm.deployment.id">ail:sample-workflows:1.0</parameter>
+        <parameter name="jbpm.policy.pageflow.default">PolicyDetailPageFlow</parameter>
+        <parameter name="jbpm.policy.page.default">Main</parameter>
+        <parameter name="jbpm.party.pageflow.default">ClientDetailsPageFlow</parameter>
+        <parameter name="jbpm.party.page.default">Main</parameter>
+    </group>
+    
+    <!-- Group of parameters to specify comma-separated lists of source folders under the product folder -->
+    <group name="SourceFolders">
+    	<parameter name="Java">JavaServices,Services,Rules</parameter>
+    </group>
+
+    <types>
+        <service name="AssessPolicyRiskRule" builder="CachingClassBuilder" key="com.ail.core.command.DroolsDecisionTableAccessor" >
+            <!-- parameter name="LoggingIndicatorAsString">FULL</parameter-->
+            <parameter name="Url">~/Rules/PolicyRating.xls</parameter>
+        </service>
+
+        <service name="CalculatePolicyCommissionRule" builder="CachingClassBuilder" key="com.ail.core.command.JavaAccessor" />
+
+        <service name="CalculatePolicyMgmtChgRule" builder="CachingClassBuilder" key="com.ail.core.command.JavaAccessor" />
+
+        <service name="StyleDocumentService" key="com.ail.core.command.XSLTAccessor">
+            <parameter name="Url">http://localhost:8080/openquote-theme/documents/style.xslt</parameter>
+        </service>
+
+        <command name="AssessSectionRisk/EquinePlusSection" builder="CachingClassBuilder" key="com.ail.insurance.quotation.AssessSectionRiskCommandImpl">
+            <parameter name="Service">com.ail.core.NullService</parameter>
+        </command>
+        
+        <command name="AssessPaymentOptions" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">com.ail.demo.equineplus.AssessPaymentOptionsService</parameter>
+        </command>
+        
+        <type name="Policy" builder="BeanShellBuilder">
+            <parameter name="extends">super.Policy</parameter>
+            <parameter name="Url">~/JavaServices/Policy.bs</parameter>
+        </type>
+        
+        <!-- Equine section  -->
+        <type name="EquinePlusSection" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Section">
+            <parameter name="Url">~/Model/EquinePlusSection.xml</parameter>
+        </type>
+        
+        <type name="SaddleryAndTackExcess" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Excess">
+            <parameter name="Url">~/Model/SaddleryAndTackExcess.xml</parameter>
+        </type>
+        
+        <type name="HorseAsset" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Asset">
+            <parameter name="Url">~/Model/HorseAsset.xml</parameter>
+        </type>
+        
+        <type name="CoverageAsset" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Asset">
+            <parameter name="Url">~/Model/CoverageAsset.xml</parameter>
+        </type>
+        
+        <type name="HorseAge" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.util.Choice"> 
+            <parameter name="Url">~/Lists/HorseAge.xml</parameter>
+        </type>
+        
+        <type name="HorseColour" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.util.Choice">
+            <parameter name="Url">~/Lists/HorseColour.xml</parameter>
+        </type>
+        
+        <type name="HorseHeightHands" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.util.Choice">
+            <parameter name="Url">~/Lists/HorseHeightHands.xml</parameter>
+        </type>
+        
+        <type name="QuotationPageFlow" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.PageFlow">
+            <parameter name="Url">~/PageFlows/QuotationPageFlow.xml</parameter>
+        </type>
+
+        <type name="QuotationDocument" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.document.model.DocumentDefinition">
+			<parameter name="extends">super.QuotationDocument</parameter>
+            <parameter name="Url">~/Documents/QuotationDocument.xml</parameter>
+        </type>
+        
+        <type name="DataDictionary" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.data.DataDictionary">
+			<parameter name="extends">super.DataDictionary</parameter>
+            <parameter name="Url">~/DataDictionary.xml</parameter>
+        </type>
+    </types>
+</configuration>

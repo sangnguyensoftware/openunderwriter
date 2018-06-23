@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- repeatable max 3 -->  
+<asset assetTypeId="TradeAsset" xsi:type="java:com.ail.insurance.policy.Asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <attribute id="TradeSelected" value="Yes" format="yesorno"/>
+    <!-- trade table -->
+    <attribute id="TradeGroup" value="?" format="choice,type=Trades,slave=TradeDescription"/>
+    <attribute id="TradeDescription" value="?" format="choice,type=Trades,master=TradeGroup"/>
+    <attribute id="TradeGroupID" value="0" format="number"/>
+    <attribute id="TradeDescriptionID" value="0" format="number"/>
+    <attribute id="TradeClassificationID" value="0" format="number,####"/>
+    <attribute id="TradeTypeID" value="0" format="number,#"/>
+    <attribute id="ToolsAvailable" value="-" format="choice,options=-1#-|0#FALSE|1#TRUE"/>
+    <attribute id="ToolsMultiplier" value="0" format="number"/>
+    <attribute id="PreferredTrade" value="-" format="choice,options=-1#-|0#FALSE|1#TRUE"/>
+    <attribute id="MultiPersonDiscount" value="0" format="number"/>
+    <attribute id="MultiPersonDiscount5Plus" value="0" format="number"/>
+    <attribute id="VersionID" value="0" format="number"/>
+    <attribute id="ELRatePerPerson" value="0" format="number"/>
+    <attribute id="PLRatePerPerson" value="0" format="number"/>
+    <attribute id="TempELMultiplier" value="0" format="number"/>
+    <attribute id="GITRatePerPolicy" value="0" format="number"/>
+    <attribute id="ToolsRatePerPerson" value="0" format="number"/>
+</asset>

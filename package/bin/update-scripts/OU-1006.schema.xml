@@ -1,0 +1,71 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-1006 Add prlPartyRelationship" author="richard">
+        <sql dbms="mysql">
+            CREATE TABLE `prlPartyRelationship` (
+              `prlUID` bigint(20) NOT NULL,
+              `prlAttribute` longtext,
+              `prlCreatedBy` bigint(20) DEFAULT NULL,
+              `prlCreatedDate` datetime DEFAULT NULL,
+              `prlExternalSystemId` varchar(255) NOT NULL,
+              `prlForeignSystemId` varchar(255) DEFAULT NULL,
+              `prlLock` bit(1) DEFAULT NULL,
+              `prlSerialVersion` bigint(20) NOT NULL,
+              `prlUpdatedBy` bigint(20) DEFAULT NULL,
+              `prlUpdatedDate` datetime DEFAULT NULL,
+              `prlEndDate` timestamp(4) NULL DEFAULT NULL,
+              `prlRelationship` varchar(255) NOT NULL,
+              `prlStartDate` timestamp(4) NULL DEFAULT NULL,
+              `prlPartyUIDpar` bigint(20) NOT NULL,
+              PRIMARY KEY (`prlUID`),
+              UNIQUE KEY `prlExternalSystemId` (`prlExternalSystemId`),
+              KEY `FK99E5B2B4576C1574` (`prlPartyUIDpar`),
+              CONSTRAINT `FK99E5B2B4576C1574` FOREIGN KEY (`prlPartyUIDpar`) REFERENCES `parParty` (`parUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            CREATE TABLE `prlPartyRelationship_` (
+              `prlUID` bigint(20) NOT NULL,
+              `REV` int(11) NOT NULL,
+              `REVTYPE` tinyint(4) DEFAULT NULL,
+              `prlAttribute` longtext,
+              `prlCreatedBy` bigint(20) DEFAULT NULL,
+              `prlCreatedDate` datetime DEFAULT NULL,
+              `prlExternalSystemId` varchar(255) DEFAULT NULL,
+              `prlForeignSystemId` varchar(255) DEFAULT NULL,
+              `prlUpdatedBy` bigint(20) DEFAULT NULL,
+              `prlUpdatedDate` datetime DEFAULT NULL,
+              `prlEndDate` timestamp(4) NULL DEFAULT NULL,
+              `prlRelationship` varchar(255) DEFAULT NULL,
+              `prlStartDate` timestamp(4) NULL DEFAULT NULL,
+              `prlPartyUIDpar` bigint(20) DEFAULT NULL,
+              PRIMARY KEY (`prlUID`,`REV`),
+              KEY `FKA2D0A42B88B4F168` (`REV`),
+              CONSTRAINT `FKA2D0A42B88B4F168` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+            CREATE TABLE `jParPrePrl` (
+              `UIDpar` bigint(20) NOT NULL,
+              `partyRelationshipUIDprl` bigint(20) NOT NULL,
+              UNIQUE KEY `partyRelationshipUIDprl` (`partyRelationshipUIDprl`),
+              KEY `FKF59D37BED53F4377` (`partyRelationshipUIDprl`),
+              KEY `FKF59D37BE43E35FF8` (`UIDpar`),
+              CONSTRAINT `FKF59D37BE43E35FF8` FOREIGN KEY (`UIDpar`) REFERENCES `parParty` (`parUID`),
+              CONSTRAINT `FKF59D37BED53F4377` FOREIGN KEY (`partyRelationshipUIDprl`) REFERENCES `prlPartyRelationship` (`prlUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            CREATE TABLE `jParPrePrl_` (
+              `REV` int(11) NOT NULL,
+              `UIDpar` bigint(20) NOT NULL,
+              `partyRelationshipUIDprl` bigint(20) NOT NULL,
+              `REVTYPE` tinyint(4) DEFAULT NULL,
+              PRIMARY KEY (`REV`,`UIDpar`,`partyRelationshipUIDprl`),
+              KEY `FKBE09C06188B4F168` (`REV`),
+              CONSTRAINT `FKBE09C06188B4F168` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>    
+</databaseChangeLog>

@@ -1,0 +1,21 @@
+<p>Manage the payment methods on a Party.</p>
+<p>This widget allows a user to add/edit/remove the payment methods
+	attached to a Party. It currently supports the DirectDebit
+	and PaymentCard payment types.</p>
+<p>A Party might for example have one DirectDebit set up for regular premium payments
+	and a PaymentCard set up for one-off payments say if their account falls into arrears.
+	They may have another DirectDebit set up to receive claims payments.</p>
+<u>Pageflow</u><pre>
+    &lt;paymentMethodDetails [title="<i>title</i>"]
+                               [binding="<i>party having the payment methods</i>"]
+                               [addAndDeleteEnabled="<i>true or false</i>"]
+                               [readOnly="<i>true or false</i>"] /&gt;
+</pre>
+<ul>
+	<li><i>title</i> Title text for the page element.</li>
+	<li><i>binding</i> An xpath reference to the party who has the payment methods. Has no default.</li>
+	<li><i>addAndDeleteEnabled</i> Whether you should be able to add or remove payment methods.</li>
+	<li><i>readOnly</i> Whether the payment methods should be readonly or not.</li>
+</ul>
+
+<hr />

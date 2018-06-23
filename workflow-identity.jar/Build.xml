@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project default="build" name="openunderwriter:workflow-identity.jar">
+	<import file="../BuildSettings.xml" />
+
+	<property name="jbpm-console.dir" value="${deploy.dir}/jbpm-console.war" />
+
+	<property name="deployment.dir" value="deployments" />
+
+	<target name="clean" description="delete everything that the build can generate">
+		<delete-jar-macro />
+	</target>
+
+	<target name="_build">
+		
+		<_set-output-dir-property-macro />
+		
+		<compile-jar-macro merge-configs="no" packagable="false">
+			<javac-classpath>
+				<fileset dir="${jbpm-console.dir}/WEB-INF/lib" includes="*.jar" />
+				<fileset dir="${module.dir}/com/ail/workflow" includes="**/*.jar" />
+				<dirset dir="${module.dir}/com/ail/workflow" includes="**/*.jar" />
+				<fileset dir="${module.dir}/javax/enterprise/api" includes="**/*.jar" />
+			</javac-classpath>
+		</compile-jar-macro>
+				
+        <package-exploded-jar-macro />
+
+		<move overwrite="true" tofile="${jbpm-console.dir}/WEB-INF/lib/workflow-identity.jar" file="${output.dir}" />
+	</target>
+
+	<target name="build" description="compile (generate, copy, etc) all build outputs">
+		<antcall target="_build" />
+	</target>
+
+	<target name="setup" description="run all the one-time-only steps - like copying libs into place">
+	</target>
+
+	<target name="teardown" description="undo whatever setup did" depends="clean">
+	</target>
+</project>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataDictionary type="java:com.ail.core.data.DataDictionary" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/DataDictionary-1.0.xsd">
+
+	<definition name="Vehicle" description="A Vehicle Asset" binding="/asset[assetTypeId='VehicleAsset']">
+	
+		<!-- 'Vehicle/Make' bound to '/asset[assetTypeId='VehicleAsset']/attribute[id='make']' and 'Vehicle.Make' bound to 'attribute[id='make']' -->
+		<definition name="Make" description="The vehicle make" binding="attribute[id='make']" />
+	
+		<!-- 'Vehicle/Model' bound to '/asset[assetTypeId='VehicleAsset']/attribute[id='model']' and 'Vehicle.Model' bound to 'attribute[id='model']' -->
+		<definition name="Model" description="The vehicle model" binding="attribute[id='model']" />
+	
+		<!-- 'Vehicle/CC' bound to '/asset[assetTypeId='VehicleAsset']/attribute[id='cc']' and 'Vehicle.CC' bound to 'attribute[id='cc']' -->
+		<definition name="CC" description="The vehicle engine size in cc" binding="attribute[id='cc']" />
+	
+		<!-- 'Vehicle/Body Type' bound to '/asset[assetTypeId='VehicleAsset']/attribute[id='bodytype']' and 'Vehicle.Body Type' bound to 'attribute[id='bodytype']' -->
+		<definition name="Body Type" description="The vehicle body type" binding="attribute[id='bodytype']" />
+	
+		<!-- 'Vehicle/Year' bound to '/asset[assetTypeId='VehicleAsset']/attribute[id='year']' and 'Vehicle.Year' bound to 'attribute[id='year']' -->
+		<definition name="Year" description="The year the vehicle was made" binding="attribute[id='year']" />
+	
+		<!-- 'Vehicle/Registration' bound to '/asset[assetTypeId='VehicleAsset']/attribute[id='registration']' and 'Vehicle.Registration' bound to 'attribute[id='registration']' -->
+		<definition name="Registration" description="The vehicle registration number" binding="attribute[id='registration']" />
+	
+		<!-- 'Vehicle/Current Value' bound to '/asset[assetTypeId='VehicleAsset']/attribute[id='value']' and 'Vehicle.Current Value' bound to 'attribute[id='value']' -->
+		<definition name="Current Value" description="The current value of the vehicle" binding="attribute[id='value']" />
+	
+		<!-- 'Vehicle/Left Hand Drive' bound to '/asset[assetTypeId='VehicleAsset']/attribute[id='lefthanddrive']' and 'Vehicle.Left Hand Drive' bound to 'attribute[id='lefthanddrive']' -->
+		<definition name="Left Hand Drive" description="Is the vehicle left hand drive" binding="attribute[id='lefthanddrive']" />
+	
+		<!-- 'Vehicle/Registered' bound to '/asset[assetTypeId='VehicleAsset']/attribute[id='registeredinproposersname']' and 'Vehicle.Registered' bound to 'attribute[id='registeredinproposersname']' -->
+		<definition name="Registered" description="Is the vehicle registered in the proposer's name" binding="attribute[id='registeredinproposersname']" />
+	
+		<!-- 'Vehicle/Owned' bound to '/asset[assetTypeId='VehicleAsset']/attribute[id='ownedbyproposer']' and 'Vehicle.Owned' bound to 'attribute[id='ownedbyproposer']' -->
+		<definition name="Owned" description="Is the vehicle owned by the proposer]" binding="attribute[id='ownedbyproposer']" />
+	
+		<!-- 'Vehicle/Commuting' bound to '/asset[assetTypeId='VehicleAsset']/attribute[id='driventoandfromwork']' and 'Vehicle.Commuting' bound to 'attribute[id='driventoandfromwork']' -->
+		<definition name="Commuting" description="Will the vehicle be driven to and from work" binding="attribute[id='driventoandfromwork']" />
+	
+		<!-- 'Vehicle/Modified' bound to '/asset[assetTypeId='VehicleAsset']/attribute[id='modified']' and 'Vehicle.Modified' bound to 'attribute[id='modified']' -->
+		<definition name="Modified" description="Has the vehicle been modified" binding="attribute[id='modified']" />
+	
+		<!-- 'Vehicle/Modification' bound to '/asset[assetTypeId='VehicleAsset']/attribute[id='modification']' and 'Vehicle.Modification' bound to 'attribute[id='modification']' -->
+		<definition name="Modification" description="What are the vehicle modifications" binding="attribute[id='modification']" />
+	
+		<!-- 'Vehicle/Security Device' bound to '/asset[assetTypeId='VehicleAsset']/attribute[id='securitydevice']' and 'Vehicle.Security Device' bound to 'attribute[id='securitydevice']' -->
+		<definition name="Security Device" description="Does the vehicle have a security device fitted" binding="attribute[id='securitydevice']" />
+	
+		<!-- 'Vehicle/Kept At Home' bound to '/asset[assetTypeId='VehicleAsset']/attribute[id='keptatproposersaddress']' and 'Vehicle.Kept At Home' bound to 'attribute[id='keptatproposersaddress']' -->
+		<definition name="Kept At Home" description="Is the vehicle kept at the proposer's address" binding="attribute[id='keptatproposersaddress']" />
+	
+		<!-- 'Vehicle/Garaged' bound to '/asset[assetTypeId='VehicleAsset']/attribute[id='storedingarage']' and 'Vehicle.Garaged' bound to 'attribute[id='storedingarage']' -->
+		<definition name="Garaged" description="Is the vehicle stored in a garage" binding="attribute[id='storedingarage']" />
+	
+		<!-- 'Vehicle/Solid Garage' bound to '/asset[assetTypeId='VehicleAsset']/attribute[id='garageofsolidconstruction']' and 'Vehicle.Solid Garage' bound to 'attribute[id='garageofsolidconstruction']' -->
+		<definition name="Solid Garage" description="Is the garage of solid construction" binding="attribute[id='garageofsolidconstruction']" />
+	</definition>
+	
+</dataDictionary>

@@ -1,0 +1,169 @@
+<p>The BuyNowWithSagePayButtonAction provides the facility for
+	PageFlows to authorise and collect premium payments using SagePay.</p>
+<p>The button can be added to a navigation section as follows</p>
+<pre>
+     &lt;navigationSection&gt;
+         &lt;buyNowWithSagePayButtonAction destinationOnSuccessPageId="<i>page id</i>" destinationOnFailurePageId="<i>page id</i>"/&gt;
+         ...
+     &lt;/navigationSection&gt;
+</pre>
+<p>
+	This widget represents itself on the user interface as a "Buy now with
+	SagePay" button. When the user clicks the button OpenUnderwriter will
+	create a SagePay payment request and then forward the user the SagePay
+	login screen to authorise the payment. From here the user can either
+	cancel the request or authorise it. If the request is cancelled, the
+	user is returned to OpenUnderwriter at a point in the PageFlow
+	specified by the
+	<code>destinationOnFailurePageId</code>
+	attribute. If the payment is successful the user is redirected to the
+	page specified by
+	<code>destinationOnSuccessPageId</code>
+	.
+</p>
+<p>Executed (successful) payments are complete at will appear in the
+	merchant's transaction histories on SagePay.</p>
+<h4>Defining the amount to be paid</h4>
+<p>The policy's paymentDetail object defines the amount to be paid.
+	The payment services inspect the collection of MoneyProvisions held in
+	policy.paymentDetails and create requests for each instance that they
+	find which has a paymentMethod of SagePay and a status of NEW. Based on
+	the following example, one payment request would be made for
+	&pound;276.58.</p>
+<pre>
+     &lt;policy&gt;
+         ...
+         &lt;paymentDetails&gt;
+             &lt;description&gt;Insurance premium payment&lt;/description&gt;
+             &lt;moneyProvision&gt;
+                 &lt;description&gt;Insurance premium payment&lt;/description&gt;
+                 &lt;frequency&gt;ONE_TIME&lt;/frequency&gt;
+                 &lt;number&gt;1&lt;/number&gt;
+                 &lt;paymentsStartDate&gt;2014-05-21T16:23:28.705Z&lt;/paymentsStartDate&gt;
+                 &lt;paymentsEndDate&gt;2014-05-21T16:23:28.705Z&lt;/paymentsEndDate&gt;
+                 &lt;amount amount="276.58" currency="GBP"/&gt;
+                 &lt;paymentMethod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="sagePay"/&gt;
+                 &lt;status xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="java:java.lang.String"&gt;NEW&lt;/status&gt;
+             &lt;/moneyProvision&gt;
+         &lt;/paymentDetails&gt;
+         ...
+    &lt;/policy&gt;
+</pre>
+<p>In a typical PageFlow the paymentDetails object is created and
+	populated using a JavaService once the quotation calculations have been
+	completed.</p>
+<p>Once a request has been sent to SagePay for a MoneyProvision, the
+	instance's status value is updated to REQUESTED.</p>
+<h4>Defining the customer</h4>
+<p>The SagePay payment service uses the proposer's details to derive
+	both the customer and delivery details in the SagePay system. The
+	policy must therefore define a proposer (either Personal or
+	Commercial).</p>
+<pre>
+     &lt;policy&gt;
+        ...
+        &lt;proposer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="personalProposer"&gt;
+            &lt;address&gt;
+                &lt;line1&gt;Address Line 1&lt;/line1&gt;
+                &lt;town&gt;Town&lt;/town&gt;
+                &lt;county&gt;County&lt;/county&gt;*
+                &lt;country&gt;Country&lt;/country&gt;
+                &lt;postcode&gt;POSTCODE&lt;/postcode&gt;
+            &lt;/address&gt;
+            &lt;firstName&gt;Tester&lt;/firstName&gt;
+            &lt;surname&gt;Tester&lt;/surname&gt;
+            &lt;title&gt;MR&lt;/title&gt;
+            &lt;emailAddress&gt;Email Addresss&lt;/emailAddress&gt;
+        &lt;/proposer&gt;
+        ...
+    &lt;/policy&gt;
+</pre>
+<p>With the exception of emailAddress and county, all of the fields
+	listed above considered mandatory by SagePay. If emailAddress is
+	defined and the SendEmail property (see below) is set to 1, SagePay
+	will send an email to the customer to confirm the payment.</p>
+<p>The value of country must match one of the iso-3166-1 country
+	codes (though the match is case insensitive).</p>
+<p>* if the country is "United States", county also becomes
+	mandatory and must contain a 2 letter state code.</p>
+<h4>Configuring a product to accept payments</h4>
+<p>In order for a product to accept SagePay payments it must first
+	be configured with parameters defining the account into which payments
+	will be made. These parameters are defined in the product's
+	Registry.xml. The values may be defined in the root product of a
+	hierarchy or set individually in the products themselves. This allows
+	for each product to be configured with independent settings if
+	necessary. The parameters involved are as follows:</p>
+<pre>
+&lt;configuration&gt;
+    ...
+    &lt;group name="PaymentMethods"&gt;
+        &lt;group name="SagePay"&gt;
+        	&lt;!-- Mandatory SagePay parameters --&gt;
+        	&lt;parameter name="URL"&gt;Gateway URL&lt;/parameter&gt;
+        	&lt;parameter name="Vendor"&gt;Vendor ID&lt;/parameter&gt;
+        	&lt;parameter name="EncryptionPassword"&gt;Encryption Password&lt;/parameter&gt;
+        	&lt;parameter name="Apply3dSecure"&gt;Apply3dSecure&lt;/parameter&gt;
+        	&lt;parameter name="SendMail"&gt;0&lt;/parameter&gt;
+        	&lt;parameter name="VPSProtocol"&gt;3.00&lt;/parameter&gt;
+        	
+        	&lt;!-- Optional SagePay parameters --&gt;
+        	&lt;parameter name="PartnerID"&gt;&lt;/parameter&gt;
+        	&lt;parameter name="SurchargeXml"&gt;&lt;/parameter&gt;
+        	&lt;parameter name="EmailMessage"&gt;&lt;/parameter&gt;
+        	&lt;parameter name="VendorEmail"&gt;&lt;/parameter&gt;
+        &lt;/group&gt;
+    &lt;/group&gt;
+    ...
+&lt;/configuration&gt;
+</pre>
+<ul>
+	<li><i>Gateway URL</i> - Either
+		https://test.sagepay.com/gateway/service/vspform-register.vsp for the
+		SagePay test system, or
+		https://sagepay.com/gateway/service/vspform-register.vsp for the live
+		system.</li>
+	<li><i>Vendor ID</i> - Set this value to the Vendor Name assigned
+		to you by Sage Pay or chosen when you applied.</li>
+	<li><i>Encryption Password</i> - Set this value to the AES
+		encryption password assigned to you by Sage Pay.</li>
+	<li><i>Apply3dSecure</i>
+		<ul>
+			<li>0 - If 3D-Secure checks are possible and rules allow,
+				perform the checks and apply the authorisation rules. (default)</li>
+			<li>1 - Force 3D-Secure checks for this transaction if possible
+				and apply rules for authorisation.</li>
+			<li>2 - Do not perform 3D-Secure checks for this transaction and
+				always authorise.</li>
+			<li>3 - Force 3D-Secure checks for this transaction if possible
+				but ALWAYS obtain an auth code, irrespective of rule base.</li>
+		</ul></li>
+	<li><i>SendMail</i>
+		<ul>
+			<li>0 - Do not send either customer or vendor e-mails.</li>
+			<li>1 - Send customer and vendor e-mails if address(es) are
+				provided(DEFAULT).</li>
+			<li>2 - Send Vendor Email but not Customer Email. If you do not
+				supply this field, 1 is assumed and e-mails are sent if addresses
+				are provided.</li>
+		</ul></li>
+	<li><i>VPSProtocol</i> - Sage Pay Protocol Version.</li>
+	<li><i>PartnerID</i> - If you are a Sage Pay Partner and wish to
+		flag the transactions with your unique partner id, it should be set
+		here</li>
+	<li><i>SurchargeXml</i> - Use this to send surcharge xml and
+		override the default values set for your account. See the protocol
+		docs for further explanation on using the surcharge xml.</li>
+	<li><i>EmailMessage</i> - Contents of email message. You can
+		specify any custom message to send to your customers in their
+		confirmation e-mail here The field can contain HTML if you wish, and
+		be different for each order. This field is optional</li>
+	<li><i>VendorEmail</i> - Set this to the mail address which will
+		receive order confirmations and failures.</li>
+</ul>
+<h4>SagePay test login</h4>
+<p>In order to test SagePay from this widget you will need a SagePay
+	account. You will also need to have configured the
+	mandatory Registry.xml settings in your product as described above.</p>
+<hr />
+

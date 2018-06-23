@@ -1,0 +1,13 @@
+   <?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT themes (theme+)>
+<!ELEMENT theme (name, link*, script*)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT link EMPTY>
+<!ATTLIST link
+rel CDATA #REQUIRED
+type CDATA #REQUIRED
+href CDATA #REQUIRED
+title CDATA #IMPLIED
+media CDATA #IMPLIED>
+<!ELEMENT script (#PCDATA)>
+<!ATTLIST script href CDATA #REQUIRED>

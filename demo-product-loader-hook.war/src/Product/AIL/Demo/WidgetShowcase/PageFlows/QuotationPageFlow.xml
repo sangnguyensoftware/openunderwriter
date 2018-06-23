@@ -1,0 +1,1069 @@
+<pageFlow id="QuotationPageFlow" startPage="Welcome" type="java:com.ail.pageflow.PageFlow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/PageFlow-1.0.xsd">
+    <action when="onPageFlowEntry" commandName="CreateNewBusinessQuotationCommand" />
+        
+    <page id="Welcome" title="Welcome to the Widget Showcase">
+        <parsedUrlContent id="Content" order="1" url="~/HTML/Welcome.html" />
+        <navigationSection quitDisabled="true">
+            <commandButtonAction label="Test error handling" destinationPageId="PageFlowError" />
+        </navigationSection>
+    </page>
+
+	<page id="AccountDetails" title="AccountDetails">
+        <parsedUrlContent id="Content" url="~/HTML/AccountDetails.html" />
+		<accountDetails title="Broker&apos;s account" accountBinding="broker" showStatement="true" period="P3M" />
+		<accountDetails title="Client&apos;s account statement" accountBinding="client" scheduleBinding='paymentDetails' showStatement="true" period="P3M" />
+		<accountDetails title="Client&apos;s actualized payment schedule" scheduleBinding='paymentDetails' showActualizedSchedule="true" period="P3M" />
+		<accountDetails title="Client&apos;s normalized payment schedule" scheduleBinding='paymentDetails' showNormalizedSchedule="true" period="P3M" />
+        <pageSection title="Create test data" condition="not(i:test(/paymentDetails))">
+        	<parsedUrlContent url="~/HTML/AccountDetailsCreateData.html"/>
+	        <commandButtonAction label="Create payment schedule and accounts" destinationPageId="AccountDetails" immediate="true">
+	 			<action when="onProcessActions" commandName="CreateAccount" />
+	 			<action when="onProcessActions" commandName="CreatePaymentSchedule" />
+	        </commandButtonAction>
+		</pageSection>
+		<navigationSection quitDisabled="true">
+			<commandButtonAction label="Refresh Page" destinationPageId="AccountDetails" immediate="true" />
+			<commandButtonAction label="Post transaction" destinationPageId="AccountDetails-PostTransaction" immediate="true"/>
+		</navigationSection>
+	</page>
+
+    <page id="AccountDetails-PostTransaction" title="AccountDetails-PostTransaction">
+		<question title="Amount to transfer" binding="/asset[id='accountDetails']/attribute[id='amount']"/>
+		<question title="Direction" binding="/asset[id='accountDetails']/attribute[id='direction']"/>
+		<question title="Date" binding="/asset[id='accountDetails']/attribute[id='date']"/>
+		<question title="Description" binding="/asset[id='accountDetails']/attribute[id='description']"/>
+        <navigationSection quitDisabled="true">
+	        <commandButtonAction label="Post transaction" destinationPageId="AccountDetails">
+	 			<action when="onProcessActions" commandName="CreateTransaction" />
+	         </commandButtonAction>
+	         <commandButtonAction label="Cancel" destinationPageId="AccountDetails" immediate="true"/>
+        </navigationSection>
+    </page>
+
+    <page id="ActionSwitch" title="ActionSwitch">
+        <parsedUrlContent url="~/HTML/ActionSwitch.html" />
+        <pageSection>
+            <parsedUrlContent url="~/HTML/ActionSwitchGuide.html" />
+            <question title="Input value for select" binding="/asset[id='switch']/attribute[id='switchSelect']" />
+            <commandButtonAction label="Execute" destinationPageId="ActionSwitch-PageSwitchCommandExample" immediate="true" />
+        </pageSection>
+    </page>
+
+    <page id="ActionSwitch-PageSwitchCommandExample" title="ActionSwitch-PageSwitchExample">
+        <actionSwitch when="onPageEntry" commandName="SwitchCommandOne">
+            <pageForwardAction id="one" destinationPageId="ActionSwitch-TargetOne" />
+            <pageForwardAction id="two" destinationPageId="ActionSwitch-TargetTwo" />
+            <pageForwardAction id="default" destinationPageId="ActionSwitch-TargetDefault" />
+        </actionSwitch>
+    </page>
+
+    <page id="ActionSwitch-TargetOne" title="ActionSwitch-TargetOne">
+        <commandButtonAction label="Back" destinationPageId="ActionSwitch" immediate="true" />
+    </page>
+
+   <page id="ActionSwitch-TargetTwo" title="ActionSwitch-TargetTwo">
+        <commandButtonAction label="Back" destinationPageId="ActionSwitch" immediate="true" />
+    </page>
+
+   <page id="ActionSwitch-TargetDefault" title="ActionSwitch-TargetDefault">
+        <commandButtonAction label="Back" destinationPageId="ActionSwitch" immediate="true" />
+    </page>
+
+    <page id="AggregatorQuotationSelector" title="AggregatorQuotationSelector">
+        <parsedUrlContent url="~/HTML/AggregatorQuotationSelector.html" />
+        <aggregatorQuotationSelector />
+        <navigationSection quitDisabled="true">
+            <commandButtonAction label="Reset to aggregator quote" destinationPageId="AggregatorQuotationSelector">
+                <action when="onProcessActions" commandName="SetQuoteToAggregator" />
+            </commandButtonAction>
+            <commandButtonAction label="Reset to normal quote" destinationPageId="AggregatorQuotationSelector">
+                <action when="onProcessActions" commandName="SetQuoteToNormal" />
+            </commandButtonAction>
+        </navigationSection>
+    </page>
+
+    <page id="Answer" title="Answer">
+        <parsedUrlContent url="~/HTML/Answer.html" />
+        <answerSection title="Answer widget">
+            <answer title="Integer answer title" binding="/asset[id='answerWidgetTestData']/attribute[id='int']" renderHint="my-render-hint"/>
+            <answer title="String answer title" binding="/asset[id='answerWidgetTestData']/attribute[id='string']" />
+            <answer title="Date answer title" binding="/asset[id='answerWidgetTestData']/attribute[id='date']" />
+            <answer title="Title including a ${/asset[id='answerWidgetTestData']/attribute[id='testMessage1']/value}" binding="/asset[id='answerWidgetTestData']/attribute[id='string']" />
+            <commandButtonAction label="Save" destinationPageId="Answer" />
+        </answerSection>
+    </page>
+
+    <page id="AnswerScroller" title="AnswerScroller">
+        <parsedUrlContent url="~/HTML/AnswerScroller.html" />
+        <answerSection title="Answer Scroller">
+            <answerScroller title="Answer Scroller Title" binding="/asset[assetTypeId='AnswerScrollerData']">
+                <answer title="Index" binding="attribute[id='index']" />
+                <answer title="Colour" binding="attribute[id='colour']" />
+                <answer title="Date" binding="attribute[id='date']" />
+            </answerScroller>
+        </answerSection>
+    </page>
+
+    <page id="AnswerSection" title="AnswerSection">
+        <parsedUrlContent url="~/HTML/AnswerSection.html" />
+        <answerSection title="Answer Section Title">
+            <answerScroller title="Answer Scroller" binding="/asset[assetTypeId='AnswerScrollerData']">
+                <answer title="Index" binding="attribute[id='index']" />
+                <answer title="Colour" binding="attribute[id='colour']" />
+                <answer title="Date" binding="attribute[id='date']" />
+            </answerScroller>
+            <answer title="Integer answer title" binding="/asset[id='answerWidgetTestData']/attribute[id='int']" />
+            <answer title="String answer title" binding="/asset[id='answerWidgetTestData']/attribute[id='string']" />
+            <answer title="Date answer title" binding="/asset[id='answerWidgetTestData']/attribute[id='date']" />
+            <answer title="Title including a ${/asset[id='answerWidgetTestData']/attribute[id='testMessage1']/value}" binding="/asset[id='answerWidgetTestData']/attribute[id='string']" />
+        </answerSection>
+    </page>
+
+    <page id="AssessmentSheetDetails" title="AssessmentSheetDetails">
+        <parsedUrlContent url="~/HTML/AssessmentSheetDetails.html" />
+        <assessmentSheetDetails />
+    </page>
+
+    <page id="AuditDetails" title="AuditDetails">
+        <parsedUrlContent url="~/HTML/auditDetails.html" />
+        <auditDetails />
+    </page>
+
+    <page id="BrokerQuotationSummary" title="BrokerQuotationSummary">
+        <action when="onRenderResponse" commandName="InitialiseQuotation" />
+        <action when="onRenderResponse" commandName="InitialiseBrokerQuotationSummary" />
+        <parsedUrlContent url="~/HTML/BrokerQuotationSummary.html" />
+        <brokerQuotationSummary />
+    </page>
+
+    <page id="BuyNowWithEwayButtonAction" title="BuyNowWithEwayButtonAction">
+        <action when="onRenderResponse" commandName="SetPolicyStatusToOnRisk" />
+        <action when="onRenderResponse" commandName="AddEwayMoneyProvisionToPolicy" />
+        <parsedUrlContent url="~/HTML/BuyNowButtonActionSuccess.html" condition="i:test(/paymentDetails/moneyProvision[1]/status/name[.='COMPLETE'])" />
+        <parsedUrlContent url="~/HTML/BuyNowButtonActionFailure.html" condition="i:test(/paymentDetails/moneyProvision[1]/status/name[.='CANCELLED'])" />
+        <parsedUrlContent url="~/HTML/BuyNowWithEwayButtonAction.html" />
+        <navigationSection quitDisabled="true">
+            <commandButtonAction id="reset" label="Reset Money Provision" immediate="true" destinationPageId="BuyNowWithEwayButtonAction">
+                <action when="onProcessActions" commandName="ResetMoneyProvisionInPolicy" />
+            </commandButtonAction>
+            <buyNowWithEwayButtonAction id="eway" destinationOnSuccessPageId="BuyNowWithEwayButtonAction" destinationOnFailurePageId="BuyNowWithEwayButtonAction" />
+        </navigationSection>
+    </page>
+
+    <page id="BuyNowWithPayPalButtonAction" title="BuyNowWithPayPalButtonAction">
+        <action when="onRenderResponse" commandName="SetPolicyStatusToOnRisk" />
+        <action when="onRenderResponse" commandName="AddPayPalMoneyProvisionToPolicy" />
+        <parsedUrlContent url="~/HTML/BuyNowButtonActionSuccess.html" condition="i:test(/paymentDetails/moneyProvision[1]/status/name[.='COMPLETE'])" />
+        <parsedUrlContent url="~/HTML/BuyNowButtonActionFailure.html" condition="i:test(/paymentDetails/moneyProvision[1]/status/name[.='CANCELLED'])" />
+        <parsedUrlContent url="~/HTML/BuyNowWithPayPalButtonAction.html" />
+        <navigationSection quitDisabled="true">
+            <commandButtonAction id="reset" label="Reset Money Provision" immediate="true" destinationPageId="BuyNowWithPayPalButtonAction">
+                <action when="onProcessActions" commandName="ResetMoneyProvisionInPolicy" />
+            </commandButtonAction>
+            <buyNowWithPayPalButtonAction id="paypal" destinationOnSuccessPageId="BuyNowWithPayPalButtonAction" destinationOnFailurePageId="BuyNowWithPayPalButtonAction" />
+        </navigationSection>
+    </page>
+
+    <page id="BuyNowWithSagePayButtonAction" title="BuyNowWithSagePayButtonAction">
+        <action when="onRenderResponse" commandName="SetPolicyStatusToOnRisk" />
+        <action when="onRenderResponse" commandName="AddSagePayMoneyProvisionToPolicy" />
+        <parsedUrlContent url="~/HTML/BuyNowButtonActionSuccess.html" condition="i:test(/paymentDetails/moneyProvision[1]/status/name[.='COMPLETE'])" />
+        <parsedUrlContent url="~/HTML/BuyNowButtonActionFailure.html" condition="i:test(/paymentDetails/moneyProvision[1]/status/name[.='CANCELLED'])" />
+        <parsedUrlContent url="~/HTML/BuyNowWithSagePayButtonAction.html" />
+        <navigationSection quitDisabled="true">
+            <commandButtonAction id="reset" label="Reset Money Provision" immediate="true" destinationPageId="BuyNowWithSagePayButtonAction">
+                <action when="onProcessActions" commandName="ResetMoneyProvisionInPolicy" />
+            </commandButtonAction>
+            <buyNowWithSagePayButtonAction id="sagepay" destinationOnSuccessPageId="BuyNowWithSagePayButtonAction" destinationOnFailurePageId="BuyNowWithSagePayButtonAction" />
+        </navigationSection>
+    </page>
+
+    <page id="BuyNowWithIWinPayButtonAction" title="BuyNowWithIWinPayButtonAction">
+        <action when="onRenderResponse" commandName="SetPolicyStatusToOnRisk" />
+        <action when="onRenderResponse" commandName="AddIWinPayMoneyProvisionToPolicy" />
+        <parsedUrlContent url="~/HTML/BuyNowButtonActionSuccess.html" condition="i:test(/paymentDetails/moneyProvision[1]/status/name[.='COMPLETE'])" />
+        <parsedUrlContent url="~/HTML/BuyNowButtonActionFailure.html" condition="i:test(/paymentDetails/moneyProvision[1]/status/name[.='CANCELLED'])" />
+        <parsedUrlContent url="~/HTML/BuyNowWithIWinPayButtonAction.html" />
+        <navigationSection quitDisabled="true">
+            <commandButtonAction id="reset" label="Reset Money Provision" immediate="true" destinationPageId="BuyNowWithIWinPayButtonAction">
+                <action when="onProcessActions" commandName="ResetMoneyProvisionInPolicy" />
+            </commandButtonAction>
+            <buyNowWithIWinPayButtonAction id="iwinpay" destinationOnSuccessPageId="BuyNowWithIWinPayButtonAction" destinationOnFailurePageId="BuyNowWithIWinPayButtonAction">
+                <action when="onProcessActions" commandName="SomethingThatDoesntExist" />
+            </buyNowWithIWinPayButtonAction>
+        </navigationSection>
+    </page>
+
+    <page id="ClaimHistoryDetails" title="ClaimHistoryDetails">
+        <action when="onRenderResponse" commandName="InitialiseClaimHistoryDetails" />
+    
+        <claimHistoryDetails title="All Claim History Details" id="allClaimsHistoryDetails" />
+        <claimHistoryDetails title="Filtered out Rejected claims" id="filteredClaimHistoryDetails" excludeStatuses="REJECTED"/>
+    </page>
+
+    <page id="ClauseDetails" title="ClauseDetails">
+        <clauseDetails />
+    </page>
+
+    <page id="CommandButtonActions" title="CommandButtonActions">
+        <questionSection>
+            <question title="Question to force validation" subTitle="" binding="asset[id='commandActionButton']/attribute[id='string']" />
+        </questionSection>
+        <navigationSection quitDisabled="true">
+            <commandButtonAction id="imm" label="Immediate" destinationPageId="CommandButtonActions" immediate="true" />
+            <commandButtonAction id="val" label="Validate" destinationPageId="CommandButtonActions" />
+            <commandButtonAction id="sty" label="Styled button" styleClass="btn btn-primary" destinationPageId="CommandButtonActions" />
+            <commandButtonAction id="scr" label="Script attached" destinationPageId="CommandButtonActions" immediate="true">
+                <action when="onProcessActions" commandName="CommandButtonActionScript" />
+            </commandButtonAction>
+            <quitButtonAction id="qui" />
+            <requoteButtonAction id="req" destinationPageId="Welcome" />
+            <saveButtonAction id="sav" destinationPageId="Welcome" />
+            <redirectButtonAction id="red" label="Google" destinationUrl="http://www.google.com" />
+            <redirectButtonAction id="suc" label="Success" target="SUCCESS_REDIRECT" />
+            <redirectButtonAction id="fai" label="Failure" target="FAILURE_REDIRECT" />
+            <redirectButtonAction id="qig" label="Google + QuitAction" destinationUrl="http://www.google.com">
+                <quitAction />
+            </redirectButtonAction>
+            <commandButtonAction id="ivf" label="Service Validation" destinationPageId="CommandButtonActions-ServiceValidation">
+                <action when="onProcessValidations" commandName="CommandButtonServiceValidationCommand" />
+            </commandButtonAction>
+        </navigationSection>
+    </page>
+
+    <page id="CommandButtonActions-ServiceValidation" title="CommandButtonActions-ServiceValidation">
+        <pageSection title="Service Validation Successful"/>
+        <navigationSection quitDisabled="true">
+            <commandButtonAction id="imm" label="&lt;&lt; Back" destinationPageId="CommandButtonActions" immediate="true" />
+        </navigationSection>
+    </page>
+
+    <page id="Conditions" title="Conditions">
+        <parsedUrlContent url="~/HTML/Conditions.html" />
+
+        <pageSection title="Example of the &quot;condition&quot; attribute.">
+            <question title="Display conditional section" binding="/asset[id='conditionsData']/attribute[id='section']" />
+            <parsedUrlContent url="~/HTML/ConditionMet.html" condition="i:test(/asset[id='conditionsData']/attribute[id='section']/value[.='Yes'])" />
+            <parsedUrlContent url="~/HTML/ConditionsAttribute.html" />
+        </pageSection>
+
+        <pageSection title="Example &apos;if&apos; widget.">
+            <question title="Display conditional &quot;if&quot; section" binding="/asset[id='conditionsData']/attribute[id='if']" />
+            <if condition="i:test(/asset[id='conditionsData']/attribute[id='if']/value[.='Yes'])">
+                <parsedUrlContent url="~/HTML/ConditionMet.html" />
+            </if>
+            <parsedUrlContent url="~/HTML/ConditionsIf.html" />
+        </pageSection>
+
+        <pageSection title="Example of a conditional column">
+            <question title="Display conditional &quot;if&quot; column" binding="/asset[id='conditionsData']/attribute[id='column']" />
+            <rowScroller binding="/asset[id='conditionsColumnData']" type="ConditionsColumnData" addAndDeleteEnabled="false">
+                <attributeField title="Column 1" binding="attribute[id='string1']" />
+                <attributeField title="Column 2" subTitle="(conditional)" binding="attribute[id='string2']" columnCondition="i:test(/asset[id='conditionsData']/attribute[id='column']/value[.='Yes'])" />
+                <attributeField title="Column 3" binding="attribute[id='string3']" />
+                <attributeField title="Column 4" binding="attribute[id='string4']" />
+            </rowScroller>
+            <parsedUrlContent url="~/HTML/ConditionsColumn.html" />
+        </pageSection>
+
+        <navigationSection quitDisabled="true">
+            <commandButtonAction label="Submit Page" destinationPageId="Conditions" />
+        </navigationSection>
+    </page>
+
+    <page id="ContactSystemDetails" title="ContactSystemDetails">
+        <parsedUrlContent url="~/HTML/ContactSystemDetails.html" />
+        <contactSystemDetails binding='/broker' classes=".*\.(Address|PhoneNumber)" types="i18n_contact_system_main.*"/>
+        <navigationSection quitDisabled="true">
+            <commandButtonAction label="Save" destinationPageId="ContactSystemDetails" />
+        </navigationSection>
+    </page> 
+
+    <page id="CoverageDetails" title="CoverageDetails">
+        <coverageDetails />
+    </page>
+
+    <page id="CustomLetterBuilder" title="CustomLetterBuilder">
+        <customLetterBuilder validDocumentTypes='i18n_document_template.*'>
+            <commandButtonAction label="Save" destinationPageId="CustomLetterBuilder" />
+        </customLetterBuilder>
+        <documentUpload />
+    </page> 
+
+    <page id="DocumentButtonActions" title="DocumentButtonActions">
+        <action when="onRenderResponse" commandName="InitialisePaymentDetails" />
+        <action when="onRenderResponse" commandName="InitialiseHtmlAsset" />
+		<parsedUrlContent url="~/HTML/DocumentButtonAction.html"/>
+        <pageSection title="Override value">
+            <question title="Quote number override" binding="asset[id='commandActionButton']/attribute[id='quoteNumberOverride']" />
+            <question title="Policy number override" binding="asset[id='commandActionButton']/attribute[id='policyNumberOverride']" />
+            <question title="Policy status override" binding="asset[id='commandActionButton']/attribute[id='policyStatusOverride']" />
+            <commandButtonAction id="apl" label="Apply Overrides" destinationPageId="DocumentButtonActions">
+                <action when="onProcessActions" commandName="DocumentButtonActionPolicyUpdate" />
+            </commandButtonAction>
+        </pageSection>
+        <navigationSection quitDisabled="true">
+            <viewQuotationButtonAction id="quo" label="Quotation" />
+            <viewCertificateButtonAction id="cer" label="Certificate" />
+            <viewInvoiceButtonAction id="inv" label="Invoice" />
+            <viewWordingButtonAction id="wor" label="Wording" />
+            <viewScheduleButtonAction id="sch" label="Schedule" />
+            <viewPolicyButtonAction id="pol" label="Policy" />
+        </navigationSection>
+    </page>
+
+    <page id="DocumentManager" title="DocumentManager">
+
+        <!-- Add claims to attach document to -->
+        <action when="onRenderResponse" commandName="InitialiseClaimHistoryDetails" />
+
+        <parsedUrlContent url="~/HTML/DocumentManager.html" />
+        <documentManager validLabels="(?!.*?(i18n_label_medical_sensitive|i18n_label_financially_sensitive))^.*$" fileTypes="png,jpg,gif,pdf" />
+
+        <navigationSection quitDisabled="true">
+            <commandButtonAction label="Save" destinationPageId="DocumentManager" />
+        </navigationSection>
+    </page>
+
+    <page id="DocumentUpload" title="DocumentUpload">
+        <pageSection title="Upload Photo ID">
+            <documentUpload fileTitle="Photo ID" documentType="i18n_Image" fileTypes="' bmp,png,tif,gif,jpeg,jpg '" />
+            <imageViewer fileTitle="Photo ID" />
+        </pageSection>
+    </page>
+
+    <page id="InformationPage" title="InformationPage">
+        <parsedUrlContent url="~/HTML/InformationPage.html" />
+
+        <answerSection title="Answer widget">
+            <answer title="Integer answer title" binding="/asset[id='answerWidgetTestData']/attribute[id='int']" />
+            <answer title="String answer title" binding="/asset[id='answerWidgetTestData']/attribute[id='string']" />
+            <answer title="Date answer title" binding="/asset[id='answerWidgetTestData']/attribute[id='date']" />
+            <answer title="Title including a ${/asset[id='answerWidgetTestData']/attribute[id='testMessage1']/value}" binding="/asset[id='answerWidgetTestData']/attribute[id='string']" />
+        </answerSection>
+    </page>
+
+    <page id="LabelDetails" title="LabelDetails">
+        <parsedUrlContent url="~/HTML/LabelDetails.html" />
+        <labelDetails title="Policy tags (no discriminators)"/>
+        <labelDetails title="Policy tags (discriminator='(note_types|cancellation_reason)')" discriminator="(note_types|cancellation_reason)"/>
+        <navigationSection quitDisabled="true">
+            <commandButtonAction label="Save" destinationPageId="LabelDetails" />
+        </navigationSection>
+    </page>
+    
+    <page id="LoginSection" title="LoginSection">
+        <parsedUrlContent url="~/HTML/LoginSection.html" />
+
+        <loginSection id="login" loginButtonLabel="Login" invitationMessageText="Please login" invitationLinkText="link" destinationOnSuccessPageId="TEST" />
+        <parsedUrlContent url="~/HTML/LoginSectionControlLinks.html" />
+        <pageScript url="~/HTML/JavaScript/ShowLoginPanel.js" />
+    </page>
+
+    <page id="Logs" title="Logs">
+        <parsedUrlContent url="~/HTML/Logs.html" />
+        <logs />
+    </page>
+
+    <page id="NavigationSection" title="NavigationSection">
+        <navigationSection>
+            <commandButtonAction id="back" label="&lt;&lt; Back" destinationPageId="NavigationSection" immediate="true" />
+            <commandButtonAction id="forward" label="Forward &gt;&gt;" destinationPageId="NavigationSection" immediate="true" />
+        </navigationSection>
+        <navigationSection quitDisabled="true" styleClass="portlet-form-button">
+            <commandButtonAction id="previous" label="&lt;&lt; Previous" destinationPageId="NavigationSection" immediate="true" />
+            <commandButtonAction id="next" label="Next &gt;&gt;" destinationPageId="NavigationSection" immediate="true" />
+        </navigationSection>
+    </page>
+
+    <page id="NoteDetails" title="NoteDetails">
+        <parsedUrlContent url="~/HTML/NoteDetails.html" />
+        <noteDetails typeDiscriminator="cancellation_reason" validNoteTypes="(?!.*?(i18n_label_watch|i18n_label_note_watch_reason))^.*$" validLabels="(?!.*?(i18n_label_medical_sensitive))^.*$"/>
+        <navigationSection quitDisabled="true">
+            <commandButtonAction label="Save" destinationPageId="NoteDetails" />
+        </navigationSection>
+    </page>
+
+    <page id="NoteRecorder" title="NoteRecorder">
+        <action when="onRenderResponse" commandName="InitialiseClaimHistoryDetails" />
+        <parsedUrlContent url="~/HTML/NoteRecorder.html" />
+        <parsedUrlContent url="~/HTML/NoteRecorderExampleOne.html" />
+        <noteRecorder typeDiscriminator="cancellation_reason" />
+        <parsedUrlContent url="~/HTML/NoteRecorderExampleTwo.html" />
+        <noteRecorder binding="/claim[1]" />
+        <navigationSection quitDisabled="true">
+            <commandButtonAction label="Save" destinationPageId="NoteRecorder" />
+        </navigationSection>
+    </page>
+
+    <page id="NotificationAction" title="NotificationAction">
+        <pageSection title="Override value">
+            <question title="PubNub Client Channel" binding="policyHolder/attribute[id='PubNubChannel']" />
+            <commandButtonAction id="apl" label="Apply Overrides" destinationPageId="NotificationAction" />
+        </pageSection>
+        <navigationSection quitDisabled="true">
+            <commandButtonAction label="NotifyClentByPubNub" destinationPageId="NotificationAction" immediate="true">
+                <action when="onProcessActions" commandName="SendClientPubNubNotification" />
+            </commandButtonAction>
+        </navigationSection>
+    </page>
+
+    <page id="PageSection" title="PageSection">
+
+        <pageSection title="Outer" binding="/asset[id='PageSection']">
+
+            <question title="Question One" binding="./attribute[id='questionOne']" />
+
+            <answer title="Answer One" binding="./attribute[id='answerOne']" />
+
+            <commandButtonAction label="Save" destinationPageId="PageSection" />
+
+            <parsedUrlContent url="~/HTML/PageSectionOuter.html" />
+
+            <answerScroller binding="./asset[assetTypeId='PageSectionAnswerAsset']">
+                <answer title="value a" binding="./attribute[id='a']" />
+                <answer title="value b" binding="./attribute[id='b']" />
+            </answerScroller>
+
+            <rowScroller binding="./asset[assetTypeId='PageSectionRowScrollerAsset']" type="PageSectionRowScrollerAsset" minRows="1" maxRows="5">
+                <attributeField title="value a" binding="./attribute[id='a']" />
+                <attributeField title="value b" binding="./attribute[id='b']" />
+            </rowScroller>
+
+            <sectionScroller binding="./asset[assetTypeId='PageSectionSectionScrollerAsset']" type="PageSectionSectionScrollerAsset" minRows="1" maxRows="5">
+                <question title="value a" binding="./attribute[id='a']" />
+                <question title="value b" binding="./attribute[id='b']" />
+            </sectionScroller>
+
+            <questionWithDetails title="Question title" binding="./attribute[id='questionWithDetailMain']" detailsTitle="Detail title" detailsBinding="./attribute[id='questionWithDetailDetail']" />
+
+            <questionWithSubSection title="Question with sub-section" binding="./attribute[id='questionWithSubSectionMain']">
+                <questionWithSubSection title="Sub section detail" binding="./attribute[id='questionWithSubSectionDetail']" />
+            </questionWithSubSection>
+
+        </pageSection>
+    </page>
+
+    <page id="PageScript" title="PageScript">
+        <pageSection id="section-1" />
+        <pageSection id="section-2" />
+        <pageScript script="document.getElementById('section-1').innerHTML='Inserted by script PageScript';" />
+        <pageScript url="~/HTML/JavaScript/PageScriptTest.js" />
+    </page>
+
+    <page id="ParsedUrlContent" title="ParsedUrlContent">
+        <parsedUrlContent url="~/HTML/ParsedUrlContent.html" />
+    </page>
+
+    <page id="PaymentDetails" title="PaymentDetails">
+        <action when="onRenderResponse" commandName="InitialisePaymentDetails" />
+        <paymentDetails />
+        <navigationSection quitDisabled="true">
+            <commandButtonAction id="submit" label="Submit" destinationPageId="PaymentDetails" />
+        </navigationSection>
+    </page>
+
+    <page id="PaymentRecorder" title="PaymentRecorder">
+        <action when="onRenderResponse" commandName="InitialisePaymentDetails" />
+        <paymentRecorder sourceBinding="client" targetBinding="broker" />
+        <navigationSection quitDisabled="true">
+            <commandButtonAction id="submit" label="Submit" destinationPageId="PaymentRecorder" />
+        </navigationSection>
+    </page>
+
+    <page id="PaymentHolidayDetails" title="PaymentHolidayDetails">
+        <paymentHolidayDetails title="Current Payment Holiday" showHistory="false" id="currentPaymentHoliday" type="PaymentHoliday"/>
+        <paymentHolidayDetails title="Previous Payment Holidays" readOnly="true" showCurrent="false" id="previousPaymentHolidays" />
+        <paymentHolidayDetails title="All Payment Holidays" readOnly="true" />
+        <navigationSection quitDisabled="true">
+            <commandButtonAction id="submit" label="Submit" destinationPageId="PaymentHolidayDetails" />
+        </navigationSection>
+    </page>
+
+    <page id="PaymentMethodDetails" title="PaymentMethodDetails">
+        <parsedUrlContent url="~/HTML/PaymentMethodDetails.html" />
+        <paymentMethodDetails binding="/client" />
+        <navigationSection quitDisabled="true">
+            <commandButtonAction id="submit" label="Submit" destinationPageId="PaymentMethodDetails" />
+        </navigationSection>
+    </page>
+    
+    <page id="PaymentOptionSelector" title="PaymentOptions">
+        <action when="onRenderResponse" commandName="InitialisePaymentOptions" />
+        <paymentOptionSelector />
+        <navigationSection quitDisabled="true">
+            <commandButtonAction id="submit" label="Submit" destinationPageId="PaymentOptionSelector" />
+        </navigationSection>
+    </page>
+
+    <page id="PaymentScheduleDetails" title="PaymentScheduleDetails">
+        <parsedUrlContent url="~/HTML/PaymentScheduleDetails.html" />
+        <paymentScheduleDetails amount="120.00GBP" purpose="PREMIUM" type="MoneyProvision" allowablePaymentMethods="DirectDebit,PaymentCard"/>
+    </page>
+
+    <page id="ProposerDetailsPersonal" title="ProposerDetails-Personal">
+        <action when="onRenderResponse" commandName="InitialiseProposerDetailsPersonal" />
+        <parsedUrlContent url="~/HTML/ProposerDetails.html" />
+        <proposerDetails />
+        <navigationSection quitDisabled="true">
+            <commandButtonAction id="submit" label="Submit" destinationPageId="ProposerDetailsPersonal" />
+        </navigationSection>
+    </page>
+
+    <page id="ProposerDetailsCommercial" title="ProposerDetails-Commercial">
+        <action when="onRenderResponse" commandName="InitialiseProposerDetailsCommercial" />
+        <parsedUrlContent url="~/HTML/ProposerDetails.html" />
+        <proposerDetails />
+        <navigationSection quitDisabled="true">
+            <commandButtonAction id="submit" label="Submit" destinationPageId="ProposerDetailsCommercial" />
+        </navigationSection>
+    </page>
+
+    <page id="ProposerQuotationSummary" title="ProposerQuotationSummary">
+        <action when="onRenderResponse" commandName="InitialiseProposerQuotationSummary" />
+        <proposerQuotationSummary />
+    </page>
+
+    <page id="Question" title="Question">
+        <questionSection title="STRING - examples of questions bound to String attributes">
+            <question title="Question prompting for a String value" binding="/asset[id='questionAssetData']/attribute[id='string']">
+                <helpText>This is a really long string of help text which may or may not be of any help. This is a really long string of help text which may or may not be of any help. &lt;br/&gt;This
+                    may contain &lt;b&gt;markup&lt;/b&gt;.</helpText>
+                <hintText>Enter a string</hintText>
+            </question>
+            <question title="Question prompting for a String value (size=5)" binding="/asset[id='questionAssetData']/attribute[id='stringSize']" />
+            <question title="Question prompting for a String value (min=2)" binding="/asset[id='questionAssetData']/attribute[id='stringMin']" />
+            <question title="Question prompting for a String value (max=10)" binding="/asset[id='questionAssetData']/attribute[id='stringMax']" />
+            <question title="Question prompting for a String value (min=2 &amp; max=10)" binding="/asset[id='questionAssetData']/attribute[id='stringMinAndMax']" />
+            <question title="Question prompting for a String value (pattern=[0-9ab]*)" binding="/asset[id='questionAssetData']/attribute[id='stringPattern']" />
+            <question title="Question prompting for a String value (initialised)" binding="/asset[id='questionAssetData']/attribute[id='stringInitialised']" />
+        </questionSection>
+
+        <questionSection title="NUMBER - examples of questions bound to Number attributes">
+            <question title="Question prompting for a Number value" binding="/asset[id='questionAssetData']/attribute[id='number']">
+                <hintText>Enter a number</hintText>
+            </question>
+            <question title="Question prompting for a Number value (min=10)" binding="/asset[id='questionAssetData']/attribute[id='numberMin']">
+                <hintText>100</hintText>
+            </question>
+            <question title="Question prompting for a Number value (max=20)" binding="/asset[id='questionAssetData']/attribute[id='numberMax']">
+                <hintText>18</hintText>
+            </question>
+            <question title="Question prompting for a Number value (min=10 &amp; max=20)" binding="/asset[id='questionAssetData']/attribute[id='numberMinAndMax']" />
+            <question title="Question prompting for a Number value (pattern=###)" binding="/asset[id='questionAssetData']/attribute[id='numberPattern']" />
+            <question title="Question prompting for a Number value (pattern=0.0000)" binding="/asset[id='questionAssetData']/attribute[id='numberPatternWithDecimal']" />
+            <question title="Question prompting for a Number value (percent)" binding="/asset[id='questionAssetData']/attribute[id='numberPercent']" />
+            <question title="Question prompting for a Number value (initialised)" binding="/asset[id='questionAssetData']/attribute[id='numberInitialised']" />
+        </questionSection>
+
+        <questionSection title="CURRENCY - examples of questions bound to Currency attributes">
+            <question title="Question prompting for a Currency value (GBP)" binding="/asset[id='questionAssetData']/attribute[id='currencyGBP']">
+                <hintText>Enter salary</hintText>
+            </question>
+            <question title="Question prompting for a Currency value (USD)" binding="/asset[id='questionAssetData']/attribute[id='currencyUSD']" />
+            <question title="Question prompting for a Currency value (GBP) (min=10)" binding="/asset[id='questionAssetData']/attribute[id='currencyMin']" />
+            <question title="Question prompting for a Currency value (GBP) (max=100)" binding="/asset[id='questionAssetData']/attribute[id='currencyMax']" />
+            <question title="Question prompting for a Currency value (GBP) (min=10 &amp; max=100)" binding="/asset[id='questionAssetData']/attribute[id='currencyMinAndMax']" />
+            <question title="Question prompting for a Currency value (GBP) (initialised)" binding="/asset[id='questionAssetData']/attribute[id='currencyInitialised']" />
+        </questionSection>
+
+        <questionSection title="CHOICE - examples of questions bound to Choice attributes">
+            <question title="Question prompting for a Choice value" binding="/asset[id='questionAssetData']/attribute[id='choice']">
+                <hintText>Pick a colour</hintText>
+            </question>
+            <question title="Question prompting for a Choice value (radio)" binding="/asset[id='questionAssetData']/attribute[id='choiceRadio']" renderHint="radio">
+                <hintText>Pick another colour</hintText>
+            </question>
+            <question title="Question prompting for a Choice value (initialised)" binding="/asset[id='questionAssetData']/attribute[id='choiceInitialised']" />
+            <question title="Question prompting for a Choice value (from a Type)" binding="/asset[id='questionAssetData']/attribute[id='choiceType']" />
+            <question title="Question prompting for a Choice value (master)" binding="/asset[id='questionAssetData']/attribute[id='choiceMaster']">
+                <hintText>Pick a planet</hintText>
+            </question>
+            <question title="Question prompting for a Choice value (slave)" binding="/asset[id='questionAssetData']/attribute[id='choiceSlave']">
+                <hintText>Now we can pick the satelite to land</hintText>
+            </question>
+        </questionSection>
+
+        <questionSection title="NOTE and DATE - examples of questions bound to Note and Date attributes">
+            <question title="Question prompting for a Note value" binding="/asset[id='questionAssetData']/attribute[id='note']">
+                <hintText>This is a good place to enter some detailed information</hintText>
+            </question>
+            <question title="Question prompting for a Note value (initialised)" binding="/asset[id='questionAssetData']/attribute[id='noteInitialised']" />
+            <question title="Question prompting for a Date value" binding="/asset[id='questionAssetData']/attribute[id='date']" />
+            <question title="Question prompting for a Date value (pattern=dd.MM.yy)" binding="/asset[id='questionAssetData']/attribute[id='datePattern']">
+                <hintText>dd.mm.yy</hintText>
+            </question>
+            <question title="Question prompting for a Date value (initialised)" binding="/asset[id='questionAssetData']/attribute[id='dateInitialised']">
+                <hintText>dd-mmm-yyyy</hintText>
+            </question>
+            <question title="Question prompting for a Date value (min=-10)" binding="/asset[id='questionAssetData']/attribute[id='dateMin']" />
+            <question title="Question prompting for a Date value (max=10)" binding="/asset[id='questionAssetData']/attribute[id='dateMax']" />
+            <question title="Question prompting for a Date value (min=-10,max=10)" binding="/asset[id='questionAssetData']/attribute[id='dateMinMax']" />
+            <question title="Question prompting for a Date value (renderHint='no-picker')" binding="/asset[id='questionAssetData']/attribute[id='dateNoPicker']" renderHint="no-picker" />
+        </questionSection>
+
+        <questionSection title="YESORNO - examples of questions bound to YesOrNo attributes">
+            <question title="Question prompting for a YesOrNo value" binding="/asset[id='questionAssetData']/attribute[id='yesorno']">
+                <hintText>Yes or No</hintText>
+            </question>
+            <question title="Question prompting for a YesOrNo value (radio)" binding="/asset[id='questionAssetData']/attribute[id='yesornoRadio']" renderHint="radio">
+                <hintText>Yes or No</hintText>
+            </question>
+            <question title="Question prompting for a YesOrNo value (checkbox)" binding="/asset[id='questionAssetData']/attribute[id='yesornoCheckbox']" renderHint="checkbox">
+                <hintText>Yes or No</hintText>
+            </question>
+            <question title="Question prompting for a YesOrNo value (initialised)" binding="/asset[id='questionAssetData']/attribute[id='yesornoInitialised']">
+                <hintText>Yes or No</hintText>
+            </question>
+        </questionSection>
+
+        <questionSection title="Required and Optional">
+            <question title="Question with mandatory answer" binding="/asset[id='questionAssetData']/attribute[id='mandatory']" />
+            <question title="Question with optional answer" binding="/asset[id='questionAssetData']/attribute[id='optional']" />
+        </questionSection>
+
+        <navigationSection quitDisabled="true">
+            <commandButtonAction id="submit" label="Submit" destinationPageId="Question" />
+        </navigationSection>
+    </page>
+
+    <page id="QuestionPage" title="QuestionPage">
+        <parsedUrlContent url="~/HTML/QuestionPage.html" />
+    </page>
+
+    <page id="QuestionSeparator" title="QuestionSeparator">
+        <questionSection title="Examples of a question section broken up using question separators">
+            <questionSeparator binding="/asset[id='questionSeparatorAssetData']/attribute[id='string']">
+                <errorText error="required">something wrong</errorText>
+            </questionSeparator>
+            <question title="Question prompting for a String value" binding="/asset[id='questionSeparatorAssetData']/attribute[id='string']">
+                <errorText error="required">*</errorText>
+            </question>
+            <question title="Question prompting for a Number value" binding="/asset[id='questionSeparatorAssetData']/attribute[id='number']" />
+            <questionSeparator title="Question separator without binding." />
+            <question title="Question prompting for a Currency value (GBP)" binding="/asset[id='questionSeparatorAssetData']/attribute[id='currencyGBP']" />
+            <question title="Question prompting for a Choice value" binding="/asset[id='questionSeparatorAssetData']/attribute[id='choice']">
+                <errorText error="required">*</errorText>
+            </question>
+            <question title="Question prompting for a Note value" binding="/asset[id='questionSeparatorAssetData']/attribute[id='note']" />
+            <questionSeparator title="Question separator with binding" binding="/asset[id='questionSeparatorAssetData']/attribute[id='date']" />
+            <question title="Question prompting for a Date value" binding="/asset[id='questionSeparatorAssetData']/attribute[id='date']">
+                <errorText error="required">*</errorText>
+            </question>
+            <question title="Question prompting for a YesOrNo value" binding="/asset[id='questionSeparatorAssetData']/attribute[id='yesorno']">
+                <errorText error="required">*</errorText>
+            </question>
+        </questionSection>
+
+        <navigationSection quitDisabled="true">
+            <commandButtonAction id="submit" label="Submit" destinationPageId="QuestionSeparator" />
+        </navigationSection>
+    </page>
+
+    <page id="QuestionWithDetails" title="QuestionWithDetails">
+        <parsedUrlContent url="~/HTML/QuestionWithDetails.html" />
+        <pageSection title="Examples of QuestionWithDetails widget usage">
+            <questionWithDetails title="Simple yesorno question with details" binding="asset[id='questionWithDetailsAssetData']/attribute[id='enabled']" detailsTitle="Details title"
+                detailsBinding="asset[id='questionWithDetailsAssetData']/attribute[id='enabledString']" />
+            <questionWithDetails title="Radio button yesorno question with details" binding="asset[id='questionWithDetailsAssetData']/attribute[id='checkboxEnabled']" detailsTitle="Details title"
+                detailsBinding="asset[id='questionWithDetailsAssetData']/attribute[id='checkboxEnabledString']" renderHint="checkbox" />
+            <questionWithDetails title="Checkbox yesorno question with details" binding="asset[id='questionWithDetailsAssetData']/attribute[id='radioEnabled']" detailsTitle="Details title"
+                detailsBinding="asset[id='questionWithDetailsAssetData']/attribute[id='radioEnabledString']" renderHint="radio" />
+            <questionWithDetails title="Choice question with details" binding="asset[id='questionWithDetailsAssetData']/attribute[id='choiceEnabled']" detailsTitle="Details title"
+                detailsBinding="asset[id='questionWithDetailsAssetData']/attribute[id='choiceEnabledString']" detailsEnabledFor="Blue;Green" />
+            <parsedUrlContent url="~/HTML/QuestionWithDetailsDetail.html" />
+        </pageSection>
+        <navigationSection quitDisabled="true">
+            <commandButtonAction id="submit" label="Submit" destinationPageId="QuestionWithDetails" />
+        </navigationSection>
+    </page>
+
+    <page id="QuestionWithExtendedDetails" title="QuestionWithExtendedDetails">
+        <parsedUrlContent url="~/HTML/QuestionWithExtendedDetails.html" />
+        <question title="Choose Red to go to extended questions page" binding="/asset[id='questionAssetData']/attribute[id='choice']" />
+        <navigationSection id="Navigation" quitDisabled="true">
+            <commandButtonAction id="submit" label="Submit" destinationPageId="QuestionWithExtendedDetails" styleClass="submit">
+                <!-- If the choice is 'Red' then go to Question page -->
+                <pageForwardAction when="onProcessActions" condition="i:test(asset[id='questionAssetData']/attribute[id='choice']/value[.='Red'])" destinationPageId="Question" />
+            </commandButtonAction>
+
+        </navigationSection>
+    </page>
+
+    <page id="QuestionWithSubSection" title="QuestionWithSubSection">
+        <questionSection title="Examples of QuestionWithSubSection widget usage">
+            <questionWithSubSection title="Simple yesorno question with subsection" binding="asset[id='questionWithSubSectionAssetData']/attribute[id='enabled']">
+                <question title="Question title within details subsection 1" binding="asset[id='questionWithSubSectionAssetData']/attribute[id='enabledString']" />
+                <question title="Question title within details subsection 2" binding="asset[id='questionWithSubSectionAssetData']/attribute[id='enabledString']" />
+            </questionWithSubSection>
+
+            <questionWithSubSection title="Checkbox button yesorno question with subsection" binding="asset[id='questionWithSubSectionAssetData']/attribute[id='checkboxEnabled']"
+                renderHint="checkbox">
+                <question title="Question title within details subsection" binding="asset[id='questionWithSubSectionAssetData']/attribute[id='checkboxEnabledString']" />
+            </questionWithSubSection>
+
+            <questionWithSubSection title="Radio yesorno question with subsection" binding="asset[id='questionWithSubSectionAssetData']/attribute[id='radioEnabled']" renderHint="radio">
+                <question title="Question title within details subsection" binding="asset[id='questionWithSubSectionAssetData']/attribute[id='radioEnabledString']" />
+            </questionWithSubSection>
+
+            <questionWithSubSection title="Choice question with subsection" binding="asset[id='questionWithSubSectionAssetData']/attribute[id='choiceEnabled']"
+                detailsEnabledFor="Blue;Green">
+                <question title="Question title within details subsection" binding="asset[id='questionWithSubSectionAssetData']/attribute[id='choiceEnabledString']" />
+            </questionWithSubSection>
+
+            <questionWithSubSection title="Choice radio question with subsection" binding="asset[id='questionWithSubSectionAssetData']/attribute[id='choiceRadioEnabled']"
+                detailsEnabledFor="Blue;Green" renderHint="radio">
+                <question title="Question title within details subsection" binding="asset[id='questionWithSubSectionAssetData']/attribute[id='choiceRadioEnabledString']" />
+            </questionWithSubSection>
+
+        </questionSection>
+        <navigationSection quitDisabled="true">
+            <commandButtonAction id="submit" label="Submit" destinationPageId="QuestionWithSubSection" />
+        </navigationSection>
+    </page>
+
+    <page id="QuotationSummary" title="QuotationSummary">
+        <action when="onRenderResponse" commandName="InitialiseQuotationSummary" />
+        <quotationSummary id="summary" termsAndConditionsUrl="~/HTML/QuotationSummaryTermsAndConditions.html" wordingsUrl="~/HTML/Wordings.pdf" requoteDestinationPageId="Welcome"
+            saveDestinationPageId="Welcome" confirmAndPayDestinationPageId="Welcome">
+
+            <answerSection title="Answer section">
+                <answer title="Start date" binding="inceptionDate" />
+                <answer title="End date" binding="expiryDate" />
+                <answer title="String value" binding="asset[id='quotationSummaryAssetData']/attribute[id='string']" />
+                <answer title="Number value" binding="asset[id='quotationSummaryAssetData']/attribute[id='number']" />
+                <answer title="Currency value" binding="asset[id='quotationSummaryAssetData']/attribute[id='currencyGBP']" />
+            </answerSection>
+        </quotationSummary>
+    </page>
+
+    <page id="ReferralSummary" title="ReferralSummary">
+        <action when="onRenderResponse" commandName="InitialiseReferralSummary" />
+        <referralSummary referralNotificationUrl="~/HTML/ReferralSummaryNotification.html" requoteDestinationPageId="Welcome" saveDestinationPageId="Welcome">
+
+            <answerSection title="Answer section">
+                <answer title="Start date" binding="inceptionDate" />
+                <answer title="End date" binding="expiryDate" />
+                <answer title="String value" binding="asset[id='quotationSummaryAssetData']/attribute[id='string']" />
+                <answer title="Number value" binding="asset[id='quotationSummaryAssetData']/attribute[id='number']" />
+                <answer title="Currency value" binding="asset[id='quotationSummaryAssetData']/attribute[id='currencyGBP']" />
+            </answerSection>
+        </referralSummary>
+    </page>
+
+    <page id="ReferralOverride" title="ReferralOverride">
+        <referralOverride />
+    </page>
+
+
+    <page id="RowScroller1" title="RowScroller 1">
+        <parsedUrlContent url="~/HTML/RowScroller.html" />
+
+        <pageSection title="STRING - examples of attributeFields bound to String attributes">
+            <rowScroller binding="/asset[id='rowScrollerAssetData']" type="RowScrollerAssetData" addAndDeleteEnabled="false">
+                <attributeField title="String" subTitle="" binding="attribute[id='string']" />
+                <attributeField title="String" subTitle="(size=5)" binding="attribute[id='stringSize']" />
+                <attributeField title="String" subTitle="(min=2)" binding="attribute[id='stringMin']" />
+                <attributeField title="String" subTitle="(max=10)" binding="attribute[id='stringMax']" />
+                <attributeField title="String" subTitle="(min=2 &amp; max=10)" binding="attribute[id='stringMinAndMax']" />
+                <attributeField title="String" subTitle="(pattern=[0-9ab]*)" binding="attribute[id='stringPattern']" />
+                <attributeField title="String" subTitle="(initialised)" binding="attribute[id='stringInitialised']" />
+            </rowScroller>
+
+            <parsedUrlContent id="Content" url="~/HTML/RowScrollerString.html" />
+        </pageSection>
+
+        <pageSection title="NUMBER - examples of attributeFields bound to Number attributes">
+            <rowScroller binding="/asset[id='rowScrollerAssetData']" type="RowScrollerAssetData" addAndDeleteEnabled="false">
+                <attributeField title="Number" subTitle="" binding="attribute[id='number']" />
+                <attributeField title="Number" subTitle="(min=10)" binding="attribute[id='numberMin']" />
+                <attributeField title="Number" subTitle="(max=20)" binding="attribute[id='numberMax']" />
+                <attributeField title="Number" subTitle="(min=10 &amp; max=20)" binding="attribute[id='numberMinAndMax']" />
+                <attributeField title="Number" subTitle="(pattern=###)" binding="attribute[id='numberPattern']" />
+                <attributeField title="Number" subTitle="(percent)" binding="attribute[id='numberPercent']" />
+                <attributeField title="Number" subTitle="(initialised)" binding="attribute[id='numberInitialised']" />
+            </rowScroller>
+
+            <parsedUrlContent id="Content" url="~/HTML/RowScrollerNumber.html" />
+        </pageSection>
+
+        <pageSection title="CURRENCY - examples of attributeFields bound to Currency attributes">
+            <rowScroller binding="/asset[id='rowScrollerAssetData']" type="RowScrollerAssetData" addAndDeleteEnabled="false">
+                <attributeField title="Currency" subTitle="(GBP)" binding="attribute[id='currencyGBP']" />
+                <attributeField title="Currency" subTitle="(USD)" binding="attribute[id='currencyUSD']" />
+                <attributeField title="Currency" subTitle="(min=10)" binding="attribute[id='currencyMin']" />
+                <attributeField title="Currency" subTitle="(max=100)" binding="attribute[id='currencyMax']" />
+                <attributeField title="Currency" subTitle="(min=10 &amp; max=100)" binding="attribute[id='currencyMinAndMax']" />
+                <attributeField title="Currency" subTitle="(initialised)" binding="attribute[id='currencyInitialised']" />
+            </rowScroller>
+
+            <parsedUrlContent id="Content" url="~/HTML/RowScrollerCurrency.html" />
+        </pageSection>
+
+        <pageSection title="CHOICE - examples of attributeFields bound to Choice attributes">
+            <rowScroller binding="/asset[id='rowScrollerAssetData']" type="RowScrollerAssetData" addAndDeleteEnabled="false">
+                <attributeField title="Choice" subTitle="" binding="attribute[id='choice']" />
+                <attributeField title="Choice" subTitle="(radio)" binding="attribute[id='choiceRadio']" renderHint="radio" />
+                <attributeField title="Choice" subTitle="(initialised)" binding="attribute[id='choiceInitialised']" />
+                <attributeField title="Choice" subTitle="(master)" binding="attribute[id='choiceMaster']" />
+                <attributeField title="Choice" subTitle="(slave)" binding="attribute[id='choiceSlave']" />
+                <attributeField title="Choice" subTitle="(type)" binding="attribute[id='choiceTypeOption']" />
+            </rowScroller>
+
+            <parsedUrlContent id="Content" url="~/HTML/RowScrollerChoice.html" />
+        </pageSection>
+
+        <pageSection title="NOTE and DATE - examples of attributeFields bound to Note and Date attributes">
+            <rowScroller binding="/asset[id='rowScrollerAssetData']" type="RowScrollerAssetData" addAndDeleteEnabled="false">
+                <attributeField title="Note" subTitle="" binding="attribute[id='note']" />
+                <attributeField title="Note" subTitle="(initialised)" binding="attribute[id='noteInitialised']" />
+                <attributeField title="Date" subTitle="" binding="attribute[id='date']" />
+                <attributeField title="Date" subTitle="(pattern=dd.MM.yy)" binding="attribute[id='datePattern']" />
+                <attributeField title="Date" subTitle="(initialised)" binding="attribute[id='dateInitialised']" />
+            </rowScroller>
+
+            <parsedUrlContent id="Content" url="~/HTML/RowScrollerNoteAndDate.html" />
+        </pageSection>
+
+        <pageSection title="YESORNO - examples of attributeFields bound to YesOrNo attributes">
+            <rowScroller binding="/asset[id='rowScrollerAssetData']" type="RowScrollerAssetData" addAndDeleteEnabled="false">
+                <attributeField title="YesOrNo" subTitle="" binding="attribute[id='yesorno']" />
+                <attributeField title="YesOrNo" subTitle="(radio)" binding="attribute[id='yesornoRadio']" renderHint="radio" />
+                <attributeField title="YesOrNo" subTitle="(checkbox)" binding="attribute[id='yesornoCheckbox']" renderHint="checkbox" />
+                <attributeField title="YesOrNo" subTitle="(initialised)" binding="attribute[id='yesornoInitialised']" />
+            </rowScroller>
+
+            <parsedUrlContent id="Content" url="~/HTML/RowScrollerYesOrNo.html" />
+        </pageSection>
+
+        <navigationSection quitDisabled="true">
+            <commandButtonAction label="Refresh Page" destinationPageId="RowScroller1" immediate="true" />
+            <commandButtonAction label="Validate Page" destinationPageId="RowScroller1" />
+        </navigationSection>
+    </page>
+
+    <page id="RowScroller2" title="RowScroller 2">
+        <rowScroller binding="/asset[assetTypeId='RowScroller2AssetData']" type="RowScroller2AssetData" minRows="1" maxRows="5">
+            <attributeField title="String" binding="attribute[id='string']" />
+            <attributeField title="Number" binding="attribute[id='number']" />
+            <attributeField title="Currency" binding="attribute[id='currency']" />
+            <attributeField title="Choice" binding="attribute[id='choice']" />
+            <attributeField title="Choice Radio" binding="attribute[id='choiceRadio']" />
+            <attributeField title="Date" binding="attribute[id='date']" />
+            <attributeField title="YesOrNo" binding="attribute[id='yesorno']" />
+            <attributeField title="AbsoluteBinding" binding="/attribute[id='rowScroller2AbsoluteBinding']"/>
+        </rowScroller>
+        <navigationSection quitDisabled="true">
+            <commandButtonAction label="Submit" destinationPageId="RowScroller2" />
+        </navigationSection>
+    </page>
+
+    <page id="SavedQuotations" title="SavedQuotations">
+        <parsedUrlContent url="~/HTML/SavedQuotationsOptionFields.html" />
+        <navigationSection quitDisabled="true">
+            <commandButtonAction label="Update and Save" destinationPageId="SavedQuotations" immediate="true">
+                <action when="onProcessActions" commandName="SavedQuotationsUpdateAndSave" />
+            </commandButtonAction>
+        </navigationSection>
+        <parsedUrlContent url="~/HTML/SavedQuotationsSeparator.html" />
+        <savedQuotations />
+    </page>
+
+    <page id="Sections" title="Sections">
+        <parsedUrlContent url="~/HTML/SectionsBasic.html" />
+        <questionSection title="QuestionSection">
+            <question title="Question One" binding="/asset[id='pageFlowSections']/attribute[id='questionSectionOne']" />
+            <question title="Question Two" binding="/asset[id='pageFlowSections']/attribute[id='questionSectionTwo']" />
+        </questionSection>
+
+        <answerSection title="AnswerSection">
+            <answer title="Answer One" binding="/asset[id='pageFlowSections']/attribute[id='answerSectionOne']" />
+            <answer title="Answer Two" binding="/asset[id='pageFlowSections']/attribute[id='answerSectionTwo']" />
+        </answerSection>
+
+        <pageSection title="PageSection">
+            <question title="Question" binding="/asset[id='pageFlowSections']/attribute[id='pageSectionOne']" />
+            <answer title="Answer" binding="/asset[id='pageFlowSections']/attribute[id='pageSectionTwo']" />
+            <commandButtonAction label="Refresh Page" destinationPageId="Sections" />
+        </pageSection>
+
+        <parsedUrlContent url="~/HTML/SectionsNested.html" />
+
+        <pageSection title="PageSection Outer">
+            <question title="Question" binding="/asset[id='pageFlowSections']/attribute[id='pageSectionNestedOne']" />
+            <pageSection title="PageSection Middle">
+                <question title="Question" binding="/asset[id='pageFlowSections']/attribute[id='pageSectionNestedTwo']" />
+                <pageSection title="PageSection Inner">
+                    <question title="Question" binding="/asset[id='pageFlowSections']/attribute[id='pageSectionNestedThree']" />
+                    <answer title="Answer" binding="/asset[id='pageFlowSections']/attribute[id='pageSectionNestedFour']" />
+                    <commandButtonAction label="Refresh Page" destinationPageId="Sections" />
+                </pageSection>
+            </pageSection>
+        </pageSection>
+
+        <parsedUrlContent url="~/HTML/SectionsNestedWithCascadingBindings.html" />
+
+        <pageSection title="PageSection Outer" binding="/asset[id='pageFlowSections']">
+            <pageSection title="PageSection Middle" binding="./asset[id='nestedAsset']">
+                <question title="Question (relative binding)" binding="./attribute[id='pageSectionNestedAssetOne']" />
+                <question title="Question (absolute binding)" binding="/asset[id='pageFlowSections']/attribute[id='pageSectionNestedAssetFive']" />
+                <answer title="Answer (relative binding)" binding="./attribute[id='pageSectionNestedAssetTwo']" />
+                <answer title="Answer (absolute binding)" binding="/asset[id='pageFlowSections']/attribute[id='pageSectionNestedAssetSix']" />
+                <commandButtonAction label="Refresh Page" destinationPageId="Sections" />
+            </pageSection>
+        </pageSection>
+    </page>
+
+    <page id="SectionScroller1" title="SectionScroller 1">
+        <parsedUrlContent url="~/HTML/SectionScroller.html" />
+
+        <pageSection title="STRING - examples of questions bound to String attributes">
+            <sectionScroller binding="/asset[id='sectionScrollerAssetData']" type="SectionScrollerAssetData" addAndDeleteEnabled="false">
+                <question title="String" subTitle="" binding="attribute[id='string']" />
+                <question title="String with size set to 5" binding="attribute[id='stringSize']" />
+                <question title="String with min length set to 2" binding="attribute[id='stringMin']" />
+                <question title="String with max length set to 10" binding="attribute[id='stringMax']" />
+                <question title="String with min length set to 2 and max length set to 10" binding="attribute[id='stringMinAndMax']" />
+                <question title="String with pattern validation (pattern=[0-9ab]*)" binding="attribute[id='stringPattern']" />
+                <question title="String with an initial value" binding="attribute[id='stringInitialised']" />
+            </sectionScroller>
+
+            <parsedUrlContent id="Content" url="~/HTML/SectionScrollerString.html" />
+        </pageSection>
+
+        <pageSection title="NUMBER - examples of questions bound to Number attributes">
+            <sectionScroller binding="/asset[id='sectionScrollerAssetData']" type="SectionScrollerAssetData" addAndDeleteEnabled="false">
+                <question title="Number" binding="attribute[id='number']" />
+                <question title="Number with min value of 10" binding="attribute[id='numberMin']" />
+                <question title="Number with max value of 20" binding="attribute[id='numberMax']" />
+                <question title="Number with min of 10 and max of 20" binding="attribute[id='numberMinAndMax']" />
+                <question title="Number with pattern validation of ###" binding="attribute[id='numberPattern']" />
+                <question title="Number as percentage" binding="attribute[id='numberPercent']" />
+                <question title="Number with an initial value" binding="attribute[id='numberInitialised']" />
+            </sectionScroller>
+
+            <parsedUrlContent id="Content" url="~/HTML/SectionScrollerNumber.html" />
+        </pageSection>
+
+        <pageSection title="CURRENCY - examples of questions bound to Currency attributes">
+            <sectionScroller binding="/asset[id='sectionScrollerAssetData']" type="SectionScrollerAssetData" addAndDeleteEnabled="false">
+                <question title="Currency with currency set to GBP" binding="attribute[id='currencyGBP']" />
+                <question title="Currency with currency set to USD" binding="attribute[id='currencyUSD']" />
+                <question title="Currency with min value of 10" binding="attribute[id='currencyMin']" />
+                <question title="Currency with max value of 100" binding="attribute[id='currencyMax']" />
+                <question title="Currency with min value of 10 and max value of 100" binding="attribute[id='currencyMinAndMax']" />
+                <question title="Currency with an initial value" binding="attribute[id='currencyInitialised']" />
+            </sectionScroller>
+
+            <parsedUrlContent id="Content" url="~/HTML/SectionScrollerCurrency.html" />
+        </pageSection>
+
+        <pageSection title="CHOICE - examples of questions bound to Choice attributes">
+            <sectionScroller binding="/asset[id='sectionScrollerAssetData']" type="SectionScrollerAssetData" addAndDeleteEnabled="false">
+                <question title="Choice" binding="attribute[id='choice']" />
+                <question title="Choice with renderHint set to 'radio'" binding="attribute[id='choiceRadio']" renderHint="radio" />
+                <question title="Choice with initial value" binding="attribute[id='choiceInitialised']" />
+                <question title="Choice setup as master" binding="attribute[id='choiceMaster']" />
+                <question title="Choice setup as slave" binding="attribute[id='choiceSlave']" />
+            </sectionScroller>
+
+            <parsedUrlContent id="Content" url="~/HTML/SectionScrollerChoice.html" />
+        </pageSection>
+
+        <pageSection title="NOTE and DATE - examples of questions bound to Note and Date attributes">
+            <sectionScroller binding="/asset[id='sectionScrollerAssetData']" type="SectionScrollerAssetData" addAndDeleteEnabled="false">
+                <question title="Note" binding="attribute[id='note']" />
+                <question title="Note with initial value" binding="attribute[id='noteInitialised']" />
+                <question title="Date" binding="attribute[id='date']" />
+                <question title="Date with a defined pattern (dd.MM.yy)" binding="attribute[id='datePattern']" />
+                <question title="Date with an initial value" binding="attribute[id='dateInitialised']" />
+            </sectionScroller>
+
+            <parsedUrlContent id="Content" url="~/HTML/SectionScrollerNoteAndDate.html" />
+        </pageSection>
+
+        <pageSection title="YESORNO - examples of questions bound to YesOrNo attributes">
+            <sectionScroller binding="/asset[id='sectionScrollerAssetData']" type="SectionScrollerAssetData" addAndDeleteEnabled="false">
+                <question title="YesOrNo" binding="attribute[id='yesorno']" />
+                <question title="YesOrNo with renderHint set to 'radio'" binding="attribute[id='yesornoRadio']" renderHint="radio" />
+                <question title="YesOrNo with renderHint set to 'checkbox'" binding="attribute[id='yesornoCheckbox']" renderHint="checkbox" />
+                <question title="YesOrNo with an initial value" binding="attribute[id='yesornoInitialised']" />
+            </sectionScroller>
+
+            <parsedUrlContent id="Content" url="~/HTML/SectionScrollerYesOrNo.html" />
+        </pageSection>
+
+        <navigationSection quitDisabled="true">
+            <commandButtonAction label="Refresh Page" destinationPageId="SectionScroller1" immediate="true" />
+            <commandButtonAction label="Validate Page" destinationPageId="SectionScroller1" />
+        </navigationSection>
+    </page>
+
+    <page id="SectionScroller2" title="SectionScroller 2">
+
+        <sectionScroller binding="/asset[assetTypeId='SectionScroller2AssetData']" type="SectionScroller2AssetData" minRows="1" maxRows="5"
+            repeatedTitle="Test data from ${/policyNumber} asset ${./attribute[id='string']/value}">
+            <question title="Question with a string answer" binding="attribute[id='string']" />
+            <question title="Question with a number answer" binding="attribute[id='number']" />
+            <question title="Question with a currency answer" binding="attribute[id='currency']" />
+            <question title="Question with a choice answer" binding="attribute[id='choice']" />
+            <question title="Question with a choice radio answer" binding="attribute[id='choiceRadio']" />
+            <question title="Question with a date answer" binding="attribute[id='date']" />
+            <question title="Question with a yes or no answer" binding="attribute[id='yesorno']" />
+        </sectionScroller>
+
+        <navigationSection quitDisabled="true">
+            <commandButtonAction label="Refresh Page" destinationPageId="SectionScroller2" immediate="true" />
+            <commandButtonAction label="Validate Page" destinationPageId="SectionScroller2" />
+        </navigationSection>
+    </page>
+
+    <page id="SubjectivityManager" title="SubjectivityManager">
+        <subjectivityManager />
+        <navigationSection>
+            <commandButtonAction label="Save" destinationPageId="SubjectivityManager" />
+        </navigationSection>
+    </page>
+
+    <page id="SubmitTarget" title="SubmitTarget">
+        <parsedUrlContent url="~/HTML/SubmitTarget.html" />
+        <pageSection id="outer" title="outer" binding="/asset[id='submitTarget']">
+            <question title="Outer section question" binding="attribute[id='outer']" />
+            <pageSection id="inner1" title="inner1">
+                <question title="Inner section 1 question" binding="attribute[id='inner1']" />
+                <commandButtonAction label="Save inner 1" destinationPageId="SubmitTarget" submitTarget="inner1"/>
+            </pageSection>
+            <pageSection id="inner2" title="inner2">
+                <question title="Inner section 2 question" binding="attribute[id='inner2']" />
+                <commandButtonAction label="Save inner 2" destinationPageId="SubmitTarget" submitTarget="inner2"/>
+            </pageSection>
+            <commandButtonAction label="Save outer" destinationPageId="SubmitTarget" submitTarget="outer"/>
+        </pageSection>
+    </page>
+
+    <page id="Workflow" title="Workflow">
+        <parsedUrlContent url="~/HTML/Workflow.html" />
+        <pageSection title="Policy Override Values">
+            <question title="Policy number" binding="/asset[id='workflowTestData']/attribute[id='policyNumber']" id="policyNumber" />
+        </pageSection>
+        <navigationSection quitDisabled="true">
+            <commandButtonAction label="Apply Override Values" destinationPageId="Workflow">
+                <action when="onProcessActions" commandName="WorkflowPolicyUpdate" />
+            </commandButtonAction>
+            <commandButtonAction label="Trigger New Business Referral Workflow" destinationPageId="Workflow" immediate="true">
+                <triggerNewBusinessReferralWorkflow />
+            </commandButtonAction>
+        </navigationSection>
+    </page>
+
+    <page id="PageFlowError" title="PageFlow Error">
+        <parsedUrlContent url="~/HTML/PageFlowError.html" />
+        <navigationSection quitDisabled="true">
+            <commandButtonAction label="Force a PageFlow error" destinationPageId="ForceError" />
+        </navigationSection>
+    </page>
+
+    <page id="ForceError" title="ForceError">
+        <action when="onRenderResponse" commandName="CommandThatDoesNotExist" />
+    </page>
+</pageFlow>

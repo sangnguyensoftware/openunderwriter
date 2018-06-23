@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataDictionary type="java:com.ail.core.data.DataDictionary" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/DataDictionary-1.0.xsd">
+
+    <definition name="Policy System Reference" description="Unique system reference for policy" binding="policyId" />
+    <definition name="Inception Date" description="Inception Date" binding="inceptionDate" />
+    <definition name="Policy Status" description="Policy Status" binding="statusAsString" />
+    <definition name="Policy Number" description="Policy Number" binding="policyNumber" />
+    
+    <definition name="HTML Test Attribute" description="Test attribute with embedded html" binding="asset[assetTypeId='HtmlTextAttributeAsset']/attribute[id='html']/formattedValue" />
+
+</dataDictionary>

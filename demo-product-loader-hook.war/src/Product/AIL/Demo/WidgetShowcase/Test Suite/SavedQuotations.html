@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>SavedQuotations</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">SavedQuotations</td></tr>
+</thead><tbody>
+<tr>
+	<td>setTimeout</td>
+	<td>300000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=resetPageflow</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectAndWait</td>
+	<td>name=selectedPage</td>
+	<td>label=SavedQuotations</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>&quot;GEN:&quot;+Math.floor(Math.random()*1000)+1;</td>
+	<td>quoteNumberOne</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=quotation-number-override</td>
+	<td>${quoteNumberOne}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=quotation-date-override</td>
+	<td>01/01/2012</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=expiry-date-override</td>
+	<td>01/01/2013</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=premium-override</td>
+	<td>1234</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Update and Save&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>${quoteNumberOne}</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>You have the following saved quotes: </td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Quotation Number</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Quotation Date</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Expiry Date</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Premium</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1 January, 2012</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1 January, 2013</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>£1,234.00</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>&quot;GEN:&quot;+Math.floor(Math.random()*1000)+1;</td>
+	<td>quoteNumberTwo</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=quotation-number-override</td>
+	<td>${quoteNumberTwo}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=quotation-date-override</td>
+	<td>01/10/2010</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=expiry-date-override</td>
+	<td>01/10/2011</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=premium-override</td>
+	<td>4321</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Update and Save&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>${quoteNumberTwo}</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1 October, 2010</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1 October, 2011</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>£4,321.00</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

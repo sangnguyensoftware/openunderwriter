@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<asset assetTypeId="HtmlTextAttributeAsset" type="java:com.ail.insurance.policy.Asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Model-1.0.xsd">
+    <attribute id="html" format="note">
+        <value><![CDATA[
+<h1>Nam de summo mox, ut dixi, videbimus et ad id explicandum disputationem omnem conferemus.</h1>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <b>Est, ut dicis, inquit;</b> Non potes, nisi retexueris illa. Sed residamus, inquit, si placet. <i>Hoc non est positum in nostra actione.</i> Duo Reges: constructio interrete. Qui ita affectus, beatum esse numquam probabis; </p>
+<p>Igitur neque stultorum quisquam beatus neque sapientium non beatus. Quam ob rem tandem, inquit, non satisfacit? <a href="http://loripsum.net/" target="_blank">Itaque contra est, ac dicitis;</a> <b>Idemne, quod iucunde?</b> An haec ab eo non dicuntur? Cur id non ita fit? </p>
+<p><b>Obsecro, inquit, Torquate, haec dicit Epicurus?</b> Sed ego in hoc resisto; <a href="http://loripsum.net/" target="_blank">Disserendi artem nullam habuit.</a> Illa videamus, quae a te de amicitia dicta sunt. </p>
+<blockquote cite="http://loripsum.net">
+    Potius ergo illa dicantur: turpe esse, viri non esse debilitari dolore, frangi, succumbere.
+</blockquote>
+<ol>
+    <li>Nobis Heracleotes ille Dionysius flagitiose descivisse videtur a Stoicis propter oculorum dolorem.</li>
+    <li>Homines optimi non intellegunt totam rationem everti, si ita res se habeat.</li>
+    <li>Atque haec coniunctio confusioque virtutum tamen a philosophis ratione quadam distinguitur.</li>
+</ol>
+<ul>
+    <li>Aberat omnis dolor, qui si adesset, nec molliter ferret et tamen medicis plus quam philosophis uteretur.</li>
+    <li>Tecum optime, deinde etiam cum mediocri amico.</li>
+    <li>Hoc dixerit potius Ennius: Nimium boni est, cui nihil est mali.</li>
+</ul>
+    ]]></value>
+    </attribute>
+</asset>
+

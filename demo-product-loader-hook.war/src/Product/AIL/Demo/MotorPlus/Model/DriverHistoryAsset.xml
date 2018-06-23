@@ -1,0 +1,14 @@
+<asset assetTypeId='DriverHistoryAsset' id='driversHistory' type="java:com.ail.insurance.policy.Asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Model-1.0.xsd">
+    <attribute id="refusedMotorInsurance" value="No" format="yesorno"/>
+    <attribute id="claimAccidentOrLoss" value="No" format="yesorno"/>
+    <attribute id="theft" value="No" format="yesorno"/>
+    <attribute id="motorConviction" value="No" format="yesorno"/>
+    <attribute id="otherConviction" value="No" format="yesorno"/>
+    <attribute id="previouslyInsured" value="No" format="yesorno"/>
+    <attribute id="gapInCover" value="No" format="yesorno"/>
+    <attribute id="gapInCoverDetail" value="" format="note"/>
+    <attribute id="previousInsurer" value="" format="string"/>
+    <attribute id="previousPolicyNumber" value="" format="string;required=no"/>
+    <attribute id="claimingNoClaimsBonus" value="No" format="yesorno"/>
+    <attribute id="yearsOfNoClaimsBonus" value="0" format="number,pattern=##"/>
+</asset>

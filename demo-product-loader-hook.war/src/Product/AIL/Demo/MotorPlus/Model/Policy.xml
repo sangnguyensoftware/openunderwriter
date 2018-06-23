@@ -1,0 +1,18 @@
+<quotation xsi:type="java:com.ail.insurance.policy.Policy" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<productName>Motor Plus</productName>
+
+	<xi:include href="product://localhost:8080/AIL/Base/Model/PersonalProposer.xml"/>
+
+	<xi:include href="~/MotorPlusSection.xml"/>
+
+	<xi:include href="~/DriverAsset.xml"/>
+	<xi:include href="~/DriverHistoryAsset.xml"/>
+	<xi:include href="~/VehicleAsset.xml"/>
+	<xi:include href="~/AccidentHistoryAsset.xml"/>
+	<xi:include href="~/ConvictionHistoryAsset.xml"/>
+
+	<xi:include href="~/AccidentalDamageExcess.xml"/>
+	<xi:include href="~/FireAndTheftExcess.xml"/>
+
+	<xi:include href="product://localhost:8080/AIL/Base/Model/Acme.xml"/>
+</quotation>

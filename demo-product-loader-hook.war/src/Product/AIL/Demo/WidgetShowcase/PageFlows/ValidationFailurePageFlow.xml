@@ -1,0 +1,32 @@
+<pageFlow id="ValidationFailurePageFlow" rollbackOnValidationFailure="true" startPage="Welcome" type="java:com.ail.pageflow.PageFlow"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/PageFlow-1.1.xsd">
+
+    <action when="onPageFlowEntry" commandName="CreateNewBusinessQuotationCommand" />
+
+    <page id="Welcome" title="Welcome">
+        <parsedUrlContent url="~/HTML/ValidationFailurePageFlow.html" />
+    </page>
+    
+    <page id="ValidationFailurePage" title="Validation Failure Rollback Test">
+        <pageSection title="STRING - examples of questions bound to String attributes" binding="/asset[id='questionAssetData']">
+            <question title="Question prompting for a String value (size=5)" binding="attribute[id='stringSize']" />
+            <question title="Question prompting for a String value (min=2)" binding="attribute[id='stringMin']" />
+            <question title="Question prompting for a String value (max=10)" binding="attribute[id='stringMax']" />
+            <question title="Question prompting for a String value (min=2 &amp; max=10)" binding="attribute[id='stringMinAndMax']" />
+            <question title="Question prompting for a String value (pattern=[0-9ab]*)" binding="attribute[id='stringPattern']" />
+            <question title="Question prompting for a String value (initialised)" binding="attribute[id='stringInitialised']" />
+        </pageSection>
+
+        <navigationSection quitDisabled="true">
+            <commandButtonAction id="submit" label="Submit" destinationPageId="ValidationFailurePage" />
+        </navigationSection>
+    </page>
+
+    <page id="PaymentHolidayDetails" title="PaymentHolidayDetails">
+        <paymentHolidayDetails title="All Payment Holidays" type="PaymentHoliday"/>
+        <navigationSection quitDisabled="true">
+            <commandButtonAction id="submit" label="Submit" destinationPageId="PaymentHolidayDetails" />
+        </navigationSection>
+    </page>
+
+</pageFlow>

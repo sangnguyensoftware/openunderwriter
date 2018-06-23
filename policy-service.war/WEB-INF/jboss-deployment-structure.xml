@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.0">
+    <deployment>
+        <exclusions>
+            <module name="javaee.api" />
+            <module name="org.apache.log4j" />
+        </exclusions>
+        <dependencies>
+            <module name="com.ail.commercial" />
+            <module name="com.ail.core" />
+            <module name="com.ail.ehcache" />
+            <module name="com.ail.insurance" />
+            <module name="com.ail.pageflow" />
+            <module name="com.ail.stripe" />
+            <module name="com.ail.pubnub" />
+            <module name="com.auth0.java-jwt" />
+            <module name="com.google.guava" />
+            <module name="com.liferay.portal" />
+            <module name="com.jcraft.jsch" />
+            <module name="deployment.base-product-loader-hook.war" />
+            <module name="deployment.workflow.war" />
+            <module name="fr.opensagres.xdocreport" />
+            <module name="javax.annotation.api" />
+            <module name="javax.api" />
+            <module name="javax.jms.api" />
+            <module name="javax.jws.api" />
+            <module name="javax.mail.api" />
+            <module name="javax.persistence.api" />
+            <module name="javax.ws.rs.api" />
+            <module name="javax.wsdl4j.api" />
+            <module name="javax.xml.bind.api" />
+            <module name="javax.xml.soap.api" />
+            <module name="javax.xml.ws.api" />
+            <module name="org.apache.commons.commons-net" />
+            <module name="org.apache.commons.jxpath" />
+            <module name="org.apache.httpcomponents" />
+            <module name="org.apache.oltu.auth2" />
+            <module name="org.apache.xalan" />
+            <module name="org.codehaus.castor" />
+            <module name="org.codehaus.jackson.jackson-core-asl" />
+            <module name="org.codehaus.jackson.jackson-mapper-asl" />
+            <module name="org.hibernate" />
+            <module name="org.javassist" />
+            <module name="org.jboss.modules" />
+            <module name="org.jboss.resteasy.resteasy-multipart-provider" />
+            <module name="org.spring.spring-context" />
+        </dependencies>
+    </deployment>
+</jboss-deployment-structure>

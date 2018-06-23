@@ -1,0 +1,250 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#set($model = $args.ModelArgRet)
+#set($pageElement = $args.PageElementArg)
+#set($renderId = $args.RenderIdArg)
+#set($title = ${pageElement.formattedTitle($args)})
+#set($paymentMethodOptions = ${pageElement.PaymentMethodOptions})
+#set($paymentMethodBinding = ${pageElement.encodeId('addPaymentMethod')})
+#set($issuerOptions = ${pageElement.IssuerOptions})
+#set($party = $model.xpathGet($pageElement.Binding))
+#set($dateFormat = '%1$tY-%1$tm-%1$td')
+#set($string = '')
+##
+{
+	"type": "$pageElement.Class.SimpleName",
+	"id": "$renderId",
+	#if($title)"title": "$title",#end
+	#renderPaymentMethods
+	#renderAddAction
+	#renderHint
+	#readOnly
+}
+##
+#macro(renderPaymentMethods)
+	"paymentMethods": [
+	    #foreach($paymentMethod in $party.PaymentMethod)
+			#if( $velocityCount != 1),#end
+			{
+				"type": "$paymentMethod.Class.SimpleName",
+		    	#if($paymentMethod.Class.Name == "com.ail.financial.DirectDebit")
+		            #renderDirectDebit($paymentMethod, $foreach.index)
+		        #elseif ($paymentMethod.Class.Name == "com.ail.financial.PaymentCard")
+		            #renderPaymentCard($paymentMethod, $foreach.index)
+		        #end
+			}
+	    #end
+	]
+#end
+##
+#macro(renderDirectDebit $paymentMethod $index)
+	"bankName": {
+		#set($encodedId=${pageElement.encodeId("/paymentMethod[$velocityCount]/bankName")})
+		#set($fieldValue=${paymentMethod.BankName})
+		"title": "#i18n('i18n_paymentmethod_details_directdebit_bank_name_label')",
+		"value": "#if($fieldValue)$fieldValue#end",
+		"valueId": "$encodedId",
+	    "format": {
+	       "type": "string",
+	       "required": "true"
+	    }
+	    #error("bankName" $party $pageElement)
+	},
+	"branchName": {
+		#set($encodedId=${pageElement.encodeId("/paymentMethod[$velocityCount]/branchName")})
+		#set($fieldValue=${paymentMethod.BranchName})
+		"title": "#i18n('i18n_paymentmethod_details_directdebit_branch_name_label')",
+		"value": "#if($fieldValue)$fieldValue#end",
+		"valueId": "$encodedId",
+	    "format": {
+	       "type": "string",
+	       "required": "false"
+	    }
+	    #error("branchName" $party $pageElement)
+	},
+	"name": {
+		#set($encodedId=${pageElement.encodeId("/paymentMethod[$velocityCount]/name")})
+		#set($fieldValue=${paymentMethod.Name})
+		"title": "#i18n('i18n_paymentmethod_details_directdebit_account_name_label')",
+		"value": "#if($fieldValue)$fieldValue#end",
+		"valueId": "$encodedId",
+	    "format": {
+	       "type": "string",
+	       "required": "true"
+	    }
+	    #error("name" $party $pageElement)
+	},
+	"sortCode": {
+		#set($encodedId=${pageElement.encodeId("/paymentMethod[$velocityCount]/sortCode")})
+		#set($fieldValue=${paymentMethod.SortCode})
+		"title": "#i18n('i18n_paymentmethod_details_directdebit_sort_code_label')",
+		"value": "#if($fieldValue)$fieldValue#end",
+		"valueId": "$encodedId",
+	    "format": {
+	       "type": "string",
+	       "required": "false"
+	    }
+	    #error("sortCode" $party $pageElement)
+	},
+	"accountNumber": {
+		#set($encodedId=${pageElement.encodeId("/paymentMethod[$velocityCount]/accountNumber")})
+		#set($fieldValue=${paymentMethod.AccountNumber})
+		"title": "#i18n('i18n_paymentmethod_details_directdebit_account_number_label')",
+		"value": "#if($fieldValue)$fieldValue#end",
+		"valueId": "$encodedId",
+	    "format": {
+	       "type": "string",
+	       "required": "true"
+	    }
+	    #error("accountNumber" $party $pageElement)
+	}
+	#if($pageElement.AddAndDeleteEnabled && !$pageElement.ReadOnly)
+		,"deleteOp": "${pageElement.deleteOp($party,$index)}"
+	#end
+#end
+##
+#macro(renderPaymentCard $paymentMethod $index)
+	"issuer": {
+		#set($encodedId=${pageElement.encodeId("/paymentMethod[$velocityCount]/issuer")})
+		#set($fieldValue=${paymentMethod.Issuer})
+		"title": "#i18n('i18n_paymentmethod_details_paymentcard_issuer_label')",
+		"value": "#if($fieldValue)$fieldValue#end",
+		"valueId": "$encodedId",
+	    "format": {
+		"options": [
+	     	#foreach($opt in $issuerOptions)
+	            {
+	            	"id": "${opt.Name}",
+	            	"value": "${opt.Name}"
+	            	#if($fieldValue && ${opt.Name}==$fieldValue),"selected": "true"#end
+	           	}#if($foreach.hasNext),#end
+	        #end
+		],
+	    "required": "true"
+	    }
+	    #error("issuer" $party $pageElement)
+	},
+	"cardNumber": {
+		#set($encodedId=${pageElement.encodeId("/paymentMethod[$velocityCount]/cardNumber")})
+		#set($fieldValue=${paymentMethod.CardNumber})
+		"title": "#i18n('i18n_paymentmethod_details_paymentcard_cardnumber_label')",
+		"value": "#if($fieldValue)$fieldValue#end",
+		"valueId": "$encodedId",
+	    "format": {
+	       "type": "string",
+	       "required": "true"
+	    }
+	    #error("cardNumber" $party $pageElement)
+	},
+	"cardHoldersName": {
+		#set($encodedId=${pageElement.encodeId("/paymentMethod[$velocityCount]/cardHoldersName")})
+		#set($fieldValue=${paymentMethod.CardHoldersName})
+		"title": "#i18n('i18n_paymentmethod_details_paymentcard_cardholdername_label')",
+		"value": "#if($fieldValue)$fieldValue#end",
+		"valueId": "$encodedId",
+	    "format": {
+	       "type": "string",
+	       "required": "true"
+	    }
+	    #error("cardHoldersName" $party $pageElement)
+	},
+	"issueNumber": {
+		#set($encodedId=${pageElement.encodeId("/paymentMethod[$velocityCount]/issueNumber")})
+		#set($fieldValue=${paymentMethod.IssueNumber})
+		"title": "#i18n('i18n_paymentmethod_details_paymentcard_issuenumber_label')",
+		"value": "#if($fieldValue)$fieldValue#end",
+		"valueId": "$encodedId",
+	    "format": {
+	       "type": "string",
+	       "required": "false"
+	    }
+	    #error("issueNumber" $party $pageElement)
+	},
+	"startDate": {
+		#set($encodedId=${pageElement.encodeId("/paymentMethod[$velocityCount]/startDate")})
+		#set($fieldValue=${paymentMethod.StartDate})
+		"title": "#i18n('i18n_paymentmethod_details_paymentcard_startdate_label')",
+		"value": "#if($fieldValue)#formatDate($fieldValue)#end",
+		"valueId": "$encodedId",
+		"format": {
+			"type": "date",
+			"pattern": "yyyy-MM-dd",
+			"required": "false"
+		}
+	    #error("startDate" $party $pageElement)
+	},
+	"expiryDate": {
+		#set($encodedId=${pageElement.encodeId("/paymentMethod[$velocityCount]/expiryDate")})
+		#set($fieldValue=${paymentMethod.ExpiryDate})
+		"title": "#i18n('i18n_paymentmethod_details_paymentcard_expirydate_label')",
+		"value": "#if($fieldValue)#formatDate($fieldValue)#end",
+		"valueId": "$encodedId",
+		"format": {
+			"type": "date",
+			"pattern": "yyyy-MM-dd",
+			"required": "true"
+		}
+	    #error("expiryDate" $party $pageElement)
+	},
+	"securityCode": {
+		#set($encodedId=${pageElement.encodeId("/paymentMethod[$velocityCount]/securityCode")})
+		#set($fieldValue=${paymentMethod.SecurityCode})
+		"title": "#i18n('i18n_paymentmethod_details_paymentcard_securitycode_label')",
+		"value": "#if($fieldValue)$fieldValue#end",
+		"valueId": "$encodedId",
+	    "format": {
+	       "type": "string",
+	       "required": "true"
+	    }
+	    #error("securityCode" $party $pageElement)
+	}
+	#if($pageElement.AddAndDeleteEnabled && !$pageElement.ReadOnly)
+		,"deleteOp": "${pageElement.deleteOp($party,$index)}"
+	#end
+#end
+##
+#macro(renderAddAction)
+	#if($pageElement.AddAndDeleteEnabled && !$pageElement.ReadOnly)
+		,"addDirectDebitOp": "${pageElement.addOp($party,'DirectDebit')}"
+		,"addPaymentCardOp": "${pageElement.addOp($party,'PaymentCard')}"
+	#end
+#end
+##
+#macro(renderHint)
+    #if( $args.RenderHintArg )       
+        ,"clientHint": "$args.RenderHintArg"
+    #end
+#end
+##
+#macro(readOnly)
+    #if( $pageElement.ReadOnly )       
+        ,"readOnly": "true"
+    #end
+#end
+##
+#macro(i18n $id)$pageElement.i18n("$id")#end
+##
+#macro(error $filter $model $element)
+     #if($element.hasErrorMarker($filter, $model))
+         ,"error": "${element.findError($filter, $model, $element)}"
+     #end
+#end
+##
+#macro(formatDate $date)
+#if($date)${string.format($dateFormat,$date)}#end
+#end
+##

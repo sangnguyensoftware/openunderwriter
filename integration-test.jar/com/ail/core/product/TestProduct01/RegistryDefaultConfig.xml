@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ This file defines a test product for use in the core system. This product configuration is
+ required in live deployments and is only used for testing purposes.
+-->
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd">
+    <name>Configuration for Test Product 1</name>
+    <timeout>60000</timeout>
+    <who>factory</who>
+    <version>$Revision$</version>
+    <manager>com.ail.core.product.resetproduct.ResetProductService</manager>
+    
+    <parameter name="TestPropertyA">A's Value</parameter>
+    <parameter name="TestPropertyB">B's Value</parameter>
+    
+    <group name="KeyGenerators">
+        <group name="Key">
+            <parameter name="ID">Test.Product01.ID</parameter>
+            <parameter name="Range">10-*</parameter>
+        </group>
+    </group>
+
+    <types>
+        <service name="MergeDocumentDataJavaService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.core.document.JavaMergeDataService</parameter>
+        </service>
+        
+        <service name="StyleDocumentXsltService" key="com.ail.core.command.XSLTAccessor">
+            <parameter name="Url">classpath://com.ail.core.document/DefaultStyleDocumentService.xslt</parameter>
+        </service>
+        
+        <service name="RenderFOPPdfDocumentService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.core.document.RenderFopPdfDocumentService</parameter>
+        </service>
+        
+        <service name="RenderITextPdfDocumentService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.core.document.RenderItextPdfDocumentService</parameter>
+        </service>
+        
+        <service name="RenderXDocReportPdfDocumentService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.core.document.RenderXDocReportPdfDocumentService</parameter>
+        </service>
+        
+        <command name="MergeDocumentDataCommand" key="com.ail.core.document.MergeDataCommandImpl">
+            <parameter name="Service">MergeDocumentDataJavaService</parameter>
+        </command>
+        
+        <command name="StyleDocumentCommand" key="com.ail.core.document.StyleDocumentCommandImpl">
+            <parameter name="Service">StyleDocumentXsltService</parameter>
+        </command>        
+        
+        <command name="RenderFOPHelloDocumentCommand" key="com.ail.core.document.RenderDocumentCommandImpl">
+            <parameter name="Service">RenderFOPPdfDocumentService</parameter>
+            <parameter name="RenderOptionsArg">allowCopyContent=FALSE,allowPrint=TRUE</parameter>
+            <parameter name="TranslationUrlArg">classpath://com.ail.core.document/TestGenerateDocumentHelloWorld.xsl</parameter>
+        </command>
+
+        <command name="RenderITextHelloDocumentCommand" key="com.ail.core.document.RenderDocumentCommandImpl">
+            <parameter name="Service">RenderITextPdfDocumentService</parameter>
+            <parameter name="TemplateUrlArg">classpath://com.ail.core.document/TestGenerateDocumentIText.pdf</parameter>
+        </command>
+
+        <command name="RenderXDocHelloDocumentCommand" builder="ClassBuilder" key="com.ail.core.document.RenderDocumentCommandImpl">
+            <parameter name="Service">RenderXDocReportPdfDocumentService</parameter>
+            <parameter name="TemplateUrlArg">classpath://com.ail.core.document/TestGenerateDocumentXDoc.docx</parameter>
+        </command>
+        
+        <type name="TestProduct01" key="com.ail.core.Attribute" builder="CastorXMLBuilder">
+            <parameter name="Script"><![CDATA[
+                   <attribute xsi:type='java:com.ail.core.Attribute' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+                      <attribute id="name" format="string" value="TestProduct1"/>
+                      <attribute id="productname" format="string" value="TestProduct1"/>
+                      <attribute id="age" format="number" value="34"/>
+                      <attribute id="colour" format="string" value="purple"/>
+                   </attribute>
+            ]]></parameter>
+        </type>
+
+        <type name="TestTypeA" key="com.ail.core.Attribute" builder="CastorXMLBuilder">
+            <parameter name="Script"><![CDATA[
+            <attribute xsi:type='java:com.ail.core.Attribute' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+                <attribute id="name" format="string" value="TestTypeA"/>
+                <attribute id="productname" format="string" value="TestProduct1"/>
+                <attribute id="age" format="number" value="34"/>
+                <attribute id="colour" format="string" value="purple"/>
+            </attribute>
+            ]]></parameter>
+        </type>
+
+        <type name="TestTypeC" key="com.ail.core.Attribute" builder="CastorXMLBuilder">
+            <parameter name="Script"><![CDATA[
+            <attribute xsi:type='java:com.ail.core.Attribute' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+                <attribute id="name" format="string" value="TestTypeC"/>
+                <attribute id="source" format="string" value="TestProduct1"/>
+            </attribute>
+            ]]></parameter>
+        </type>
+        
+        <type name="MyTestFOPDocument" builder="CastorXMLBuilder" key="com.ail.core.document.model.DocumentDefinition">
+            <parameter name="Script"><![CDATA[
+            <documentDefinition xsi:type="java:com.ail.core.document.model.DocumentDefinition" 
+                                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            
+                <mergeCommand>MergeDocumentDataCommand</mergeCommand>
+                <styleCommand>StyleDocumentCommand</styleCommand>
+                <renderCommand>RenderFOPHelloDocumentCommand</renderCommand>
+                    
+                <documentData>
+                    <watermark>http://someplace/image.gif</watermark>
+
+                    <headerData applicability="ALL">
+                        <!-- bound item data without a default -->
+                        <modelData id='nm1' title='Configuration Name' style='string' binding="/name"/>
+                    </headerData>
+
+                    <!-- This chapter shows how title/value (aka question/anwser) data is represented. -->
+                    <!-- It also has a watermark, and a chapter header.                                -->
+                    <chapterData id="section1" title="Section One: Basic Details">
+                        <blockData position="BODY" applicability="ALL">
+                            <modelData id='nm1' title='Timeout' style='integer' binding="/timeout"/>
+                            <modelData id='nm1' title='Who' style='string' binding="/who"/>
+                            <modelData id='nm1' title='Version' style='string' binding="/version"/>
+                            
+                            <!-- bound item data with a default (used if the binding xpath fails or returns null) -->
+                            <modelData id='nm2' title='Not configuration Name' style='string' binding="/nname">Default</modelData>
+                            <!-- unbound item data - i.e. no binding, so default is always used -->
+                            <modelData id='nm3' title='Default configuration Name' style='string'>Default</modelData>
+                            <!-- bound to a bad expression, and no default -->
+                            <modelData id='nm4' title='Bad configuration Name' style='string' binding="/niim"/>
+                        </blockData>
+                    </chapterData>
+            
+                    <chapterData id="chapter2" title="Section Two: Parameter Values">
+                        <blockData position="BODY" applicability="ALL">
+                            <repeatingData binding="onlyGroups[name='ListOfThings']/parameter">
+                                <blockData position="HEADER">
+                                    <modelData>Parameter Name</modelData>
+                                    <modelData>Parameter Value</modelData>
+                                </blockData>
+                                <blockData position="BODY">
+                                    <modelData binding="name" style="string"/>
+                                    <modelData binding="value" style="string"/>
+                                </blockData>
+                            </repeatingData>
+                        </blockData>            
+                    </chapterData>
+            
+                    <chapterData id="chapter3" title="Terms and Conditions">
+                        <blockData applicability="ALL" position="BODY">
+                            <urlData title="Terms &amp; Conditions" url="classpath://com.ail.core.document/TestGenerateDocumentTC.html"/> 
+                        </blockData>
+                    </chapterData>
+                </documentData> 
+            </documentDefinition>
+            ]]></parameter>
+        </type>
+
+        <type name="MyTestITextDocument" builder="CastorXMLBuilder" key="com.ail.core.document.model.DocumentDefinition">
+            <parameter name="Script"><![CDATA[
+            <documentDefinition xsi:type="java:com.ail.core.document.model.DocumentDefinition" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <renderCommand>RenderITextHelloDocumentCommand</renderCommand>
+            </documentDefinition>
+            ]]></parameter>
+        </type>
+
+        <type name="MyTestXDocDocument" builder="CastorXMLBuilder" key="com.ail.core.document.model.DocumentDefinition">
+            <parameter name="Script"><![CDATA[
+            <documentDefinition xsi:type="java:com.ail.core.document.model.DocumentDefinition" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <renderCommand>RenderXDocHelloDocumentCommand</renderCommand>
+            </documentDefinition>
+            ]]></parameter>
+        </type>
+    </types>
+</configuration>

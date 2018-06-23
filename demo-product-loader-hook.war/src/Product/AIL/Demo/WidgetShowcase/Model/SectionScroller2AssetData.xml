@@ -1,0 +1,10 @@
+<asset assetTypeId="SectionScroller2AssetData"  xsi:type="java:com.ail.insurance.policy.Asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <attribute id="string" value="" format="string" />
+    <attribute id="number" value="0" format="number" />
+    <attribute id="currency" value="0" format="currency" unit="GBP" />
+    <attribute id="choice" value="?" format="choice,options=-1#?|1#Red|2#Green|3#Blue" />
+    <attribute id="choiceRadio" value="?" format="choice,options=-1#?|1#Yellow|2#Magenta|3#Cyan" />
+    <attribute id="date" value="" format="date" />
+    <attribute id="yesorno" value="?" format="yesorno" />
+</asset>
+

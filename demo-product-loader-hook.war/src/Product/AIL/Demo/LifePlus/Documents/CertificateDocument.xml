@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documentDefinition xsi:type="java:com.ail.core.document.model.DocumentDefinition" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+    <documentData>
+        <chapterData id="c1" title="Basic Details" id="cert.base">
+        </chapterData>
+    </documentData> 
+</documentDefinition>

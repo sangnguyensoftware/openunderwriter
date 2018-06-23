@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project default="build" name="openunderwriter">
+    <import file="./BuildSettings.xml" />
+    <import file="./BuildCommands.xml" />
+
+    <target name="clean" description="delete everything that the build can generate">
+        <subant-macro target="clean" />
+    </target>
+
+    <target name="_build">
+        <_initialise-ant-contribs-macro />
+        <parallel threadcount="${threads}" >
+            <ant dir="./modules/org/codehaus/castor.jar" antfile="Build.xml" target="_build" />
+            <ant dir="./modules/org/jboss/as/server.jar" antfile="Build.xml" target="_build" />
+            <ant dir="./modules/org/drools.jar" antfile="Build.xml" target="_build" />
+        </parallel>
+        <ant dir="./modules/com/ail/core.jar" antfile="Build.xml" target="_build" />
+        <ant dir="./modules/com/ail/commercial.jar" antfile="Build.xml" target="_build" />
+        <ant dir="./modules/com/ail/insurance.jar" antfile="Build.xml" target="_build" />
+        <ant dir="./modules/com/ail/pageflow.jar" antfile="Build.xml" target="_build" />
+		<parallel threadcount="${threads}" >
+            <ant dir="./modules/com/ail/workflow.jar" antfile="Build.xml" target="_build" />
+            <ant dir="./modules/com/ail/gwtui.jar" antfile="Build.xml" target="_build" />
+            <ant dir="./workflow-handlers.jar" antfile="Build.xml" target="_build" />
+            <ant dir="./workflow-identity.jar" antfile="Build.xml" target="_build" />
+            <ant dir="./base-product-loader-hook.war" antfile="Build.xml" target="_build" />
+            <ant dir="./demo-product-loader-hook.war" antfile="Build.xml" target="_build" />
+            <ant dir="./product-change-listener-hook.war" antfile="Build.xml" target="_build" />
+            <ant dir="./jbpm-console.war" antfile="Build.xml" target="_build" />
+            <ant dir="./command-server-ejb.jar" antfile="Build.xml" target="_build" />
+            <ant dir="./gwtui-portlet.war" antfile="Build.xml" target="_build" />
+            <ant dir="./reportwidget-portlet.war" antfile="Build.xml" target="_build" />
+            <ant dir="./pageflow-portlet.war" antfile="Build.xml" target="_build" />
+            <ant dir="./birt.war" antfile="Build.xml" target="_build" />
+            <ant dir="./product-service.war" antfile="Build.xml" target="_build" />
+            <ant dir="./policy-service.war" antfile="Build.xml" target="_build" />
+            <ant dir="./claim-service.war" antfile="Build.xml" target="_build" />
+            <ant dir="./pageflow-service.war" antfile="Build.xml" target="_build" />
+            <ant dir="./integrator-service.war" antfile="Build.xml" target="_build" />
+            <ant dir="./security-service.war" antfile="Build.xml" target="_build" />
+            <ant dir="./openunderwriter-theme.war" antfile="Build.xml" target="_build" />
+            <ant dir="./workflow.war" antfile="Build.xml" target="_build" />
+        </parallel>
+		<if> 
+		    <not>
+		      	<istrue value="${nodemo}" />
+		    </not>
+		    <then>
+		        <parallel threadcount="${threads}" >
+		            <ant dir="./bluestone-theme.war" antfile="Build.xml" target="_build" />
+		            <ant dir="./greentree-theme.war" antfile="Build.xml" target="_build" />
+		            <ant dir="./ghana-theme.war" antfile="Build.xml" target="_build" />
+		            <ant dir="./narrowbar-theme.war" antfile="Build.xml" target="_build" />
+		        </parallel>
+		    </then>
+		</if>
+        <ant dir="./database" antfile="Build.xml" target="_build" />
+        <subant-macro target="_build" includes="*-test.jar/Build.xml" />
+    </target>
+
+    <target name="build" description="compile (generate, copy, etc) all build outputs">
+        <subant-macro target="_build" excludes="target/**, build/*, package/*, *-product-loader-hook.war/**, performance-test/*, modules/org/**, modules/net/**, modules/com/google/**, modules/com/itext/**" />
+    </target>
+
+    <target name="setup" description="run all the one-time-only steps - like copying libs into place">
+        <ant dir="build" antfile="Build.xml" target="setup" />
+        <ant dir="package" antfile="Build.xml" target="setup" />
+        <ant dir="domain" antfile="Build.xml" target="setup" />
+        <ant dir="database" antfile="Build.xml" target="setup" />
+        <subant-macro target="setup" excludes="build/Build.xml, package/Build.xml, domain/Build.xml, database/Build.xml, *-product-loader-hook.war/src/**" />
+        <antcall target="_build" />
+        <generate-sample-data-macro />
+    </target>
+
+    <target name="teardown" description="undo whatever setup did">
+        <stop-liferay-macro />
+        <subant-macro target="teardown" excludes="target/**, build/Build.xml, *-product-loader-hook.war/src/**" />
+        <subant-macro target="teardown" includes="build/Build.xml" />
+        <delete dir="./.apt_generated" />
+        <delete dir="${target.dir}" />
+        <delete dir="${java.io.tmpdir}/liferay" />
+    </target>
+
+    <target name="test" description="run unit tests and integration tests">
+        <_initialise-ant-contribs-macro />
+
+        <echo file="${test.results.file}" message="# test results file${line.separator}" />
+
+        <ant dir="./unit-test.jar" antfile="Build.xml" target="test" />
+
+        <parallel>
+            <start-liferay-macro />
+
+            <sequential>
+                <wait-for-liferay-to-start-macro />
+
+                <sleep minutes="1" />
+
+                <if>
+                    <equals arg1="${build.type}" arg2="developer" />
+                    <then>
+                        <ant dir="./base-product-loader-hook.war/src/Product/AIL/Base/Workflows" antfile="Build.xml" />
+                        <ant dir="./system-test.jar" antfile="Build.xml" target="_test" />
+                        <ant dir="./product-test.jar" antfile="Build.xml" target="_test" />
+                    </then>
+                </if>
+                <ant dir="./integration-test.jar" antfile="Build.xml" target="_test" />
+
+                <stop-liferay-macro />
+
+                <format-unit-test-results-macro />
+
+                <fail-on-system-test-error-macro />
+                <fail-on-product-test-error-macro />
+                <fail-on-integration-test-error-macro />
+            </sequential>
+        </parallel>
+
+        <format-unit-test-results-macro />
+
+    </target>
+
+    <target name="release">
+        <subant-macro target="build" includes="package/Build.xml" />
+    </target>
+
+</project>

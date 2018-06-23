@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ Ant build file for starting utilities & servers etc..
+-->
+
+<project default="" name="openquote:commands">
+	<import file="./BuildSettings.xml" />
+
+	<target name="start" description="start the liferay server">
+		<start-liferay-macro />
+	</target>
+
+	<target name="stop" description="stop the liferay server">
+		<stop-liferay-macro />
+	</target>
+
+	<target name="restart" description="restart the liferay server">
+		<stop-liferay-macro />
+		<start-liferay-macro />
+	</target>
+
+	<target name="export portal data" description="Export the content repository into the source tree">
+		<_content-export-macro />
+	</target>
+
+	<target name="export policy data" description="Export policy test data">
+		<_policy-export-macro />
+	</target>
+
+	<target name="generate" description="Generate sample reporting data">
+		<generate-sample-data-macro />
+	</target>
+	
+	<target name="release to sourceforge">
+		<release-to-sourceforge-macro />
+	</target>
+</project>

@@ -1,0 +1,76 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the pageElement widget.
+##
+#set( $policy = $args.ModelArgRet)             ## instance of com.ail.insurance.Policy
+#set( $pageElement = $args.PageElementArg )    ## instance of com.ail.pageflow.PageElement
+#set( $response = $args.ResponseArgRet ) 
+##
+#set( $title = ${pageElement.formattedTitle($args)} )
+##
+<div class='pf-pageflow-container'>
+	#progressBar()
+	<div class='pf-question-page'>
+		#pageErrorBar()
+	    #if( $title )
+	        <div class='pf-page-title'>$title</div>
+	    #end
+		<form id='pageflow' name='${pageElement.Id}' action='${response.createActionURL()}' method='post'>
+	        #foreach( $element in $pageElement.PageElement )
+	            #set( $args.ModelArgRet = ${element.renderResponse($policy)} )
+	        #end
+		</form>
+	    <div style="clear:both"></div>
+	</div>
+</div>
+##
+#macro(progressBar)
+	#if( $pageElement.ProgressBarEnabled && $pageElement.Stage && $pageElement.Stage!="" )
+		#set( $pastCurrent = false )
+		<div class="pf-progress-bar pf-page-section">
+			<ol class="progtrckr" data-progtrckr-steps="${pageElement.Stages.size()}">
+				#foreach($stage in $pageElement.Stages)
+					#if( $pastCurrent ) 
+						#set( $style="progtrckr-todo" )
+					#else
+						#set( $style="progtrckr-done" )
+					#end
+					#if( $stage == $pageElement.stage )
+						#set( $style="progtrckr-now" )
+						#set( $pastCurrent = true )
+					#end 
+					<li class="${style}">#i18n(${stage})</li>
+				#end
+			</ol>
+		</div>
+	#end
+#end
+##
+#macro(pageErrorBar)
+	#if( $pageElement.PageErrorEnabled )
+		<div class="pf-header-error" style="display: none;">#i18n("i18n_page_error")</div>
+		<script type="text/javascript">
+			if ( $( ".pf-input-error:visible" ).length > 0 ) {
+				$(".pf-header-error").show();
+			}
+		</script> 
+	#end
+#end
+##
+#macro( i18n $id )$pageElement.i18n("$id")#end

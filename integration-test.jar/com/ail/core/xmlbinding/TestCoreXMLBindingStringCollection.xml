@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exceptionRecord lock="false" serialVersion="0" systemId="-1" date="2016-04-10T00:34:03.185Z" reason="com.ail.pageflow.RenderingError: Failed to execute action command: CreateNewBusinessQuotationCommand"
+    catchingClassName="com.ail.pageflow.portlet.PageFlowCommon" xsi:type="java:com.ail.core.ExceptionRecord" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <stack>com.ail.core.PreconditionException: getPolicyFromPageFlowContext() != null</stack>
+    <stack>com.ail.pageflow.service.CreateNewBusinessQuotationService.invoke(CreateNewBusinessQuotationService.java:56)</stack>
+    <stack>com.ail.core.command.ClassAccessor.invoke(ClassAccessor.java:36)</stack>
+    <stack>com.ail.core.command.CommandImpl.invoke(CommandImpl.java:93)</stack>
+    <stack>com.ail.pageflow.ExecutePageActionService.invoke(ExecutePageActionService.java:164)</stack>
+    <stack>com.ail.core.command.ClassAccessor.invoke(ClassAccessor.java:36)</stack>
+    <stack>com.ail.core.command.CommandImpl.invoke(CommandImpl.java:93)</stack>
+    <stack>com.ail.pageflow.Action.execute(Action.java:192)</stack>
+    <stack>com.ail.pageflow.Action.executeAction(Action.java:147)</stack>
+    <stack>com.ail.pageflow.PageFlow.renderResponse(PageFlow.java:170)</stack>
+    <stack>com.ail.pageflow.portlet.PageFlowCommon.doView(PageFlowCommon.java:91)</stack>
+    <stack>com.ail.pageflow.portlet.PageFlowPortlet.doDisplayPageFlowView(PageFlowPortlet.java:180)</stack>
+    <stack>com.ail.pageflow.portlet.PageFlowPortlet.doView(PageFlowPortlet.java:120)</stack>
+    <stack>javax.portlet.GenericPortlet.doDispatch(GenericPortlet.java:328)</stack>
+    <stack>javax.portlet.GenericPortlet.render(GenericPortlet.java:233)</stack>
+    <stack>com.liferay.portlet.FilterChainImpl.doFilter(FilterChainImpl.java:103)</stack>
+    <stack>com.liferay.portlet.ScriptDataPortletFilter.doFilter(ScriptDataPortletFilter.java:55)</stack>
+    <stack>com.liferay.portlet.FilterChainImpl.doFilter(FilterChainImpl.java:100)</stack>
+    <stack>com.ail.pageflow.portlet.PageflowContextPortletFilter.doInContext(PageflowContextPortletFilter.java:62)</stack>
+    <stack>com.ail.pageflow.portlet.PageflowContextPortletFilter.doFilter(PageflowContextPortletFilter.java:90)</stack>
+    <stack>sun.reflect.GeneratedMethodAccessor1209.invoke(null:-1)</stack>
+    <stack>sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</stack>
+    <stack>java.lang.reflect.Method.invoke(Method.java:606)</stack>
+    <stack>com.liferay.portal.kernel.bean.ClassLoaderBeanHandler.invoke(ClassLoaderBeanHandler.java:67)</stack>
+    <stack>com.sun.proxy.$Proxy501.doFilter(null:-1)</stack>
+    <stack>com.liferay.portlet.FilterChainImpl.doFilter(FilterChainImpl.java:100)</stack>
+    <stack>com.ail.core.persistence.hibernate.HibernateSessionPortletFilter$1.run(HibernateSessionPortletFilter.java:73)</stack>
+    <stack>com.ail.core.persistence.hibernate.HibernateRunInTransaction.invoke(HibernateRunInTransaction.java:50)</stack>
+    <stack>com.ail.core.persistence.hibernate.HibernateSessionPortletFilter.doFilterInTransaction(HibernateSessionPortletFilter.java:82)</stack>
+    <stack>com.ail.core.persistence.hibernate.HibernateSessionPortletFilter.doFilter(HibernateSessionPortletFilter.java:113)</stack>
+    <stack>sun.reflect.GeneratedMethodAccessor1209.invoke(null:-1)</stack>
+    <stack>sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</stack>
+    <stack>java.lang.reflect.Method.invoke(Method.java:606)</stack>
+    <stack>com.liferay.portal.kernel.bean.ClassLoaderBeanHandler.invoke(ClassLoaderBeanHandler.java:67)</stack>
+    <stack>com.sun.proxy.$Proxy501.doFilter(null:-1)</stack>
+    <stack>com.liferay.portlet.FilterChainImpl.doFilter(FilterChainImpl.java:100)</stack>
+    <stack>com.liferay.portal.kernel.portlet.PortletFilterUtil.doFilter(PortletFilterUtil.java:64)</stack>
+    <stack>com.liferay.portal.kernel.servlet.PortletServlet.service(PortletServlet.java:112)</stack>
+    <stack>javax.servlet.http.HttpServlet.service(HttpServlet.java:847)</stack>
+    <stack>org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:329)</stack>
+    <stack>org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:248)</stack>
+    <stack>com.liferay.portal.kernel.servlet.filters.invoker.InvokerFilterChain.doFilter(InvokerFilterChain.java:116)</stack>
+    <stack>com.liferay.portal.kernel.servlet.filters.invoker.InvokerFilter.doFilter(InvokerFilter.java:96)</stack>
+    <stack>org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:280)</stack>
+    <stack>org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:248)</stack>
+    <stack>org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:840)</stack>
+    <stack>org.apache.catalina.core.ApplicationDispatcher.doInclude(ApplicationDispatcher.java:720)</stack>
+    <stack>org.apache.catalina.core.ApplicationDispatcher.include(ApplicationDispatcher.java:657)</stack>
+    <stack>com.liferay.portlet.InvokerPortletImpl.invoke(InvokerPortletImpl.java:604)</stack>
+    <stack>com.liferay.portlet.InvokerPortletImpl.invokeRender(InvokerPortletImpl.java:677)</stack>
+    <stack>com.liferay.portlet.InvokerPortletImpl.render(InvokerPortletImpl.java:379)</stack>
+</exceptionRecord>

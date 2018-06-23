@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <name>Default Service Type Merging Tests</name>
+  <timeout>600000</timeout>
+  <who>factory</who>
+  <version>$Revision$</version>
+
+  <types>
+      <type name="BaseType" builder="CastorXMLBuilder" key="com.ail.core.Version">
+          <parameter name="Script"><![CDATA[
+<type lock="false" serialVersion="21" xsi:type="java:com.ail.core.Version" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <author>T.S.Elliot</author>
+    <comment>The loganberry's are sweet</comment>
+    <copyright>Copyright us.</copyright>
+    <version>1.0</version>
+    <attribute id="baseattr" format="string" value="2"/>
+    <attribute id='one' value='valueone'/>
+    <attribute id='two' value='valuetwo' format='string,32'/>
+    <attribute id='root' format='none'>
+			<attribute id='branch1' value='BaseBranch' format='string,32'/>
+    </attribute>
+    <attribute id='root2' format='none'>
+			<attribute id='branch3' value='BaseBranch' format='string,32'/>
+    </attribute>
+</type>
+          ]]></parameter>
+      </type>
+
+      <type name="ExtendingType" builder="CastorXMLBuilder" key="com.ail.core.Version">
+          <parameter name="Extends">BaseType</parameter>
+          <parameter name="Script"><![CDATA[
+<type lock="true" xsi:type="java:com.ail.core.Version" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <author>H.G.Wells</author>
+    <source>Peach and mint</source>
+    <state>state</state>
+    <date>27/07/2006</date>
+    <attribute id="subattr" format="string" value="2"/>
+    <attribute id="one" format="string" unit="feet"/>
+    <attribute id="two" value="overriden-two"/>
+    <attribute id='root'>
+			<attribute id='branch1' value='ExtBranch'/>
+			<attribute id='branch2' value='ExtBranch' format='string,32'/>
+    </attribute>
+</type>
+          ]]></parameter>
+      </type>
+
+      <type name="BaseGroup" builder="CastorXMLBuilder" key="com.ail.core.configure.Group">
+          <parameter name="Script"><![CDATA[
+<group name="mygroup" xsi:type="java:com.ail.core.configure.Group" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <parameter name="param1">value 1</parameter>
+   <parameter name="param2">value 2</parameter>
+</group>
+          ]]></parameter>
+      </type>
+
+      <type name="ExtendingGroup" builder="CastorXMLBuilder" key="com.ail.core.configure.Group">
+          <parameter name="Extends">BaseGroup</parameter>
+          <parameter name="Script"><![CDATA[
+<group xsi:type="java:com.ail.core.configure.Group" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <parameter name="param2">overriden value 2</parameter>
+   <parameter name="param3">value 3</parameter>
+</group>
+          ]]></parameter>
+      </type>
+
+      <type name="Includer" builder="CastorXMLBuilder" key="com.ail.core.History">
+          <parameter name="Url">classpath://com.ail.core.factory/TestFactoryTypeMergingIncluder.xml</parameter>
+      </type>
+
+      <type name="IncluderRelative" builder="CastorXMLBuilder" key="com.ail.core.History">
+          <parameter name="Url">classpath://com.ail.core.factory/TestFactoryTypeMergingIncluderRelative.xml</parameter>
+      </type>
+
+  </types>
+</configuration>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.0">
+    <deployment>
+        <exclusions>
+            <module name="org.apache.log4j" />
+        </exclusions>
+        <dependencies>
+            <module name="com.ail.core" />
+            <module name="com.ail.commercial" />
+            <module name="com.ail.insurance" />
+            <module name="com.ail.pageflow" />
+            <module name="com.liferay.portal" />
+            <module name="org.codehaus.castor" />
+        </dependencies>
+    </deployment>
+</jboss-deployment-structure>

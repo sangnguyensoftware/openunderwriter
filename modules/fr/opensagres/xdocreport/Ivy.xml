@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+  <info organisation="fr.opensagres.xdocreport" module="xdocreport" />
+  <dependencies>
+  
+	<dependency org="fr.opensagres.xdocreport" name="fr.opensagres.xdocreport.converter" rev="1.0.6" />
+	<dependency org="fr.opensagres.xdocreport" name="fr.opensagres.xdocreport.converter.docx.xwpf" rev="1.0.6" />
+	<dependency org="fr.opensagres.xdocreport" name="fr.opensagres.xdocreport.core" rev="1.0.6" />
+	<dependency org="fr.opensagres.xdocreport" name="fr.opensagres.xdocreport.document" rev="1.0.6" />
+	<dependency org="fr.opensagres.xdocreport" name="fr.opensagres.xdocreport.document.docx" rev="1.0.6" />
+	<dependency org="fr.opensagres.xdocreport" name="fr.opensagres.xdocreport.itext.extension" rev="1.0.6" />
+	<dependency org="fr.opensagres.xdocreport" name="fr.opensagres.xdocreport.template" rev="1.0.6" />
+	<dependency org="fr.opensagres.xdocreport" name="fr.opensagres.xdocreport.template.velocity" rev="1.0.6" />
+	
+    <exclude org="com.sun.xml.bind" />
+    <exclude org="commons-codec" />
+    <exclude org="commons-collections" />
+    <exclude org="commons-lang" />
+    <exclude org="commons-fileupload" />
+    <exclude org="dom4j" />
+    <exclude org="javax.activation" />
+    <exclude org="javax.servlet" />
+    <exclude org="javax.xml.bind" />
+    <exclude org="log4j" />
+    <exclude org="org.apache.velocity" />
+    <exclude org="org.bouncycastle" />
+    <exclude org="org.osgi" />
+    <exclude org="org.slf4j" />
+    <exclude org="xerces" />
+    <exclude org="xml-apis" />
+	
+  </dependencies>
+</ivy-module>

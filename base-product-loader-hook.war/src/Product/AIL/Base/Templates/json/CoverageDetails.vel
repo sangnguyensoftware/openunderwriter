@@ -1,0 +1,67 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+#set( $policy = $args.ModelArgRet)
+#set( $pageElement = $args.PageElementArg )
+#set( $id = $args.RenderIdArg )
+#set( $string = '' )
+#set( $dateFormat = '%1$tY-%1$tm-%1$tdT%1$tT' )
+##
+{
+	"type": "$pageElement.Class.SimpleName",
+	"id": "$id"
+	#if( ${pageElement.hasCoverages($policy)})
+		,"coverages": [ 	
+			#if( ${policy.Coverage.size()} )
+				#renderCoverages(${policy.Coverage})
+			#end
+			#foreach( $section in ${policy.Section})
+				#if( ${section.Coverage.size()} )
+					,#renderCoverages(${section.Coverage})
+				#end
+			#end
+		]
+	#end
+}
+##
+#macro(renderCoverages, $coverages)
+	#foreach( $coverage in $coverages )
+		{
+			"coverageId": "$!coverage.Id",
+			"name": "$!{coverage.Name}",
+			"description": "$!{coverage.Description}",
+			"coverageTypeId": "$!{coverage.CoverageTypeId}",
+			"enabled": $!{coverage.Enabled},
+			"optional": $!{coverage.Optional}
+			#if(${coverage.Limit})
+				,"limit": "$!{coverage.Limit.FormattedValue}"
+			#end
+			#if(${coverage.Deductible})
+				,"deductible": "${coverage.Deductible.FormattedValue}"
+			#end
+			#if(${coverage.EffectiveDate})
+				,"effectiveDate": "${string.format($dateFormat, $coverage.EffectiveDate)}"
+			#end
+			#if(${coverage.ExpiryDate})
+				,"expiryDate": "${string.format($dateFormat, $coverage.ExpiryDate)}"
+			#end
+			#if(${coverage.Broker})
+				,"broker": "$!{coverage.Broker.TradingName} $!{coverage.Broker.ContactName}"
+			#end
+		}
+	#end
+#end

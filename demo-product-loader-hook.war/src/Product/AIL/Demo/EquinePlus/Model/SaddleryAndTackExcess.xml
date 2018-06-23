@@ -1,0 +1,4 @@
+<excess id="excess1" enabled="true" xsi:type="java:com.ail.insurance.policy.Excess" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <title>Saddlery And Tack Excess</title>
+    <amount amount="150.00" currency="GBP"/>
+</excess>

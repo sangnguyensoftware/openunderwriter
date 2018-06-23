@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- If the -Dworkflows.force-unload runtime parameter is set then this will clear ALL processes. This means not just terminated and completed but current too.
+		Basically this is for use in non-prod environments only, all prod environments should update the version number in the relevant workflows themselves,
+		the version number in versionBase/versionScheduled in this build file, and the jbpm-deployment-id in the product Config.xml -->
+
+<project default="build" name="Product:AIL.Base.Workflows" basedir=".">
+	<import file="D:/OpenUnderwriter/openunderwriter/BuildSettings.xml" />
+
+	<property name="groupId" value="ail" />
+	
+	<property name="artifactIdBase" value="base-workflows" />
+	<property name="versionBase" value="1.0" />
+	
+	<property name="artifactIdSample" value="sample-workflows" />
+	<property name="versionSample" value="1.0" />
+	
+	<property name="workflows.force-unload" value="${env.workflows.force-unload}"/>
+	
+	<dirname property="realDir" file="${ant.file}" />
+
+	<target name="build" description="Package and deploy all the workflows" depends="forceUnloadEverything">
+		<antcall target="uploadBase" inheritAll="false" />
+		<sleep seconds="5"/>
+		<antcall target="uploadSample" inheritAll="false" />
+	</target>
+
+	<target name="forceUnloadEverything" description="Undeploy workflows and remove all history directly before uploading" if="${workflows.force-unload}">
+
+		<echo message="Force-unloading workflows" />
+
+		<jbpm-undeploy-workflows-macro groupId="${groupId}" artifactId="${artifactIdBase}" version="${versionBase}" deploymentdir="${realDir}/deploymentsBase" clearHistory="true" />
+		
+		<sleep seconds="5"/>
+
+	</target>
+
+	<target name="uploadBase" description="Upload and deploy Base workflows" depends="packageBase,unloadBase">
+		
+		<jbpm-deploy-workflows-macro groupId="${groupId}" artifactId="${artifactIdBase}" version="${versionBase}" deploymentdir="${realDir}/deploymentsBase" />
+
+	</target>
+
+	<target name="uploadSample" description="Upload and deploy Sample workflows" depends="packageSample,unloadSample">
+		
+		<jbpm-deploy-workflows-macro groupId="${groupId}" artifactId="${artifactIdSample}" version="${versionSample}" deploymentdir="${realDir}/deploymentsSample" />
+
+	</target>
+
+	<target name="unloadBase" description="Undeploy Base workflows">
+
+		<jbpm-undeploy-workflows-macro groupId="${groupId}" artifactId="${artifactIdBase}" version="${versionBase}" deploymentdir="${realDir}/deploymentsBase" clearHistory="false" />
+
+	</target>
+
+	<target name="unloadSample" description="Undeploy Sample workflows">
+
+		<jbpm-undeploy-workflows-macro groupId="${groupId}" artifactId="${artifactIdSample}" version="${versionSample}" deploymentdir="${realDir}/deploymentsSample" clearHistory="false" />
+
+	</target>
+
+	<target name="packageBase" description="Package up all the workflows that are in Base ">
+		
+		<jbpm-build-workflows-macro groupId="${groupId}" artifactId="${artifactIdBase}" version="${versionBase}" buildDir="${realDir}/binBase" resourcesDir="${realDir}/src/main/resources"
+									deploymentdir="${realDir}/deploymentsBase" include="ail/base" exclude="ail/sample/**" />
+
+	</target>
+
+	<target name="packageSample" description="Package up all the workflows that are in Sample ">
+		
+		<jbpm-build-workflows-macro groupId="${groupId}" artifactId="${artifactIdSample}" version="${versionSample}" buildDir="${realDir}/binSample" resourcesDir="${realDir}/src/main/resources"
+									deploymentdir="${realDir}/deploymentsSample" include="ail/sample" exclude="ail/base/**" />
+
+	</target>
+
+</project>

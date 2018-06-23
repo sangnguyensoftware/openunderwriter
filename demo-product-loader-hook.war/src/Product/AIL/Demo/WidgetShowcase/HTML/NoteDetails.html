@@ -1,0 +1,56 @@
+<p>This widget that gives the user access the notes attached to an
+	object and the ability to update/edit those notes. The widget can be
+	configured to include/exclude notes from display based on their type
+	and on the labels applied to them.</p>
+<p>
+	Notes may be applied to a number of object types: Policy, Claim,
+	Document, PaymentHoliday, Party. The actual object can be selected
+	using the <i>binding</i> attribute in the PageFlow. If no binding is
+	specified then the current Policy object is assumed.
+</p>
+<p>The Notes widget also supports the notion that different object
+	often have different note types. For example, a Policy may need to
+	offer a "Cancellation note" type and a Claim a "Rejected note" note
+	type. To support this a "typeDiscriminator" attribute can be used to
+	select the Labels which define those note types. See the example
+	Labels.xml in AIL.Base for examples.</p>
+<u>PageFlow</u>
+<pre>
+&lt;noteDetails [typeDescriminator="<i>discriminator</i>""]
+             [validNoteTypes="<i>regular expression</i>"] 
+             [validLabels="<i>regular expression</i>"]
+             [renderHint="<i>render hints</i>"] 
+             [binding="<i>object binding</i>"]
+             [readOnly="<i>true|false</i>"]/&gt;
+</pre>
+<ul>
+	<li><i>render hint</i> - Render hint to be included in the widget
+		generated output.</li>
+	<li><i>validNoteTypes</i> - A regular expression constraining the
+		document types which should be included in the manager.</li>
+	<li><i>validLabels</i> - A regular expression to constrain the
+		documents included in the manager based on the labels associated with
+		the document.</li>
+	<li><i>typeDiscriminator</i> - Defines a discriminator which
+		refines the types of note that are displayed and can be added.</li>
+	<li><i>readOnly</i> - Put the note details widget into a read only
+		mode when notes cannot be edited, added or deleted.</li>
+</ul>
+<u>Examples</u>
+<p>Display all the notes on the current Policy.</p>
+<pre>&lt;noteDetails /&gt;</pre>
+
+<p>Display the notes on the current policy. Only include label types
+	from the "cancellation_reason" group (see AIL.Base.Labels.xml) and
+	further refine that list to exclude notes of type "watch" and
+	"watch_reason". Also, hide any notes labelled as medically_sensitive.</p>
+<pre>&lt;noteDetails typeDiscriminator="cancellation_reason" 
+             validNoteTypes="(?!.*?(i18n_label_watch|i18n_label_note_watch_reason))^.*$" 
+             validLabels="(?!.*?(i18n_label_medical_sensitive))^.*$"/&gt; </pre>
+
+<hr />
+
+<p>On this page the note details widget is configured to display
+	policy notes excluding any note labelled as medically sensitive and to
+	only include note types from the "cancellation_reason" group and then
+	to exclude "watch" notes.</p>

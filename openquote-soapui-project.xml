@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="openquote" resourceRoot="" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="ServerBeanServiceSoapBinding" type="wsdl" bindingName="{http://server.configure.core.ail.com/}ServerBeanServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/configure/server?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/configure/server?wsdl"><con:part><con:url>http://localhost:8080/configure/server?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="ServerBeanService" targetNamespace="http://server.configure.core.ail.com/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://server.configure.core.ail.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://server.configure.core.ail.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="clearAllConfigurationCaches" type="tns:clearAllConfigurationCaches"/>
+      <xs:element name="clearAllConfigurationCachesResponse" type="tns:clearAllConfigurationCachesResponse"/>
+      <xs:element name="clearNamedConfigurationCache" type="tns:clearNamedConfigurationCache"/>
+      <xs:element name="clearNamedConfigurationCacheResponse" type="tns:clearNamedConfigurationCacheResponse"/>
+      <xs:element name="resetAllConfigurations" type="tns:resetAllConfigurations"/>
+      <xs:element name="resetAllConfigurationsResponse" type="tns:resetAllConfigurationsResponse"/>
+      <xs:element name="resetCoreConfiguration" type="tns:resetCoreConfiguration"/>
+      <xs:element name="resetCoreConfigurationResponse" type="tns:resetCoreConfigurationResponse"/>
+      <xs:element name="resetNamedConfiguration" type="tns:resetNamedConfiguration"/>
+      <xs:element name="resetNamedConfigurationResponse" type="tns:resetNamedConfigurationResponse"/>
+      <xs:complexType name="resetAllConfigurations">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="resetAllConfigurationsResponse">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="clearAllConfigurationCaches">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="clearAllConfigurationCachesResponse">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="resetCoreConfiguration">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="resetCoreConfigurationResponse">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="clearNamedConfigurationCache">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="clearNamedConfigurationCacheResponse">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="resetNamedConfiguration">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="resetNamedConfigurationResponse">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:element name="EJBException" type="tns:EJBException"/>
+      <xs:complexType name="EJBException">
+        <xs:sequence/>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="resetCoreConfiguration">
+    <wsdl:part element="tns:resetCoreConfiguration" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="resetAllConfigurationsResponse">
+    <wsdl:part element="tns:resetAllConfigurationsResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="EJBException">
+    <wsdl:part element="tns:EJBException" name="EJBException"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="clearAllConfigurationCachesResponse">
+    <wsdl:part element="tns:clearAllConfigurationCachesResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="clearNamedConfigurationCache">
+    <wsdl:part element="tns:clearNamedConfigurationCache" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="resetNamedConfigurationResponse">
+    <wsdl:part element="tns:resetNamedConfigurationResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="resetCoreConfigurationResponse">
+    <wsdl:part element="tns:resetCoreConfigurationResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="clearAllConfigurationCaches">
+    <wsdl:part element="tns:clearAllConfigurationCaches" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="resetNamedConfiguration">
+    <wsdl:part element="tns:resetNamedConfiguration" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="clearNamedConfigurationCacheResponse">
+    <wsdl:part element="tns:clearNamedConfigurationCacheResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="resetAllConfigurations">
+    <wsdl:part element="tns:resetAllConfigurations" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ServerBean">
+    <wsdl:operation name="resetAllConfigurations">
+      <wsdl:input message="tns:resetAllConfigurations" name="resetAllConfigurations"></wsdl:input>
+      <wsdl:output message="tns:resetAllConfigurationsResponse" name="resetAllConfigurationsResponse"></wsdl:output>
+      <wsdl:fault message="tns:EJBException" name="EJBException"></wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="clearAllConfigurationCaches">
+      <wsdl:input message="tns:clearAllConfigurationCaches" name="clearAllConfigurationCaches"></wsdl:input>
+      <wsdl:output message="tns:clearAllConfigurationCachesResponse" name="clearAllConfigurationCachesResponse"></wsdl:output>
+      <wsdl:fault message="tns:EJBException" name="EJBException"></wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="resetCoreConfiguration">
+      <wsdl:input message="tns:resetCoreConfiguration" name="resetCoreConfiguration"></wsdl:input>
+      <wsdl:output message="tns:resetCoreConfigurationResponse" name="resetCoreConfigurationResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="clearNamedConfigurationCache">
+      <wsdl:input message="tns:clearNamedConfigurationCache" name="clearNamedConfigurationCache"></wsdl:input>
+      <wsdl:output message="tns:clearNamedConfigurationCacheResponse" name="clearNamedConfigurationCacheResponse"></wsdl:output>
+      <wsdl:fault message="tns:EJBException" name="EJBException"></wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="resetNamedConfiguration">
+      <wsdl:input message="tns:resetNamedConfiguration" name="resetNamedConfiguration"></wsdl:input>
+      <wsdl:output message="tns:resetNamedConfigurationResponse" name="resetNamedConfigurationResponse"></wsdl:output>
+      <wsdl:fault message="tns:EJBException" name="EJBException"></wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServerBeanServiceSoapBinding" type="tns:ServerBean">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="clearAllConfigurationCaches">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="clearAllConfigurationCaches">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="clearAllConfigurationCachesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EJBException">
+        <soap:fault name="EJBException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="resetAllConfigurations">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="resetAllConfigurations">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="resetAllConfigurationsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EJBException">
+        <soap:fault name="EJBException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="resetCoreConfiguration">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="resetCoreConfiguration">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="resetCoreConfigurationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="clearNamedConfigurationCache">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="clearNamedConfigurationCache">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="clearNamedConfigurationCacheResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EJBException">
+        <soap:fault name="EJBException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="resetNamedConfiguration">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="resetNamedConfiguration">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="resetNamedConfigurationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EJBException">
+        <soap:fault name="EJBException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ServerBeanService">
+    <wsdl:port binding="tns:ServerBeanServiceSoapBinding" name="ServerBeanPort">
+      <soap:address location="http://localhost:8080/configure/server"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/configure/server</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="clearAllConfigurationCaches" bindingOperationName="clearAllConfigurationCaches" type="Request-Response" outputName="clearAllConfigurationCachesResponse" inputName="clearAllConfigurationCaches" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/configure/server</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://server.configure.core.ail.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:clearAllConfigurationCaches/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>openquote</con:username><con:password>password</con:password><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://server.configure.core.ail.com/ServerBean/clearAllConfigurationCaches"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="clearNamedConfigurationCache" bindingOperationName="clearNamedConfigurationCache" type="Request-Response" outputName="clearNamedConfigurationCacheResponse" inputName="clearNamedConfigurationCache" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/configure/server</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://server.configure.core.ail.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:clearNamedConfigurationCache>
+         <!--Optional:-->
+         <arg0>com.ail.core.Core</arg0>
+      </ser:clearNamedConfigurationCache>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>openquote</con:username><con:password>password</con:password><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://server.configure.core.ail.com/ServerBean/clearNamedConfigurationCache"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="resetAllConfigurations" bindingOperationName="resetAllConfigurations" type="Request-Response" outputName="resetAllConfigurationsResponse" inputName="resetAllConfigurations" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/configure/server</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://server.configure.core.ail.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:resetAllConfigurations/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://server.configure.core.ail.com/ServerBean/resetAllConfigurations"/></con:call></con:operation><con:operation isOneWay="false" action="" name="resetCoreConfiguration" bindingOperationName="resetCoreConfiguration" type="Request-Response" outputName="resetCoreConfigurationResponse" inputName="resetCoreConfiguration" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/configure/server</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://server.configure.core.ail.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:resetCoreConfiguration/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://server.configure.core.ail.com/ServerBean/resetCoreConfiguration"/></con:call></con:operation><con:operation isOneWay="false" action="" name="resetNamedConfiguration" bindingOperationName="resetNamedConfiguration" type="Request-Response" outputName="resetNamedConfigurationResponse" inputName="resetNamedConfiguration" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/configure/server</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://server.configure.core.ail.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:resetNamedConfiguration>
+         <!--Optional:-->
+         <arg0>?</arg0>
+      </ser:resetNamedConfiguration>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://server.configure.core.ail.com/ServerBean/resetNamedConfiguration"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/></con:soapui-project>

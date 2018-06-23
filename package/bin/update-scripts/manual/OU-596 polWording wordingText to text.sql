@@ -1,0 +1,1 @@
+UPDATE polPolicy SET polWording=REPLACE(polWording,' wordingText=', 'text=') WHERE polWording IS NOT NULL;

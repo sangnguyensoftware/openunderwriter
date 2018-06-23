@@ -1,0 +1,107 @@
+## Copyright Applied Industrial Logic Limited 2017. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+#set( $pageElement = $args.PageElementArg )    			## instance of com.ail.pageflow.QuestionPage
+#set( $response = $args.ResponseArgRet )				## instance of com.ail.core.context.ResponseWrapper
+#set( $id = $args.RenderIdArg )
+#set( $title = ${pageElement.formattedTitle($args)} )
+##
+"page": {
+	"type": "$pageElement.Class.SimpleName",
+	"id": "$id"
+	#title()
+	#progressBar()
+	#elements()
+	#navigation()
+	#pageErrorBar()
+	#renderHint()
+}
+##
+#macro(title)
+	#if( $title && ${title.length()} > 0 )
+		,"title": "$!title"#end
+	#end
+##
+#macro(elements)
+	#if( $pageElement.PageElement.size() != 0 )
+		,"elements": [
+			#set( $mark = $response.writerMark() )
+			#foreach( $element in $pageElement.PageElement )
+				#if( $element.Class.SimpleName != 'NavigationSection' )
+		   			#if( $mark != $response.writerMark() ),#end
+					#set( $mark = $response.writerMark() )
+ 					#set( $tmp = ${element.renderResponse($args.ModelArgRet)} )
+				#end
+    		#end
+    		
+		]
+	#end
+#end
+##
+#macro(navigation)
+	#if( $pageElement.PageElement.size() != 0 )
+		,"navigation": [
+			#set( $mark = $response.writerMark() )
+			#foreach( $element in $pageElement.PageElement )
+				#if( $element.Class.SimpleName == 'NavigationSection' )
+		   			#if( $mark != $response.writerMark() ),#end
+					#set( $mark = $response.writerMark() )
+ 					#set( $tmp = ${element.renderResponse($args.ModelArgRet)} )
+				#end
+    		#end
+    		
+		]
+	#end
+#end
+##
+#macro(progressBar)
+	#if( $pageElement.ProgressBarEnabled && $pageElement.Stage && $pageElement.Stage!="" )
+		#set( $pastCurrent = false )
+		,"progress": [
+			#foreach($stage in $pageElement.Stages)
+   				#if( $pastCurrent ) 
+   					#set( $state="todo" )
+				#else
+   					#set( $state="done" )
+				#end
+				#if( $stage == $pageElement.stage )
+   					#set( $state="current" )
+					#set( $pastCurrent = true )
+				#end 
+      			#if( $velocityCount != 1),#end
+      			{
+      				"state": "${state}",
+      				"title": "#i18n(${stage})"
+      			}
+      		#end
+		]
+	#end
+#end
+##
+#macro(pageErrorBar)
+	#if( ${response.isValidationErrorsFound()} )
+		,"error": "#i18n("i18n_page_error")"
+	#end
+#end
+##
+#macro( i18n $id )$pageElement.i18n("$id")#end
+##
+#macro(renderHint)
+    #if( $args.RenderHintArg )       
+        ,"clientHint": "$args.RenderHintArg"
+    #end
+#end

@@ -1,0 +1,50 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-756 Rename DocumentContent content column" author="richard">
+        <sql dbms="mysql">
+            ALTER TABLE dcoDocumentContent CHANGE COLUMN dcoContent dcoInTableContent longblob;
+        </sql>
+    </changeSet>
+    <changeSet id="OU-756 Add dcoProductTypeId column" author="richard">
+        <sql dbms="mysql">
+            ALTER TABLE dcoDocumentContent ADD COLUMN dcoProductTypeId VARCHAR(255);
+            UPDATE dcoDocumentContent SET dcoProductTypeId='AIL.Base' WHERE dcoProductTypeId=null;
+        </sql>
+    </changeSet>
+    <changeSet id="OU-756 Add fsrForeignSystemReference table" author="richard">
+        <sql dbms="mysql">
+            CREATE TABLE `fsrForeignSystemReference` (
+              `fsrUID` bigint(20) NOT NULL,
+              `fsrAttribute` longtext,
+              `fsrCreatedDate` datetime DEFAULT NULL,
+              `fsrExternalSystemId` varchar(255) NOT NULL,
+              `fsrForeignSystemId` varchar(255) DEFAULT NULL,
+              `fsrLock` bit(1) DEFAULT NULL,
+              `fsrSerialVersion` bigint(20) NOT NULL,
+              `fsrUpdatedDate` datetime DEFAULT NULL,
+              `fsrReference` varchar(255) DEFAULT NULL,
+              `fsrType` varchar(255) DEFAULT NULL,
+              PRIMARY KEY (`fsrUID`),
+              UNIQUE KEY `fsrExternalSystemId` (`fsrExternalSystemId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+        </sql>
+    </changeSet>
+    <changeSet id="OU-756 Add jDcoFsrFsr table" author="richard">
+        <sql dbms="mysql">
+            CREATE TABLE `jDcoFsrFsr` (
+              `UIDdco` bigint(20) NOT NULL,
+              `foreignSystemReferenceUIDfsr` bigint(20) NOT NULL,
+              PRIMARY KEY (`UIDdco`,`foreignSystemReferenceUIDfsr`),
+              UNIQUE KEY `foreignSystemReferenceUIDfsr` (`foreignSystemReferenceUIDfsr`),
+              KEY `FK227B106693BC173D` (`foreignSystemReferenceUIDfsr`),
+              KEY `FK227B1066E2808C83` (`UIDdco`),
+              CONSTRAINT `FK227B106693BC173D` FOREIGN KEY (`foreignSystemReferenceUIDfsr`) REFERENCES `fsrForeignSystemReference` (`fsrUID`),
+              CONSTRAINT `FK227B1066E2808C83` FOREIGN KEY (`UIDdco`) REFERENCES `dcoDocumentContent` (`dcoUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+        </sql>
+    </changeSet>
+</databaseChangeLog>

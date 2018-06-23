@@ -1,0 +1,152 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+#set( $model = $args.ModelArgRet)
+#set( $pageElement = $args.PageElementArg )
+#set( $renderId = $args.RenderIdArg )
+#set( $title = ${pageElement.formattedTitle($args)} )
+#set( $response = $args.ResponseArgRet )
+#set( $dateFormat = '%1$tY-%1$tm-%1$td' )
+#set( $string = '' )
+##
+
+<div class='pf-payment-holiday-details pf-body pf-row-scroller' id='$!renderId'>
+    #if( $title )
+        <div class='pf-section-heading'>
+            $title
+        </div>
+    #end
+    <div class='pf-row-scroller-table'>
+        <div class='pf-row-scroller-table-header-row'>
+            <div class='pf-row-scroller-table-header-cell'>
+                <div class='pf-row-scroller-header-title'>
+                    <div class='pf-input-required'></div>
+                    #i18n("i18n_payment_holiday_from_title")
+                </div>
+            </div>
+            <div class='pf-row-scroller-table-header-cell'>
+                <div class='pf-row-scroller-header-title'>
+                    <div class='pf-input-optional'></div>
+                    #i18n("i18n_payment_holiday_to_title")
+                </div>
+            </div>
+            <div class='pf-row-scroller-table-header-cell'>
+                <div class='pf-row-scroller-header-title'>
+                    #i18n("i18n_payment_holiday_duration_title")
+                </div>
+            </div>
+            <div class='pf-row-scroller-table-header-cell'></div>
+            #if( $pageElement.AddAndDeleteEnabled && !$pageElement.ReadOnly)
+                <div class='pf-row-scroller-table-header-cell'></div>
+            #end
+        </div>
+		#set( $today = $date.currentDate() )
+        #foreach($holiday in $model.PaymentHoliday)
+            	#if( ($pageElement.ShowCurrent && (!$holiday.EndDate || $holiday.EndDate.compareTo($today)>=0)) || 
+            	     ($pageElement.ShowHistory && ($holiday.EndDate && $holiday.EndDate.compareTo($today)<0)) ||
+            	     ($pageElement.hasErrorMarker($holiday))) 
+	            <div class='pf-row-scroller-table-data-row pf-scroller-data'>
+	                <div class='pf-row-scroller-table-data-cell'>
+	                    <div class='pf-attribute-field-prefix'></div>
+	                    <div class='pf-attribute-field-input'>
+	                        #set($encodedId="/paymentHoliday[$velocityCount]/#getId('startDate')")
+	                        <input class='pf-date' name="${pageElement.encodeId($encodedId)}" id="${pageElement.encodeId($encodedId)}" size="10" style="width:10em" type='text' value='#formatDate($holiday.StartDate)' #readOnly />
+	                    </div>
+	                    <div class='pf-attribute-field-suffix'></div>
+						#if(!$pageElement.ReadOnly && $pageElement.hasErrorMarker("startDate", $holiday))
+							<div class='pf-input-error'>#error("startDate", $holiday)</div>
+	    					#end
+	                </div>
+	                <div class='pf-row-scroller-table-data-cell'>
+	                    <div class='pf-attribute-field-prefix'></div>
+	                    <div class='pf-attribute-field-input'>
+	                         #set($encodedId="/paymentHoliday[$velocityCount]/#getId('endDate')")
+	                         <input class='pf-date' name="${pageElement.encodeId($encodedId)}" id="${pageElement.encodeId($encodedId)}" size="10" style="width:10em" type='text' value='#formatDate($holiday.EndDate)' #readOnly/>
+	                    </div>
+	                    <div class='pf-attribute-field-suffix'></div>
+						#if(!$pageElement.ReadOnly && $pageElement.hasErrorMarker("endDate", $holiday))
+							<div class='pf-input-error'>#error("endDate", $holiday)</div>
+	    					#end
+	                </div>
+	                <div class='pf-row-scroller-table-data-cell'>
+	                    ${holiday.duration()}
+	                </div>
+	                <div class='pf-row-scroller-table-data-cell'>
+						#if(!$pageElement.ReadOnly && $pageElement.hasErrorMarker("overlap", $holiday))
+							<div class='pf-input-error'>#error("overlap", $holiday)</div>
+	    					#end
+						#if(!$pageElement.ReadOnly && $pageElement.hasErrorMarker("durationIssue", $holiday))
+							<div class='pf-input-error'>#error("durationIssue", $holiday)</div>
+	    					#end
+	                </div>
+	                #if( $pageElement.AddAndDeleteEnabled && !$pageElement.ReadOnly )
+	                    <div class='pf-row-scroller-table-data-cell'>
+	                        <div class='pf-delete'>
+	                            <input id="delete" type="button" class="pf-delete-button" value="" onclick="callServeResource('${response.createResourceURL()}', 
+	                                'op=${pageElement.Class.SimpleName}-delete:id=$renderId:row=${velocityCount}:immediate=true'); return false;"/>
+	                        </div>
+	                    </div>
+	                #end
+	                #if( $pageElement.ShowNotes )
+	                	<div>
+	                		#set($dummy = $pageElement.NoteDetails.renderResponse($holiday))
+	                	</div>
+	                #end					
+	            </div>
+	        #end
+        #end
+        <script type="text/javascript">
+            $( "input[class='pf-date']:not([readonly])" ).datepicker({
+              dateFormat: 'yy-mm-dd',
+              changeMonth: true,
+              changeYear: true
+            });
+        </script>
+        ##
+        ## If Add and Delete are enabled, put an 'Add' button to the bottom right of the scroller.
+        ##
+        #if( $pageElement.AddAndDeleteEnabled && !$pageElement.ReadOnly )
+            <div class='pf-row-scroller-table-footer-row'>
+                <div class='pf-row-scroller-table-data-cell'></div>
+                <div class='pf-row-scroller-table-data-cell'></div>
+                <div class='pf-row-scroller-table-data-cell'></div>
+                <div class='pf-row-scroller-table-data-cell'></div>
+                <div class='pf-row-scroller-add-section pf-row-scroller-table-data-cell'>
+                    <div class='pf-add'>
+                        <input id="add" type="button" class="pf-add-button" value="" onclick="callServeResource('${response.createResourceURL()}', 'op=${pageElement.Class.SimpleName}-add:id=$renderId:immediate=true'); return false;"/>
+                    </div>
+                </div>
+            </div>
+        #end
+    </div>
+</div>
+#macro(formatDate $date)
+#if($date)${string.format($dateFormat, $date)}#end
+#end
+##
+#macro(error $name $model)
+#i18n(${pageElement.findError($name, $model, $pageElement)})
+#end
+##
+#macro(i18n $id)$pageElement.i18n("$id")#end
+##
+#macro(readOnly)
+#if( $pageElement.ReadOnly )readOnly="readOnly"#end
+#end
+##
+#macro(getId $name)$name#if($pageElement.ReadOnly)ReadOnly#end#end
+##

@@ -1,0 +1,111 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+#set( $model = $args.ModelArgRet)
+#set( $pageElement = $args.PageElementArg )
+#set( $renderId = $args.RenderIdArg )
+#set( $title = ${pageElement.formattedTitle($args)} )
+#set( $response = $args.ResponseArgRet )
+#set( $dateFormat = '%1$tY-%1$tm-%1$td' )
+#set( $string = '' )
+##
+<div class='pf-claim-history-details pf-body pf-row-scroller' id='$!renderId'>
+    #if( $title )
+        <div class='pf-section-heading'>
+            $title
+        </div>
+    #end
+    <div class='pf-row-scroller-table'>
+        <div class='pf-row-scroller-table-header-row'>
+            <div class='pf-row-scroller-table-header-cell'>
+                <div class='pf-row-scroller-header-title'>
+                    #i18n("i18n_claim_history_claim_id")
+                </div>
+            </div>        
+            <div class='pf-row-scroller-table-header-cell'>
+                <div class='pf-row-scroller-header-title'>
+                    #i18n("i18n_claim_history_start_date")
+                </div>
+            </div>
+            <div class='pf-row-scroller-table-header-cell'>
+                <div class='pf-row-scroller-header-title'>
+                    #i18n("i18n_claim_history_end_date")
+                </div>
+            </div>
+            <div class='pf-row-scroller-table-header-cell'>
+                <div class='pf-row-scroller-header-title'>
+                    #i18n("i18n_claim_history_total_paid")
+                </div>
+            </div>
+        </div>
+        #foreach($claim in $model.Claim)
+          #set ( $include="#filter($pageElement.ExcludeStatuses,$claim.status)")
+          #if ("true" == "$include.trim()" )
+	            <div class='pf-row-scroller-table-data-row pf-scroller-data'>
+	                <div class='pf-row-scroller-table-data-cell'>
+	                    <div class='pf-attribute-field-prefix'></div>
+	                    <div class='pf-attribute-field-input'>
+	                        #set($encodedId="/claim[$velocityCount]/#getId('claimNumber')")
+	                        <input class='pf-string' name="${pageElement.encodeId($encodedId)}" id="${pageElement.encodeId($encodedId)}" size="10" style="width:10em" type='text' value='$!claim.claimNumber' #readOnly />
+	                    </div>
+	                    <div class='pf-attribute-field-suffix'></div>
+	                </div>
+	                <div class='pf-row-scroller-table-data-cell'>
+	                    <div class='pf-attribute-field-prefix'></div>
+	                    <div class='pf-attribute-field-input'>
+	                        #set($encodedId="/claim[$velocityCount]/#getId('startDate')")
+	                        <input class='pf-date' name="${pageElement.encodeId($encodedId)}" id="${pageElement.encodeId($encodedId)}" size="10" style="width:10em" type='text' value='#formatDate($claim.StartDate)' #readOnly />
+	                    </div>
+	                    <div class='pf-attribute-field-suffix'></div>
+	                </div>
+	                <div class='pf-row-scroller-table-data-cell'>
+	                    <div class='pf-attribute-field-prefix'></div>
+	                    <div class='pf-attribute-field-input'>
+	                         #set($encodedId="/claim[$velocityCount]/#getId('endDate')")
+	                         <input class='pf-date' name="${pageElement.encodeId($encodedId)}" id="${pageElement.encodeId($encodedId)}" size="10" style="width:10em" type='text' value='#formatDate($claim.EndDate)' #readOnly/>
+	                    </div>
+	                    <div class='pf-attribute-field-suffix'></div>
+	                </div>
+	                <div class='pf-row-scroller-table-data-cell'>
+	                    ${claim.outstandingTotal}
+	                </div>			
+	            </div>
+	        #end
+        #end
+    </div>
+</div>
+#macro(formatDate $date)
+#if($date)${string.format($dateFormat, $date)}#end
+#end
+##
+#macro(i18n $id)$pageElement.i18n("$id")#end
+##
+#macro(readOnly)
+readOnly="readOnly"
+#end
+##
+#macro(getId $name)$name#end
+##
+#macro(filter $excludeStatuses, $status)
+#if( $!excludeStatuses && $!excludeStatuses.length() > 0 )
+#foreach( $exclude in $excludeStatuses.split(",") )
+#if( $exclude == $status )false#end
+#end
+#end
+true
+#end
+##

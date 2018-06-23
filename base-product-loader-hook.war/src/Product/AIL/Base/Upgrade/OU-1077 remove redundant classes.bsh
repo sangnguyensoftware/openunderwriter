@@ -1,0 +1,117 @@
+import com.liferay.portal.kernel.repository.model.FileEntry;
+import com.liferay.portal.kernel.repository.model.Folder;
+import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
+import com.liferay.portlet.documentlibrary.service.DLAppLocalServiceUtil;
+
+companyId = 10157;
+repositoryId = 10197;
+
+main() {
+    deleteDocument("Product/AIL/Base/JavaServices", "AcceptQuotationActionService.java");
+    deleteDocument("Product/AIL/Base/JavaServices", "AddClaimNumberActionService.java");
+    deleteDocument("Product/AIL/Base/JavaServices", "AddExistingProposerToPolicyService.java");
+    deleteDocument("Product/AIL/Base/JavaServices", "AddPartyIdToProposerService.java");
+    deleteDocument("Product/AIL/Base/JavaServices", "AddPolicyNumberActionService.java");
+    deleteDocument("Product/AIL/Base/JavaServices", "AddQuoteNumberActionService.java");
+    deleteDocument("Product/AIL/Base/JavaServices", "AssessPaymentOptionsActionService.java");
+    deleteDocument("Product/AIL/Base/JavaServices", "CreateCertificateDocumentService.java");
+    deleteDocument("Product/AIL/Base/JavaServices", "CreateQuoteDocumentService.java");
+    deleteDocument("Product/AIL/Base/JavaServices", "DumpQuoteToConsoleService.java");
+    deleteDocument("Product/AIL/Base/JavaServices", "GenerateClaimNumberService.java");
+    deleteDocument("Product/AIL/Base/JavaServices", "GeneratePolicyNumberService.java");
+    deleteDocument("Product/AIL/Base/JavaServices", "GenerateQuoteNumberService.java");
+    deleteDocument("Product/AIL/Base/JavaServices", "InitialiseNewBusinessService.java");
+    deleteDocument("Product/AIL/Base/JavaServices", "PremiumCalculationService.java");
+    deleteDocument("Product/AIL/Base/JavaServices", "QueryPaymentsService.java");
+    deleteDocument("Product/AIL/Base/JavaServices", "QuotationToApplicationService.java");
+    deleteDocument("Product/AIL/Base/JavaServices", "SendBrokerEmailNotificationService.java");
+    deleteDocument("Product/AIL/Base/JavaServices", "SendBrokerPubNubNotificationService.java");
+    deleteDocument("Product/AIL/Base/JavaServices", "SendClientPubNubNotificationService.java");
+    deleteDocument("Product/AIL/Base/JavaServices", "SendProposerEmailNotificationService.java");
+    deleteDocument("Product/AIL/Base/JavaServices", "SetPolicyStatusService.java");
+    deleteDocument("Product/AIL/Base/JavaServices", "UploadDocumentPlaceholderService.java");
+    deleteDocument("Product/AIL/Base/JavaServices", "UploadDocumentService.java");
+    
+    deleteDocument("Product/AIL/Base/Services", "CloseAccountingPeriodService.java");
+    deleteDocument("Product/AIL/Base/Services", "GetDocumentService.java");
+    deleteDocument("Product/AIL/Base/Services", "ListAccountingPeriodsService.java");
+    deleteDocument("Product/AIL/Base/Services", "UpgradeProductService.java");
+    deleteDocument("Product/AIL/Base/Services/contact", "BaseContactService.java");
+    deleteDocument("Product/AIL/Base/Services/contact", "SendToPortalService.java");
+    deleteDocument("Product/AIL/Base/Services/contact", "SendViaEmailService.java");
+    deleteDocument("Product/AIL/Base/Services/contact", "SendViaPostService.java");
+    deleteDocument("Product/AIL/Base/Services/contact", "SendViaSMSService.java");
+    
+    deleteFolder("Product/AIL/Base/Services/contact");
+    deleteFolder("Product/AIL/Base/Services/data");
+    deleteFolder("Product/AIL/Base/Services/party");
+    deleteFolder("Product/AIL/Base/Services/workflow");
+}
+
+boolean folderDoesNotExist(long parentFolderId, String folderName) {
+    try {
+        DLAppLocalServiceUtil.getFolder(repositoryId, parentFolderId, folderName);
+        return false;
+    } catch (Exception e) {
+        return true;
+    }
+}
+
+Long fetchFolderId(long parentFolderId, String folderName) throws Exception {
+    try {
+        Folder folder = DLAppLocalServiceUtil.getFolder(repositoryId, parentFolderId, folderName);
+        return folder.getFolderId();
+    } catch (Exception e) {
+        throw new Exception("Failed to create document content folderName folder: " + folderName, e);
+    }
+}
+
+FileEntry fetchEntry(long parentFolderId, String title) throws Exception {
+    try {
+        return DLAppLocalServiceUtil.getFileEntry(repositoryId, parentFolderId, title);
+    } catch (Exception e) {
+        return null;
+    }
+}
+
+void deleteDocument(String folderPath, String filename) throws Exception {
+    try {
+        String[] folders = folderPath.split("[\\/\\\\]");
+        long folderId = -1;
+        for (int i = 0; i < folders.length; i++) {
+            long parentFolderId = i == 0 ? DLFolderConstants.DEFAULT_PARENT_FOLDER_ID : folderId;
+            if (!folderDoesNotExist(parentFolderId, folders[i])) {
+                folderId = fetchFolderId(parentFolderId, folders[i]);
+            }
+        }
+        FileEntry existingFile = fetchEntry(folderId, filename);
+        if (existingFile != null) {
+            DLAppLocalServiceUtil.deleteFileEntry(existingFile.getFileEntryId());
+        }
+    } catch (Exception e) {
+        throw new Exception("Failed to delete document: ", e);
+    }
+}
+
+void deleteFolder(String folderPath) throws Exception {
+    try {
+        String[] folders = folderPath.split("[\\/\\\\]");
+        long folderId = -1;
+        for (int i = 0; i < folders.length; i++) {
+            long parentFolderId = i == 0 ? DLFolderConstants.DEFAULT_PARENT_FOLDER_ID : folderId;
+            if (!folderDoesNotExist(parentFolderId, folders[i])) {
+                folderId = fetchFolderId(parentFolderId, folders[i]);
+            }
+        	else {
+        		return; // A non-existant folder cannot be deleted.
+        	}
+        }
+        if (folderId > -1) {
+            DLAppLocalServiceUtil.deleteFolder(folderId);
+        }
+    } catch (Exception e) {
+        throw new Exception("Failed to delete folder: ", e);
+    }
+}
+
+main();

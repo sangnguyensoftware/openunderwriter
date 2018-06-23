@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xsi:type="java:com.ail.insurance.policy.Section" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <assessmentSheet product="default" >
+        <sheet lock="false" serialVersion="0" systemId="-1">
+            <assessmentLines>
+                <line name="note 1">
+                    <detail xsi:type="assessmentNote">
+                        <id>note 1</id>
+                        <reason>Note added by risk assessment.</reason>
+                        <origin>RiskAssessment</origin>
+                    </detail>
+                </line>
+                <line name="total premium">
+                    <detail xsi:type="fixedSum">
+                        <id>total premium</id>
+                        <reason>calculated</reason>
+                        <priority>6</priority>
+                        <processedOrder>6</processedOrder>
+                        <origin>CalculatePremium</origin>
+                        <disabled>false</disabled>
+                        <amount amount="276.58" currency="GBP" />
+                    </detail>
+                </line>
+                <line name="#2DEA94D0">
+                    <detail xsi:type="rateBehaviour">
+                        <id>#2DEA94D0</id>
+                        <reason>IPT</reason>
+                        <priority>4</priority>
+                        <processedOrder>8</processedOrder>
+                        <origin>CalculateTax</origin>
+                        <disabled>false</disabled>
+                        <contributesTo>total premium</contributesTo>
+                        <amount amount="14.63" currency="GBP" />
+                        <type>TAX</type>
+                        <dependsOn>total premium</dependsOn>
+                        <rate>
+                            <rate>5%</rate>
+                        </rate>
+                    </detail>
+                </line>
+                <line name="base premium">
+                    <detail xsi:type="fixedSum">
+                        <id>base premium</id>
+                        <reason>Comprehensive cover for a 47 year old driver of a 2,000cc
+                            car
+                            worth £2,000.00
+                        </reason>
+                        <priority>1</priority>
+                        <processedOrder>1</processedOrder>
+                        <origin>AssessRisk</origin>
+                        <disabled>false</disabled>
+                        <contributesTo>total premium</contributesTo>
+                        <amount amount="278.74" currency="GBP" />
+                    </detail>
+                </line>
+                <line name="#54C5E844">
+                    <detail xsi:type="rateBehaviour">
+                        <id>#54C5E844</id>
+                        <reason>Commission</reason>
+                        <priority>5</priority>
+                        <processedOrder>7</processedOrder>
+                        <origin>CalculateCommission</origin>
+                        <disabled>false</disabled>
+                        <contributesTo>total premium</contributesTo>
+                        <amount amount="13.94" currency="GBP" />
+                        <type>COMMISSION</type>
+                        <dependsOn>total premium</dependsOn>
+                        <rate>
+                            <rate>5%</rate>
+                        </rate>
+                    </detail>
+                </line>
+                <line name="#441143C9">
+                    <detail xsi:type="rateBehaviour">
+                        <id>#441143C9</id>
+                        <reason>Security devices fitted to all vehicles</reason>
+                        <priority>2</priority>
+                        <processedOrder>9</processedOrder>
+                        <origin>AssessRisk</origin>
+                        <disabled>false</disabled>
+                        <contributesTo>total premium</contributesTo>
+                        <amount amount="30.73" currency="GBP" />
+                        <type>DISCOUNT</type>
+                        <dependsOn>total premium</dependsOn>
+                        <rate>
+                            <rate>10%</rate>
+                        </rate>
+                    </detail>
+                </line>
+            </assessmentLines>
+        </sheet>
+    </assessmentSheet>
+</section>

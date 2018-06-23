@@ -1,0 +1,7 @@
+<translations defaultLanguage="en" xsi:type="java:com.ail.core.language.Translations" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <translation language="en">
+    <element key="i18n_?">-</element>
+    <element key="i18n_next_button_label">Next &gt;</element>
+    <element key="i18n_previous_button_label">&lt; Previous</element>
+  </translation>
+</translations>

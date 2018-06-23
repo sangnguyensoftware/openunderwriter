@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Motor Plus product registry
+-->
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd">
+    <name>Motor Plus product configuration</name>
+    <timeout>-1</timeout>
+    <who>Applied Industrial Logic</who>
+    <version>1.0</version>
+    <manager>com.ail.core.product.resetproduct.ResetProductService</manager>
+    <parentNamespace>AIL.Base.Registry</parentNamespace>
+
+    <group name="KeyGenerators">
+        <group name="QuoteNumber">
+            <parameter name="ID">Motor.QuoteNumber</parameter>
+            <parameter name="Range">99910-*</parameter>
+        </group>
+    </group>
+    
+    <types>
+        
+        <!-- Populate dropdown of driver names for the history page. --> 
+        <service name="PopulateDriverOptionsService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/PopulateDriverOptionsService.java</parameter>
+        </service>
+
+        <!-- Populate driver1's name and gender fields based on the proposer's details. --> 
+        <service name="PopulateDriverNameService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/PopulateDriverNameService.java</parameter>
+        </service>
+        
+        <service name="AssessPolicyRiskRule" builder="CachingClassBuilder" key="com.ail.core.command.DroolsDecisionTableAccessor" >
+            <!--uncomment the following to get a full dump of the rules (drl) and rule facts written to the console -->
+            <!--parameter name="LoggingIndicatorAsString">FULL</parameter-->
+            <parameter name="Url">~/Rules/PolicyRating.xls</parameter>
+        </service>
+
+        <service name="CalculatePolicyCommissionRule" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/Rules/CalculatePolicyCommissionRule.java</parameter>
+        </service>
+
+        <service name="CalculatePolicyMgmtChgRule" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/Rules/CalculatePolicyMgmtChgRule.java</parameter>
+        </service>
+
+        <service name='AssessPaymentOptionsRule' builder='CachingClassBuilder' key='com.ail.core.command.JaninoAccessor'>
+            <parameter name="Url">~/Rules/AssessPaymentOptionsRule.java</parameter>
+        </service>
+
+        <service name="StyleDocumentService" key="com.ail.core.command.XSLTAccessor">
+            <parameter name="Url">http://localhost:8080/openquote-theme/documents/style.xslt</parameter>
+        </service>
+
+        <command name="AssessSectionRisk/MotorPlusSection" key="com.ail.insurance.quotation.AssessSectionRiskCommandImpl">
+            <parameter name="Service">com.ail.core.NullService</parameter>
+        </command>
+        
+        <command name="PopulateDriverName" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">PopulateDriverNameService</parameter>
+        </command>
+        
+        <command name="PopulateDriverOptions" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">PopulateDriverOptionsService</parameter>
+        </command>
+        
+        <type name="Policy" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Policy">
+            <parameter name="extends">super.Policy</parameter>
+            <parameter name="Url">~/Model/Policy.xml</parameter>
+        </type>
+        
+        <!-- Motor section - defaults to 'Comprehensive', coverages are set -->
+        <type name="MotorPlusSection" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Section">
+            <parameter name="Url">~/Model/MotorPlusSection.xml</parameter>
+        </type>
+        
+        <type name="AccidentalDamageExcess" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Excess">
+            <parameter name="Url">~/Model/AccidentalDamageExcess.xml</parameter>
+        </type>
+        
+        <type name="FireAndTheftExcess" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Excess">
+            <parameter name="Url">~/Model/FireAndTheftExcess.xml</parameter>
+        </type>
+        
+        <type name="VehicleAsset" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Asset">
+            <parameter name="Url">~/Model/VehicleAsset.xml</parameter>
+        </type>
+        
+        <type name="DriverAsset" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Asset">
+            <parameter name="Url">~/Model/DriverAsset.xml</parameter>
+        </type>
+        
+        <type name="DriverHistoryAsset" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Asset">
+            <parameter name="Url">~/Model/DriverHistoryAsset.xml</parameter>
+        </type>
+        
+        <type name="AccidentHistoryAsset" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Asset">
+            <parameter name="Url">~/Model/AccidentHistoryAsset.xml</parameter>
+        </type>
+        
+        <type name="ConvictionHistoryAsset" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Asset">
+            <parameter name="Url">~/Model/ConvictionHistoryAsset.xml</parameter>
+        </type>
+        
+        <type name="QuotationPageFlow" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.PageFlow">
+            <parameter name="extends">super.QuotationPageFlow</parameter> 
+            <parameter name="Url">~/PageFlows/QuotationPageFlow.xml</parameter>
+        </type>
+        
+        <type name="QuotationDocument" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.document.model.DocumentDefinition">
+			<parameter name="extends">super.QuotationDocument</parameter>
+            <parameter name="Url">~/Documents/QuotationDocument.xml</parameter>
+        </type>
+
+        <type name="MakesAndModels" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.util.Choice">
+            <parameter name="Url">~/Lists/MakesAndModels.xml</parameter>
+        </type>
+        
+        <type name="Occupations" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.util.Choice">
+            <parameter name="Url">~/Lists/Occupations.xml</parameter>
+        </type>
+        
+        <type name="DataDictionary" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.data.DataDictionary">
+			<parameter name="extends">super.DataDictionary</parameter>
+            <parameter name="Url">~/DataDictionary.xml</parameter>
+        </type>
+    </types>
+</configuration>

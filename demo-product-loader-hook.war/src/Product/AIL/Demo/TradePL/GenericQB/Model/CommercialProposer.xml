@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proposer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="java:com.ail.insurance.policy.CommercialProposer">
+	<attribute id="companyName" value="" format="string;size=50"/>
+	<attribute id="title" value="?" format="choice;options=-1#?|1#Mr|2#Mrs|3#Miss|4#Ms|5#Dr"/>
+	<attribute id="firstName" value="" format="string;size=40"/>
+	<attribute id="surname" value="" format="string;size=40"/>
+	<attribute id="dateOfBirth" value="dd/mm/yyyy" format="date,pattern=dd/MM/yyyy"/>
+	<attribute id="addressLine1" value="" format="string;size=40"/>
+	<attribute id="addressLine2" value="" format="string;size=40"/>
+	<attribute id="addressLine3" value="" format="string;size=40"/>
+	<attribute id="addressLine4" value="" format="string;size=40"/>
+	<attribute id="postcode" value="" format="string;size=10;pattern=^([A-PR-UWYZa-pr-uwyz]([0-9]{1,2}|([A-HK-Ya-hk-y][0-9]|[A-HK-Ya-hk-y][0-9]([0-9]|[ABEHMNPRV-Yabehmnprv-y]))|[0-9][A-HJKS-UWa-hjks-uw])\ {0,1}[0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}|([Gg][Ii][Rr]\ 0[Aa][Aa])|([Ss][Aa][Nn]\ {0,1}[Tt][Aa]1)|([Bb][Ff][Pp][Oo]\ {0,1}([Cc]\/[Oo]\ )?[0-9]{1,4})|(([Aa][Ss][Cc][Nn]|[Bb][Bb][Nn][Dd]|[BFSbfs][Ii][Qq][Qq]|[Pp][Cc][Rr][Nn]|[Ss][Tt][Hh][Ll]|[Tt][Dd][Cc][Uu]|[Tt][Kk][Cc][Aa])\ {0,1}1[Zz][Zz]))$"/>
+	<attribute id="telephoneNumber" value="" format="string;size=15;pattern=(((\+44)? ?(\(0\))? ?)|(0))( ?[0-9]{3,4}){3}"/>
+	<attribute id="mobileNumber" value="" format="string;size=15;required=no;pattern=((((\+44)? ?(\(0\))? ?)|(0))( ?[0-9]{3,4}){3})?"/>
+	<attribute id="emailAddress" value="" format="string;size=40;pattern=^[0-9a-zA-Z_\-\.-]*@[0-9a-zA-Z.-]*[.][0-9a-zA-Z.-]*$"/>
+</proposer>

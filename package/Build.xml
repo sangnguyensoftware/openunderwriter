@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project default="build" name="openunderwriter:package">
+  <import file="../BuildSettings.xml" />
+
+  <target name="clean" description="delete everything that the build can generate">
+      <delete dir="${package.dir}" failonerror="no" />
+      <delete file="${package.file}" failonerror="no" />
+      <delete file="${sdk.file}" failonerror="no" />
+  </target>
+
+  <target name="build" description="compile (generate, copy, etc) all build outputs">
+
+    <!-- Package up openunderwriter-community -->  
+    <move todir="${package.dir}" file="${liferay.dir}" />
+    <zip destfile="${package.file}">
+      <fileset dir="${target.dir}" includes="openunderwriter-community*/**" excludes="**/*.sh, **/*-sources.jar, **/*-javadoc.jar" />
+      <zipfileset dir="${target.dir}" includes="openunderwriter-community*/**/*.sh" filemode="755"/>
+    </zip>
+  
+    <!-- Package up openunderwriter-sdk -->  
+    <mkdir dir="${target.dir}/sdk" />
+    <copy todir="${target.dir}/sdk" >
+        <fileset dir="${project.dir}" includes="build/lib/**, build/macros/**, build/boot/ant-contrib**, BuildSettings.xml" excludes="**/*javadoc*,**/*source*"/>
+        <fileset dir="${project.dir}" includes="base-product-loader-hook.war/src/Product/**"/>
+        <mapper type="regexp" from="^(.*base-product-loader-hook.war/src/)?(.*)" to="\2" />
+    </copy>
+    <zip destfile="${sdk.file}" basedir="${target.dir}/sdk"/>
+  </target>
+
+  <target name="setup" description="run all the one-time-only steps - like copying libs into place">
+    <mkdir dir="${package.dir}" />
+
+    <copy todir="${package.dir}">
+      <filterset refid="copy.filterset" />
+      <fileset dir="." excludes="Build.xml, *.png" includes="**/*" />
+    </copy>
+    <copy todir="${package.dir}">
+      <fileset dir="." includes="*.png" />
+    </copy>
+
+    <chmod dir="${package.bin.dir}" includes="*.sh" perm="755"/>
+
+    <mkdir dir="${package.lib.dir}" />
+    
+    <update-dependencies-macro todir="${package.lib.dir}" pattern="[artifact](-[classifier]).[ext]" />
+  </target>
+
+  <target name="teardown" description="undo whatever setup did">
+  </target>
+
+</project>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ This file defines a test product for use in the core system. This product configuration is
+ required in live deployments and is only used for testing purposes.
+-->
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd">
+    <name>Configuration for Test Product 2</name>
+    <timeout>60000</timeout>
+    <who>factory</who>
+    <version>$Revision$</version>
+    <manager>com.ail.core.product.resetproduct.ResetProductService</manager>
+    <parentNamespace>com.ail.core.product.TestProduct01.Registry</parentNamespace>
+    
+    <parameter name="TestPropertyA">Product 2's A Value</parameter>
+    <parameter name="TestPropertyC">C's Value</parameter>
+    
+    <group name="KeyGenerators">
+        <group name="Key">
+            <parameter name="ID">Test.Product02.ID</parameter>
+            <parameter name="Range">100-*</parameter>
+        </group>
+    </group>
+
+    <types>
+        <type name="TestProduct02" key="com.ail.core.Attribute" builder="CastorXMLBuilder">
+            <parameter name="Script"><![CDATA[
+               <attribute xsi:type='java:com.ail.core.Attribute' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+                  <attribute id="name" format="string" value="TestProduct2"/>
+                  <attribute id="productname" format="string" value="TestProduct2"/>
+                  <attribute id="age" format="number" value="34"/>
+                  <attribute id="colour" format="string" value="purple"/>
+               </attribute>
+            ]]></parameter>
+        </type>
+        
+        <type name="TestTypeB" key="com.ail.core.Attribute" builder="BeanShellBuilder">
+            <parameter name="Extends">TestTypeA</parameter>
+            <parameter name="Script"><![CDATA[
+                type=new com.ail.core.Attribute();
+                
+                a=new com.ail.core.Attribute();
+                a.setId("name");
+                a.setValue("TestTypeB");
+                a.setFormat("string");
+                type.addAttribute(a);
+                
+                a=new com.ail.core.Attribute();
+                a.setId("colour");
+                a.setValue("TestTypeB");
+                a.setFormat("string");
+                type.addAttribute(a);
+            ]]></parameter>
+        </type>
+
+        <!-- Type which extends a type of the same name in the parent product -->
+        <type name="TestTypeC" key="com.ail.core.Attribute" builder="CastorXMLBuilder">
+            <parameter name="Extends">super.TestTypeC</parameter>
+            <parameter name="Script"><![CDATA[
+            <attribute xsi:type='java:com.ail.core.Attribute' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+                <attribute id="source" format="string" value="TestProduct2"/>
+            </attribute>
+            ]]></parameter>
+        </type>
+
+        <!-- Type which extends a type which is undefined -->
+        <type name="TestTypeD" key="com.ail.core.Attribute" builder="CastorXMLBuilder">
+            <parameter name="Extends">UnknownTypeWhichIsNotDefined</parameter>
+            <parameter name="Script"><![CDATA[
+            <attribute xsi:type='java:com.ail.core.Attribute' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+                <attribute id="name" format="string" value="TestTypeD"/>
+                <attribute id="source" format="string" value="TestProduct2"/>
+            </attribute>
+            ]]></parameter>
+        </type>
+
+        <!-- Type which extends itself (a type of the same name is not defined in the parent product) -->
+        <type name="TestTypeE" key="com.ail.core.Attribute" builder="CastorXMLBuilder">
+            <parameter name="Extends">TestTypeE</parameter>
+            <parameter name="Script"><![CDATA[
+            <attribute xsi:type='java:com.ail.core.Attribute' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+                <attribute id="name" format="string" value="TestTypeD"/>
+                <attribute id="source" format="string" value="TestProduct2"/>
+            </attribute>
+            ]]></parameter>
+        </type>
+    </types>
+</configuration>

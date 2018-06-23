@@ -1,0 +1,39 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the AttributeFieldPageLevel widget. This widgets main function is to ensure
+## that the necessary data structure are setup in JavaScript to support choice attributes
+## that refer to types to define their list of options.
+##
+#set( $attr = $args.ModelArgRet)
+#set( $attrField = $args.PageElementArg )
+#set( $core = $args.CoreArg )
+#set( $policy = $args.PolicyArg )
+##
+#set( $choiceTypeName = ${attr.getFormatOption("type")} )
+#if( ${attr.isChoiceType()} && !${attr.isChoiceSlaveType()} && ${choiceTypeName} )
+	#set( $product = ${policy.ProductTypeId} )
+	#set( $choice = ${core.newProductType("${product}", "${choiceTypeName}")} )
+	<script type='text/javascript'>
+		${choiceTypeName}=new Array();
+		#foreach( $m in $choice.Choice )
+			${choiceTypeName}[$velocityCount]=new Array('$attrField.i18n($m.Name).replace("'", "\'" )'
+			#foreach( $s in ${m.Choice} ), '${attrField.i18n($s.Name).replace("'", "\'" )}'#end);
+		#end
+	</script>
+#end

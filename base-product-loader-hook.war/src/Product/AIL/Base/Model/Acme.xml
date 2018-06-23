@@ -1,0 +1,19 @@
+<broker xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="java:com.ail.insurance.policy.Broker">
+    <id>acme</id>
+    <legalName>Acme Broker Limited</legalName>
+    <address>
+        <line1>New Office</line1>
+        <line2>Small Street</line2>
+        <town>Uppington</town>
+        <county>Wessex</county>
+        <postcode>WS2 2PX</postcode>
+    </address>
+    <telephoneNumber>05437 868653</telephoneNumber>
+    <emailAddress>peter@ouwmail.co.uk</emailAddress>
+    <quoteEmailAddress>peter@ouwmail.co.uk</quoteEmailAddress>
+    <policyEmailAddress>peter@ouwmail.co.uk</policyEmailAddress>
+    <paymentTelephoneNumber>05437 736246</paymentTelephoneNumber>
+    <quoteTelephoneNumber>05437 367468</quoteTelephoneNumber>
+    <contactName>Mr Peter OpenUnderwriter</contactName>
+    <directDebitIdentificationNumber>322144</directDebitIdentificationNumber>
+</broker>

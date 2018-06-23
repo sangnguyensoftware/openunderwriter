@@ -1,0 +1,110 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the QuotationSummary widget.
+##
+#set( $quote = $args.ModelArgRet)
+#set( $quotationSummary = $args.PageElementArg )
+#set( $policy = $args.PolicyArg )
+#set( $response = $args.ResponseArgRet )
+#set( $renderId = $args.RenderIdArg )
+#set( $premium = $quote.TotalPremium )
+##
+<div class='pf-quotation-summary' id='$!{renderId}'>
+    <div class='pf-section-title'>
+        $quotationSummary.i18n("i18n_quotation_summary_quote_message", ${premium.toFormattedString()})
+    </div>
+    ## Render cover summary
+    <div class='pf-quotation-summary-cover-section'>
+        #foreach( $element in $quotationSummary.PageElement )
+            #if( $element.Class.Name == "com.ail.pageflow.AnswerSection" || $element.Class.Name == "com.ail.pageflow.PageSection" )
+               #set( $quote = ${element.renderResponse($quote)} )
+            #end
+        #end
+    </div>
+    ## Render quotation detail
+    <div class='pf-quotation-summary-detail-section'>
+        <ul>
+            ## Render quotation number
+            <li>$quotationSummary.i18n("i18n_quotation_summary_quote_number_message", $quote.QuotationNumber)</li>
+            ## Render quotation expiry date
+            <li>$quotationSummary.i18n("i18n_quotation_summary_valid_until_message", $quote.xpathGet("u:longDate(/quotationExpiryDate)"))</li>
+            ## Render tax details
+            #set( $taxLineCount = 0 )
+            #foreach( $line in $quote.AssessmentSheet.behaviourLines() )
+                #if( $line.Type.Name == "TAX" )
+                    #set( $taxLineCount = $taxLineCount + 1 )
+                #end
+            #end
+            #if( $taxLineCount == 1 )
+                ## There is only one tax line so output the details on one line.
+                <li>$quotationSummary.i18n("i18n_quotation_summary_inclusive_header_message")
+                #foreach( $line in $quote.AssessmentSheet.behaviourLines() )
+                    #if( $line.Type.Name == "TAX" )
+                        #if( $line.Class.Name == "com.ail.insurance.policy.RateBehaviour" )
+                            $quotationSummary.i18n("i18n_quotation_summary_inclusive_rate_message", $line.Reason, $line.Rate.Rate)
+                        #elseif( $line.Class.Name == "com.ail.insurance.policy.SumBehaviour" )
+                            $quotationSummary.i18n("i18n_quotation_summary_inclusive_sum_message", $line.Reason, $line.Amount.toFormattedString())
+                        #end
+                    #end
+                #end
+                </li>
+            #elseif( $taxLineCount > 1 )
+                ## There are many tax lines, so output them as a list
+                <li>$quotationSummary.i18n("i18n_quotation_summary_inclusive_header_message"):<ul>
+                #foreach( $line in $quote.AssessmentSheet.behaviourLines() )
+                    #if( $line.Type.Name == "TAX" )
+	                    #if( $line.Class.Name == "com.ail.insurance.policy.RateBehaviour" )
+	                        <li>$quotationSummary.i18n("i18n_quotation_summary_inclusive_rate_message", $line.Reason, $line.Rate.Rate)</li>
+	                    #elseif( $line.Class.Name == "com.ail.insurance.policy.SumBehaviour" )
+	                        <li>$quotationSummary.i18n("i18n_quotation_summary_inclusive_sum_message", $line.Reason, $line.Amount.toFormattedString())</li>
+	                    #end
+	                #end
+                #end
+                </ul></li>
+            #end
+            ## Render wordings URL (if supplied)
+            #if( $quotationSummary.WordingsUrl )
+                #set( $wordingUrl = $quotationSummary.getWordingUrlExternalForm($quotationSummary, $quote) )
+                <li>$quotationSummary.i18n("i18n_quotation_summary_sample_wording_message", $wordingUrl)</li>
+            #end
+        </ul>
+    </div>
+    ## Render the footer elements if any have been defined
+    #if( $quotationSummary.PremiumSummaryFooter ) 
+		<div class='pf-quotation-summary-footer-section'>
+            #set( $quote = ${quotationSummary.PremiumSummaryFooter.renderResponse($quote)} )
+	    </div>
+	#end
+    ## Render navigation section
+	<div class='pf-quotation-summary-navigation-section'>
+        <form name='$quotationSummary.Id' action='${response.createActionURL()}' method='post'>
+            #set( $quote = ${quotationSummary.navigationSection().renderResponse($quote)} )
+        </form>
+    </div>
+    ## Render login section
+    <div class='pf-quotation-summary-login-section'>
+        #set( $quote = ${quotationSummary.loginSection($quote).renderResponse($quote)} )
+    </div>
+    #if( $quotationSummary.TermsAndConditionsUrl )
+        <div class='pf-quotation-summary-terms-section'>
+            #set( $fullUrl = $quotationSummary.expandRelativeUrlToProductUrl($quotationSummary.TermsAndConditionsUrl, $policy.ProductTypeId) )
+            $quotationSummary.expand($fullUrl, $quote)
+        </div>
+    #end       
+</div>

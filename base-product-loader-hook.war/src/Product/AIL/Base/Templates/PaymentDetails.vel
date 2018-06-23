@@ -1,0 +1,238 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the PaymentDetails widget.
+##
+#set( $policy = $args.ModelArgRet)
+#set( $paymentDetails = $args.PageElementArg )
+#set( $proposer = $policy.Client )
+#set( $renderId = $args.RenderIdArg )
+##
+<div class='pf-payment-details' id='$!{renderId}'>
+    <div class='pf-header'>
+    	<div class='pf-header-title'>
+            ${paymentDetails.i18n("i18n_payment_details_title")}
+        </div>
+        <div class='pf-header-summary'>
+            <div class='pf-header-summary-entry'>
+                <div class='pf-header-summary-title'>
+                    ${paymentDetails.i18n("i18n_payment_details_premium_label")}
+                </div>
+                <div class='pf-header-summary-value'>
+                    ${policy.TotalPremium}
+                </div>
+            </div>
+            <div class='pf-header-summary-entry'>
+                <div class='pf-header-summary-title'>
+                	${paymentDetails.i18n("i18n_payment_details_cover_start_date_label")}
+                </div>
+                <div class='pf-header-summary-value'>
+                    ${date.format("d MMMMM, yyyy", $policy.InceptionDate)}
+                </div>
+            </div>
+            <div class='pf-header-summary-entry'>
+                <div class='pf-header-summary-title'>
+                    ${paymentDetails.i18n("i18n_payment_details_cover_end_date_label")}
+                </div>
+                <div class='pf-header-summary-value'>
+                    ${date.format("d MMMMM, yyyy", $policy.ExpiryDate)}
+                </div>
+            </div>
+        </div>
+		<div style="clear:both;"></div>
+    </div>
+    <div class='pf-body pf-payment-details-contact'>
+        <div class='pf-section-title'>
+            ${paymentDetails.i18n("i18n_payment_details_contact_details_title")}
+        </div>
+        <div class='pf-section-body'>
+			#summaryRow("i18n_payment_details_name_label" "${proposer.FirstName} ${proposer.Surname}")
+			#summaryRow("i18n_payment_details_address_label" ${proposer.Address})
+			#summaryRow("i18n_payment_details_email_address_label" ${proposer.EmailAddress})
+        </div>
+    </div>
+    #foreach( $mp in $policy.PaymentDetails.MoneyProvision )
+        #if( $mp.PaymentMethod.Class.Name == "com.ail.financial.DirectDebit" )
+            #renderDirectDebit( $mp )
+        #elseif ($mp.PaymentMethod.Class.Name == "com.ail.financial.PaymentCard" )
+            #renderPaymentCard( $mp )
+        #end
+    #end
+    <div class='pf-body pf-payment-details-submit'>
+    	<div class='pf-section-title'>
+            ${paymentDetails.i18n("i18n_payment_details_submit_title")}
+   		</div>
+        <div class='pf-section-description'>
+            ${paymentDetails.i18n("i18n_payment_details_confirm_message", $policy.Broker.PaymentTelephoneNumber)}
+   		</div>
+        <div class='pf-input-section'>
+            <div class='pf-input-field>
+            	<div class='pf-input-required'></div>
+            	${paymentDetails.i18n("i18n_payment_details_confirm_label")}
+            	<input name='confirm' type='checkbox'/>
+                #if( $paymentDetails.hasErrorMarker("confirm", $schedule) )
+                    <div class='pf-input-error'>$paymentDetails.findError("confirm", $schedule, $paymentDetails)</div>
+                #end
+            </div>
+        </div>
+    </div>
+</div>
+##
+#macro(summaryRow $label $value)
+    <div class='pf-item'>
+        <div class='pf-item-label'>$paymentDetails.i18n($label)</div>
+        <div class='pf-item-value'>$value</div>
+    </div>
+#end
+##
+#macro(renderDirectDebit $mp)
+    #set( $schedule = $policy.PaymentDetails )
+    #set( $dd = $mp.PaymentMethod )
+    #set( $accountNumber = $dd.AccountNumber )
+    #set( $sortCode = $dd.SortCode )
+    #set( $sc = ["", "", ""] )
+    #if( $sortCode && $sortCode.length()==8 )
+        #set( $sc = ${sortCode.split('-')} )
+    #end
+    <div class='pf-body pf-payment-details-direct-debit'>
+        <div class='pf-section-title'>${paymentDetails.i18n("i18n_payment_details_direct_debit_title")}</div>
+        <div class='pf-section-description'>${paymentDetails.i18n("i18n_payment_details_direct_debit_description")}</div>
+	    <div class='pf-section-description'>
+	    	${paymentDetails.i18n("i18n_payment_details_originator_label")}: ${policy.Broker.LegalName}, ${policy.Broker.Address}
+        </div>
+        <div class='pf-section-description'>
+        	${paymentDetails.i18n("i18n_payment_details_originator_id_label")}: ${policy.Broker.DirectDebitIdentificationNumber}
+        </div>
+        <div class='pf-input-section'>
+            <div class='pf-input-label'>
+            	<div class='pf-input-required'></div>
+            	${paymentDetails.i18n("i18n_payment_details_account_number_label")}
+            </div>
+            <div class='pf-input-field'><input name='acc' size='8' type='text' maxlength='10' value='$!{accountNumber}'/></div>
+            #if( $paymentDetails.hasErrorMarker("dd.account", $schedule) )
+                <div class='pf-input-error'>${paymentDetails.findError("dd.account", $schedule, $paymentDetails)}</div>
+            #end
+        </div>
+        <div class='pf-input-section'>
+            <div class='pf-input-label'>
+            	<div class='pf-input-required'></div>
+            	${paymentDetails.i18n("i18n_payment_details_sort_code_label")}
+            </div>
+            <div class='pf-input-field'>
+	            <input name='sc1' size='2' maxlength='2' type='text' value='$!{sc[0]}'/>&nbsp;-
+	            <input name='sc2' size='2' maxlength='2' type='text' value='$!{sc[1]}'/>&nbsp;-
+	            <input name='sc3' size='2' maxlength='2' type='text' value='$!{sc[2]}'/>
+            </div>
+            #if( $paymentDetails.hasErrorMarker("dd.sort", $schedule) )
+                <div class='pf-input-error'>${paymentDetails.findError("dd.sort", $schedule, $paymentDetails)}</div>
+            #end
+        </div>
+        <div class='pf-section-description'>
+            ${paymentDetails.i18n("i18n_payment_details_direct_debit_message", $policy.Broker.LegalName)}
+        </div>
+        <div class='pf-section-description'>
+            ${paymentDetails.i18n("i18n_payment_details_guarantee_message", $policy.Broker.LegalName)}
+        </div>
+    </div>
+#end
+##
+#macro(renderPaymentCard $mp) 
+    #set( $schedule = $policy.PaymentDetails )
+    #set( $pc = $mp.PaymentMethod )
+    
+    #if ( $pc.StartDate )
+        #set( $startMonth = $date.format("MM", $pc.StartDate) )
+        #set( $startYear = $date.format("yy", $pc.StartDate) )
+    #else
+        #set( $startMonth = "" )
+        #set( $startYear = "" )
+    #end
+    
+    #if( $pc.ExpiryDate )
+        #set( $expiryMonth = $date.format("MM", $pc.ExpiryDate) )
+        #set( $expiryYear = $date.format("yy", $pc.ExpiryDate) )
+    #else
+        #set( $expiryMonth = "" )
+        #set( $expiryYear = "" )
+    #end
+
+    #if( !$pc.CardHoldersName ) 
+        #set( $pc.CardHoldersName = $policy.Client.LegalName )
+    #end
+    
+    <div class='pf-body pf-payment-details-card'>
+        <div class='pf-section-title'>${paymentDetails.i18n("i18n_payment_details_card_title")}</div>
+        <div class='pf-section-description'>${paymentDetails.i18n("i18n_payment_details_card_description")}</div>
+        <div class='pf-input-section'>
+            <div class='pf-input-label'>
+            	<div class='pf-input-required'></div>
+            	${paymentDetails.i18n("i18n_payment_details_card_number_label")}
+            </div>
+            <div class='pf-input-field'><input name='cardNumber' size='20' type='text' value='$!{pc.CardNumber}'/></div>
+            #if( $paymentDetails.hasErrorMarker("pc.cardNumber", $schedule) )
+              <div class='pf-input-error'>${paymentDetails.findError("pc.cardNumber", $schedule, $paymentDetails)}</div>
+            #end
+        </div>
+        <div class='pf-input-section'>
+            <div class='pf-input-label'>
+            	<div class='pf-input-required'></div>
+            	${paymentDetails.i18n("i18n_payment_details_card_start_date_label")}
+            </div>
+            <div class='pf-input-field'>
+                <input name='startMonth' style="max-width: 2em" size='2' maxlength='2' type='text' value='$startMonth' placeholder='MM'/>
+                <input name='startYear' style="max-width: 2em" size='2' type='text' maxlength='2' value='$startYear' placeholder='YY'/>
+            </div>
+            #if( $paymentDetails.hasErrorMarker("pc.startDate", $schedule) )
+              <div class='pf-input-error'>${paymentDetails.findError("pc.startDate", $schedule, $paymentDetails)}</div>
+            #end
+        </div>
+        <div class='pf-input-section'>
+            <div class='pf-input-label'>
+            	<div class='pf-input-required'></div>
+            	${paymentDetails.i18n("i18n_payment_details_card_expiry_date_label")}
+            </div>
+            <div class='pf-input-field'>
+                <input name='expiryMonth' style="max-width: 2em" size='2' maxlength='2' type='text' value='$expiryMonth' placeholder='MM'/>
+                <input name='expiryYear' style="max-width: 2em" size='2' type='text' maxlength='2' value='$expiryYear' placeholder='YY'/>
+            </div>
+            #if( $paymentDetails.hasErrorMarker("pc.expiryDate", $schedule) )
+              <div class='pf-input-error'>${paymentDetails.findError("pc.expiryDate", $schedule, $paymentDetails)}</div>
+            #end
+        </div>
+        <div class='pf-input-section'>
+            <div class='pf-input-label'>
+            	<div class='pf-input-required'></div>
+            	${paymentDetails.i18n("i18n_payment_details_card_issue_number_label")}
+            </div>
+            <div class='pf-input-field'><input name='issueNumber' size='2' maxlength='2' type='text' value='$!{pc.IssueNumber}'/></div>
+            #if( $paymentDetails.hasErrorMarker("pc.issueNumber", $schedule) )
+              <div class='pf-input-error'>${paymentDetails.findError("pc.issueNumber", $schedule, $paymentDetails)}</div>
+            #end
+        </div>
+        <div class='pf-input-section'>
+            <div class='pf-input-label'>
+            	<div class='pf-input-required'></div>
+           		${paymentDetails.i18n("i18n_payment_details_card_cardholders_name_label")}
+           	</div>
+            <div class='pf-input-field'><input name='cardHoldersName' size='20' type='text' value='${pc.CardHoldersName}'/></div>
+            #if( $paymentDetails.hasErrorMarker("pc.cardHoldersName", $schedule) )
+              <div class='pf-input-error'>${paymentDetails.findError("pc.cardHoldersName", $schedule, $paymentDetails)}</div>
+            #end
+        </div>
+    </div>
+#end

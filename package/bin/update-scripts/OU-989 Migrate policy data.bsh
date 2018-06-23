@@ -1,0 +1,134 @@
+import java.net.*;
+import java.util.*;
+import java.lang.*;
+import java.sql.*;
+import java.io.*;
+import java.math.*;
+import java.nio.file.*;
+import java.util.logging.*;
+import java.util.regex.*;
+import com.ail.core.persistence.hibernate.HibernateSessionBuilder;
+import org.hibernate.*;
+import com.ail.core.*;
+import com.ail.pageflow.*;
+import com.ail.insurance.*;
+import com.ail.financial.*;
+import com.ail.insurance.policy.*;
+
+main() {
+    if (migrate(bsh.args[0], bsh.args[1])) {
+        System.exit(0);
+    }
+    else {
+        System.exit(1);
+    }
+}
+
+boolean migrate(String jboss, String bin) {
+    Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
+
+    try {
+        url = System.getenv("dbUrl");
+        userName = System.getenv("dbUsername");
+        password = System.getenv("dbPassword");
+
+        print("Update being applied to: "+url);
+
+        config = new HashMap();
+
+        config.put("hibernate.listeners.envers.autoRegister", "false");
+
+        config.put("hibernate.connection.url", url);
+        config.put("hibernate.connection.username", userName);
+        config.put("hibernate.connection.password", password);
+        config.put("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
+        config.put("hibernate.connection.current_session_context_class", "thread");
+        config.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+        config.put("hibernate.connection.pool_size", "1");
+
+        config.put("hibernate.bytecode.use_reflection_optimizer", "true");
+        config.put("hibernate.show_sql", "false");
+        config.put("hibernate.format_sql", "true");
+
+        migrateData(config);
+
+        return true;
+    } catch (Throwable e) {
+        print("Exception: OU-951 Migrate clause date " + e.getMessage());
+        e.printStackTrace();
+        return false;
+    }
+}
+
+void migrateData(Map config) throws Throwable {
+    core = new CoreProxy();
+
+    session = HibernateSessionBuilder.getSessionFactory(config).openSession();
+
+    rawDataQuery = session.createSQLQuery("select polUID, polBrokerUIDpar, polPolicyHolderUIDpar, polProposerUIDpar from polPolicy"); 
+
+    results = rawDataQuery.list();
+    rows = new ArrayList();
+    for (result : results) {
+    		row = new HashMap();
+		row.put("polUID", Long.valueOf(result[0].toString()));
+		row.put("polBrokerUIDpar", result[1] == null ? null : Long.valueOf(result[1].toString()));
+		row.put("polPolicyHolderUIDpar", result[2] == null ? null : Long.valueOf(result[2].toString()));
+		row.put("polProposerUIDpar", result[3] == null ? null : Long.valueOf(result[3].toString()));
+		rows.add(row);
+    }
+    session.close();
+
+    session = HibernateSessionBuilder.getSessionFactory(config).openSession();
+    tx = session.beginTransaction();
+
+    for (Map row : rows) {
+        polUID = row.get("polUID");
+        polBrokerUIDpar = row.get("polBrokerUIDpar");
+        polPolicyHolderUIDpar = row.get("polPolicyHolderUIDpar");
+        polProposerUIDpar = row.get("polProposerUIDpar");
+
+		policy = fetchPolicy(session, polUID);
+		
+        if (polBrokerUIDpar != null) {
+        		party = fetchParty(session, polBrokerUIDpar);
+	        	policy.setBroker(party);
+        	}
+
+        if (polProposerUIDpar != null) {
+        		party = fetchParty(session, polProposerUIDpar);
+	        	policy.setProposer(party);
+        	}
+
+        if (polPolicyHolderUIDpar != null) {
+        		party = fetchParty(session, polPolicyHolderUIDpar);
+	        policy.setPolicyHolder(party);
+        	}
+
+        session.flush();
+        session.clear();
+    }
+
+    tx.commit();
+    session.close();
+}
+
+fetchPolicy(session, polUID) {
+	return session.getNamedQuery("get.policy.by.systemId").setParameter(0, polUID).list().get(0);
+}
+
+fetchParty(session, parUID) {
+	return session.getNamedQuery("get.party.by.systemId").setParameter(0, parUID).list().get(0);
+}
+
+String readFile(String file) {
+    line = null;
+    stringBuilder = new StringBuilder();
+    reader = new BufferedReader(new FileReader(file));
+    while((line = reader.readLine()) != null) {
+        stringBuilder.append(line);
+    }
+    return stringBuilder.toString();
+}
+
+main();

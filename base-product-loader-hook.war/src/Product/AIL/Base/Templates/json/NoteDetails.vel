@@ -1,0 +1,121 @@
+## Copyright Applied Industrial Logic Limited 2017. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+#set( $model = $args.ModelArgRet)
+#set( $pageElement = $args.PageElementArg )
+#set( $id = $args.RenderIdArg )
+#set( $binding = $pageElement.Binding )
+#set( $title = ${pageElement.formattedTitle($args)} )
+#set( $string = '' )
+#set( $dateFormat = '%1$tY-%1$tm-%1$tdT%1$tT' )
+#set( $noteTypeOptions = ${pageElement.noteTypeOptions($model)} )
+#locateNotes()
+{
+    "type": "$pageElement.Class.SimpleName",
+    "id": "$id"
+    #if($title),"title": "$title"#end
+    #if(!$pageElement.canHaveNotes($source))
+        #renderError
+    #else
+        #renderNotes
+    #end
+    #renderAddAction
+}
+##
+#macro(renderNotes)
+    ,"notes": [
+    #foreach($note in ${pageElement.filteredNotes($source)})
+        #if( $velocityCount != 1),#end
+        {
+            #set( $titleId = ${pageElement.titleId($source, $foreach.index)} )
+            #set( $bodyId = ${pageElement.bodyId($source, $foreach.index)} )
+            #set( $typeId = ${pageElement.bodyId($source, $foreach.index)} )
+            "title": {
+                "title": "Note title",
+                "valueId": "$titleId",
+                "value": "$!note.Title",
+                "format": {
+                    "type": "string",
+                    "max": "255"
+                   }
+            },
+            "body": {
+                "title": "Note body",
+                "valueId": "$bodyId",
+                "value": "$!note.Body",
+                "format": {
+                    "type": "string"
+                }
+            },
+            "type": {
+                "title": "Note type",
+                "valueId": "$typeId",
+                "value": "$!note.Type",
+                "format": {
+                    "type": "choice",
+                    "options": [
+                        #foreach($opt in $noteTypeOptions)
+                            #if($foreach.index!=0),#end
+                            {
+                                "id": "$opt", 
+                                "value": "#i18n($opt)"
+                                #if($opt == $note.Type),"selected": true#end
+                            }
+                        #end
+                    ]
+                }
+            },
+            "label": {
+                "title" : "Label(s)",
+                "valueId": "${pageElement.encodeId('labelId')}",
+                "format": {
+                    "type": "string"
+                }
+            }
+            #if($note.CreatedDate),"createdDate": "${string.format($dateFormat, $note.CreatedDate)}"#end
+            #if($note.CreatedBy),"createdBy": "${pageElement.getUsernameForUserId($note.CreatedBy)}"#end
+            #if($note.UpdatedDate),"updatedDate": "${string.format($dateFormat, $note.UpdatedDate)}"#end
+            #if($note.UpdatedBy),"updatedBy": "${pageElement.getUsernameForUserId($note.UpdatedBy)}"#end
+            #if($pageElement.AddAndDeleteEnabled && !$pageElement.ReadOnly)
+                ,"deleteOp": "${pageElement.deleteOp($source,$foreach.index)}"
+            #end
+        }
+    #end
+    ]
+#end
+##
+#macro(renderAddAction)
+    #if($pageElement.AddAndDeleteEnabled && !$pageElement.ReadOnly)
+        ,"addOp": "${pageElement.addOp($source)}"
+    #end 
+#end
+##
+#macro(renderError)
+    ,"error": "Notes are not support on ${source.Class.SimpleName}."
+#end
+##
+#macro(locateNotes)
+    #if( $binding )
+        #set($source = $model.xpathGet($binding))
+    #else
+        #set($source = $model)
+    #end
+#end
+##
+#macro(getId $name)$name#if($pageElement.ReadOnly)ReadOnly#end#end
+##
+#macro( i18n $id )$pageElement.i18n("$id")#end

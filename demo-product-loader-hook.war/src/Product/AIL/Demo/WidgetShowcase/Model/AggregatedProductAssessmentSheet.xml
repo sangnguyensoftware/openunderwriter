@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xsi:type="java:com.ail.insurance.policy.Section" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <assessmentSheet product="AIL.Demo.LifeAggregator.Products.InfinityLife">
+        <sheet lock="false" serialVersion="0" systemId="-1">
+            <assessmentLines>
+                <line name="total premium">
+                    <detail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lock="false" serialVersion="0" systemId="-1" xsi:type="fixedSum">
+                        <id>total premium</id>
+                        <reason>calculated</reason>
+                        <priority>5</priority>
+                        <processedOrder>13</processedOrder>
+                        <origin>CalculatePremium</origin>
+                        <disabled>false</disabled>
+                        <amount amount="115.23" currency="GBP" />
+                    </detail>
+                </line>
+                <line name="33">
+                    <detail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lock="false" serialVersion="0" systemId="-1" xsi:type="constrainValueOutOfBounds">
+                        <id>33</id>
+                        <reason>Premium limits</reason>
+                        <priority>1</priority>
+                        <processedOrder>0</processedOrder>
+                        <origin>AssessRisk</origin>
+                        <disabled>false</disabled>
+                        <relatesTo lock="false" serialVersion="0" systemId="-1" id="total premium" type="ASSESSMENT_LINE" />
+                        <assessmentStage>Rating</assessmentStage>
+                        <controlLineType>OUTSIDE</controlLineType>
+                        <minimum amount="90.00" currency="GBP" />
+                        <maximum amount="200.00" currency="GBP" />
+                    </detail>
+                </line>
+                <line name="base premium">
+                    <detail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lock="false" serialVersion="0" systemId="-1" xsi:type="fixedSum">
+                        <id>base premium</id>
+                        <reason>Gender is:Male, age is:30</reason>
+                        <priority>2</priority>
+                        <processedOrder>3</processedOrder>
+                        <origin>AssessRisk</origin>
+                        <disabled>false</disabled>
+                        <contributesTo>total premium</contributesTo>
+                        <amount amount="100.00" currency="GBP" />
+                    </detail>
+                </line>
+                <line name="#6DB44331">
+                    <detail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lock="false" serialVersion="0" systemId="-1" xsi:type="rateBehaviour">
+                        <id>#6DB44331</id>
+                        <reason>IPT</reason>
+                        <priority>4</priority>
+                        <processedOrder>12</processedOrder>
+                        <origin>CalculateTax</origin>
+                        <disabled>false</disabled>
+                        <contributesTo>total premium</contributesTo>
+                        <amount amount="5.00" currency="GBP" />
+                        <type>TAX</type>
+                        <dependsOn>total premium</dependsOn>
+                        <rate lock="false" serialVersion="0" systemId="-1">
+                            <rate>5%</rate>
+                        </rate>
+                    </detail>
+                </line>
+            </assessmentLines>
+        </sheet>
+    </assessmentSheet>
+    <assessmentSheet product="AIL.Demo.LifeAggregator.Products.StarLife">
+        <sheet lock="false" serialVersion="0" systemId="-1">
+            <assessmentLines>
+                <line name="#410612F6">
+                    <detail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lock="false" serialVersion="0" systemId="-1" xsi:type="rateBehaviour">
+                        <id>#410612F6</id>
+                        <reason>IPT</reason>
+                        <priority>4</priority>
+                        <processedOrder>12</processedOrder>
+                        <origin>CalculateTax</origin>
+                        <disabled>false</disabled>
+                        <contributesTo>total premium</contributesTo>
+                        <amount amount="5.00" currency="GBP" />
+                        <type>TAX</type>
+                        <dependsOn>total premium</dependsOn>
+                        <rate lock="false" serialVersion="0" systemId="-1">
+                            <rate>5%</rate>
+                        </rate>
+                    </detail>
+                </line>
+                <line name="total premium">
+                    <detail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lock="false" serialVersion="0" systemId="-1" xsi:type="fixedSum">
+                        <id>total premium</id>
+                        <reason>calculated</reason>
+                        <priority>5</priority>
+                        <processedOrder>13</processedOrder>
+                        <origin>CalculatePremium</origin>
+                        <disabled>false</disabled>
+                        <amount amount="125.10" currency="GBP" />
+                    </detail>
+                </line>
+                <line name="33">
+                    <detail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lock="false" serialVersion="0" systemId="-1" xsi:type="constrainValueOutOfBounds">
+                        <id>33</id>
+                        <reason>Premium limits</reason>
+                        <priority>1</priority>
+                        <processedOrder>0</processedOrder>
+                        <origin>AssessRisk</origin>
+                        <disabled>false</disabled>
+                        <relatesTo lock="false" serialVersion="0" systemId="-1" id="total premium" type="ASSESSMENT_LINE" />
+                        <assessmentStage>Rating</assessmentStage>
+                        <controlLineType>OUTSIDE</controlLineType>
+                        <minimum amount="90.00" currency="GBP" />
+                        <maximum amount="200.00" currency="GBP" />
+                    </detail>
+                </line>
+                <line name="base premium">
+                    <detail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lock="false" serialVersion="0" systemId="-1" xsi:type="fixedSum">
+                        <id>base premium</id>
+                        <reason>Gender is:Male, age is:30</reason>
+                        <priority>2</priority>
+                        <processedOrder>3</processedOrder>
+                        <origin>AssessRisk</origin>
+                        <disabled>false</disabled>
+                        <contributesTo>total premium</contributesTo>
+                        <amount amount="100.00" currency="GBP" />
+                    </detail>
+                </line>
+            </assessmentLines>
+        </sheet>
+    </assessmentSheet>
+    <assessmentSheet product="AIL.Demo.LifeAggregator.Products.MetLife">
+        <sheet lock="false" serialVersion="0" systemId="-1">
+            <assessmentLines>
+                <line name="#406C1927">
+                    <detail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lock="false" serialVersion="0" systemId="-1" xsi:type="rateBehaviour">
+                        <id>#406C1927</id>
+                        <reason>IPT</reason>
+                        <priority>4</priority>
+                        <processedOrder>12</processedOrder>
+                        <origin>CalculateTax</origin>
+                        <disabled>false</disabled>
+                        <contributesTo>total premium</contributesTo>
+                        <amount amount="5.00" currency="GBP" />
+                        <type>TAX</type>
+                        <dependsOn>total premium</dependsOn>
+                        <rate lock="false" serialVersion="0" systemId="-1">
+                            <rate>5%</rate>
+                        </rate>
+                    </detail>
+                </line>
+                <line name="total premium">
+                    <detail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lock="false" serialVersion="0" systemId="-1" xsi:type="fixedSum">
+                        <id>total premium</id>
+                        <reason>calculated</reason>
+                        <priority>5</priority>
+                        <processedOrder>13</processedOrder>
+                        <origin>CalculatePremium</origin>
+                        <disabled>false</disabled>
+                        <amount amount="105.00" currency="GBP" />
+                    </detail>
+                </line>
+                <line name="33">
+                    <detail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lock="false" serialVersion="0" systemId="-1" xsi:type="constrainValueOutOfBounds">
+                        <id>33</id>
+                        <reason>Premium limits</reason>
+                        <priority>1</priority>
+                        <processedOrder>0</processedOrder>
+                        <origin>AssessRisk</origin>
+                        <disabled>false</disabled>
+                        <relatesTo lock="false" serialVersion="0" systemId="-1" id="total premium" type="ASSESSMENT_LINE" />
+                        <assessmentStage>Rating</assessmentStage>
+                        <controlLineType>OUTSIDE</controlLineType>
+                        <minimum amount="90.00" currency="GBP" />
+                        <maximum amount="200.00" currency="GBP" />
+                    </detail>
+                </line>
+                <line name="base premium">
+                    <detail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lock="false" serialVersion="0" systemId="-1" xsi:type="fixedSum">
+                        <id>base premium</id>
+                        <reason>Gender is:Male, age is:30</reason>
+                        <priority>2</priority>
+                        <processedOrder>3</processedOrder>
+                        <origin>AssessRisk</origin>
+                        <disabled>false</disabled>
+                        <contributesTo>total premium</contributesTo>
+                        <amount amount="100.00" currency="GBP" />
+                    </detail>
+                </line>
+            </assessmentLines>
+        </sheet>
+    </assessmentSheet>
+</section>

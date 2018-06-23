@@ -1,0 +1,35 @@
+<p>Pages in PageFlow can one of two types: QuestionPage, as
+	describer here, or InformationPage. An Information page is one that
+	contains only readable information and navigation widgets. Whereas, a
+	QuestionPage is one that support all of the form fields and invites
+	user input.</p>
+<pre>
+    &lt;questionPage title="<i>title</i>" [stage="<i>stage</i>"] [showPageError="<i>showPageError</i>"]/&gt;
+</pre>
+<ul>
+	<li><i>title</i> Title text to appear at the head of the page.</li>
+	<li><i>stage</i> Name of the stage that this page is part of. This
+		value is used to group pages into the progress bar. For example, if
+		four pages all define their <i>stage</i> as "Payment" then the
+		progress bar will include a single "Payment" stage and that stage will
+		be shown as the current stage whenever one of those four pages is
+		being viewed.</li>
+	<li><i>showPageError</i> Can be 'true' or 'false'. If set to 'true' an
+	    error banner will be displayed on the page when any errors are 
+	    present. Defaults to 'true'.</li>
+</ul>
+<p>A progress bar will be included at the top of the page when two
+	conditions are met:</p>
+<ol>
+	<li>The PageFlow&apos;s <i>progressBar</i> attribute is set to
+		true.
+	</li>
+	<li>The page defines a stage attribute.</li>
+</ol>
+<p>
+	This gives the PageFlow author the freedom to hide the progress bar on
+	some pages (by leaving <i>state</i> undefined), or to disable it
+	altogether by setting the PageFlow&apos;s <i>progressBar</i> attribute
+	to false (which is the default setting).
+</p>
+<hr />

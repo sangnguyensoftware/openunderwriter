@@ -1,0 +1,91 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the QuotationSummary widget.
+##
+#set( $pageElement = $args.PageElementArg )
+#set( $policy = $args.PolicyArg )
+#set( $response = $args.ResponseArgRet )
+#set( $renderId = $args.RenderIdArg )
+##
+<div class='pf-aggregator-quotation-selector' id='$!{renderId}'>
+	#if( !${policy.isAggregator()} )
+		#renderWarning('i18n_aggregator_quotation_selector_policy_not_aggregator_warning_message')
+	#elseif( !${policy.AssessmentSheetList} || ${policy.AssessmentSheetList.size()}==0 ))
+		#renderWarning('i18n_aggregator_quotation_selector_no_quotations_found')
+	#else
+		#renderQuotationList
+	#end
+</div>
+##
+#macro(renderQuotationList)
+	#set( $noQuotationsOutput = true )
+	#foreach( $product in ${policy.AssessmentSheetList.keySet()} )
+		#set( $sheet = ${policy.getAssessmentSheetFor($product)} )
+		#if( ${pageElement.isSheetIncludedInResults($sheet)} )
+			#renderQuotationLine($sheet)
+			#set( $noQuotationsOutput = false )
+		#end
+	#end
+	#if( $noQuotationsOutput )
+		#renderWarning('i18n_aggregator_quotation_selector_no_quotations_found')
+	#end
+#end
+##
+#macro(renderQuotationLine $sheet)
+	<div class='pf-aggregator-quotation-selector-quote'>
+		<div class='pf-aggregator-quotation-selector-summary'>
+			$pageElement.featureContentFor($product)
+		</div>
+		<div class='pf-aggregator-quotation-selector-result #classForResult($sheet)'>
+			#result($sheet)
+		</div>
+		<div class='pf-aggregator-quotation-selector-select'>
+			#if( ${sheet.isTotalPremiumDefined()} )
+				<input type="submit" name="op=select:product=${product}" class="portlet-form-input-field" value="#i18n('i18n_aggregator_quotation_selector_select')"/>
+			#end
+		</div>
+	</div>
+#end
+##
+#macro(result $sheet) 
+	#if( ${sheet.isMarkedForRefer()} )
+		#i18n('i18n_referred')
+	#elseif ( ${sheet.isMarkedForDecline()} )
+		#i18n('i18n_declined')
+	#else
+		$!{sheet.totalPremium}
+	#end
+#end
+##
+#macro(classForResult $sheet)
+	#if( ${sheet.isMarkedForRefer()} )
+		pf-refer
+	#elseif ( ${sheet.isMarkedForDecline()} )
+		pf-declined
+	#else
+		pf-quoted
+	#end
+#end
+##
+#macro(renderWarning $message)<div class="alert alert-info">#i18n($message)</div>#end
+##
+#macro(renderQuotationList)
+#end
+##
+#macro( i18n $id )$pageElement.i18n("$id")#end

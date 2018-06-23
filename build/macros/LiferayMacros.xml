@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ Macro file defining a collection of ant macros concerned with managing Liferay
+-->
+
+<project default="dummy" name="BuildLiferayMacros.xml" xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:antunless="ant:unless">
+
+    <target name="dummy" />
+
+    <target name="_install.base" unless="base">
+        <!-- Get the Liferay zip into the cache -->
+        <fetch-dependency-path-macro org="liferay" name="liferay-portal" rev="${version}" pathid="liferay.zip.pathid" />
+        <property name="liferay.zip" refid="liferay.zip.pathid" />
+
+        <!-- Unpack the cached zip into the dev tree -->
+        <mkdir dir="${target.dir}" />
+        <unzip overwrite="yes" dest="${target.dir}" src="${liferay.zip}" />
+
+        <copy todir="${liferay.dir}/data" preservelastmodified="yes">
+            <fileset dir="${content.setup.dir}" includes="document_library/**"/>
+        </copy>
+        	
+        <delete dir="${module.dir}/org/hibernate/main" />
+        <delete dir="${module.dir}/org/hibernate/envers" />
+
+        <chmod dir="${jboss.dir}/bin" includes="*.sh" perm="755"/>
+    </target>
+
+    <!-- Macro to install Liferay in a development tree.   -->
+    <!-- @param version The version of Liferay to install. -->
+    <macrodef name="install-liferay-macro">
+        <attribute name="version" />
+        <sequential>
+            <available file="${liferay.dir}/readme.html" property="base" />
+            <antcall target="_install.base">
+                <param name="version" value="@{version}" />
+            </antcall>
+        </sequential>
+    </macrodef>
+
+    <!-- Macro to uninstall liferay in a development tree.   -->
+    <!-- @param version The version of liferay to uninstall. -->
+    <macrodef name="uninstall-liferay-macro">
+        <attribute name="version" />
+        <sequential>
+            <!-- Delete the installed tree -->
+            <delete dir="${liferay.dir}" failonerror="no" />
+        </sequential>
+    </macrodef>
+
+    <macrodef name="wait-for-liferay-to-start-macro">
+        <sequential>
+            <waitfor maxwait="30" maxwaitunit="minute" checkevery="250" timeoutproperty="liferay-startup-failed">
+                <http url="http://localhost:8080" />
+            </waitfor>
+            <fail if="liferay-startup-failed" message="Liferay failed to start" />
+        </sequential>
+    </macrodef>
+
+    <macrodef name="wait-for-liferay-to-stop-macro">
+        <sequential>
+            <waitfor maxwait="5" maxwaitunit="minute" checkevery="250">
+                <not>
+                    <http url="http://localhost:8080" />
+                </not>
+            </waitfor>
+            <sleep seconds="5" />
+        </sequential>
+    </macrodef>
+
+    <!-- Macro to start the liferay server if it isn't running already. -->
+    <macrodef name="start-liferay-macro">
+        <sequential>
+            <_initialise-ant-contribs-macro />
+
+            <property name="liferay.javaopts" value="-Xmx2048m -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n"/>
+
+            <if>
+                <not>
+                    <socket server="localhost" port="9999" />
+                </not>
+                <then>
+                    <exec dir="${jboss.dir}/bin" executable="${jboss.dir}/bin/standalone.sh" osfamily="unix">
+                        <env key="JAVA_OPTS" value="${liferay.javaopts}" />
+                      	<arg line="${JBOSS_OPTS}"/>
+                    </exec>
+                    <exec dir="${jboss.dir}/bin" executable="${jboss.dir}/bin/standalone.bat" osfamily="windows">
+                        <env key="JAVA_OPTS" value="${liferay.javaopts}" />
+                    </exec>
+                </then>
+            </if>
+        </sequential>
+    </macrodef>
+
+    <!-- Macro to stop liferay if it is running. -->
+    <macrodef name="stop-liferay-macro">
+        <sequential>
+            <_initialise-ant-contribs-macro />
+
+            <if>
+                <socket server="localhost" port="9999" />
+                <then>
+                    <exec dir="${jboss.dir}/bin" executable="${jboss.dir}/bin/jboss-cli.sh" osfamily="unix">
+                        <arg line="--connect :shutdown" />
+                    </exec>
+                    <exec dir="${jboss.dir}/bin" executable="${jboss.dir}/bin/jboss-cli.bat" osfamily="windows">
+                        <arg line="--connect :shutdown" />
+                    </exec>
+                    <wait-for-liferay-to-stop-macro />
+                    <echo level="info" message="Liferay stopped." />
+                </then>
+            </if>
+
+        </sequential>
+    </macrodef>
+
+    <!-- Macro which sets the ${liferay-running} to true if liferay is running -->
+    <macrodef name="set-liferay-running-property-macro">
+        <sequential>
+            <condition property="liferay-running">
+                <and>
+                    <socket server="localhost" port="8080" />
+                </and>
+            </condition>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="_exit-if-product-folder-exists-macro">
+        <sequential>
+
+            <sql driver="com.mysql.jdbc.Driver" classpathref="jdbc.driver.classpath" print="yes" url="jdbc:mysql://${dbhost}/${dbname.liferay}" userid="root" password="${mysql.root.password}" output="${tmp.dir}/sqlresults.txt">
+                select concat('product.folder.count=',count(*)) from dlfolder 
+                        join company on company.companyId=dlfolder.companyId
+                        where dlfolder.name='Product' and company.webId='openunderwriter.org'
+            </sql>
+
+            <property file="${tmp.dir}/sqlresults.txt"/>
+
+            <if>
+                <not>
+                    <equals arg1="${product.folder.count}" arg2="0" />
+                </not>
+                <then>
+                    <fail>
+The database contains a Product tree.
+You cannot export from the database while it contains product content. Product content must be
+held in the base-product-loader-hook.war or demo-product-loader-hook.war projects. Make sure that 
+any product changes that you have made have been reflected in that project and then use the 
+following steps to remove the content from the database before retrying the export:
+
+ 1) Start liferay and login as adam;
+ 2) Open Admin->Content from the menu bar at the top of the screen;
+ 3) Select "Global" from the drop down list on the left of the menu bar;
+ 4) Click "Configuration" on the left menu panel, then select "Site Settings";
+ 5) Select "Recycle Bin" from the menu on the right;
+ 6) Untick "Enable Recycle Bin", and click "Save";
+ 7) Click "Content" on the left hand menu panel, then select "Documents and Media";
+ 8) Select "Delete" from the drop down on the "Product" row;
+ 9) Return to the "Configuration" page, and select "Site Settings" again;
+10) Select "Recycle Bin" from the menu on the right;
+11) Tick "Enable Recycle Bin" and click "Save". 
+
+Stop liferay again now and you will be able to export the content.
+                    </fail>
+                </then>
+            </if>
+
+        </sequential>
+    </macrodef>
+
+    <macrodef name="_exit-if-redundant-versions-of-content-exist-macro">
+        <sequential>
+            <sql driver="com.mysql.jdbc.Driver" classpathref="jdbc.driver.classpath" print="yes" showheaders="false" showtrailers="false" url="jdbc:mysql://${dbhost}/${dbname.liferay}" userid="root" password="${mysql.root.password}" output="${tmp.dir}/sqlresults.txt">
+                SELECT concat('\t\t',extractvalue(title,'/root/Title/text()')) FROM journalarticle GROUP BY articleid, title having count(*)>1
+            </sql>
+
+            <loadfile property="redundant.versions" srcFile="${tmp.dir}/sqlresults.txt"/>
+
+            <if>
+                <length string="${redundant.versions}" when="greater" length="2" />
+                <then>
+                    <fail>
+The database contains redundant versions.
+You cannot export from the database while it contains old versions of web content. Old 
+version simply take up space in the binary distribution without giving any benefit. To
+delete them simply login as admin, locate the files (listed below), and delete the old
+versions in the "Version history" panel of the content's details.
+
+Old versions exist for the following content:
+            
+${redundant.versions}
+          </fail>
+                </then>
+            </if>
+
+        </sequential>
+    </macrodef>
+
+
+
+    <!-- Macro to export content from the liferay repository into the source tree. -->
+    <macrodef name="_content-export-macro">
+        <sequential>
+
+            <path id="jdbc.driver.classpath">
+                <fileset dir="${buildlib.dir}" includes="*.jar" />
+            </path>
+
+            <!-- If mysql isn't the right version, the dump files will be hard/impossible to diff. -->
+            <verify-mysql-version-macro required="5.6" />
+
+            <stop-liferay-macro />
+
+            <_exit-if-product-folder-exists-macro />
+
+            <_exit-if-redundant-versions-of-content-exist-macro />
+
+            <sql driver="com.mysql.jdbc.Driver" classpathref="jdbc.driver.classpath" url="jdbc:mysql://${dbhost}/${dbname.liferay}" userid="root" password="${mysql.root.password}">
+                update AssetEntry set viewCount=0;
+                update DLFileEntry set readCount=0;
+                update DLFileRank set createDate="2014-06-10";
+                update Release_ set modifiedDate=createDate,buildDate=createDate;
+                update Marketplace_App set createDate="2014-06-10",modifiedDate="2014-06-10";
+                update Group_ as g1, (select typeSettings from Group_ where name="OpenQuote") as g2 set g1.typeSettings=g2.typeSettings where g1.name="Guest";
+                delete from UserNotificationEvent;
+                delete from KaleoInstanceToken;
+                delete from KaleoLog;
+                delete from KaleoTaskAssignmentInstance;
+                delete from KaleoTimerInstanceToken;
+                delete from KaleoInstance;
+                delete from WorkflowInstanceLink;
+                delete from webdavprops;
+                
+                delete assetentry from assetentry 
+                join classname_ on classname_.classnameid=assetentry.classnameid
+                left join dlfileentry on assetentry.classpk=dlfileentry.fileEntryId
+                where classname_.value='com.liferay.portlet.documentlibrary.model.DLFileEntry'
+                and dlfileentry.fileentryid is null;
+        
+                delete assetentry from assetentry 
+                join classname_ on classname_.classnameid=assetentry.classnameid
+                left join dlfolder on assetentry.classpk=dlfolder.folderId
+                where classname_.value='com.liferay.portlet.documentlibrary.model.DLFolder'
+                and dlfolder.folderId is null;
+            </sql>
+
+            <exec executable="bash" dir="." osfamily="unix">
+                <arg line='-l -c "mysqldump --user=root --password=${mysql.root.password} --opt --dump-date=FALSE --extended-insert=FALSE ${dbname.liferay} > ${liferay.setup.file}"' />
+            </exec>
+
+            <exec executable="cmd" dir="." osfamily="windows">
+                <arg line='/c "mysqldump --user=root --password=${mysql.root.password} --opt --dump-date=FALSE --extended-insert=FALSE ${dbname.liferay} > ${liferay.setup.file}"' />
+            </exec>
+
+            <sync todir="${content.setup.dir}/document_library" verbose="yes">
+                <fileset dir="${liferay.dir}/data/document_library" />
+            </sync>
+
+        </sequential>
+    </macrodef>
+
+    <!-- Macro to compile a liferay theme war project into an exploded war deployment folder -->
+    <macrodef name="compile-theme-war-macro">
+        <attribute name="extend" default="" />
+        <sequential>
+
+            <!-- make sure 'if' is avaialble -->
+            <_initialise-ant-contribs-macro />
+
+            <!-- this will set ${deploy.unit} based on the current project's name -->
+            <_set-output-dir-property-macro />
+
+            <mkdir dir="${output.dir}/WEB-INF/classes" />
+
+            <copy todir="${output.dir}" overwrite="true" preservelastmodified="true">
+                <fileset dir="${deploy.dir}/ROOT.war/html/themes/_unstyled" excludes="templates/**" />
+            </copy>
+
+            <copy todir="${output.dir}/templates" overwrite="true" preservelastmodified="true">
+                <fileset dir="${deploy.dir}/ROOT.war/html/themes/_unstyled/templates" excludes="init.vm" includes="*.vm" />
+            </copy>
+
+            <copy todir="${output.dir}" overwrite="true" preservelastmodified="true">
+                <fileset dir="${deploy.dir}/ROOT.war/html/themes/_styled" />
+            </copy>
+
+            <if>
+                <not>
+                    <equals arg1="@{extend}" arg2=""/>
+                </not>
+                <then>
+                    <copy todir="${output.dir}" overwrite="true" preservelastmodified="true">
+                        <fileset dir="${deploy.dir}/@{extend}" />
+                    </copy>
+                </then>
+            </if>
+
+            <_copy-resources-macro overwrite="true" srcdir="./WEB-INF/src" destdir="${output.dir}/WEB-INF/classes" />
+
+            <_copy-resources-macro overwrite="true" srcdir="." destdir="${output.dir}" />
+
+            <compile-css-macro target="${output.dir}/" />
+
+            <touch file="${output.dir}.dodeploy" />
+        </sequential>
+    </macrodef>
+
+    <macrodef name="compile-css-macro">
+        <attribute name="target" />
+        <sequential>
+
+            <path id="sass2css.classpath">
+                <pathelement location="${deploy.dir}/ROOT.war/WEB-INF/classes" />
+                <fileset dir="${module.dir}/com/liferay/portal/main" includes="portal-service.jar, portlet.jar" />
+                <fileset dir="${module.dir}/org/apache/commons/io/main" includes="commons-io-2.1.jar" />
+                <fileset dir="${deploy.dir}/ROOT.war/WEB-INF/lib" includes="jodd.jar, ruby-gems.jar, portal-impl.jar, commons-lang.jar, commons-logging.jar, commons-configuration.jar, commons-beanutils.jar, commons-digester.jar, commons-collections.jar, struts.jar, spring-web.jar, spring-context.jar, spring-beans.jar, spring-core.jar, jruby.jar, ant.jar, xstream.jar, kxml2.jar, util-java.jar, easyconf.jar, rhino.jar" />
+                <fileset dir="${buildlib.dir}" includes="activation-1.1.jar,jargs-1.0.jar,servlet-api-2.4-20040521.jar,jsp-api-2.0-20040521.jarqdox-1.6.jar" />
+            </path>
+
+            <java fork="yes" newenvironment="true" classname="com.liferay.portal.tools.SassToCssBuilder" classpathref="sass2css.classpath">
+                <jvmarg value="-Xmx128m"/>
+                <jvmarg value="-Dliferay.lib.portal.dir=${deploy.dir}/ROOT.war/WEB-INF/lib" />
+                <arg value="sass.dir=/" />
+                <arg value="sass.docroot.dir=@{target}" />
+                <arg value="sass.portal.common.dir=${deploy.dir}/ROOT.war/html/css/common" />
+            </java>
+
+        </sequential>
+    </macrodef>
+
+    <macrodef name="_initialise-webdav-host-macro">
+        <sequential>
+            <_initialise-ant-contribs-macro />
+            <if>
+                <available file="${basedir}/Config.xml" />
+                <then>
+                    <if>
+                        <not>
+                            <isreference refid="${webdav.host}"/>
+                        </not>
+                        <then>
+                            <fail message="No filterset found in Config.xml for: ${webdav.host}" />
+                        </then>
+                    </if>
+
+                    <echo message="Using Config.xml settings for: ${webdav.host}" />
+                    <property name="webdav.host.filterset.id" value="${webdav.host}" />
+                </then>
+                <else>
+                    <filterset id="none" />
+                    <property name="webdav.host.filterset.id" value="none" />
+                </else>
+            </if>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="upload-product-content-macro">
+        <attribute name="src" />
+        <attribute name="dest" default="/" />
+        <sequential>
+            
+            <_initialise-webdav-host-macro />
+            <_initialise-sardine-macro />
+            <_initialise-webdavmkdir-task-macro />
+
+            <property name="webdav.root" value="${webdav.protocol}://${webdav.host}:${webdav.port}/webdav/global/document_library" />
+
+            <property name="excluded.from.copy" value="**/Build.xml,**/Config.xml,TestSuite/**,Workflows/**,**/bin/**,**/deployments/**,**/deploy.properties" />
+
+            <property name="staging.dir" value="${target.dir}/product-staging/@{dest}" />
+            <echo message="Updating staged content at ${staging.dir}"/>
+            <delete dir="${staging.dir}" failonerror="false" />
+            <mkdir dir="${staging.dir}" />
+            <copy todir="${staging.dir}" overwrite="yes">
+                <filterset refid="copy.filterset" />
+                <filterset refid="${webdav.host.filterset.id}" />
+                <fileset dir="@{src}" includes="**/Registry.xml, **/*.java, ${text.filetypes}" excludes="${excluded.from.copy}" />
+            </copy>
+            <copy todir="${staging.dir}" overwrite="yes">
+                <fileset dir="@{src}" includes="${binary.filetypes}" excludes="${excluded.from.copy}" />
+            </copy>
+            
+            <echo message="Updating WebDAV content at ${webdav.root}@{dest}"/>
+            <webdav-mkdir username="${webdav.username}" password="${webdav.password}" url="${webdav.root}" path="@{dest}" />
+            <sardine username="${webdav.username}" password="${webdav.password}">
+                <!-- Upload Registry.xml files first so the server does product resets right away --> 
+                <put url="${webdav.root}@{dest}">
+                    <fileset dir="${staging.dir}" includes="**/Registry.xml" />
+                </put>
+                <put url="${webdav.root}@{dest}">
+                    <fileset dir="${staging.dir}" excludes="**/Registry.xml" />
+                </put>
+            </sardine>
+
+        </sequential>
+    </macrodef>
+      
+    <macrodef name="jbpm-build-workflows-macro">
+        <!-- Macro to build a workflows project into a deployable jar. The workflows project is expected to have a certain structure,
+             with a src/main/resources folder containing actual workflows and including any custom definitions and icons. It should also
+             contain a META-INF/maven subfolder containing a pom.xml and pom.properties with placeholder values for groupId, artifactId, and version
+             of the form $GROUP_ID, $ARTIFACT_ID, $VERSION -->
+        
+        <attribute name="buildDir" default="bin" />
+        <attribute name="deploymentDir" default="deployments" />
+        <attribute name="resourcesDir" default="src/main/resources" />
+        <attribute name="groupId" />
+        <attribute name="artifactId" />
+        <attribute name="version" />
+        <attribute name="include" default="**/*" />
+        <attribute name="exclude" default="" />
+        
+        <sequential>
+            <!-- Clean and prepare build and deployment folders -->
+            <delete quiet="true" dir="@{deploymentDir}" />
+            <mkdir dir="@{buildDir}" />
+            <mkdir dir="@{deploymentDir}" />
+            
+            <!-- <javac destdir="@{buildDir}" debug="yes" includeantruntime="false" classpathref="build.classpath" srcdir="${ou.home}/workflow-handlers.jar" includes="**/*.java" /> -->
+            
+            <copy todir="@{buildDir}">
+                <fileset dir="@{resourcesDir}" includes="**/*">
+                	<include name="@{include}" />
+                	<exclude name="@{exclude}" />
+                	<exclude name="**/pom.*" />
+                	<exclude name="**/*_dev*" />
+                	<exclude name="**/dev_*" />
+                	<exclude name="**/dev/**" />
+                </fileset>
+            </copy>
+            
+            <property name="artifact.meta-inf.dir" value="@{buildDir}/META-INF/maven/@{groupId}/@{artifactId}" />
+            
+            <mkdir dir="${artifact.meta-inf.dir}"/>
+            <copy todir="${artifact.meta-inf.dir}" file="@{resourcesDir}/META-INF/maven/pom.properties" />
+            <copy todir="${artifact.meta-inf.dir}" file="@{resourcesDir}/META-INF/maven/pom.xml" />
+        	<!-- Replace the placeholder values in the meta inf files here -->
+            <replace dir="${artifact.meta-inf.dir}" token="$GROUP_ID" value="@{groupId}" />
+            <replace dir="${artifact.meta-inf.dir}" token="$ARTIFACT_ID" value="@{artifactId}" />
+            <replace dir="${artifact.meta-inf.dir}" token="$VERSION" value="@{version}" />
+            
+            <!-- Create deployable jar -->
+            <zip destfile="@{deploymentDir}/@{artifactId}-@{version}.jar">
+                <fileset dir="@{buildDir}" includes="**/*" />
+            </zip>
+
+            <delete quiet="true" dir="@{buildDir}" deleteonexit="true" />
+        </sequential>
+        
+    </macrodef>
+      
+    <macrodef name="jbpm-deploy-workflows-macro">
+        <!-- Macro to deploy a workflows artefact to a running jbpm-console -->
+        
+        <attribute name="deploymentDir" default="deployments" />
+        <attribute name="groupId" />
+        <attribute name="artifactId" />
+        <attribute name="version" />
+        
+        <sequential>
+            
+            <copy todir="@{deploymentDir}" overwrite="yes">
+                <filterset refid="${webdav.host}" />
+                <fileset file="deploy.properties" />
+            </copy>
+            
+            <loadproperties srcfile="@{deploymentDir}/deploy.properties" />
+            
+            <taskdef name="upload-jbpm-process-task" classname="com.ail.jbpm.ant.UploadJbpmProcessTask">
+                <classpath>
+                    <fileset dir="D:/OpenUnderwriter/openunderwriter/build/lib" includes="*.jar" />
+                </classpath>
+            </taskdef>
+
+            <!-- Upload and deploy process jar to jBPM console -->
+            <upload-jbpm-process-task target="@{deploymentDir}" groupId="@{groupId}" artifactId="@{artifactId}" version="@{version}" protocol="${jbpm-console-protocol}"
+                                hostname="${jbpm-console-hostname}" port="${jbpm-console-port}" username="${jbpm-console-username}" password="${jbpm-console-password}" />
+            
+        </sequential>
+        
+    </macrodef>
+      
+    <macrodef name="jbpm-undeploy-workflows-macro">
+        <!-- Macro to undeploy a workflows artefact from a running jbpm-console -->
+        
+        <attribute name="deploymentDir" default="deployments" />
+        <attribute name="groupId" />
+        <attribute name="artifactId" />
+        <attribute name="version" />
+    	<attribute name="clearHistory" default="false" />
+        
+        <sequential>
+            
+            <copy todir="@{deploymentDir}" overwrite="yes">
+                <filterset refid="${webdav.host}" />
+                <fileset file="deploy.properties" />
+            </copy>
+            
+            <loadproperties srcfile="@{deploymentDir}/deploy.properties" />
+            
+            <taskdef name="undeploy-jbpm-process-task" classname="com.ail.jbpm.ant.UndeployJbpmProcessTask">
+                <classpath>
+                    <fileset dir="D:/OpenUnderwriter/openunderwriter/build/lib" includes="*.jar" />                	
+                </classpath>
+            </taskdef>
+
+            <!-- Upload and deploy process jar to jBPM console -->
+            <undeploy-jbpm-process-task groupId="@{groupId}" artifactId="@{artifactId}" version="@{version}" protocol="${jbpm-console-protocol}" hostname="${jbpm-console-hostname}"
+            							port="${jbpm-console-port}" username="${jbpm-console-username}" password="${jbpm-console-password}" clearHistory="@{clearHistory}" />
+            
+        </sequential>
+        
+    </macrodef>
+
+</project>

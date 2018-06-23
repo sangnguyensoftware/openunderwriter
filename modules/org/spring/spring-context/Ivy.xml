@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+  <info organisation="org.spring" module="spring-context" />
+  <dependencies>
+	<dependency org="org.springframework" name="spring-context" rev="4.1.7.RELEASE" />
+    <exclude org="commons-logging" />
+    <exclude org="javax.ejb" />
+    <exclude org="javax.enterprise.concurrent" />
+    <exclude org="javax.inject" />
+    <exclude org="joda-time" />
+    <exclude org="org.beanshell" />
+    <exclude org="org.eclipse.persistence" />
+    <exclude org="org.hibernate" />
+  </dependencies>
+</ivy-module>

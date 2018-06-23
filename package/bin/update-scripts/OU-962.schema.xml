@@ -1,0 +1,14 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+	
+    <changeSet id="OU-962 Add advisory to Clause" author="richard">
+        <sql dbms="mysql">
+            ALTER TABLE `clsClause` ADD COLUMN `clsAdvisory` bit(1) DEFAULT NULL;
+            ALTER TABLE `clsClause_` ADD COLUMN `clsAdvisory` bit(1) DEFAULT NULL;
+		</sql>
+	</changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,184 @@
+## Copyright Applied Industrial Logic Limited 2016. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+#set( $model = $args.ModelArgRet)
+#set( $pageElement = $args.PageElementArg )
+#set( $model = $args.ModelArgRet)
+#set( $response = $args.ResponseArgRet )
+#set( $renderId = $args.RenderIdArg )
+#set( $modelBinding = $pageElement.Binding )
+#set( $uploadUrl = $pageElement.UploadUrl )
+#set( $uploadFileName = $pageElement.UploadFileName )
+#set( $documentTypeOptions = $pageElement.DocumentTypeOptions )
+#set( $string = '' )
+#set( $q = '"' )
+#set( $dateFormat = '%1$ta %1$tb %1$te %1$tY %1$tR' )
+#set( $renderHint = $args.RenderHintArg )
+##
+#locateDocuments()
+<div class='pf-document-manager' id='$!{renderId}'>
+	<div class='pf-page-section'>
+		<ul class="nav nav-tabs">
+			<li><a href="#documents">#i18n("i18n_document_manager_document_tab_label")</a></li>
+			<li><a href="#archive">#i18n("i18n_document_manager_archive_tab_label")</a></li>
+		</ul>
+
+		<div id="tab-content">
+			<div id="documents">
+				<div class='pf-row-scroller-table' style="width:100%">
+					#renderTableHeaders
+					#renderTableBody("normal" $source.Document)
+				</div>
+				<div id="$!{renderId}-pf-multi-upload" style="width:95%;margin:auto;"></div>
+				<div>
+					<input id="combine" type="button" value="#i18n('i18n_document_manager_combine_button_label')" #if($source.Document.size() == 0)disabled="disabled"#end onclick="callServeResource('${response.createResourceURL()}', 'op=combine:id=${renderId}:immediate=true:'); return false;" />
+				</div>
+			</div>
+			<div id="archive">
+				<div class='pf-row-scroller-table' style="width:100%">
+					#renderTableHeaders
+					#renderTableBody("archive" $source.ArchivedDocument)
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$( function() {
+		$( "#$!{renderId}" ).tabs();
+	} );
+	registerUploadDocumentHandler("#$!{renderId}-pf-multi-upload", "${uploadUrl}", "${uploadFileName}", "${response.createResourceURL()}", "${pageElement.FileTypes}");
+	$( ".pf-new-row" ).effect( "highlight",{},2000);
+</script>
+##
+#macro( renderTableHeaders )
+	<div class='pf-row-scroller-table-header-row'>
+		<div class='pf-row-scroller-table-header-cell'>
+           	<div class='pf-row-scroller-header-title'><div class='pf-input-required'></div>#i18n("i18n_document_manager_type_column_heading")</div>
+        </div>
+		<div class='pf-row-scroller-table-header-cell'>
+           	<div class='pf-row-scroller-header-title'>#i18n("i18n_document_manager_title_column_heading")</div>
+        </div>
+		<div class='pf-row-scroller-table-header-cell'>
+           	<div class='pf-row-scroller-header-title'>#i18n("i18n_document_manager_download_column_heading")</div>
+        </div>
+		<div class='pf-row-scroller-table-header-cell'>
+           	<div class='pf-row-scroller-header-title'>#i18n("i18n_document_manager_description_column_heading")</div>
+        </div>
+		<div class='pf-row-scroller-table-header-cell'>
+           	<div class='pf-row-scroller-header-title'><div class='pf-input-required'></div>#i18n("i18n_document_manager_filename_column_heading")</div>
+        </div>
+		<div class='pf-row-scroller-table-header-cell'>
+           	<div class='pf-row-scroller-header-title'>#i18n("i18n_document_manager_delete_column_heading")</div>
+        </div>
+	</div>
+#end
+##
+#macro( renderTableBody $type $documents)
+	#if( $documents.size() == 0 )
+		#renderTableRow( true $type 0 "" "" "" "" false false 0 0 )
+	#else
+		#foreach( $document in $documents )
+            #if( $pageElement.isDocumentTypeAndLabelsValid($document) )
+                #renderTableRow( false $type $document.ExternalSystemId "$!document.Title" "$!document.Description" "${document.Type}" "$!document.FileName" $!document.CreatedDate $!document.UpdatedDate $velocityCount $document)
+            #end
+		#end
+		
+	#end
+#end
+##
+#macro( renderTableRow $emptyTable $rowType $documentUid $title $description $type $filename $created $updated $row $document)
+	#if( $created && $pageElement.isNewRow( $created ) )
+		#set( $newRowClass = " pf-new-row" )
+	#else
+		#set( $newRowClass = "" )
+	#end		
+	#if( $emptyTable || $rowType == "archive" ) 
+		#set( $disableFields = true )
+	#end
+	<div class='pf-row-scroller-table-data-row'>
+		<div class='pf-row-scroller-table-data-cell${newRowClass}'>
+			#set($binding = ${pageElement.encodeId('type', ${row})} )
+	        <select class='pf-choice' name="${binding}" #if($disableFields)disabled="disabled"#end>
+	            #foreach( $opt in ${documentTypeOptions} )
+	                <option value='${opt}' #if( ${opt} == $type ) selected='yes'#end>#i18n($opt)</option>
+	            #end 
+	        </select> 
+			#if( $document != 0)
+				#if($pageElement.hasErrorMarker("type", $document))
+					#set($error=$pageElement.findError("type", $document, $pageElement))
+					<br/><div class='pf-input-error'>#i18n($error)</div>
+				#end
+			#end
+		</div>
+		<div class='pf-row-scroller-table-data-cell${newRowClass}'>
+			#set( $binding = ${pageElement.encodeId('title', ${row})} )
+			<input name="${binding}" class="pf-string pf-tooltip" type="text" placeholder="Title" #if($disableFields)disabled="disabled"#end value="$title"/>
+		</div>
+		<div class='pf-row-scroller-table-data-cell${newRowClass}'>
+			<input id="download" type="button" value="Download" #if($emptyTable)disabled="disabled"#end onclick='downloadDocument(${q}${documentUid}${q},${q}$!{renderHint}${q}); return false;' />
+		</div>
+		<div class='pf-row-scroller-table-data-cell${newRowClass}'>
+			#set( $binding = ${pageElement.encodeId('description', ${row})} )
+	        <textarea name="${binding}" rows='2' style='width:90%' #if($disableFields)disabled="disabled"#end>$description</textarea>
+	        <div>
+                #if( $document != 0)
+                    #set($ld = $row - 1)
+	                #set($dummy = ${pageElement.getLabelDetails($ld).renderResponse($document)} )
+	            #end
+	        </div>
+		</div>
+		<div class='pf-row-scroller-table-data-cell${newRowClass}'>
+			#set( $binding = ${pageElement.encodeId('fileName', ${row})} )
+			<input name="${binding}" class="pf-string pf-tooltip" type="text" placeholder="Document filename" #if($disableFields)disabled="disabled"#end value="$filename"/><br/>
+			#if( $document != 0)
+				#if($pageElement.hasErrorMarker("fileName", $document))
+					#set($error=$pageElement.findError("fileName", $document, $pageElement))
+					<div class='pf-input-error'>#i18n($error)</div><br/>
+				#end
+				<div class="pf-document-manager-dates">
+					#if($created)#i18n("i18n_document_manager_created_date_column_heading") $string.format($dateFormat, $created)#end<br/>
+					#if($updated)#i18n("i18n_document_manager_updated_date_column_heading") $string.format($dateFormat, $updated)#end
+				</div>
+			#end
+		</div>
+	    <div class='pf-row-scroller-table-data-cell${newRowClass}'> 
+	    	#if( $rowType == "archive" )
+		    	<div class='pf-restore'>
+		   			<input class="pf-restore-button" id="restore" type="button" value="" onclick="callServeResource('${response.createResourceURL()}', 'op=restore:id=${renderId}:row=${row}:immediate=true:'); return false;" #if($emptyTable)disabled="disabled"#end/>
+		        </div>
+		    #else
+		    	<div class='pf-delete'>
+		   			<input class="pf-delete-button" id="delete" type="button" value="" onclick="callServeResource('${response.createResourceURL()}', 'op=delete:id=${renderId}:row=${row}:immediate=true:'); return false;" #if($emptyTable)disabled="disabled"#end/>
+		        </div>
+		    #end
+	    </div>
+	</div>
+	<script type="text/javascript">
+		$(".pf-choice").sortOptions();
+	</script>
+#end
+##
+#macro( i18n $id )$pageElement.i18n("$id")#end
+##
+#macro(locateDocuments)
+    #if( $modelBinding )
+        #set($source = $model.xpathGet($modelBinding))
+    #else
+        #set($source = $model)
+    #end
+#end

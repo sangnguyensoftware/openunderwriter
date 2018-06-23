@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+<!DOCTYPE jboss-web PUBLIC
+   "-//JBoss Portal//DTD Portlet Instances 2.0//EN"
+   "http://www.jboss.org/portal/dtd/portlet-instances_2_0.dtd">
+-->
+
+<!--
+-->
+<!ELEMENT instances (instance*)>
+
+<!--
+Define an instance of a component.
+-->
+<!ELEMENT instance (instance-name,portlet-ref,preferences*)>
+
+<!--
+The instance name.
+-->
+<!ELEMENT instance-name (#PCDATA)>
+
+<!--
+The component referenced by this instance.
+-->
+<!ELEMENT component-ref (#PCDATA)>
+
+<!--
+This tag is used to override the preferences defined at the component level.
+-->
+<!ELEMENT preferences (preference*)>
+
+<!--
+A preference.
+-->
+<!ELEMENT preference (name,value*,read-only?)>
+
+<!--
+Defines a name.
+-->
+<!ELEMENT name (#PCDATA)>
+
+<!--
+Defines a value.
+-->
+<!ELEMENT value (#PCDATA)>
+
+<!--
+-->
+<!ELEMENT read-only (#PCDATA)>

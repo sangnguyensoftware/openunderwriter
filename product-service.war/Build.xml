@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project default="build" name="openunderwriter:product-service.war">
+	<import file="../BuildSettings.xml" />
+
+	<target name="clean" description="delete everything that the build can generate">
+		<delete-war-macro />
+	</target>
+
+	<target name="_build">
+		<compile-war-macro>
+			<javac-classpath>
+				<dirset dir="${module.dir}/com/ail/core" includes="**/*.jar" />
+				<fileset dir="${module.dir}/com/ail/core" includes="**/*.jar" />
+				<dirset dir="${module.dir}/com/ail/commercial" includes="**/*.jar" />
+				<fileset dir="${module.dir}/com/ail/commercial" includes="**/*.jar" />
+				<dirset dir="${module.dir}/com/ail/insurance" includes="**/*.jar" />
+				<fileset dir="${module.dir}/com/ail/insurance" includes="**/*.jar" />
+				<dirset dir="${module.dir}/com/ail/pageflow" includes="**/*.jar" />
+				<fileset dir="${module.dir}/com/ail/pageflow" includes="**/*.jar" />
+				<fileset dir="${module.dir}/javax/servlet/api" includes="**/*.jar" />
+				<fileset dir="${module.dir}/javax/ws/rs/api" includes="**/*.jar" />
+				<fileset dir="${module.dir}/javax/annotation/api" includes="**/*.jar" />
+				<fileset dir="${module.dir}/javax/persistence/api" includes="**/*.jar" />
+				<fileset dir="${module.dir}/org/hibernate" includes="**/*.jar" />
+				<fileset dir="${module.dir}/org/jboss/resteasy/resteasy-jaxrs" includes="**/*.jar" />
+				<fileset dir="${module.dir}/org/jboss/resteasy/resteasy-multipart-provider" includes="**/*.jar" />
+		        <fileset dir="${module.dir}/org/spring/spring-context" includes="**/*.jar" />
+				<fileset dir="${module.dir}/com/liferay/portal" includes="**/*.jar" />
+			</javac-classpath>
+		</compile-war-macro>
+	</target>
+
+	<target name="build" description="compile (generate, copy, etc) all build outputs">
+		<antcall target="_build" />
+	</target>
+
+	<target name="setup" description="run all the one-time-only steps - like copying libs into place">
+		<update-dependencies-macro todir="${output.dir}/WEB-INF/lib" />
+	</target>
+
+	<target name="teardown" description="undo whatever setup did">
+		<delete-war-macro />
+	</target>
+</project>

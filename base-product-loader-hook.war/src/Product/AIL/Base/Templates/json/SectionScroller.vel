@@ -1,0 +1,135 @@
+## Copyright Applied Industrial Logic Limited 2018. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+#set( $model = ${args.ModelArgRet})
+#set( $pageElement = ${args.PageElementArg})
+#set( $id = ${args.RenderIdArg})
+##
+{
+    "type": "${pageElement.Class.SimpleName}",
+    #if( ${pageElement.Title} )
+        "title": "${pageElement.formattedTitle($args)}",
+    #end
+    "id": "${id}"
+    #renderHint
+    #renderSections
+    #renderTemplate
+}
+##
+#macro(renderSections)
+    #set($sectionCount = 0)
+    ,"sections": [
+        #foreach( ${section} in ${pageElement.fetchBoundCollection($model)} )
+            #if( ${sectionCount} != 0),#end
+            {
+                #if( $pageElement.RepeatedTitle )
+                    "title": "${pageElement.formattedRepeatedTitle($section)}",
+                #end
+                #if( ${pageElement.AddAndDeleteEnabled} && ${sectionCount} >= ${pageElement.MinRows} )
+                    "deleteOp": "op=delete:id=${pageElement.Id}:row=${sectionCount}:immediate=true:",
+                #end
+                "cells": [
+                    #foreach( ${question} in ${pageElement.Item} )
+                        #if( ${foreach.index} != 0),#end
+                        #set( $mode = ${question.renderResponse(${section}, "${pageElement.Binding}[${sectionCount}]")} )
+                   #end
+                ]
+            }
+            #set($sectionCount = ${sectionCount} + 1)
+        #end
+    ]
+    #if( ${pageElement.AddAndDeleteEnabled} )
+        #if( ${pageElement.MaxRows} == -1 || ${sectionCount} < ${pageElement.MaxRows} )
+            ,"addOp": "op=add:id=${pageElement.Id}:immediate=true"
+        #end
+    #end
+#end
+##
+#macro(renderTemplate)
+    #set( $type = ${pageElement.type} )
+    #set( $instance = ${PageFlowContext.getCoreProxy().newType("$type")} )
+    ,
+    "new${type}Template": {
+        "type": "PageSection",
+        "id": "new-${type}",
+        "title": "Add new",
+        "clientHint": "subsection template__edit",
+        "elements": [
+            {
+                "type": "Question",
+                "valueId": "newType",
+                "value": "$type",
+                "format": {"type":"string"}
+            },
+            #foreach( $attr in $instance.getAttribute() )
+            {
+                "type": "Question",
+                "title": "${pageElement.i18n($attr.getId())}",
+                "valueId": "${pageElement.encodeId($attr.getId())}",
+                "value": "",
+                #set( $formatArrSize = 0 )
+                #set( $format = $attr.getFormat() )
+                ## Hack to get the Format size
+                #foreach( $part in $format.split(",") )
+                    #set( $formatArrSize = ($formatArrSize + 1) )
+                #end
+                "format": {
+                    #foreach( $part in $format.split(",") )
+                        #if( $part.contains("=") )
+                            "$part.split("=")[0]":
+                            #if( $part.split("=")[0].equals("options") )
+                                #formatOptions($part.split("=")[1]),
+                            #else
+                                "$part.split("=")[1]",
+                            #end
+                        #else
+                            "type": "$part",
+                        #end
+                    #end
+                }
+            },
+            #end
+            {
+                "type": "CommandButtonAction",
+                "id": "save-${type}",
+                "label": "Save",
+                "slug": "Save",
+                "op": "op=Save:immediate=false"
+            }
+        ]
+    }
+#end
+##
+#macro(formatOptions $options)
+	 [
+     	#foreach( $opts in $options.split("[|]") )
+        	#set( $opt = ${opts.split("[#]").get(1)} )
+            {
+            	"id":"$opt",
+            	"value": "${pageElement.i18n($opt)}"
+           	}#if( $foreach.hasNext ),#end
+        #end
+    ]
+#end
+##
+#macro(renderHint)
+    #if( ${args.RenderHintArg} )       
+        ,"clientHint": "${args.RenderHintArg}"
+    #end
+#end
+##
+#macro( i18n $id )$pageElement.i18n("${id}")#end

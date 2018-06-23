@@ -1,0 +1,17 @@
+package com.ail.core
+ 
+import com.ail.core.dummyservice.DummyService.DummyArgument;
+ 
+rule "Add numbers when X less than 100"
+	when
+		args : DummyArgument( x < 100 )
+	then
+		args.setR(args.getX() + args.getY());
+end
+ 
+rule "Add numbers when X more than 100"
+	when
+		args : DummyArgument( x >= 100 )
+	then
+		args.setR( (2*args.getX())+args.getY() );
+end

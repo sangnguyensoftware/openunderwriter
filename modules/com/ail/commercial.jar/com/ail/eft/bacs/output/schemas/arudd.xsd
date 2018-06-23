@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XML Spy v4.1 U (http://www.xmlspy.com) by BACS Ltd (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1">
+	<!-- 
+===========================================================================
+Change Log:
+2.1
+12/01/2006: Leila Shayegi, Steve Turner
+Ammended <xs:element ref="ServiceLicenseInformation"  to "optional"
+===========================================================================
+-->
+	<xs:include schemaLocation="reusable-advice.xsd"/>
+	<xs:element name="ARUDD">
+		<xs:complexType>
+			<xs:all>
+				<xs:element ref="Header"/>
+				<xs:element ref="AddresseeInformation"/>
+				<xs:element ref="ServiceLicenseInformation" minOccurs="0"/>
+				<xs:element ref="Advice"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

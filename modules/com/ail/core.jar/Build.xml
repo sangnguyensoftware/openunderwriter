@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project default="build" name="openunderwriter:modules/com/ail/core.jar">
+  <import file="../../../../BuildSettings.xml" />
+
+  <target name="clean" description="delete everything that the build can generate">
+    <delete-jar-macro />
+  </target>
+
+  <target name="_build">
+    <compile-jar-macro module="yes" dependencies="com.ail.pubnub, com.google.lambdaj, com.google.guava, com.itext.itextpdf, com.liferay.portal, net.sourceforge.saxon, org.antlr, org.apache.commons.codec, org.apache.commons.httpclient, org.apache.log4j, org.apache.fop, org.apache.xalan, org.beanshell, org.bouncycastle, org.cglib, org.codehaus.castor, org.drools, org.hibernate, org.hibernate.envers, org.hamcrest, org.janino, org.javassist, org.objensis, org.reflections, org.spring.spring-context, org.velocity, javax.persistence.api, org.codehaus.jackson.jackson-core-asl, org.codehaus.jackson.jackson-mapper-asl, org.apache.commons.beanutils, org.apache.commons.digester, org.apache.commons.io, org.apache.commons.validator, org.apache.httpcomponents, org.apache.commons.lang, org.apache.commons.logging, org.apache.commons.jxpath, org.jboss.resteasy.resteasy-jaxrs, org.jboss.vfs, org.hornetq, javax.api, javax.jms.api, javax.servlet.api, javax.xml.rpc.api, javax.activation.api, javax.ejb.api, javax.mail.api, javax.ws.rs.api, org.apache.xerces, sun.jdk, com.auth0.java-jwt, fr.opensagres.xdocreport">
+      <javac-classpath>
+        <fileset dir="${module.dir}/com/ail/core/main" includes="*.jar" />
+        <fileset dir="${module.dir}/com/ail/pubnub" includes="**/*.jar" />
+        <fileset dir="${module.dir}/com/google/lambdaj" includes="**/*.jar" />
+        <fileset dir="${module.dir}/com/itext/itextpdf" includes="**/*.jar" />
+        <fileset dir="${module.dir}/com/liferay/portal" includes="**/*.jar" />
+        <fileset dir="${module.dir}/javax/mail/api" includes="**/*.jar" />
+        <fileset dir="${module.dir}/javax/persistence/api" includes="**/*.jar" />
+        <fileset dir="${module.dir}/javax/xml/rpc/api" includes="**/*.jar" />
+        <fileset dir="${module.dir}/javax/ws/rs/api" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/antlr" includes="**/*.jar" />
+        <fileset dir="${module.dir}/net/sourceforge/saxon" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/apache/commons/digester" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/apache/commons/beanutils" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/apache/commons/lang" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/apache/commons/logging" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/apache/commons/io" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/apache/commons/jxpath" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/apache/commons/validator" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/apache/httpcomponents" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/apache/fop" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/apache/xalan" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/beanshell" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/bouncycastle" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/codehaus/castor" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/codehaus/jackson/jackson-mapper-asl" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/codehaus/jackson/jackson-core-asl" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/drools" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/hamcrest" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/hibernate" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/janino" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/javassist" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/jboss/resteasy/resteasy-jaxrs" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/jboss/vfs" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/objensis" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/reflections" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/spring/spring-context" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/velocity" includes="**/*.jar" />
+        <fileset dir="${jboss.dir}/bin/client" includes="**/*.jar" />
+        <fileset dir="${buildlib.dir}" includes="truezip*.jar" />
+        <fileset dir="${module.dir}/com/auth0/java-jwt" includes="**/*.jar" />
+        <fileset dir="${module.dir}/fr/opensagres/xdocreport" includes="**/*.jar" />
+      </javac-classpath>
+    </compile-jar-macro>
+  </target>
+
+  <target name="build" description="compile (generate, copy, etc) all build outputs">
+    <antcall target="_build" />
+  </target>
+
+  <target name="setup" description="run all the one-time-only steps - like copying libs into place">
+    <update-module-dependencies-macro />
+  </target>
+
+  <target name="teardown" description="undo whatever setup did">
+    <delete-module-macro />
+  </target>
+</project>

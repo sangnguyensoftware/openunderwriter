@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>ETL Developer</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">ETL Developer</td></tr>
+</thead><tbody>
+<tr>
+	<td>setTimeout</td>
+	<td>240000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>http://localhost:8080</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_58_login</td>
+	<td>lily@openunderwriter.org</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_58_password</td>
+	<td>lily</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=//button[text()=&quot; Sign In &quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=a[role~='menuitem'][href$='/help']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=a[role~='menuitem'][href$='/welcome']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=a[role~='menuitem'][href$='/workflow']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=a[role~='menuitem'][href$='/community']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=a[role~='menuitem'][href$='/dashboard']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementNotPresent</td>
+	<td>css=a[role~='menuitem'][href$='/sandpit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=a[role~='menuitem'][href$='/products']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=a[role~='menuitem'][href$='/sources']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementNotPresent</td>
+	<td>css=a[role~='menuitem'][href$='/reports']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=a[role~='menuitem'][href$='/extracts']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementNotPresent</td>
+	<td>css=a[role~='menuitem'][href$='/policies']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=a[role~='menuitem'][href$='/logout']</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

@@ -1,0 +1,6 @@
+<choice id="OptionList" xsi:type="java:com.ail.pageflow.util.Choice" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <choice name="?"/>
+    <choice name="Choice1"/>
+    <choice name="Choice2"/>
+    <choice name="Quoted &apos;choice3&apos;"/>
+</choice>

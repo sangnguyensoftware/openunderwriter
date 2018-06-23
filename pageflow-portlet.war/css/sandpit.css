@@ -1,0 +1,186 @@
+.iconbar {
+	padding: 0;
+	text-align: center;
+}
+
+.texteditor {
+	width: 100%;
+}
+
+.property-narrow-column {
+	width: 17%;
+}
+
+.property-wide-column {
+	width: 83%;
+}
+
+input {
+	font-family: tahoma, verdana, arial, helvetica, sans-serif;
+	font-size: 12px;
+}
+
+textarea {
+	font-family: tahoma, verdana, arial, helvetica, sans-serif;
+	font-size: 12px;
+}
+
+.sandpit-debug-panel {
+	font-size: .9em;
+	padding-left: 0px;
+	padding-bottom: 5px;
+	padding-right: 83px;
+	overflow: auto;
+}
+
+.sandpit-debug-panel input[type="text"] {
+    width: 91px;
+}
+
+.sandpit-debug-panel select,
+.sandpit-debug-panel input[type="text"], 
+.sandpit-debug-panel input[type="checkbox"], 
+.sandpit-debug-panel input[type="submit"] {
+    margin-bottom: 0;
+}
+
+#view select {
+    width: 145px;
+}
+
+.sandpit-debug-panel > span {
+	padding: 1px 15px 0 0;
+	float: left;
+	margin-top: 3px;
+}
+
+.sandpit-debug-panel #reset {
+    position: absolute;
+    right: 0;
+    top: 15px;
+}
+
+.sandpit-debug-panel #save {
+    margin-top: 6px;
+}
+
+.sandpit-pageflow-panel {
+    background: none repeat scroll 0 0;
+    border-radius: 3px 3px 3px 3px;
+    padding: 15px;
+    min-height: 400px;
+    overflow: hidden;
+	box-shadow: #ccc 5px 5px 10px;
+	margin: 0 0 0 2px;
+}
+
+#selectedProduct {
+	min-width: 200px;
+}
+
+#selectedPageFlow {
+	min-width: 200px;
+}
+
+#selectedPage {
+	min-width: 200px;
+}
+
+.sandpit-pageflow-panel #sandpitXml, 
+.sandpit-pageflow-panel #sandpitJson {
+	min-width: 100%;
+	min-height: 400px;
+}
+
+.sandpit-message {
+    display: table;
+    margin: 40px auto;
+    padding: 50px;
+}
+
+#resetPageflow {
+    background-color: transparent;
+    background-image: url("../images/pageflow-reset.png");
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: 24px auto;
+    border: medium none;
+    cursor: pointer;
+    height: 32px;
+    width: 32px;
+}
+
+#resetSandpit {
+    background-color: transparent;
+    background-image: url("../images/sandpit-reset.png");
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: 24px auto;
+    border: medium none;
+    cursor: pointer;
+    height: 32px;
+    width: 32px;
+}
+
+#clearCache {
+    background-color: transparent;
+    background-image: url("../images/clear-cache.png");
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: 24px auto;
+    border: medium none;
+    cursor: pointer;
+    height: 32px;
+    width: 32px;
+}
+
+#resetPageflow:disabled {
+    background-image: url("../images/pageflow-reset-disabled.png");
+    cursor: default;
+}
+
+span#navigator, span#view, span#load {
+	border-radius: 3px 3px 3px 3px;
+	box-shadow: #ccc 5px 5px 10px;
+	background: none repeat scroll 0 0 #ffffff;
+	padding: 5px;
+	margin: 5px 5px 5px 2px;
+	height: 30px;
+}
+
+span#save {
+	padding: 0px 9px 0px 0px;
+	margin: 4px 0 0px 10px;
+}
+
+.pf-exception-header {
+	position: relative;
+	margin-top: 5px;
+}
+
+.pf-exception-reason {
+   display: inline-block;
+    font-weight: bold;
+    margin-right: 15em;
+}
+
+.pf-exception-date {
+  display: inline-block;
+    font-weight: bold;
+    position: absolute;
+    right: 0;
+    top:0;
+}
+
+.pf-exception-stack {
+	margin-left: 2em;
+	padding-left: .5em;
+}
+
+.pf-exception-stack:nth-child(2n+1) {
+    background-color: #dfd;
+}
+
+.pf-exception-stack:nth-child(2n) {
+    background-color: #efe;
+}

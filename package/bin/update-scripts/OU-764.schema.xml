@@ -1,0 +1,38 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-764 Add notNote table" author="richard">
+        <sql dbms="mysql">
+             CREATE TABLE `notNote` (
+              `notUID` bigint(20) NOT NULL,
+              `notAttribute` longtext,
+              `notCreatedDate` datetime DEFAULT NULL,
+              `notExternalSystemId` varchar(255) NOT NULL,
+              `notForeignSystemId` varchar(255) DEFAULT NULL,
+              `notLock` bit(1) DEFAULT NULL,
+              `notSerialVersion` bigint(20) NOT NULL,
+              `notUpdatedDate` datetime DEFAULT NULL,
+              `notBody` varchar(255) DEFAULT NULL,
+              `notTitle` varchar(255) DEFAULT NULL,
+              PRIMARY KEY (`notUID`),
+              UNIQUE KEY `notExternalSystemId` (`notExternalSystemId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 
+        </sql>
+    </changeSet>
+    <changeSet id="OU-764 Add jPolNotNot table" author="richard">
+        <sql dbms="mysql">
+             CREATE TABLE `jPolNotNot` (
+              `UIDpol` bigint(20) NOT NULL,
+              `noteUIDnot` bigint(20) NOT NULL,
+              UNIQUE KEY `noteUIDnot` (`noteUIDnot`),
+              KEY `FK62FB1A6384156FE0` (`UIDpol`),
+              KEY `FK62FB1A63B3C35E1F` (`noteUIDnot`),
+              CONSTRAINT `FK62FB1A6384156FE0` FOREIGN KEY (`UIDpol`) REFERENCES `polPolicy` (`polUID`),
+              CONSTRAINT `FK62FB1A63B3C35E1F` FOREIGN KEY (`noteUIDnot`) REFERENCES `notNote` (`notUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 
+        </sql>
+    </changeSet>
+</databaseChangeLog>

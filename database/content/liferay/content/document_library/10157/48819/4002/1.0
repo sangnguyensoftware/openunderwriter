@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documentDefinition xsi:type="java:com.ail.core.document.model.DocumentDefinition" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+    <mergeCommand>MergeDocumentDataCommand</mergeCommand>
+    <styleCommand></styleCommand>
+    <renderCommand>RenderIndustrialStyleDocumentCommand</renderCommand>
+    
+    <documentData>
+        <watermark>product://localhost:8080/AIL/Demo/TradePL/GenericQB/Documents/OpenUnderwriterWatermark.png</watermark>
+    
+        <headerData applicability="all">
+            <modelData id='head' class='string'>${/productName} quotation number: ${/quotationNumber}</modelData>
+        </headerData>
+        
+        <chapterData id="c1" title="Basic Details">
+            <blockData pd="prop" placement="body" applicability="all" title="Proposer">
+                <modelData id='pn' title="Proposer&apos;s name" class='string'>${/proposer/attribute[id='companyName']/value}</modelData>
+                <blockData title="Proposer&apos;s address" class='address'>
+                    <modelData id="line1" class="line" binding="/proposer/attribute[id='addressLine1']/value"/>
+                    <modelData id="line2" class="line" binding="/proposer/attribute[id='addressLine2']/value"/>
+                    <modelData id="line3" class="line" binding="/proposer/attribute[id='addressLine3']/value"/>
+                    <modelData id="line4" class="line" binding="/proposer/attribute[id='addressLine4']/value"/>
+                    <modelData id="postcode" class="postcode" binding="/proposer/attribute[id='postcode']/value"/>
+                </blockData>
+                <modelData id='pn' title="Contact name" class='string'>${/proposer/attribute[id='title']/value} ${/proposer/attribute[id='firstName']/value} ${proposer/attribute[id='surname']/value}</modelData>
+                <modelData id='pn' title='Phone number' class='phone' binding="/proposer/attribute[id='telephoneNumber']/value"/>
+                <modelData id='em' title='Email address' class='email' binding="/proposer/attribute[id='emailAddress']/value"/>
+            </blockData>
+            
+            <blockData id="qs" placement="body" applicability="all" title="Quotation summary">
+                <modelData id='qn' title='Quotation number' class='string' binding='/quotationNumber'/>
+                <modelData id='pm' title='Total premium' class='string' binding="/assessmentSheet/line[id='total premium']/amountAsString"/>
+                <modelData id='qd' title='Quotation date' class='date' binding='c:format(/quotationDate,"d MMMMM, yyyy")'/>
+                <modelData id="qx" title='Quotation expiry date' class='date' binding='c:format(/quotationExpiryDate,"d MMMMM, yyyy")'/>    
+            </blockData>
+
+            <blockData placement="body" applicability="all" title="Public Liability">
+                <modelData id='qn' title='Limit' class='string' binding="/section[id='Trade']/coverage[id='PublicLiability']/limit"/>
+                <modelData id='qn' title='Excess' class='string' binding="/excess[id='PL_XS']/amount"/>
+            </blockData>            
+        </chapterData>
+    </documentData> 
+</documentDefinition>

@@ -1,0 +1,92 @@
+<quotation xsi:type="java:com.ail.insurance.policy.Policy" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <productName>IBA/PIBA Professional Indemnity</productName>
+	
+	<baseCurrency xsi:type="java:java.lang.String">EUR</baseCurrency>
+	
+    <xi:include href="product://localhost:8080/AIL/Base/Model/Acme.xml" />
+	<xi:include href="product://localhost:8080/AIL/Base/Model/CommercialProposer.xml"/>
+
+    <section id='section' sectionTypeId='Section' xsi:type="java:com.ail.insurance.policy.Section"/>
+
+    <excess id="excessA" enabled="true">
+      <title><![CDATA[${/asset[id='company']/attribute[id='excess']/value} each and every <b>Claim</b> or loss excluding <b>Defence Costs and Expenses</b>.]]></title>
+    </excess>
+    
+    <excess id="excessB" enabled="true">
+      <title><![CDATA[${/asset[id='company']/attribute[id='excess']/value} in respect of each and every claimant including <b>Defence Costs and Expenses</b> in respect of Pension and Mortgage work.]]></title>
+    </excess>
+    
+    <excess id="excessC" enabled="true">
+      <title><![CDATA[${/asset[id='company']/attribute[id='excess']/value} each and every claimant including <b>Defence Costs and Expenses</b> in respect of specific <b>Financial Services</b> work as defined by the policy wording.]]></title>
+    </excess>
+    
+    <asset id="company" assetTypeId='Asset'>
+        <attribute id="business" format="note">
+          <attribute id="generalInsuranceBroker" value="No" format="yesorno"/>
+          <attribute id="lifeAndPensions" value="No" format="yesorno"/>
+          <attribute id="mortgageCompany" value="No" format="yesorno"/>
+          <attribute id="financialAdvisor" value="No" format="yesorno"/>
+          <attribute id="other" value="No" format="yesorno"/>
+          <attribute id="otherDescription" value="" format="note"/>
+        </attribute>
+
+        <attribute id="agentName" value="" format="string"/>
+        <attribute id="applicationFormDate" value="" format="date,pattern=dd/MM/yyyy"/>
+        <attribute id="financialServices" value="?" format="yesorno"/>
+        <attribute id="mortgageWork" value="0" format="number,percent"/> 
+        <attribute id="feesEstimated" value="0.00" format="currency" unit="EUR"/> 
+        <attribute id="limitOfIndemnity" value="?" format="choice,options=-1#?|1#&#8364;1,500,000.00|2#&#8364;2,600,000.00"/>
+        <attribute id="limitOfIndemnityWording" value="?" format="choice,options=-1#?|1#any one claim|2#in the aggregate"/>
+        <attribute id="retroactiveDateApplied" value="?" format="choice,options=-1#?|1#None - Unlimited|2#Yes"/>
+        <attribute id="retroactiveDate" value="" format="date,pattern=dd/MM/yyyy"/>
+        <attribute id="renewalQuotation" value="No" format="yesorno"/> 
+        <attribute id="mtaQuotation" value="No" format="yesorno"/> 
+        <attribute id="inceptionDate" value="" format="date,pattern=dd/MM/yyyy"/>
+        <attribute id="agentPremiumApplied" value="No" format="yesorno"/>
+        <attribute id="agentPremium" value="0" format="currency" unit="EUR"/>
+        <attribute id="agentExcessApplied" value="No" format="yesorno"/>
+        <attribute id="excess" value="0" format="currency" unit="EUR"/>
+    </asset>
+    
+    <asset id="subjectivities" assetTypeId="Subjectivities">
+        <attribute id="paymentInFull" value="Yes" format="choice,options=1#No|2#Yes">
+            <attribute id="title" value="Payment of the premium in full." format="string"/>
+        </attribute>    
+        <attribute id="noClaimDeclarationProof" value="No" format="choice,options=1#No|2#Yes">
+            <attribute id="title" value="Satisfactory proof of no claims declaration." format="string"/>
+        </attribute>    
+        <attribute id="mortgageQuestionnaire" value="No" format="choice,options=1#No|2#Yes">
+            <attribute id="title" value="Completed mortgage Questionnaire." format="string"/>
+        </attribute>    
+        <attribute id="completedPropForm" value="No" format="choice,options=1#No|2#Yes">
+            <attribute id="title" value="Fully completed proposal form." format="string"/>
+        </attribute>    
+		<attribute id="insuredSpecificSubjectivity" value="No" format="choice,options=1#No|2#Yes">
+			<attribute id="title" value="" format="note"/>
+		</attribute>
+    </asset>
+    
+    <asset id="endorsements" assetTypeId="Endorsements">
+        <attribute id="financialServicesAggregate" value="No" format="choice,options=1#No|2#Yes">
+            <attribute id="title" value="Financial Services Aggregate Limit &apos; Retention each and every claimant Cost inclusive Endorsement." format="string"/>
+        </attribute>    
+    </asset>
+    
+    <asset id="extensions" assetTypeId="Extensions">
+        <attribute id="fullCivilLiability" value="Yes" format="choice,options=1#No|2#Yes">
+            <attribute id="title" value="Full Civil Liability Wording" format="string"/>
+        </attribute>    
+        <attribute id="lossOfDocuments" value="Yes" format="choice,options=1#No|2#Yes">
+            <attribute id="title" value="Loss of Documents Extension - Sub Limit ${/asset[id='company']/attribute[id='limitOfIndemnity']/value} in aggregate any one year" format="string"/>
+        </attribute>    
+        <attribute id="liabilityAndSlander" value="Yes" format="choice,options=1#No|2#Yes">
+            <attribute id="title" value="Liabiity and Slander cover included" format="string"/>
+        </attribute>    
+        <attribute id="fedelityGuarntee" value="Yes" format="choice,options=1#No|2#Yes">
+            <attribute id="title" value="Fedility Guarantee - Sub Limit ${/asset[id='company']/attribute[id='limitOfIndemnity']/value} in the aggregate any one year" format="string"/>
+        </attribute>    
+        <attribute id="financialRegulatorComplaint" value="Yes" format="choice,options=1#No|2#Yes">
+            <attribute id="title" value="Financial Regulator Complaint Determination Committee Hearing/Financial Services Ombudsman's Bureau and Data Protection Commissioner Defence Costs and Expenses - Sub Limit EUR 50,000" format="string"/>
+        </attribute>    
+    </asset>
+</quotation>

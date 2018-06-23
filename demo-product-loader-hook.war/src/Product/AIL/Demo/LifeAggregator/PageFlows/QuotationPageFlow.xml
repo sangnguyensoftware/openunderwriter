@@ -1,0 +1,49 @@
+<pageFlow id="QuotationPageFlow" type="java:com.ail.pageflow.PageFlow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/PageFlow-1.0.xsd">
+
+	<questionPage id="Welcome" title="Welcome to the LifeAggregator quotation wizard">
+		<blank id="SavedQuotes" />
+		<navigationSection id="Navigation" order="2" quitDisabled="true">
+			<commandButtonAction id="Quote" label="i18n_quote_button_label" destinationPageId="QuestionPage">
+				<action when="onProcessActions" commandName="CreateNewBusinessQuotationCommand" />
+                <action when="onProcessActions" commandName="InitialiseQuotationCommand" />
+                <action when="onProcessActions" commandName="QuotationToApplication" />
+			</commandButtonAction>
+            <commandButtonAction label="Test Sub-Product Command" destinationPageId="SubProductTestResult">
+                <action when="onProcessActions" commandName="CreateNewBusinessQuotationCommand" />
+                <action when="onProcessActions" commandName="InvokeServiceInMetLifeCommand" />
+            </commandButtonAction>
+		</navigationSection>
+	</questionPage>
+
+    <questionPage id="SubProductTestResult" title="Sub-Product Test Result">
+        <answer title="Test result" binding="attribute[id='label-policy-service']" />
+
+        <navigationSection id="Navigation" order="2" quitDisabled="true">
+            <quitButtonAction id="Finish" order="1" label="i18n_finish_button_label" />
+        </navigationSection>
+    </questionPage>
+    
+	<questionPage id="QuestionPage" title="About You - The Insured">
+        <action when="onRenderResponse" executeInAggregated="true" commandName="NotifyProductOwnerCommand" />
+  		<questionSection title="Some questions to help us:">
+			<question title="How old were you on your last birthday?" binding="/asset[id='asset']/attribute[id='age']" />
+			<question title="What gender are you?" binding="/asset[id='asset']/attribute[id='gender']" />
+			<question title="Are you currently a smoker?" binding="/asset[id='asset']/attribute[id='smoker']" />
+			<question title="Do you take regular exercise?" binding="/asset[id='asset']/attribute[id='exercise']" />
+		</questionSection>
+		<navigationSection>
+			<commandButtonAction label="Quote" destinationPageId="Quotations">
+				<action when="onProcessActions" commandName="PremiumCalculation" />
+				<action when="onProcessActions" commandName="SetPolicyStatus" condition="i:test(//line[type='REFER'])">
+					<attribute id="policyStatus" format="string" value="REFERRED"/>
+				</action>
+				<triggerNewBusinessReferralWorkflow when="onProcessActions" condition="i:test(status[.='REFERRED'])"/> 
+			</commandButtonAction>
+		</navigationSection>
+	</questionPage>
+
+	<questionPage id="Quotations" title="Quotations">
+        <aggregatorQuotationSelector />
+		<navigationSection id="Navigation" />
+    </questionPage>
+</pageFlow>

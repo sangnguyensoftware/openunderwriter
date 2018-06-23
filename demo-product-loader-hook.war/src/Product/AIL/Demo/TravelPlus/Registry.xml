@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd">
+  <name>TravePlus product configuration</name>
+  <timeout>-1</timeout>
+  <who>Applied Industrial Logic</who>
+  <version>1.0</version> 
+
+  <manager>com.ail.core.product.resetproduct.ResetProductService</manager>
+  <parentNamespace>AIL.Base.Registry</parentNamespace>
+
+  <types>
+
+	<service name="AssessSectionRiskRule/Section" builder="CachingClassBuilder" key="com.ail.core.command.DroolsDecisionTableAccessor" >
+      <!--parameter name="LoggingIndicatorAsString">FULL</parameter-->
+      <parameter name="Url">~/Rules/SectionRating.xls</parameter>
+    </service>
+
+	<service name="CalculatePolicyTaxRule" builder="CachingClassBuilder" key="com.ail.core.command.DroolsDecisionTableAccessor"> 
+	  <parameter name="Url">~/Rules/CalculatePolicyTaxRule.xls</parameter>
+	</service>
+
+    <service name="EnforceCoveragesService" builder="CachingClassBuilder" key="com.ail.core.command.DroolsDecisionTableAccessor" >
+      <parameter name="Url">~/Rules/EnforceCoverages.xls</parameter>
+    </service>
+        
+	<service name="AnswerSection/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+		<parameter name="Url">~/Templates/AnswerSection.vel</parameter>
+	</service>
+	
+	<service name="SelectSectionService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+		<parameter name="Url">~/Services/SelectSectionService.java</parameter> 
+	</service>
+
+	<service name="SetPolicyStatusService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+		<parameter name="Url">~/Services/SetPolicyStatusService.java</parameter>
+	</service>
+
+	<service name="AddPayPalMoneyProvisionToPolicyService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+		<parameter name="Url">~/Services/AddPayPalMoneyProvisionToPolicyService.java</parameter>
+	</service>
+
+	<service name="ResetPayPalMoneyProvisionInPolicyService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+		<parameter name="Url">~/Services/ResetPayPalMoneyProvisionInPolicyService.java</parameter>
+	</service>
+
+    <service name="TravellersValidationService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor" >
+      	<parameter name="Url">~/Services/TravellersValidationService.java</parameter>
+    </service>
+    
+    <service name="PolicyDetail/html" builder="CachingClassBuilder" key="com.ail.core.command.VelocityAccessor">
+		<parameter name="Url">~/Templates/PolicyDetail.vel</parameter>
+	</service>
+
+    <command name="AssessPolicyRisk" key="com.ail.insurance.quotation.AssessPolicyRiskCommandImpl">
+      <!-- There are no risk assessment rules at the policy level for this product, all risk assessment -->
+      <!-- is done at the section level. The NullService has the effect of saying 'do nothing'.           -->
+      <parameter name="Service">com.ail.core.NullService</parameter>
+    </command>
+        
+    <command name="AssessSectionRisk/Section" builder="CachingClassBuilder" key="com.ail.insurance.quotation.AssessSectionRiskCommandImpl" >
+      <parameter name="Service">AssessSectionRiskRule/Section</parameter>
+    </command>
+
+    <command name="EnforceCoverages" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+      <parameter name="Service">EnforceCoveragesService</parameter>
+    </command>
+
+	<command name="SelectSection" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+		<parameter name="Service">SelectSectionService</parameter>
+	</command>
+
+	<command name="SetPolicyStatus" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+		<parameter name="Service">SetPolicyStatusService</parameter>
+	</command>
+
+	<command name="AddPayPalMoneyProvisionToPolicy" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+		<parameter name="Service">AddPayPalMoneyProvisionToPolicyService</parameter>
+	</command>
+ 
+	<command name="ResetPayPalMoneyProvisionInPolicy" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+		<parameter name="Service">ResetPayPalMoneyProvisionInPolicyService</parameter>
+	</command>
+
+    <command name="TravellersValidation" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+      <parameter name="Service">TravellersValidationService</parameter>
+    </command>
+ 
+    <type name="Policy" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Policy">
+      <parameter name="extends">super.Policy</parameter>
+      <parameter name="Url">~/Model/Policy.xml</parameter>
+    </type>
+	
+    <type name="TravellerAsset" builder="CastorXMLBuilder" singleInstance="false" key="com.ail.insurance.policy.Asset">
+      <parameter name="Url">~/Model/TravellerAsset.xml</parameter>
+    </type>
+
+	<type name='Broker' builder='CastorXMLBuilder' key='com.ail.insurance.policy.Broker'>
+      <parameter name="Url">~/Model/Broker.xml</parameter>
+	</type>
+	
+    <type name="QuotationPageFlow" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.PageFlow">
+      <parameter name="extends">super.QuotationPageFlow</parameter>
+      <parameter name="Url">~/PageFlows/QuotationPageFlow.xml</parameter>
+    </type>
+
+	<type name="QuotationDocument" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.document.model.DocumentDefinition">
+		<parameter name="extends">super.QuotationDocument</parameter>
+		<parameter name="Url">~/Documents/QuotationDocument.xml</parameter>
+	</type>
+
+	<type name="CertificateDocument" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.document.model.DocumentDefinition">
+		<parameter name="extends">super.CertificateDocument</parameter>
+		<parameter name="Url">~/Documents/CertificateDocument.xml</parameter>
+	</type>
+	
+    <type name="Translations" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.language.Translations">
+      <parameter name="Extends">super.Translations</parameter>
+      <parameter name="Url">~/Localisation/Translations.xml</parameter>
+    </type>
+	
+  </types>
+</configuration>

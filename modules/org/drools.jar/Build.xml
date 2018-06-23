@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project default="build" name="openunderwriter:modules/org/drools.jar">
+	<import file="../../../BuildSettings.xml" />
+
+	<target name="clean" description="delete everything that the build can generate" />
+
+	  <target name="build" description="compile (generate, copy, etc) all build outputs">
+	    <antcall target="_build" />
+	  </target>
+
+	  <target name="_build">
+	    <compile-jar-macro module="yes" merge-configs="false" dependencies="org.drools, javax.api">
+	      <javac-classpath>
+	        <fileset dir="${module.dir}/org/drools" includes="**/*.jar" />
+	      </javac-classpath>
+	    </compile-jar-macro>
+	  </target>
+	
+	<target name="setup" description="run all the one-time-only steps - like copying libs into place">
+		<update-module-dependencies-macro dependencies="org.antlr, org.apache.commons.logging, org.janino, javax.activation.api, javax.api, javax.xml.bind.api, com.sun.xml.bind, org.jdom, org.apache.xerces"/>
+	</target>
+
+	<target name="teardown" description="undo whatever setup did">
+		<delete-module-macro />
+	</target>
+</project>

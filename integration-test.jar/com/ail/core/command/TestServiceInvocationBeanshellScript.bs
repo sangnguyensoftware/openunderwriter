@@ -1,0 +1,3 @@
+if (args.getX()>1000) {
+  args.setR(args.getX()-(2*args.getY()));
+}

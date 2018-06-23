@@ -1,0 +1,229 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the ProposerDetails widget.
+##
+#set( $model = $args.ModelArgRet)
+#set( $proposerDetails = $args.PageElementArg )
+#set( $renderId = $args.RenderIdArg )
+##
+#set( $proposer = $model.xpathGet($proposerDetails.getBinding()) )
+##
+<div class='pf-body pf-proposer-details' id='$!renderId'>
+    <div class='pf-section-title'>
+        #i18n("i18n_proposer_details_contact_title")
+    </div>
+    #if( !$proposer )
+        <div class='pf-page-error'>
+            #i18n("i18n_proposer_details_proposer_error")
+        </div>
+    #elseif( !$proposer.Address )
+        <div class='pf-page-error'>
+            #i18n("i18n_proposer_details_proposer_address_error")
+        </div>
+    #else
+        #if( $proposer.Class.Name == "com.ail.insurance.policy.PersonalProposer" )
+            #proposerName()
+        #elseif( $proposer.Class.Name == "com.ail.insurance.policy.CommercialProposer" )
+            #companyName()
+        #end
+        #address()
+        #if( $proposer.Class.Name == "com.ail.insurance.policy.CommercialProposer" )
+            #proposerName()
+        #end
+        #emailAndPhone()    
+        #disableOtherTitleField()
+    #end
+</div>
+##
+#macro( proposerName )
+    <div class='pf-proposer-details-proposer-name'>
+        <div class='pf-two-part-section'>
+            <div class='pf-input-section'>
+                #requiredQuestionLabel( "i18n_proposer_details_title_label" )
+                <div class='pf-input-field'>
+                    <select id='title' name='title' onchange='showDivDisplayIf(this.options[this.selectedIndex].text=="Other", "pf-proposer-details-other")'>
+                        #foreach( $option in ${proposer.getTitle().values()} )
+                            <option #if( ${option.longName()} == ${proposer.getTitle().longName()} )selected="yes"#end>${option.longName()}</option>
+                        #end
+                    </select>
+                </div>
+                #error( "title" $proposer.Instance $proposerDetails )
+            </div>
+            <div class='pf-input-section' id='pf-proposer-details-other'>
+                #requiredQuestionLabel( "i18n_proposer_details_other_title_label" )
+                <div class='pf-input-field'>
+                    <input name='otherTitle' id='otherTitle' type='text' value='$!proposer.OtherTitle' size='30' maxlength='100'>
+                </div>
+                #error( "otherTitle" $proposer.Instance $proposerDetails )
+            </div>
+        </div>
+        <div class='pf-two-part-section'>
+            <div class='pf-input-section'>
+                #requiredQuestionLabel( "i18n_proposer_details_first_name_label" )
+                <div class='pf-input-field'>
+                    <input name='firstname' type='text' value='$proposer.FirstName' size='30' maxlength='100'>
+                </div>
+                #error( "firstName" $proposer.Instance $proposerDetails )
+            </div>
+            <div class='pf-input-section'>
+                #requiredQuestionLabel( "i18n_proposer_details_surname_label" )
+                <div class='pf-input-field'>
+                    <input name='surname' type='text' value='$proposer.Surname' size='30' maxlength='100''>
+                </div>
+                #error( "surname" $proposer.Instance $proposerDetails )
+            </div>
+        </div>
+    </div>
+#end
+##
+#macro( companyName )
+    <div class='pf-proposer-details-company-name'>
+        <div class='pf-input-section'>
+            #requiredQuestionLabel( "i18n_proposer_details_company_label" )
+            <div class='pf-input-field'>
+                <input name='companyName' type='text' value='$proposer.CompanyName' placeholder='#i18n( "i18n_proposer_details_company_placeholder" )' size='100'/>
+            </div>
+            #error( "companyName" $proposer.Instance $proposerDetails )
+        </div>
+    </div>
+#end
+##
+#macro( address )
+    <div class='pf-proposer-details-address'>
+        <div class='pf-input-section-title'>
+            #optionalQuestionLabel( "i18n_proposer_details_address_label" )
+        </div>
+        <div class='pf-section'>
+            <div class='pf-input-section'>
+                <div class='pf-input-field'>
+                    <input name='address1' type='text' value='$proposer.Address.Line1' placeholder='#i18n( "i18n_proposer_details_address_line_1_placeholder" )' size='30' maxlength='100'/>
+                    #requiredIndicator('address1')
+                </div>
+                #error( "address1" $proposer.Instance $proposerDetails )
+            </div>
+            <div class='pf-input-section'>
+                <div class='pf-input-field'>
+                    <input name='address2' type='text' value='$proposer.Address.Line2' placeholder='#i18n( "i18n_proposer_details_address_line_2_placeholder" )' size='30' maxlength='100'/>
+                    #requiredIndicator('address2')
+                </div>
+                #error( "address2" $proposer.Instance $proposerDetails )
+            </div>
+            <div class='pf-input-section'>
+                <div class='pf-input-field'>
+                    <input name='address3' type='text' value='$proposer.Address.Line3' placeholder='#i18n( "i18n_proposer_details_address_line_3_placeholder" )' size='30' maxlength='100'/>
+                    #requiredIndicator('address3')
+                </div>
+                #error( "address3" $proposer.Instance $proposerDetails )
+            </div>
+            <div class='pf-input-section'>
+                <div class='pf-input-field'>
+                    <input name='address4' type='text' value='$proposer.Address.Line4' placeholder='#i18n( "i18n_proposer_details_address_line_4_placeholder" )' size='30' maxlength='100'/>
+                    #requiredIndicator('address4')
+                </div>
+                #error( "address4" $proposer.Instance $proposerDetails )
+            </div>
+            <div class='pf-input-section'>
+                <div class='pf-input-field'>
+                    <input name='town' type='text' value='$proposer.Address.Town' placeholder='#i18n( "i18n_proposer_details_address_town_placeholder" )' size='30' maxlength='100'/>
+                    #requiredIndicator('town')
+                </div>
+                #error( "town" $proposer.Instance $proposerDetails )
+            </div>
+            <div class='pf-input-section'>
+                <div class='pf-input-field'>
+                    <input name='county' type='text' value='$proposer.Address.County' placeholder='#i18n( "i18n_proposer_details_address_county_placeholder" )' size='30' maxlength='100'/>
+                    #requiredIndicator('county')
+                </div>
+                #error( "county" $proposer.Instance $proposerDetails )
+            </div>
+        </div>
+        <div class='pf-input-section'>
+            #requiredIndicatorQuestionLabel( "postcode" "i18n_proposer_details_postcode_label" )
+            <div class='pf-input-field'>
+                <input name='postcode' type='text' value='$!proposer.Address.Postcode' placeholder='#i18n( "i18n_proposer_details_address_postcode_placeholder" )' size='8' maxlength='8'>
+            </div>
+            #error( "postcode" $proposer.Instance $proposerDetails )
+        </div>
+    </div>
+#end
+##
+#macro( emailAndPhone )
+    <div class='pf-proposer-details-email-and-phone'>
+        <div class='pf-input-section'>
+            #requiredQuestionLabel( "i18n_proposer_details_telephone_label" )
+            <div class='pf-input-field'>
+                <input name='phone' type='text' value='$!proposer.TelephoneNumber' size='30' maxlength='100'>
+            </div>
+            #error( "phone" $proposer.Instance $proposerDetails )
+        </div>
+        <div class='pf-input-section'>
+            #optionalQuestionLabel( "i18n_proposer_details_mobilephone_label" )
+            <div class='pf-input-field'>
+                <input name='mobile' type='text' value='$!proposer.MobilephoneNumber' size='30' maxlength='100'>
+            </div>
+            #error( "mobile" $proposer.Instance $proposerDetails )
+        </div>
+        <div class='pf-input-section'>
+            #requiredQuestionLabel( "i18n_proposer_details_email_label" )
+            <div class='pf-input-field'>
+                <input name='email' type='text' value='$!proposer.EmailAddress' size='30' maxlength='100'>
+            </div>
+            #error( "email" $proposer.Instance $proposerDetails )
+        </div>
+    </div>
+#end
+#macro( disableOtherTitleField )
+    <script type='text/javascript'>
+        elm=findElementsByName("title")[0];
+        val=elm.options[elm.selectedIndex].text;
+        showDivDisplayIf(val=="Other", "pf-proposer-details-other");
+    </script>
+#end
+#macro( error $filter $model $element )
+     #if( $element.hasErrorMarker($filter, $model) )
+         <div class='pf-input-error'>$element.findError($filter, $model, $element)</div>
+     #end
+#end
+##
+#macro( requiredQuestionLabel $label )
+    <div class='pf-input-label'>
+        <div class='pf-input-required'></div>
+        #i18n("$label")
+    </div>
+#end
+##
+#macro( requiredIndicator $id )
+    <div class=#if(${proposerDetails.isFieldMandatory($id)})'pf-input-required'#else'pf-input-optional'#end></div>
+#end
+##
+#macro( requiredIndicatorQuestionLabel $id $label )
+    <div class='pf-input-label'>
+        <div class=#if(${proposerDetails.isFieldMandatory($id)})'pf-input-required'#else'pf-input-optional'#end></div>
+        #i18n("$label")
+    </div>
+#end
+##
+#macro( optionalQuestionLabel $label )
+    <div class='pf-input-label'>
+        <div class='pf-input-optional'></div>
+        #i18n("$label")
+    </div>
+#end
+##
+#macro( i18n $id )$proposerDetails.i18n("$id")#end

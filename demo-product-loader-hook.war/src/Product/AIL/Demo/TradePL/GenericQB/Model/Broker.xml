@@ -1,0 +1,17 @@
+<broker xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="java:com.ail.insurance.policy.Broker">
+    <legalName>OpenUnderwriter</legalName>
+    <address>
+        <line1>145 - 157 St John Street</line1>
+        <line2></line2>
+        <town>London</town>
+        <county></county>
+        <postcode>EC1V 4PW</postcode>
+    </address>
+    <telephoneNumber>+44 (0)20 7183 4578</telephoneNumber>
+    <emailAddress>administrator@openunderwriter.com</emailAddress>
+    <quoteEmailAddress>administrator@openunderwriter.com</quoteEmailAddress>
+    <paymentTelephoneNumber>-</paymentTelephoneNumber>
+    <quoteTelephoneNumber>-</quoteTelephoneNumber>
+    <contactName>Matthew Tomlinson</contactName>
+    <directDebitIdentificationNumber>-</directDebitIdentificationNumber>
+</broker>

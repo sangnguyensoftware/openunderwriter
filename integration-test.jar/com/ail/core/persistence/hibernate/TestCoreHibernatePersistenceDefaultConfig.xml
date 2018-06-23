@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd">
+  <name>Default Service Invocation Configuration</name>
+  <timeout>600000</timeout>
+  <who>factory</who>
+  <version>$Revision: 1.6 $</version>
+
+  <types>
+    <!--============================================ -->
+    <!-- Define the (local) component's services -->
+    <!--============================================ -->
+    <service name="CreateService" key="com.ail.core.command.ClassAccessor">
+      <parameter name="ServiceClass">com.ail.core.persistence.hibernate.HibernateCreateService</parameter>
+    </service>
+    <service name="UpdateService" key="com.ail.core.command.ClassAccessor">
+      <parameter name="ServiceClass">com.ail.core.persistence.hibernate.HibernateUpdateService</parameter>
+    </service>
+    <service name="LoadService" key="com.ail.core.command.ClassAccessor">
+      <parameter name="ServiceClass">com.ail.core.persistence.hibernate.HibernateLoadService</parameter>
+    </service>
+    <service name="QueryService" key="com.ail.core.command.ClassAccessor">
+      <parameter name="ServiceClass">com.ail.core.persistence.hibernate.HibernateQueryService</parameter>
+    </service>
+    <service name="DeleteService" key="com.ail.core.command.ClassAccessor">
+      <parameter name="ServiceClass">com.ail.core.persistence.hibernate.HibernateDeleteService</parameter>
+    </service>
+    <service name="OpenSessionService" key="com.ail.core.command.ClassAccessor">
+      <parameter name="ServiceClass">com.ail.core.persistence.hibernate.HibernateOpenSessionService</parameter>
+    </service>
+    <service name="CloseSessionService" key="com.ail.core.command.ClassAccessor">
+      <parameter name="ServiceClass">com.ail.core.persistence.hibernate.HibernateCloseSessionService</parameter>
+    </service>
+
+    <!--============================================ -->
+    <!-- Define the (remote) component's services -->
+    <!--============================================ -->
+    <service name='PersistenceService' builder='ClassBuilder' key='com.ail.core.command.EJBAccessor'>
+      <parameter name='JndiName'>PersistenceServer</parameter>
+    </service>
+
+    <!--======================================================================= -->
+    <!-- Bind the default core services (above) to Commands used by Core.class -->
+    <!--======================================================================= -->
+    <command name="Create" key="com.ail.core.persistence.CreateCommandImpl">
+      <parameter name="Service">CreateService</parameter>
+    </command>
+
+    <command name="Update" key="com.ail.core.persistence.UpdateCommandImpl">
+      <parameter name="Service">UpdateService</parameter>
+    </command>
+
+    <command name="Load" key="com.ail.core.persistence.LoadCommandImpl">
+      <parameter name="Service">LoadService</parameter>
+    </command>
+
+    <command name="Query" key="com.ail.core.persistence.QueryCommandImpl">
+      <parameter name="Service">QueryService</parameter>
+    </command>
+
+    <command name="Delete" key="com.ail.core.persistence.DeleteCommandImpl">
+      <parameter name="Service">DeleteService</parameter>
+    </command>
+
+    <command name="OpenSession" key="com.ail.core.persistence.OpenSessionCommandImpl">
+      <parameter name="Service">OpenSessionService</parameter>
+    </command>
+
+    <command name="CloseSession" key="com.ail.core.persistence.CloseSessionCommandImpl">
+      <parameter name="Service">CloseSessionService</parameter>
+    </command>
+
+    <!--=================================================================================================== -->
+    <!-- Bind remote persistence services to the PersistenceServce (in com/ail/core/CoreDefaultConfig.xml) -->
+    <!--=================================================================================================== -->
+    <command name="TestCreateCommandRemote" key="com.ail.core.persistence.CreateCommandImpl">
+      <parameter name="Service">PersistenceService</parameter>
+    </command>
+    <command name="TestUpdateCommandRemote" key="com.ail.core.persistence.UpdateCommandImpl">
+      <parameter name="Service">PersistenceService</parameter>
+    </command>
+    <command name="TestLoadCommandRemote" key="com.ail.core.persistence.LoadCommandImpl">
+      <parameter name="Service">PersistenceService</parameter>
+    </command>
+    <command name="TestQueryCommandRemote" key="com.ail.core.persistence.QueryCommandImpl">
+      <parameter name="Service">PersistenceService</parameter>
+    </command>
+    <command name="TestOpenSessionCommandRemote" key="com.ail.core.persistence.OpenSessionCommandImpl">
+      <parameter name="Service">PersistenceService</parameter>
+    </command>
+    <command name="TestCloseSessionCommandRemote" key="com.ail.core.persistence.CloseSessionCommandImpl">
+      <parameter name="Service">PersistenceService</parameter>
+    </command>
+
+  </types>
+</configuration>

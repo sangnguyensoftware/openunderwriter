@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+  <info organisation="org.apache.fop" module="fop" />
+  <dependencies>
+ 	<dependency org="org.apache.xmlgraphics" name="fop" rev="0.93" />
+	<exclude org="commons-io" />
+	<exclude org="commons-logging" />
+    <exclude org="javax.servlet" />
+    <exclude org="rhino" />
+    <exclude org="xml-apis" />
+    <exclude org="xerces" />
+  </dependencies>
+</ivy-module>

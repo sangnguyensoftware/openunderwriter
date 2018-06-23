@@ -1,0 +1,13 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-907 mprPurpose column" author="richard">
+        <sql dbms="mysql">
+            ALTER TABLE `mprMoneyProvision` ADD COLUMN `mprPurpose` varchar(255) DEFAULT NULL;
+            ALTER TABLE `mprMoneyProvision_` ADD COLUMN `mprPurpose` varchar(255) DEFAULT NULL;
+        </sql>
+    </changeSet>
+</databaseChangeLog>

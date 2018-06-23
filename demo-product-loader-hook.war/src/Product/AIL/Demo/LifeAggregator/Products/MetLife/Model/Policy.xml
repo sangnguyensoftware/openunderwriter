@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quotation xsi:type="java:com.ail.insurance.policy.Policy" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <productName>MetLife</productName>
+
+    <xi:include href="product://localhost:8080/AIL/Base/Model/PersonalProposer.xml" />
+    
+    <broker xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="java:com.ail.insurance.policy.Broker">
+        <legalName>Metropolitan Insurance Company</legalName>
+        <address>
+            <line1>Metropolitan House</line1>
+            <line2>South Street</line2>
+            <town>Uppington</town>
+            <county>Kent</county>
+            <postcode>KN3 8JL</postcode>
+        </address>
+        <telephoneNumber>02913 728193</telephoneNumber>
+        <emailAddress>contact@metlife.madeup.uk</emailAddress>
+        <quoteEmailAddress>quotes@metlife.madeup.uk</quoteEmailAddress>
+        <policyEmailAddress>policy@metlife.madeup.uk</policyEmailAddress>
+        <paymentTelephoneNumber>02913 728193</paymentTelephoneNumber>
+        <quoteTelephoneNumber>02913 728193</quoteTelephoneNumber>
+        <contactName>Sonya Smedding</contactName>
+        <directDebitIdentificationNumber>737373</directDebitIdentificationNumber>
+    </broker>
+</quotation>

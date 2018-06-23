@@ -1,0 +1,13 @@
+<p>PageFlow supports the concept of limiting submit scope. By
+	default when a page is submitted the whole page including all of its
+	fields are submitted and passed through PageFlow&apos;s request cycle.
+	This leads to all of the values on the page being applied to the
+	underlying (persistent) model and all of the fields being subjected to
+	validation.</p>
+<p>Typically, where pages are small, this approach is desirable.
+	However in some circumstances it is useful to be able to limit the scope of
+	what submitted data to only include specific pageSections.</p>
+<p>On this example page, the <code>outer</code> pageSection is submitted by the 
+   "Save outer" commandButton. As <code>inner1</code> and <code>inner2</code> 
+   are contained by <code>outer</code>, they are also submitted. "Save inner 1" 
+   only submits <code>inner1</code>, and "Save inner 2" only submits <code>inner2</code></p>

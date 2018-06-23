@@ -1,0 +1,383 @@
+diff --git a/BuildSettings.xml b/BuildSettings.xml
+index f2d72b32..c6f9eab3 100644
+--- a/BuildSettings.xml
++++ b/BuildSettings.xml
+@@ -23,9 +23,9 @@
+   <property name="dbname.dwh.prefix" value="${dbname.prefix}_DWH" />
+   <property name="dbusername.dwh" value="report" />
+   <property name="dbpassword.dwh" value="e98d2f001da5678b39482efbdf5770dc" />
+-  <property name="dbhost" value="localhost" /> 
+-  <property name="dbusername" value="openquote" />
+-  <property name="dbpassword" value="password" />
++  <property name="dbhost" value="127.0.0.1" />
++  <property name="dbusername" value="root" />
++  <property name="dbpassword" value="Pa55w0rd" />
+ 
+   <!-- Pull in the Common stuff - all projects us these. -->
+   <dirname property="project.dir" file="${ant.file.BuildSettings}" />
+diff --git a/base-product-loader-hook.war/src/Product/AIL/Base/Translations.xml b/base-product-loader-hook.war/src/Product/AIL/Base/Translations.xml
+index 54495623..f33442cf 100644
+--- a/base-product-loader-hook.war/src/Product/AIL/Base/Translations.xml
++++ b/base-product-loader-hook.war/src/Product/AIL/Base/Translations.xml
+@@ -499,6 +499,9 @@
+ 		<element key="i18n_min_consecutive_error">Less than %s month minimum permissable period</element>
+ 		<element key="i18n_max_consecutive_error">Exceeds %s month permissable period</element>
+ 		<element key="i18n_max_lifetime_error">Combined holidays exceed %s month permissable period</element>
++        <element key="i18n_payment_holiday_start_date_before_months_payment">The collection day for this premium holiday has past for this month</element>
++        <element key="i18n_payment_holiday_active_status">In progress</element>
++        <element key="i18n_payment_holiday_inactive_status">Not in progress</element>
+ 
+         <element key="i18n_payment_option_selector_title">Payment Options</element>
+         <element key="i18n_payment_option_selector_description">Please select how you wish to pay and press next.</element>
+diff --git a/modules/com/ail/commercial.jar/com/ail/financial/PaymentHoliday.java b/modules/com/ail/commercial.jar/com/ail/financial/PaymentHoliday.java
+index 1ada6686..16041312 100644
+--- a/modules/com/ail/commercial.jar/com/ail/financial/PaymentHoliday.java
++++ b/modules/com/ail/commercial.jar/com/ail/financial/PaymentHoliday.java
+@@ -202,6 +202,21 @@ public class PaymentHoliday extends Type implements HasNotes {
+         return false;
+     }
+ 
++    /**
++     * Check if this payment holiday is active now.
++     * @return true if it's a holiday now, false if not.
++     */
++    public boolean isInPaymentHolidayNow() {
++        Date today = new Date();
++
++        // if start date is in the past
++        if (this.getStartDate().before(today) && this.getEndDate().after(today)) {
++            return true;
++        }
++
++        return false;
++    }
++
+     @Override
+     public int hashCode() {
+         final int prime = 31;
+diff --git a/modules/com/ail/insurance.jar/com/ail/insurance/policy/Policy.java b/modules/com/ail/insurance.jar/com/ail/insurance/policy/Policy.java
+index 5dabd05a..f06e71c0 100644
+--- a/modules/com/ail/insurance.jar/com/ail/insurance/policy/Policy.java
++++ b/modules/com/ail/insurance.jar/com/ail/insurance/policy/Policy.java
+@@ -45,6 +45,7 @@ import static org.hibernate.annotations.CascadeType.SAVE_UPDATE;
+ 
+ import java.text.DateFormat;
+ import java.text.ParseException;
++import java.time.Period;
+ import java.util.ArrayList;
+ import java.util.Date;
+ import java.util.HashMap;
+@@ -85,6 +86,7 @@ import org.hibernate.envers.NotAudited;
+ import com.ail.annotation.TypeDefinition;
+ import com.ail.core.Allowable;
+ import com.ail.core.Attribute;
++import com.ail.core.CoreContext;
+ import com.ail.core.ExceptionRecord;
+ import com.ail.core.HasDocuments;
+ import com.ail.core.HasLabels;
+@@ -1949,6 +1951,80 @@ public class Policy extends com.ail.core.Type implements Owned, HasProduct, HasN
+         this.paymentHoliday = paymentHoliday;
+     }
+ 
++    /**
++     * Returns the total month duration for all payments as an integer.
++     * If no payment holidays have been taken 0 is returned.
++     * @return Duration of all premium holidays as an int.
++     */
++    public int getPaymentHolidaysTotalDurationValue() {
++        int totalMonths = 0;
++
++        for (PaymentHoliday holiday : getPaymentHoliday()) {
++            Period duration = holiday.durationPeriod();
++            totalMonths += duration.getMonths();
++        }
++
++        return totalMonths;
++    }
++
++    /**
++     * Return the total month duration of all payment holidays in a format of "4 years 1 month".
++     * If no payment holidays have been taken "0 months" is returned.
++     * @return Duration of all premium holidays as a String.
++     */
++    public String getPaymentHolidaysTotalDuration() {
++        int totalMonths = getPaymentHolidaysTotalDurationValue();
++        return changeMonthIntToMonthString(totalMonths);
++    }
++
++    /**
++     * Return the remaining months duration for payment holidays in a format of "48 months".
++     * @return Duration remaining for premium holidays as a String.
++     */
++    public String getPaymentHolidaysDurationRemaining() {
++        int monthsTaken = getPaymentHolidaysTotalDurationValue();
++        String lifetimeMonthsString = CoreContext.getCoreProxy().getGroup("PaymentHoliday").findParameterValue("lifetimeMonthsPermitted", "");
++        int lifetimeMonths = lifetimeMonthsString.isEmpty()?0:Integer.parseInt(lifetimeMonthsString);
++        int monthsRemaining = lifetimeMonths - monthsTaken;
++
++        return changeMonthIntToMonthString(monthsRemaining);
++    }
++
++    /**
++     * Takes a month integer and converts to a string in the format "48 months".
++     * @param totalMonths the integer value for the total months.
++     * @return the months formatted as a string.
++     */
++    public String changeMonthIntToMonthString(int totalMonths) {
++        StringBuffer ret = new StringBuffer(); 
++        
++        ret.append(totalMonths);
++
++        if (totalMonths == 1) {
++            ret.append(' ').append(i18n("i18n_month"));
++        } 
++        else {
++            ret.append(' ').append(i18n("i18n_months"));
++        }
++
++        return ret.toString();
++    }
++
++    /**
++     * Checks all payment holidays in the policy and if one is active
++     * returns true, else returns false.
++     * @return true if there is an active payment holiday, otherwise false.
++     */
++    public boolean isInPaymentHolidayNow() {
++        for (PaymentHoliday holiday : getPaymentHoliday()) {
++            boolean inHolidayNow = holiday.isInPaymentHolidayNow();
++            if (inHolidayNow) {
++                return true;
++            }
++        }
++        return false;
++    }
++
+     public Long getRenewalIndex() {
+         return renewalIndex;
+     }
+diff --git a/modules/com/ail/pageflow.jar/com/ail/pageflow/PaymentHolidayDetails.java b/modules/com/ail/pageflow.jar/com/ail/pageflow/PaymentHolidayDetails.java
+index 535a6461..b48c992b 100644
+--- a/modules/com/ail/pageflow.jar/com/ail/pageflow/PaymentHolidayDetails.java
++++ b/modules/com/ail/pageflow.jar/com/ail/pageflow/PaymentHolidayDetails.java
+@@ -17,6 +17,7 @@
+ package com.ail.pageflow;
+ 
+ import static com.ail.core.Functions.isEmpty;
++import static com.ail.financial.MoneyProvisionPurpose.PREMIUM;
+ import static com.ail.pageflow.PageFlowContext.getRequestedOperation;
+ import static com.ail.pageflow.PageFlowContext.getRequestedOperationId;
+ import static com.ail.pageflow.util.Functions.addError;
+@@ -27,6 +28,9 @@ import java.io.IOException;
+ import java.text.ParseException;
+ import java.text.SimpleDateFormat;
+ import java.time.Period;
++import java.util.Arrays;
++import java.util.Calendar;
++import java.util.List;
+ import java.util.Date;
+ import java.util.concurrent.atomic.AtomicBoolean;
+ 
+@@ -34,6 +38,8 @@ import com.ail.core.BaseException;
+ import com.ail.core.Type;
+ import com.ail.core.context.RequestWrapper;
+ import com.ail.financial.PaymentHoliday;
++import com.ail.financial.PaymentSchedule;
++import com.ail.financial.MoneyProvision;
+ import com.ail.insurance.policy.Policy;
+ 
+ public class PaymentHolidayDetails extends PageContainer {
+@@ -124,7 +130,27 @@ public class PaymentHolidayDetails extends PageContainer {
+                 addError("startDate", "i18n_invalid_error", holiday);
+                 addError("endDate", "i18n_invalid_error", holiday);
+             }
+-
++            
++            // if the start date is this month
++            Calendar todayCal = Calendar.getInstance();
++            Calendar startDateCal = Calendar.getInstance();
++            startDateCal.setTime(holiday.getStartDate());
++            
++            if (startDateCal.get(Calendar.MONTH) == todayCal.get(Calendar.MONTH)) {
++                // check to make sure the collection date hasn't past for this month or isn't due in the next 3 days
++                // if it is, raise an error
++                PaymentSchedule paymentSchedule = policy.getPaymentDetails();
++                List<MoneyProvision> moneyProvisions = paymentSchedule.getMoneyProvision();
++
++                for (MoneyProvision moneyProvision : moneyProvisions) {
++                    if (moneyProvision.getPurpose() == PREMIUM) {
++                        if (moneyProvision.getDay() <= todayCal.get(Calendar.DAY_OF_MONTH) + 3) {
++                            addError("startDate", "i18n_payment_holiday_start_date_before_months_payment", holiday);
++                        }
++                    }
++                }    
++            }            
++        
+             int totalDurationCounter = 0;
+ 
+             for (PaymentHoliday that : policy.getPaymentHoliday()) {
+@@ -245,36 +271,76 @@ public class PaymentHolidayDetails extends PageContainer {
+             // Check to create a new entry if start and end dates are set
+             String newStartDateId = request.getParameter(encodeId("startDateId"));
+             String newEndDateId = request.getParameter(encodeId("endDateId"));
++            String newDurationId = request.getParameter(encodeId("durationId"));
+ 
+             boolean validNewStartDateId = newStartDateId != null && newStartDateId.length() > 0;
+             boolean validNewEndDateId = newEndDateId != null && newEndDateId.length() > 0;
++            boolean validNewDurationId = newDurationId != null && newDurationId.length() > 0;
++            boolean validDatesPair = (validNewStartDateId && validNewDurationId) || (validNewStartDateId && validNewEndDateId);
+ 
+-            if ( validNewStartDateId &&  validNewEndDateId) {
+-                PaymentHoliday paymentHoldiday = (PaymentHoliday)PageFlowContext.getCoreProxy().newType(type, PaymentHoliday.class);
+-                try {
+-                    Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse(newStartDateId);
+-                    paymentHoldiday.setStartDate(startDate);
+-                } catch (ParseException e) {
+-                    addError("startDateInvalid", "i18n_invalid_error", paymentHoldiday);
++            PaymentHoliday paymentHoldiday = (PaymentHoliday)PageFlowContext.getCoreProxy().newType(type, PaymentHoliday.class);
++
++            // if a start, end and duration specified raise an error
++            if (validNewStartDateId && validNewEndDateId && validNewDurationId) {
++                addError("datesInvalid", "i18n_invalid_error", paymentHoldiday);
++            }
++            else {
++                Date startDate = null;
++                
++                // if either a valid start and duration or valid start and end date, create a start date
++                if (validDatesPair){
++                    try {
++                        startDate = new SimpleDateFormat("yyyy-MM-dd").parse(newStartDateId);
++                        paymentHoldiday.setStartDate(startDate);
++                    } catch (ParseException e) {
++                        addError("startDateInvalid", "i18n_invalid_error", paymentHoldiday);
++                    }
+                 }
+ 
+-                try {
+-                    Date endDate = new SimpleDateFormat("yyyy-MM-dd").parse(newEndDateId);
+-                    paymentHoldiday.setEndDate(endDate);
+-                } catch (ParseException e) {
+-                    addError("endDateInvalid", "i18n_invalid_error", paymentHoldiday);
++                // if a start and end date pair add the end date
++                if (validNewStartDateId && validNewEndDateId) {    
++                    try {
++                        Date endDate = new SimpleDateFormat("yyyy-MM-dd").parse(newEndDateId);
++                        paymentHoldiday.setEndDate(endDate);
++                    } catch (ParseException e) {
++                        addError("endDateInvalid", "i18n_invalid_error", paymentHoldiday);
++                    }
+                 }
+ 
+-                // add notes
+-                try {
+-                    noteDetails.setId(getId());
+-                    noteDetails.applyRequestValues(paymentHoldiday);
+-                    noteDetails.processActions(paymentHoldiday);
+-                } catch (BaseException e) {
+-                    addError("noteInvalid", "i18n_invalid_error", paymentHoldiday);
++                // if a start and duration pair calculate the end date
++                if (validNewStartDateId && validNewDurationId){
++                    try {
++                        int duration = Integer.parseInt(newDurationId);
++                        
++                        Calendar startDateCal = Calendar.getInstance();
++                        startDateCal.setTime(startDate);
++                        // add the months specified in the duraiton
++                        startDateCal.add(Calendar.MONTH, duration);
++                        // minus one day
++                        startDateCal.add(Calendar.DATE, -1);
++                        
++                        Date endDate = startDateCal.getTime();
++                        paymentHoldiday.setEndDate(endDate);
++
++                    } catch (NumberFormatException e){
++                        addError("durationInvalid", "i18n_invalid_error", paymentHoldiday);
++                    }
+                 }
+ 
+-                policy.getPaymentHoliday().add(paymentHoldiday);
++                // finally add common functionality
++                if (validDatesPair) {
++                    // add notes
++                    try {
++                        noteDetails.setId(getId());
++                        noteDetails.applyRequestValues(paymentHoldiday);
++                        noteDetails.processActions(paymentHoldiday);
++                    } catch (BaseException e) {
++                        addError("noteInvalid", "i18n_invalid_error", paymentHoldiday);
++                    }
++                    
++                    // add holiday to the policy
++                    policy.getPaymentHoliday().add(paymentHoldiday);
++                }
+             }
+         }
+     }
+diff --git a/modules/com/ail/pageflow.jar/com/ail/pageflow/util/Functions.java b/modules/com/ail/pageflow.jar/com/ail/pageflow/util/Functions.java
+index 64ed63a1..70ef86b0 100644
+--- a/modules/com/ail/pageflow.jar/com/ail/pageflow/util/Functions.java
++++ b/modules/com/ail/pageflow.jar/com/ail/pageflow/util/Functions.java
+@@ -17,6 +17,7 @@
+ package com.ail.pageflow.util;
+ 
+ import static com.ail.core.Attribute.DEFAULT_DATE_PATTERN;
++import static com.ail.core.language.I18N.i18n;
+ 
+ import java.text.SimpleDateFormat;
+ import java.util.ArrayList;
+@@ -33,6 +34,7 @@ import javax.portlet.RenderResponse;
+ import com.ail.annotation.XPathFunctionDefinition;
+ import com.ail.core.Attribute;
+ import com.ail.core.Type;
++import com.ail.insurance.policy.Policy;
+ import com.ail.pageflow.PageElement;
+ 
+ /**
+@@ -379,4 +381,47 @@ public class Functions {
+ 
+         return attrPattern;
+     }
++
++    /**
++     * Return the total month duration of all payment holidays in a format of "4 years 1 month".
++     * If no payment holidays have been taken "0 months" is returned.
++     * @param policy the policy to base the calculation from.
++     * @return Duration of all premium holidays as a String.
++     */
++    public static String paymentHolidaysTotalDuration(Policy policy) {
++        return policy.getPaymentHolidaysTotalDuration();
++    }
++
++    /**
++     * Return the remaining months duration for payment holidays in a format of "4 years 1 month".
++     * @param policy the policy to base the calculation from.
++     * @return Duration remaining for premium holidays as a String.
++     */
++    public static String paymentHolidaysDurationRemaining(Policy policy) {
++        return policy.getPaymentHolidaysDurationRemaining();
++    }
++
++    /**
++     * Checks all payment holidays in the policy and if one is active
++     * returns the active status, else returns the inactive status.
++     * @param policy the policy to base the calculation from.
++     * @return active status string if there is a premium holiday else inactive string..
++     */
++    public static String isInPaymentHolidayNowString(Policy policy) {
++        if (policy.isInPaymentHolidayNow()) {
++            return i18n("i18n_payment_holiday_active_status");
++        }
++        return i18n("i18n_payment_holiday_inactive_status");
++    }
++
++    /**
++     * Checks all payment holidays in the policy and if one is active
++     * returns true, else returns false.
++     * @param policy the policy to base the calculation from.
++     * @return true if there is an active payment holiday, otherwise false.
++     */
++    public static boolean isInPaymentHolidayNow(Policy policy) {
++        return policy.isInPaymentHolidayNow();
++    }
++
+ }

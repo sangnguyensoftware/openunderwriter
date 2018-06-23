@@ -1,0 +1,34 @@
+<section id='section1' sectionTypeId='MotorPlusSection' type="java:com.ail.insurance.policy.Section" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Model-1.0.xsd">
+    <attribute id="cover" value="Comprehensive" format="choice,options=-1#?|1#Third Party Fire and Theft|2#Comprehensive"/>
+    <coverage id="damage" enabled="true">
+        <description>Damage to Third Party Property</description>
+        <limit amount="80000.00" currency="GBP"/>
+    </coverage>
+    <coverage id="personalInjury" enabled="true">
+        <description>Personal Injury to Third Parties </description>
+    </coverage>
+    <coverage id="fireOrTheft" enabled="true">
+        <description>Loss or Damage to the Vehicle by Fire or Theft</description>
+        <deductible  amount="100.00" currency="GBP"/>
+    </coverage>
+    <coverage id="accidentalDamage" enabled="true">
+        <description>Accidental Damage to the Vehicle</description>
+        <deductible amount="50.00" currency="GBP"/>
+    </coverage>
+    <coverage id="cdEquipment" enabled="true">
+        <description>CD Equipment</description>
+        <limit amount="300.00" currency="GBP"/>
+        <deductible amount="50.00" currency="GBP"/>
+    </coverage>
+    <coverage id="windscreen" enabled="true">
+        <description>Windscreen and Windows</description>
+        <limit amount="400.00" currency="GBP"/>
+    </coverage>
+    <coverage id="carHire" enabled="true">
+        <description>Car Hire On Repair</description>
+    </coverage>
+    <coverage id="personalAccident" enabled="false" optional="true">
+        <description>Personal Accident Benefit</description>
+        <limit amount="10000.00" currency="GBP"/>
+    </coverage>
+</section>

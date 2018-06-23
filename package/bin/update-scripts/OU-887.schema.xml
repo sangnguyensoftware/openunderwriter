@@ -1,0 +1,71 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+	
+    <changeSet id="OU-887 add apeAccountingPeriod table" author="richard">
+        <sql dbms="mysql">
+			CREATE TABLE `apeAccountingPeriod` (
+			  `apeUID` bigint(20) NOT NULL,
+			  `apeAttribute` longtext,
+			  `apeCreatedBy` bigint(20) DEFAULT NULL,
+			  `apeCreatedDate` datetime DEFAULT NULL,
+			  `apeExternalSystemId` varchar(255) NOT NULL,
+			  `apeForeignSystemId` varchar(255) DEFAULT NULL,
+			  `apeLock` bit(1) DEFAULT NULL,
+			  `apeSerialVersion` bigint(20) NOT NULL,
+			  `apeUpdatedBy` bigint(20) DEFAULT NULL,
+			  `apeUpdatedDate` datetime DEFAULT NULL,
+			  `apeEndDate` datetime DEFAULT NULL,
+			  `apeStartDate` datetime DEFAULT NULL,
+			  `apeStatus` varchar(255) DEFAULT NULL,
+			  PRIMARY KEY (`apeUID`),
+			  UNIQUE KEY `apeExternalSystemId` (`apeExternalSystemId`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		</sql>
+    </changeSet>
+
+    <changeSet id="OU-887 add FK from jouJournal to apeAccountingPeriod" author="richard">
+        <sql dbms="mysql">
+     		ALTER TABLE `jouJournal` ADD COLUMN `jouAccountingPeriodUIDape` bigint(20);
+			ALTER TABLE `jouJournal` ADD CONSTRAINT `FKF89BC14753F6FB2B` FOREIGN KEY (`jouAccountingPeriodUIDape`) REFERENCES `apeAccountingPeriod` (`apeUID`);
+		</sql>
+	</changeSet>
+
+    <changeSet id="OU-887 add balBalance table" author="richard">
+        <sql dbms="mysql">
+			CREATE TABLE `balBalance` (
+			  `balUID` bigint(20) NOT NULL,
+			  `balAttribute` longtext,
+			  `balCreatedBy` bigint(20) DEFAULT NULL,
+			  `balCreatedDate` datetime DEFAULT NULL,
+			  `balExternalSystemId` varchar(255) NOT NULL,
+			  `balForeignSystemId` varchar(255) DEFAULT NULL,
+			  `balLock` bit(1) DEFAULT NULL,
+			  `balSerialVersion` bigint(20) NOT NULL,
+			  `balUpdatedBy` bigint(20) DEFAULT NULL,
+			  `balUpdatedDate` datetime DEFAULT NULL,
+			  `balAmount` decimal(19,2) DEFAULT NULL,
+			  `balCurrency` varchar(255) DEFAULT NULL,
+			  `balDate` datetime DEFAULT NULL,
+			  `balJournalLineUIDjli` bigint(20) DEFAULT NULL,
+			  `balAccountUID` bigint(20) DEFAULT NULL,
+			  PRIMARY KEY (`balUID`),
+			  UNIQUE KEY `balExternalSystemId` (`balExternalSystemId`),
+			  KEY `FKD40B520F57C2D44C` (`balAccountUID`),
+			  KEY `FKD40B520FE61BFF77` (`balJournalLineUIDjli`),
+			  CONSTRAINT `FKD40B520F57C2D44C` FOREIGN KEY (`balAccountUID`) REFERENCES `accAccount` (`accUID`),
+			  CONSTRAINT `FKD40B520FE61BFF77` FOREIGN KEY (`balJournalLineUIDjli`) REFERENCES `jliJournalLine` (`jliUID`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		</sql>
+	</changeSet>
+
+    <changeSet id="OU-887 add FK from jliJournalLine to jouJournal" author="richard">
+        <sql dbms="mysql">
+     		ALTER TABLE `jliJournalLine` ADD COLUMN `jliJournalUIDjou` bigint(20);
+			ALTER TABLE `jliJournalLine` ADD CONSTRAINT `FKAF0315E4335B81BE` FOREIGN KEY (`jliJournalUIDjou`) REFERENCES `jouJournal` (`jouUID`);
+		</sql>
+	</changeSet>
+
+</databaseChangeLog>

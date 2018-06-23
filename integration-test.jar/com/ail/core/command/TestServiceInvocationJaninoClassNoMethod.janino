@@ -1,0 +1,5 @@
+import com.ail.core.Version;
+import com.ail.core.dummyservice.DummyArgumentImpl;
+
+public class TestServiceInvocationJaninoClassNoMethod {
+}

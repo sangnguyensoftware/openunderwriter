@@ -1,0 +1,38 @@
+<p>This widget gives the user read/write access to a party's contact
+	systems - addresses, phone numbers, and email addresses. The PageFlow
+	author has control over which party's contact systems are displayed and
+	which types of contact systems should be included.</p>
+<u>PageFlow</u>
+<pre>
+&lt;contactSystemDetails [binding="<i>xpath</i>"]
+                      [classes="<i>regular expression</i>"] 
+                      [types="<i>regular expression</i>"]
+                      [renderHint="<i>render hint</i>"] 
+                      [title="<i>title</i>"] /&gt;
+</pre>
+<ul>
+	<li><i>binding</i> - XPath expression selecting the party for
+		which contact systems should be displayed.</li>
+	<li><i>classes</i> - A regular expression used to filter the
+		classes of contact system that will be included.</li>
+	<li><i>types</i> - A regular expression used to filter the.
+		contact system types that should be included.</li>
+	<li><i>render hint</i> - Hint to be associated with the rendered
+		widget.</li>
+	<li><i>title</i> - A title to be applied to the rendered widget.</li>
+</ul>
+<u>Examples</u>
+<p>Display all contact systems associated with the broker.</p>
+<pre>&lt;contactSystemDetails binding="/broker" /&gt;</pre>
+
+<p>Display only the postal addresses associated with the client.</p>
+<pre>&lt;contactSystemDetails binding="/client" classes=".*\.Address" /&gt;</pre>
+
+<p>Display only the main postal addresses and phone numbers
+	associated with the client.</p>
+<pre>&lt;contactSystemDetails binding="/client" classes=".*\.(Address|PhoneNumber)" types="i18n_contact_system_main.*" /&gt;</pre>
+
+<hr />
+
+<p>On this page, the widget is configured to display the client's
+	main address (postal) and phone number.</p>

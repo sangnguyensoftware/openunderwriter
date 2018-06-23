@@ -1,0 +1,40 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the NavigationSection widget.
+##
+#set( $quote = $args.ModelArgRet)
+#set( $navigationSection = $args.PageElementArg )
+#set( $renderId = $navigationSection.Id )
+##
+<div id='$!renderId' class='pf-body pf-navigation-section'>
+	<div style="width: 100%">
+    	<div style='text-align: center'>
+    		<div class='pf-navigation-section-buttons'>
+    			#foreach($element in ${navigationSection.pageElement})
+    			    #set( $args.ModelArgRet = ${element.renderResponse(${quote})} )
+    			#end
+    		</div>
+            #if( !$navigationSection.isQuitDisabled() )
+    			<div class='pf-navigation-section-quit'>
+                 	#set( $args.ModelArgRet = $navigationSection.QuitButton.renderResponse(${quote}) )
+    			</div>
+            #end
+    	</div>
+	</div>
+</div>

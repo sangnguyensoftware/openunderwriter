@@ -1,0 +1,257 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#set($model = $args.ModelArgRet)
+#set($pageElement = $args.PageElementArg)
+#set($renderId = $args.RenderIdArg)
+#set($javaDatePickerFormat = ${PageFlowFunctions.defaultDateFormat()})
+#set($jsonDatePickerFormat = ${PageFlowFunctions.simpleDateFormatToJqueryDateFormat($javaDatePickerFormat)}) 
+#set($datePlaceholder = ${PageFlowFunctions.defaultDateFormat().toUpperCase()})
+#set($paymentMethodOptions = ${pageElement.PaymentMethodOptions})
+#set($paymentMethodBinding = ${pageElement.encodeId('addPaymentMethod')})
+#set($issuerOptions = ${pageElement.IssuerOptions})
+#set($party = $model.xpathGet($pageElement.Binding))
+#set($title = ${pageElement.formattedTitle($args)})
+#set($response = $args.ResponseArgRet)
+##
+<div class='pf-paymentmethod-details' id='$!{renderId}'>
+    #if($title)
+        <div class='pf-section-heading'>
+            $title
+        </div>
+    #end
+    #foreach($paymentMethod in $party.PaymentMethod)
+    	#if($paymentMethod.Class.Name == "com.ail.financial.DirectDebit")
+            #renderDirectDebit($paymentMethod, $foreach.index)
+        #elseif ($paymentMethod.Class.Name == "com.ail.financial.PaymentCard")
+            #renderPaymentCard($paymentMethod, $foreach.index)
+        #end
+    #end
+    #renderAddAction()
+</div>
+##
+#macro(renderDirectDebit $paymentMethod $index)
+    <div class='pf-page-section'>
+	    <div class='pf-section-title'>
+	        #i18n("i18n_paymentmethod_details_directdebit_title")
+	    </div>
+	    <div class='pf-page-section-body'>
+	        <div class='pf-question'>
+	            #requiredQuestionLabel("i18n_paymentmethod_details_directdebit_bank_name_label")
+	            <div class='pf-input-field'>
+	            	#set($encodedId=${pageElement.encodeId("/paymentMethod[$velocityCount]/bankName")})
+	            	#set($fieldValue=${paymentMethod.BankName})
+					<input class='pf-string pf-tooltip' name="$encodedId" id="$encodedId" type='text' size='30' maxlength='255' value='#if($fieldValue)$fieldValue#end' />
+	            </div>
+	            #error("bankName-$index" $party $pageElement)
+	        </div>
+	        <div class='pf-question'>
+	            #optionalQuestionLabel("i18n_paymentmethod_details_directdebit_branch_name_label")
+	            <div class='pf-input-field'>
+	            	#set($encodedId=${pageElement.encodeId("/paymentMethod[$velocityCount]/branchName")})
+	            	#set($fieldValue=${paymentMethod.BranchName})
+					<input class='pf-string pf-tooltip' name="$encodedId" id="$encodedId" type='text' size='30' maxlength='255' value='#if($fieldValue)$fieldValue#end' />
+	            </div>
+	            #error("branchName-$index" $party $pageElement)
+	        </div>
+	        <div class='pf-question'>
+	            #requiredQuestionLabel("i18n_paymentmethod_details_directdebit_account_name_label")
+	            <div class='pf-input-field'>
+	            	#set($encodedId=${pageElement.encodeId("/paymentMethod[$velocityCount]/name")})
+	            	#set($fieldValue=${paymentMethod.Name})
+	                <input class='pf-string pf-tooltip' name="$encodedId" id="$encodedId" type='text' size='30' maxlength='255' value='#if($fieldValue)$fieldValue#end' />
+	            </div>
+	            #error("name-$index" $party $pageElement)
+	        </div>
+	        <div class='pf-question'>
+	            #optionalQuestionLabel("i18n_paymentmethod_details_directdebit_sort_code_label")
+	            <div class='pf-input-field'>
+	            	#set($encodedId=${pageElement.encodeId("/paymentMethod[$velocityCount]/sortCode")})
+	            	#set($fieldValue=${paymentMethod.SortCode})
+					<input class='pf-string pf-tooltip' name="$encodedId" id="$encodedId" type='text' size='30' maxlength='255' value='#if($fieldValue)$fieldValue#end' />
+	            </div>
+	            #error("sortCode-$index" $party $pageElement)
+	        </div>
+	        <div class='pf-question'>
+	            #requiredQuestionLabel("i18n_paymentmethod_details_directdebit_account_number_label")
+	            <div class='pf-input-field'>
+	            	#set($encodedId=${pageElement.encodeId("/paymentMethod[$velocityCount]/accountNumber")})
+	            	#set($fieldValue=${paymentMethod.AccountNumber})
+					<input class='pf-string pf-tooltip' name="$encodedId" id="$encodedId" type='text' size='30' maxlength='255' value='#if($fieldValue)$fieldValue#end' />
+	            </div>
+	            #error("accountNumber-$index" $party $pageElement)
+	        </div>
+	    
+	    #if($pageElement.AddAndDeleteEnabled && !$pageElement.ReadOnly)
+	        <div class='pf-delete'>
+	             <input id="delete-$index" type="button" class="pf-delete-button" value="" onclick="callServeResource('${response.createResourceURL()}', 
+	                 '${pageElement.deleteOp($party,$index)}'); return false;"/>
+	        </div>
+	    #end
+	    </div>
+	</div>
+#end
+##
+#macro(renderPaymentCard $paymentMethod $index)
+
+    <div class='pf-page-section'>
+	    <div class='pf-section-title'>
+	        #i18n("i18n_paymentmethod_details_paymentcard_title")
+	    </div>
+	    <div class='pf-page-section-body'>
+	        <div class='pf-question'>
+	            #requiredQuestionLabel("i18n_paymentmethod_details_paymentcard_issuer_label")
+	            <div class='pf-input-field'>
+	            	#set($encodedId=${pageElement.encodeId("/paymentMethod[$velocityCount]/issuer")})
+	            	#set($fieldValue=${paymentMethod.Issuer})
+	                <select class='pf-choice' name="$encodedId" id="$encodedId">
+	                    #foreach($opt in $issuerOptions)
+	                        <option #if($fieldValue && ${opt.Name}==$fieldValue)selected='selected'#end>${opt.Name}</option>
+	                    #end</select>
+	            </div>
+	            #error("issuer-$index" $party $pageElement)
+	        </div>
+	        <div class='pf-question'>
+	            #requiredQuestionLabel("i18n_paymentmethod_details_paymentcard_cardnumber_label")
+	            <div class='pf-input-field'>
+	            	#set($encodedId=${pageElement.encodeId("/paymentMethod[$velocityCount]/cardNumber")})
+	            	#set($fieldValue=${paymentMethod.CardNumber})
+					<input class='pf-string pf-tooltip' name="$encodedId" id="$encodedId" type='text' size='30' maxlength='255' value='#if($fieldValue)$fieldValue#end' />
+	            </div>
+	            #error("cardNumber-$index" $party $pageElement)
+	        </div>
+	        <div class='pf-question'>
+	            #requiredQuestionLabel("i18n_paymentmethod_details_paymentcard_cardholdername_label")
+	            <div class='pf-input-field'>
+	            	#set($encodedId=${pageElement.encodeId("/paymentMethod[$velocityCount]/cardHoldersName")})
+	            	#set($fieldValue=${paymentMethod.CardHoldersName})
+					<input class='pf-string pf-tooltip' name="$encodedId" id="$encodedId" type='text' size='30' maxlength='255' value='#if($fieldValue)$fieldValue#end' />
+	            </div>
+	            #error("cardHoldersName-$index" $party $pageElement)
+	        </div>
+	        <div class='pf-question'>
+	            #optionalQuestionLabel("i18n_paymentmethod_details_paymentcard_issuenumber_label")
+	            <div class='pf-input-field'>
+	            	#set($encodedId=${pageElement.encodeId("/paymentMethod[$velocityCount]/issueNumber")})
+	            	#set($fieldValue=${paymentMethod.IssueNumber})
+					<input class='pf-string pf-tooltip' name="$encodedId" id="$encodedId" type='text' size='30' maxlength='255' value='#if($fieldValue)$fieldValue#end' />
+	            </div>
+	            #error("issueNumber-$index" $party $pageElement)
+	        </div>
+	        <div class='pf-question'>
+	            #optionalQuestionLabel("i18n_paymentmethod_details_paymentcard_startdate_label")
+	            <div class='pf-input-field'>
+	            	#set($encodedId=${pageElement.encodeId("/paymentMethod[$velocityCount]/startDate")})
+	            	#set($fieldValue=${paymentMethod.StartDate})
+	                <input name="$encodedId" id="$encodedId" class='pf-date' size='7em' style='width:7em' type='text' placeholder='$datePlaceholder' value="#if($fieldValue)${CoreFunctions.format($fieldValue, $javaDatePickerFormat)}#end"></input>
+	                <script type='text/javascript'>
+	                    $("input[name='$encodedId']").datepicker({
+	                      dateFormat: '$jsonDatePickerFormat',
+	                      changeMonth: true,
+	                      changeYear: true,
+	                      minDate: 1
+	                    });
+	                </script>
+	            </div>
+	            #error("startDate-$index" $party $pageElement)
+	        </div>
+	        <div class='pf-question'>
+	            #requiredQuestionLabel("i18n_paymentmethod_details_paymentcard_expirydate_label")
+	            <div class='pf-input-field'>
+	            	#set($encodedId=${pageElement.encodeId("/paymentMethod[$velocityCount]/expiryDate")})
+	            	#set($fieldValue=${paymentMethod.ExpiryDate})
+	                <input name="$encodedId" id="$encodedId" class='pf-date' size='7em' style='width:7em' type='text' placeholder='$datePlaceholder' value="#if($fieldValue)${CoreFunctions.format($fieldValue, $javaDatePickerFormat)}#end"></input>
+	                <script type='text/javascript'>
+	                    $("input[name='$encodedId']").datepicker({
+	                      dateFormat: '$jsonDatePickerFormat',
+	                      changeMonth: true,
+	                      changeYear: true,
+	                      minDate: 1
+	                    });
+	                </script>
+	            </div>
+	            #error("expiryDate-$index" $party $pageElement)
+	        </div>
+	        <div class='pf-question'>
+	            #requiredQuestionLabel("i18n_paymentmethod_details_paymentcard_securitycode_label")
+	            <div class='pf-input-field'>
+	            	#set($encodedId=${pageElement.encodeId("/paymentMethod[$velocityCount]/securityCode")})
+	            	#set($fieldValue=${paymentMethod.SecurityCode})
+					<input class='pf-string pf-tooltip' name="$encodedId" id="$encodedId" type='text' size='30' maxlength='255' value='#if($fieldValue)$fieldValue#end' />
+	            </div>
+	            #error("securityCode-$index" $party $pageElement)
+	        </div>
+	    
+		    #if($pageElement.AddAndDeleteEnabled && !$pageElement.ReadOnly)
+		        <div class='pf-delete'>
+		             <input id="delete-$index" type="button" class="pf-delete-button" value="" onclick="callServeResource('${response.createResourceURL()}', '${pageElement.deleteOp($party,$index)}'); return false;"/>
+		        </div>
+		    #end
+		</div>
+	</div>
+#end
+##
+#macro(renderAddAction)
+    #if($pageElement.AddAndDeleteEnabled && !$pageElement.ReadOnly)
+	    <div class='pf-page-section'>
+		    <div class='pf-section-title'>
+		        #i18n("i18n_paymentmethod_add")
+		    </div>
+	    	<div class='pf-page-section-body'>
+		        <div class='pf-question'>
+		            #requiredQuestionLabel("i18n_paymentmethod_add_paymentmethod_type")
+			        <div class='pf-add'>
+			            <select class='pf-choice' name='${paymentMethodBinding}' id="add-paymentmethod-type">
+			                #foreach($opt in $paymentMethodOptions)
+			                    <option>$opt</option>
+			                #end
+			            </select>
+			            #error(${paymentMethodBinding} $party $pageElement)
+						<input id="add-paymentmethod" type="button" class="pf-add-button" value="" onclick="callServeResource('${response.createResourceURL()}', '${pageElement.addOp($party)}'); return false;"/>
+			        </div>
+			    </div>
+			</div>
+		</div>
+    #end
+#end
+##
+#macro(readOnly)
+    #if($pageElement.ReadOnly)readOnly="readOnly"#end
+    #end
+##
+#macro(getId $name)$name#if($pageElement.ReadOnly)ReadOnly#end#end
+##
+#macro(i18n $id)$pageElement.i18n("$id")#end
+##
+#macro(requiredQuestionLabel $label)
+    <div class='pf-input-label'>
+        <div class='pf-input-required'></div>
+        #i18n("$label")
+    </div>
+#end
+##
+#macro(optionalQuestionLabel $label)
+    <div class='pf-input-label'>
+        <div class='pf-input-optional'></div>
+        #i18n("$label")
+    </div>
+#end
+##
+#macro(error $filter $model $element)
+     #if($element.hasErrorMarker($filter, $model))
+         <div class='pf-input-error'>#i18n($element.findError($filter, $model, $element))</div>
+     #end
+#end

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>DocumentManager</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">SubjectivityManager</td></tr>
+</thead><tbody>
+<tr>
+	<td>setTimeout</td>
+	<td>20000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=resetPageflow</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectAndWait</td>
+	<td>name=selectedPage</td>
+	<td>label=SubjectivityManager</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=clause[reference=&#39;&#39;]/attribute[id=&#39;documentType&#39;]/value</td>
+	<td>label=Wording</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=clause[reference=&#39;&#39;]/attribute[id=&#39;documentName&#39;]/value</td>
+	<td>Wording 1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=clause[reference=&#39;&#39;]/attribute[id=&#39;requiredByDate&#39;]/value</td>
+	<td>12302001</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=clause[reference=&#39;&#39;]/attribute[id=&#39;requiresSigning&#39;]/value</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Save&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>//input[@name=&quot;clause[reference=&#39;Wording 1&#39;]/attribute[id=&#39;documentName&#39;]/value&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>//input[@name=&quot;clause[reference=&#39;Wording 1&#39;]/attribute[id=&#39;requiresSigning&#39;]/value&quot; and @checked=checked]]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=clause[reference=&#39;&#39;]/attribute[id=&#39;documentType&#39;]/value</td>
+	<td>label=Wording</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=clause[reference=&#39;&#39;]/attribute[id=&#39;documentName&#39;]/value</td>
+	<td>Wording 1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Save&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>//input[@name=&quot;clause[reference=&#39;Wording 1_&#39;]/attribute[id=&#39;documentName&#39;]/value&quot;</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=clause[reference=&#39;&#39;]/attribute[id=&#39;documentType&#39;]/value</td>
+	<td>label=Quotation</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Save&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>//input[@name=&quot;clause[reference=&#39;i18n_Quotation&#39;]/attribute[id=&#39;documentName&#39;]/value&quot;</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

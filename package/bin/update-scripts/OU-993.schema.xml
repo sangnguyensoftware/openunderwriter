@@ -1,0 +1,280 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-993 fix badly named secREV column to REV in all audit tables" author="richard">
+        <sql dbms="mysql">
+            ALTER TABLE `accAccount_` DROP FOREIGN KEY `FKBDFD877352AE8777`;
+            ALTER TABLE `accAccount_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `accAccount_` ADD CONSTRAINT `FKBDFD877352AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `apeAccountingPeriod_` DROP FOREIGN KEY `FK67B5EAF352AE8777`;
+            ALTER TABLE `apeAccountingPeriod_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `apeAccountingPeriod_` ADD CONSTRAINT `FK67B5EAF352AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `ashAssessmentSheet_` DROP FOREIGN KEY `FK3C74EAD852AE8777`;
+            ALTER TABLE `ashAssessmentSheet_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `ashAssessmentSheet_` ADD CONSTRAINT `FK3C74EAD852AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `assAsset_` DROP FOREIGN KEY `FK10F7355052AE8777`;
+            ALTER TABLE `assAsset_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `assAsset_` ADD CONSTRAINT `FK10F7355052AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `balBalance_` DROP FOREIGN KEY `FKAD5EF03052AE8777`;
+            ALTER TABLE `balBalance_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `balBalance_` ADD CONSTRAINT `FKAD5EF03052AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `cClaLab_` DROP FOREIGN KEY `FKC21C2BC752AE8777`;
+            ALTER TABLE `cClaLab_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `cClaLab_` ADD CONSTRAINT `FKC21C2BC752AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `cDocLab_` DROP FOREIGN KEY `FKFC3D1FE752AE8777`;
+            ALTER TABLE `cDocLab_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `cDocLab_` ADD CONSTRAINT `FKFC3D1FE752AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `cNotLab_` DROP FOREIGN KEY `FKE2B000252AE8777`;
+            ALTER TABLE `cNotLab_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `cNotLab_` ADD CONSTRAINT `FKE2B000252AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `cParLab_` DROP FOREIGN KEY `FK5FF76ED052AE8777`;
+            ALTER TABLE `cParLab_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `cParLab_` ADD CONSTRAINT `FK5FF76ED052AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `cPolLab_` DROP FOREIGN KEY `FK7786BA7C52AE8777`;
+            ALTER TABLE `cPolLab_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `cPolLab_` ADD CONSTRAINT `FK7786BA7C52AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `claClaim_` DROP FOREIGN KEY `FKAD269ADB52AE8777`;
+            ALTER TABLE `claClaim_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `claClaim_` ADD CONSTRAINT `FKAD269ADB52AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `clsClause_` DROP FOREIGN KEY `FK4587744652AE8777`;
+            ALTER TABLE `clsClause_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `clsClause_` ADD CONSTRAINT `FK4587744652AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `covCoverage_` DROP FOREIGN KEY `FK102F010D52AE8777`;
+            ALTER TABLE `covCoverage_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `covCoverage_` ADD CONSTRAINT `FK102F010D52AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `creClaimRecovery_` DROP FOREIGN KEY `FK86CECE0452AE8777`;
+            ALTER TABLE `creClaimRecovery_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `creClaimRecovery_` ADD CONSTRAINT `FK86CECE0452AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `cseClaimSection_` DROP FOREIGN KEY `FK5AFBB28152AE8777`;
+            ALTER TABLE `cseClaimSection_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `cseClaimSection_` ADD CONSTRAINT `FK5AFBB28152AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `dcoDocumentContent_` DROP FOREIGN KEY `FK9DA16D3152AE8777`;
+            ALTER TABLE `dcoDocumentContent_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `dcoDocumentContent_` ADD CONSTRAINT `FK9DA16D3152AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `docDocument_` DROP FOREIGN KEY `FKB8A44C4C52AE8777`;
+            ALTER TABLE `docDocument_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `docDocument_` ADD CONSTRAINT `FKB8A44C4C52AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `fsrForeignSystemReference_` DROP FOREIGN KEY `FK6AE513F252AE8777`;
+            ALTER TABLE `fsrForeignSystemReference_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `fsrForeignSystemReference_` ADD CONSTRAINT `FK6AE513F252AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jAssAssAss_` DROP FOREIGN KEY `FK2B62F66852AE8777`;
+            ALTER TABLE `jAssAssAss_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jAssAssAss_` ADD CONSTRAINT `FK2B62F66852AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jClaAdoDoc_` DROP FOREIGN KEY `FK9E71E4C552AE8777`;
+            ALTER TABLE `jClaAdoDoc_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jClaAdoDoc_` ADD CONSTRAINT `FK9E71E4C552AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jClaAssAss_` DROP FOREIGN KEY `FKB841A7F152AE8777`;
+            ALTER TABLE `jClaAssAss_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jClaAssAss_` ADD CONSTRAINT `FKB841A7F152AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jClaClaCls_` DROP FOREIGN KEY `FK151F597F52AE8777`;
+            ALTER TABLE `jClaClaCls_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jClaClaCls_` ADD CONSTRAINT `FK151F597F52AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jClaDocDoc_` DROP FOREIGN KEY `FK4F40CB5152AE8777`;
+            ALTER TABLE `jClaDocDoc_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jClaDocDoc_` ADD CONSTRAINT `FK4F40CB5152AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jClaNotNot_` DROP FOREIGN KEY `FK6133393152AE8777`;
+            ALTER TABLE `jClaNotNot_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jClaNotNot_` ADD CONSTRAINT `FK6133393152AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jDcoFsrFsr_` DROP FOREIGN KEY `FK2CE6FCB952AE8777`;
+            ALTER TABLE `jDcoFsrFsr_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jDcoFsrFsr_` ADD CONSTRAINT `FK2CE6FCB952AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jJouJliJli_` DROP FOREIGN KEY `FK1045C7F952AE8777`;
+            ALTER TABLE `jJouJliJli_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jJouJliJli_` ADD CONSTRAINT `FK1045C7F952AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jLedJliJli_` DROP FOREIGN KEY `FK4838595E52AE8777`;
+            ALTER TABLE `jLedJliJli_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jLedJliJli_` ADD CONSTRAINT `FK4838595E52AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jParPmePme_` DROP FOREIGN KEY `FKB58171A852AE8777`;
+            ALTER TABLE `jParPmePme_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jParPmePme_` ADD CONSTRAINT `FKB58171A852AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jPhoNotNot_` DROP FOREIGN KEY `FK262CAFF252AE8777`;
+            ALTER TABLE `jPhoNotNot_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jPhoNotNot_` ADD CONSTRAINT `FK262CAFF252AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jPolAdoDoc_` DROP FOREIGN KEY `FK39A6DDF052AE8777`;
+            ALTER TABLE `jPolAdoDoc_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jPolAdoDoc_` ADD CONSTRAINT `FK39A6DDF052AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jPolAslAsh_` DROP FOREIGN KEY `FK5313FB4052AE8777`;
+            ALTER TABLE `jPolAslAsh_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jPolAslAsh_` ADD CONSTRAINT `FK5313FB4052AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jPolAssAss_` DROP FOREIGN KEY `FK5376A11C52AE8777`;
+            ALTER TABLE `jPolAssAss_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jPolAssAss_` ADD CONSTRAINT `FK5376A11C52AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jPolClaCls_` DROP FOREIGN KEY `FKB05452AA52AE8777`;
+            ALTER TABLE `jPolClaCls_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jPolClaCls_` ADD CONSTRAINT `FKB05452AA52AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jPolCovCov_` DROP FOREIGN KEY `FKB69AD5BC52AE8777`;
+            ALTER TABLE `jPolCovCov_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jPolCovCov_` ADD CONSTRAINT `FKB69AD5BC52AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jPolDocDoc_` DROP FOREIGN KEY `FKEA75C47C52AE8777`;
+            ALTER TABLE `jPolDocDoc_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jPolDocDoc_` ADD CONSTRAINT `FKEA75C47C52AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jPolNotNot_` DROP FOREIGN KEY `FKFC68325C52AE8777`;
+            ALTER TABLE `jPolNotNot_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jPolNotNot_` ADD CONSTRAINT `FKFC68325C52AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jPolPhiPre_` DROP FOREIGN KEY `FK59A8AC2A52AE8777`;
+            ALTER TABLE `jPolPhiPre_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jPolPhiPre_` ADD CONSTRAINT `FK59A8AC2A52AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jPolPhoPho_` DROP FOREIGN KEY `FK59FD14DC52AE8777`;
+            ALTER TABLE `jPolPhoPho_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jPolPhoPho_` ADD CONSTRAINT `FK59FD14DC52AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jPolPopPsc_` DROP FOREIGN KEY `FK65FD408D52AE8777`;
+            ALTER TABLE `jPolPopPsc_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jPolPopPsc_` ADD CONSTRAINT `FK65FD408D52AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jPolSecSec_` DROP FOREIGN KEY `FKF2E9731C52AE8777`;
+            ALTER TABLE `jPolSecSec_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jPolSecSec_` ADD CONSTRAINT `FKF2E9731C52AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jPscMprMpr_` DROP FOREIGN KEY `FK7341580952AE8777`;
+            ALTER TABLE `jPscMprMpr_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jPscMprMpr_` ADD CONSTRAINT `FK7341580952AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jSecAslAsh_` DROP FOREIGN KEY `FKBE5964BC52AE8777`;
+            ALTER TABLE `jSecAslAsh_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jSecAslAsh_` ADD CONSTRAINT `FKBE5964BC52AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jSecClaCls_` DROP FOREIGN KEY `FK1B99BC2652AE8777`;
+            ALTER TABLE `jSecClaCls_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jSecClaCls_` ADD CONSTRAINT `FK1B99BC2652AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jSecCovCov_` DROP FOREIGN KEY `FK21E03F3852AE8777`;
+            ALTER TABLE `jSecCovCov_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jSecCovCov_` ADD CONSTRAINT `FK21E03F3852AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jdocConDco_` DROP FOREIGN KEY `FK24FCA2C352AE8777`;
+            ALTER TABLE `jdocConDco_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jdocConDco_` ADD CONSTRAINT `FK24FCA2C352AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jliJournalLine_` DROP FOREIGN KEY `FK315FA6FB52AE8777`;
+            ALTER TABLE `jliJournalLine_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jliJournalLine_` ADD CONSTRAINT `FK315FA6FB52AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jouJournal_` DROP FOREIGN KEY `FK1ADC67F852AE8777`;
+            ALTER TABLE `jouJournal_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jouJournal_` ADD CONSTRAINT `FK1ADC67F852AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `jparnotnot_` DROP FOREIGN KEY `FK4FF12D8852AE8777`;
+            ALTER TABLE `jparnotnot_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `jparnotnot_` ADD CONSTRAINT `FK4FF12D8852AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `ledLedger_` DROP FOREIGN KEY `FK8855A38B52AE8777`;
+            ALTER TABLE `ledLedger_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `ledLedger_` ADD CONSTRAINT `FK8855A38B52AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `mprMoneyProvision_` DROP FOREIGN KEY `FKCEE97BDB52AE8777`;
+            ALTER TABLE `mprMoneyProvision_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `mprMoneyProvision_` ADD CONSTRAINT `FKCEE97BDB52AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `notNote_` DROP FOREIGN KEY `FK5D067F9A52AE8777`;
+            ALTER TABLE `notNote_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `notNote_` ADD CONSTRAINT `FK5D067F9A52AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `parParty_` DROP FOREIGN KEY `FK56D9223A52AE8777`;
+            ALTER TABLE `parParty_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `parParty_` ADD CONSTRAINT `FK56D9223A52AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `phoPaymentHoliday_` DROP FOREIGN KEY `FK9761CB652AE8777`;
+            ALTER TABLE `phoPaymentHoliday_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `phoPaymentHoliday_` ADD CONSTRAINT `FK9761CB652AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `pmePaymentMethod_` DROP FOREIGN KEY `FK8ADFCEE052AE8777`;
+            ALTER TABLE `pmePaymentMethod_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `pmePaymentMethod_` ADD CONSTRAINT `FK8ADFCEE052AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `polPolicy_` DROP FOREIGN KEY `FK484C266052AE8777`;
+            ALTER TABLE `polPolicy_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `polPolicy_` ADD CONSTRAINT `FK484C266052AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `prePaymentRecord_` DROP FOREIGN KEY `FKFA4BF6CB52AE8777`;
+            ALTER TABLE `prePaymentRecord_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `prePaymentRecord_` ADD CONSTRAINT `FKFA4BF6CB52AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `pscPaymentSchedule_` DROP FOREIGN KEY `FK759B0C2252AE8777`;
+            ALTER TABLE `pscPaymentSchedule_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `pscPaymentSchedule_` ADD CONSTRAINT `FK759B0C2252AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `pviPageVisit_` DROP FOREIGN KEY `FKBF10836652AE8777`;
+            ALTER TABLE `pviPageVisit_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `pviPageVisit_` ADD CONSTRAINT `FKBF10836652AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `secSection_` DROP FOREIGN KEY `FKD6879D8B52AE8777`;
+            ALTER TABLE `secSection_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `secSection_` ADD CONSTRAINT `FKD6879D8B52AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+            ALTER TABLE `ukeUniqueKey_` DROP FOREIGN KEY `FK8B7C574052AE8777`;
+            ALTER TABLE `ukeUniqueKey_` CHANGE `secREV` `REV` int(11);
+            ALTER TABLE `ukeUniqueKey_` ADD CONSTRAINT `FK8B7C574052AE8777` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`);
+        </sql>
+    </changeSet>    
+
+    <changeSet id="OU-993 fix badly named collection and join audit columns" author="richard">
+        <sql dbms="mysql">
+            ALTER TABLE `cClaLab_` CHANGE `secUIDcla` `UIDcla` bigint(20);
+            ALTER TABLE `cDocLab_` CHANGE `secUIDdoc` `UIDdoc` bigint(20);
+            ALTER TABLE `cNotLab_` CHANGE `secUIDnot` `UIDnot` bigint(20);
+            ALTER TABLE `cParLab_` CHANGE `secUIDpar` `UIDpar` bigint(20);
+            ALTER TABLE `cPolLab_` CHANGE `secUIDpol` `UIDpol` bigint(20);
+            
+            ALTER TABLE `jAssAssAss_`
+                CHANGE `secUIDass` `UIDass` bigint(20),
+                CHANGE `secAssetUIDass` `assetUIDass` bigint(20);
+            ALTER TABLE `jClaAdoDoc_`
+                CHANGE `secUIDcla` `UIDcla` bigint(20),
+                CHANGE `secArchivedDocumentUIDdoc` `archivedDocumentUIDdoc` bigint(20);
+            ALTER TABLE `jClaAssAss_`
+                CHANGE `secUIDcla` `UIDcla` bigint(20),
+                CHANGE `secAssetUIDass` `assetUIDass` bigint(20);
+            ALTER TABLE `jClaClaCls_`
+                CHANGE `secUIDcla` `UIDcla` bigint(20),
+                CHANGE `secClauseUIDcls` `clauseUIDcls` bigint(20);
+            ALTER TABLE `jClaDocDoc_`
+                CHANGE `secUIDcla` `UIDcla` bigint(20),
+                CHANGE `secDocumentUIDdoc` `documentUIDdoc` bigint(20);
+            ALTER TABLE `jClaNotNot_`
+                CHANGE `secUIDcla` `UIDcla` bigint(20),
+                CHANGE `secNoteUIDnot` `noteUIDnot` bigint(20);
+            ALTER TABLE `jDcoFsrFsr_`
+                CHANGE `secUIDdco` `UIDdco` bigint(20),
+                CHANGE `secForeignSystemReferenceUIDfsr` `foreignSystemReferenceUIDfsr` bigint(20);
+            ALTER TABLE `jJouJliJli_`
+                CHANGE `secUIDjou` `UIDjou` bigint(20),
+                CHANGE `secJournalLineUIDjli` `journalLineUIDjli` bigint(20);
+            ALTER TABLE `jLedJliJli_`
+                CHANGE `secUIDled` `UIDled` bigint(20),
+                CHANGE `secJournalLineUIDjli` `journalLineUIDjli` bigint(20);
+            ALTER TABLE `jParPmePme_`
+                CHANGE `secUIDpar` `UIDpar` bigint(20),
+                CHANGE `secPaymentMethodUIDpme` `paymentMethodUIDpme` bigint(20);
+            ALTER TABLE `jPhoNotNot_`
+                CHANGE `secUIDpho` `UIDpho` bigint(20),
+                CHANGE `secNoteUIDnot` `noteUIDnot` bigint(20);
+            ALTER TABLE `jPolAdoDoc_`
+                CHANGE `secUIDpol` `UIDpol` bigint(20),
+                CHANGE `secArchivedDocumentUIDdoc` `archivedDocumentUIDdoc` bigint(20);
+            ALTER TABLE `jPolAslAsh_`
+                CHANGE `secUIDpol` `UIDpol` bigint(20),
+                CHANGE `secAssessmentSheetListUIDash` `assessmentSheetListUIDash` bigint(20);
+            ALTER TABLE `jPolAssAss_`
+                CHANGE `secUIDpol` `UIDpol` bigint(20),
+                CHANGE `secAssetUIDass` `assetUIDass` bigint(20);
+            ALTER TABLE `jPolClaCls_`
+                CHANGE `secUIDpol` `UIDpol` bigint(20),
+                CHANGE `secClauseUIDcls` `clauseUIDcls` bigint(20);
+            ALTER TABLE `jPolCovCov_`
+                CHANGE `secUIDpol` `UIDpol` bigint(20),
+                CHANGE `secCoverageUIDcov` `coverageUIDcov` bigint(20);
+            ALTER TABLE `jPolDocDoc_`
+                CHANGE `secUIDpol` `UIDpol` bigint(20),
+                CHANGE `secDocumentUIDdoc` `documentUIDdoc` bigint(20);
+            ALTER TABLE `jPolNotNot_`
+                CHANGE `secUIDpol` `UIDpol` bigint(20),
+                CHANGE `secNoteUIDnot` `noteUIDnot` bigint(20);
+            ALTER TABLE `jPolPhiPre_`
+                CHANGE `secUIDpol` `UIDpol` bigint(20),
+                CHANGE `secPaymentHistoryUIDpre` `paymentHistoryUIDpre` bigint(20);
+            ALTER TABLE `jPolPopPsc_`
+                CHANGE `secUIDpol` `UIDpol` bigint(20),
+                CHANGE `secPaymentOptionUIDpsc` `paymentOptionUIDpsc` bigint(20);
+            ALTER TABLE `jPolSecSec_`
+                CHANGE `secUIDpol` `UIDpol` bigint(20),
+                CHANGE `secSectionUIDsec` `sectionUIDsec` bigint(20);
+            ALTER TABLE `jPscMprMpr_`
+                CHANGE `secUIDpsc` `UIDpsc` bigint(20),
+                CHANGE `secMoneyProvisionUIDmpr` `moneyProvisionUIDmpr` bigint(20);
+            ALTER TABLE `jSecAslAsh_`
+                CHANGE `secUIDsec` `UIDsec` bigint(20),
+                CHANGE `secAssessmentSheetListUIDash` `assessmentSheetListUIDash` bigint(20);
+            ALTER TABLE `jSecClaCls_`
+                CHANGE `secUIDsec` `UIDsec` bigint(20),
+                CHANGE `secClauseUIDcls` `clauseUIDcls` bigint(20);
+            ALTER TABLE `jSecCovCov_`
+                CHANGE `secUIDsec` `UIDsec` bigint(20),
+                CHANGE `secCoverageUIDcov` `coverageUIDcov` bigint(20);
+            ALTER TABLE `jparnotnot_`
+                CHANGE `secUIDpar` `UIDpar` bigint(20),
+                CHANGE `secNoteUIDnot` `noteUIDnot` bigint(20);
+        </sql>
+    </changeSet>  
+</databaseChangeLog>

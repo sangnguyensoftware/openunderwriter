@@ -1,0 +1,65 @@
+<p>Setup a payment schedule against a policy.</p>
+<p>This widget allows a user to setup a payment schedule against a
+	policy. The PageFlow author can control which amount is to be paid,
+	what methods may be used to pay it, at what frequencies payments may be
+	made and the purpose for the schedule.</p>
+<p>A policy will typically allow for one payment schedule to be
+	current for each purpose. So, one schedule for premium collection, one
+	for arrears clearance, and one for claims payments. If a schedule
+	already exists within the policy for the purpose specified then it will
+	be replaced when the user opts to save the new schedule.</p>
+<p>The user has the option to vary the amount to be paid, the
+	frequency of payments and number of payments (within limits defined by
+	the PageFlow author). The widget can then calculate the actual payment
+	amounts and dates and display them.</p>
+<u>Pageflow</u><pre>
+    &lt;paymentScheduleDetails [title="<i>title</i>"]
+                               [binding="<i>party making payments</i>"]
+                               [accountBinding="<i>account binding</i>" | amountBinding="<i>amount binding</i>" | amount="<i>amount</i>"]
+                               [frequencyOptions="<i>frequencies list</i>"]
+                               [minimumNumberOfPayments="<i>min payments</i>"]
+                               [maximumNumberOfPayments="<i>max payments</i>"]
+                               [type="<i>money provision type</i>"]
+                               [purpose="<i>money provision purpose</i>"]
+                               [allowablePaymentMethods="<i>valid payment methods list</i>"]
+                               [renderHint="<i>render hint</i>"] /&gt;
+</pre>
+<ul>
+	<li><i>title</i> Title text for the page element.</li>
+	<li><i>binding</i> An xpath reference to the party who will make the payments. Defaults to '/client'.</li>
+	<li>The amount to be paid can be specified in one of three ways:<ol>
+			<li><i>accountBinding</i> Fetch the balance from the account
+				owned by the party referred to by this binding, and use its negative
+				value. For example, for <code>accountBinding='/client'</code>, the
+				current balance of the client's account would be fetched and
+				negated. An overdrawn balance of -150.00 would result in an amount
+				to be paid of 150.00</li>
+			<li><i>amountBinding</i> Use the value of the CurrencyAmount
+				referred to as the amount due. For example, <code>amountBinding='/totalPremium'</code>
+				would result in the amount being set to the value of the policy's
+				total premium property.</li>
+			<li><i>amount</i> The amount is specified directly in the
+				PageFlow. For example: <code>amount='150GBP'</code>.</li>
+		</ol></li>
+	<li><i>frequencyOptions</i> A comma separated list of acceptable
+		payment frequencies. E.G.: <code>frequencyOptions='MONTHLY,YEARLY'</code>.
+		Valid options are: ONE_TIME, WEEKLY, BIWEELY, MONTHLY, BIMONTHLY, QUARTERLY, SEMESTERLY, YEARLY</li>
+	<li><i>minimumNumberOfPayments</i> Minimum number of payments
+		allowed - defaults to 2.</li>
+	<li><i>maximumNumberOfPayments</i> Maximum number of payments
+		allowed - defaults to 12</li>
+	<li><i>type</i> The name of a type to be used to create the
+		MoneyProvision for this schedule if the policy does not already
+		contain one for the <code>purpose</code>.</li>
+	<li><i>purpose</i> The purpose of the schedule. Must be one of:
+		PREMIUM, CLAIM, ARREARS</li>
+	<li><i>allowablePaymentMethods</i> Defines a comma separated list
+		of the methods of payment that are valid. For example: <code>allowablePaymentMethods='DirectDebit,PaymentCard,PayPal'</code>.
+		Valid options are: DirectDebit, PaymentCard, PayPal, Eway, SagePay,
+		Orange, Stripe, IWinPay. The list of payment methods presented is a
+		result of filtering the payment methods associated with the party
+		against the list defined by <i>allowablePaymentMethods</i></li>
+	<li><i>renderHint</i> Render hint to be output.</li>
+</ul>
+
+<hr />

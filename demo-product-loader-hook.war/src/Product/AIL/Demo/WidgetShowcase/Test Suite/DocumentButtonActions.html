@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>CommandButtonActions</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">CommandButtonActions</td></tr>
+</thead><tbody>
+<tr>
+	<td>setTimeout</td>
+	<td>300000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=resetPageflow</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectAndWait</td>
+	<td>name=selectedPage</td>
+	<td>label=DocumentButtonActions</td>
+</tr>
+<!--Test that expected buttons are present-->
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value=&quot;Certificate&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value=&quot;Invoice&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value=&quot;Quotation&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value=&quot;Schedule&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value=&quot;Policy&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value=&quot;Wording&quot;]</td>
+	<td></td>
+</tr>
+<!--Apply test values for policy and quote numbers-->
+<tr>
+	<td>storeEval</td>
+	<td>&quot;QUO&quot;+Math.floor(Math.random()*10000)+1;</td>
+	<td>quoteNumber</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>YXNzZXRbaWQ9J2NvbW1hbmRBY3Rpb25CdXR0b24nXS9hdHRyaWJ1dGVbaWQ9J3F1b3RlTnVtYmVyT3ZlcnJpZGUnXQ</td>
+	<td>${quoteNumber}</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>&quot;POL&quot;+Math.floor(Math.random()*10000)+1;</td>
+	<td>policyNumber</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>YXNzZXRbaWQ9J2NvbW1hbmRBY3Rpb25CdXR0b24nXS9hdHRyaWJ1dGVbaWQ9J3BvbGljeU51bWJlck92ZXJyaWRlJ10</td>
+	<td>${policyNumber}</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>YXNzZXRbaWQ9J2NvbW1hbmRBY3Rpb25CdXR0b24nXS9hdHRyaWJ1dGVbaWQ9J3BvbGljeVN0YXR1c092ZXJyaWRlJ10</td>
+	<td>label=Quotation</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Apply Overrides&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Apply Overrides&quot; and @disabled]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Apply Overrides&quot; and not(@disabled)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<!--Test Quotation button-->
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Quotation&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=iframe[style*=&quot;display: none;&quot;]:nth-of-type(1)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Quotation&quot; and @disabled]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Quotation&quot; and not(@disabled)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<!--Apply "On Risk" status-->
+<tr>
+	<td>select</td>
+	<td>YXNzZXRbaWQ9J2NvbW1hbmRBY3Rpb25CdXR0b24nXS9hdHRyaWJ1dGVbaWQ9J3BvbGljeVN0YXR1c092ZXJyaWRlJ10</td>
+	<td>label=On Risk</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Apply Overrides&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Apply Overrides&quot; and @disabled]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Apply Overrides&quot; and not(@disabled)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<!--Test certificaate button-->
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Certificate&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=iframe[style*=&quot;display: none;&quot;]:nth-of-type(2)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Certificate&quot; and @disabled]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Certificate&quot; and not(@disabled)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<!--Test wording button-->
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Wording&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=iframe[style*=&quot;display: none;&quot;]:nth-of-type(3)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Wording&quot; and @disabled]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Wording&quot; and not(@disabled)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<!--Test schedule button-->
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Schedule&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=iframe[style*=&quot;display: none;&quot;]:nth-of-type(4)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Schedule&quot; and @disabled]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Schedule&quot; and not(@disabled)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<!--Test policy button-->
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Policy&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=iframe[style*=&quot;display: none;&quot;]:nth-of-type(5)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Policy&quot; and @disabled]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Policy&quot; and not(@disabled)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<!--Test invoice button-->
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Invoice&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=iframe[style*=&quot;display: none;&quot;]:nth-of-type(6)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Invoice&quot; and @disabled]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Invoice&quot; and not(@disabled)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value=&quot;Invoice&quot; and not(@disabled)]</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

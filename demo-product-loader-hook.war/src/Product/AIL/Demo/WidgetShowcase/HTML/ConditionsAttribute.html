@@ -1,0 +1,21 @@
+<hr />
+<p>In this case the answer to the "Display conditional section"
+	question is bound to the "section" attribute. A condition has then been
+	applied to the parsedUrlContent widget so that it will only display its
+	output on condition that the attribute's value is "Yes". The
+	parsedUrlContent widget has been used in this example, but the
+	condition attribute is available on all widget types.</p>
+<p>Note that this condition is applied when the page is loaded. Use
+	the Submit Page button at the foot of the page to force the page to
+	reload.</p>
+<u>PageFlow</u>
+<pre>
+&lt;question title=&quot;Display conditional section&quot; binding=&quot;/asset[id=&apos;conditionsData&apos;]/attribute[id=&apos;section&apos;]&quot; /&gt;
+&lt;parsedUrlContent url=&quot;~/HTML/ConditionMet.html&quot; condition=&quot;i:test(/asset[id=&apos;conditionsData&apos;]/attribute[id=&apos;section&apos;]/value[.=&apos;Yes&apos;])&quot;/&gt;
+</pre>
+<u>Model</u>
+<pre>
+&lt;asset id=&quot;conditionsData&quot; assetTypeId=&quot;ConditionsData&quot;&gt;
+    &lt;attribute id=&quot;section&quot; value=&quot;No&quot; format=&quot;yesorno&quot; /&gt;
+&lt;/asset&gt;
+</pre>

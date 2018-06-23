@@ -1,0 +1,32 @@
+<?xml version = '1.0' encoding = 'ISO-8859-1' ?>
+<project name="openunderwriter:build" default="build" xmlns:ivy="antlib:org.apache.ivy.ant">
+  <property name="build.sysclasspath" value="first" />
+  <property name="repo.dir" value="${basedir}/repo" />
+  <import file="../BuildSettings.xml" />
+  <import file="macros/RepositoryMacros.xml" />
+
+  <classfileset includes="build/bootstrap/*.jar" />
+
+  <target name="clean" description="clear the build/lib folder">
+    <ant dir="./annotation.jar" antfile="Build.xml" target="clean" />
+    <ant dir="./jbpm-ant-task.jar" antfile="Build.xml" target="clean" />
+  </target>
+
+  <target name="build">
+    <fork-ant-macro dir="./annotation.jar" antfile="Build.xml" target="_build" />
+    <fork-ant-macro dir="./jbpm-ant-task.jar" antfile="Build.xml" target="_build" />
+  </target>
+
+  <target name="setup" description="download all the jars the build system itself needs">
+    <update-dependencies-macro todir="./lib" />
+    <antcall target="build" />
+  </target>
+
+  <target name="teardown" description="clear out the jars downloaded by 'setup'">
+    <delete failonerror="no">
+      <fileset dir="${target.dir}" />
+      <fileset dir="${cache.dir}" />
+      <fileset dir="${buildlib.dir}" includes="**/*.jar" />
+    </delete>
+  </target>
+</project>

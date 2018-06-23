@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Default Test Acceptance Configuration</name>
+    <timeout>600000</timeout>
+    <who>factory</who>
+    <version>$Revision: 1.3 $</version>
+
+    <group name="Ledgers">
+        <parameter name="AutoCreateAccountingPeriods">true</parameter>
+    </group>
+
+    <types>
+        <service name="CalculateAccountBalance" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.financial.service.CalculateAccountBalanceService</parameter>
+        </service>
+        <service name="PostJournal" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.financial.service.PostJournalService</parameter>
+        </service>
+        <service name="CloseAccountingPeriod" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.financial.service.CloseAccountingPeriodService</parameter>
+        </service>
+
+        <command name="com.ail.financial.service.CalculateAccountBalanceService.CalculateAccountBalanceCommand" key="com.ail.financial.service.CalculateAccountBalanceCommandImpl">
+            <parameter name="Service">CalculateAccountBalance</parameter>
+        </command>
+        <command name="com.ail.financial.service.PostJournalService.PostJournalCommand" key="com.ail.financial.service.PostJournalCommandImpl">
+            <parameter name="Service">PostJournal</parameter>
+        </command>
+        <command name="com.ail.financial.service.CloseAccountingPeriodService.CloseAccountingPeriodCommand" key="com.ail.financial.service.CloseAccountingPeriodCommandImpl">
+            <parameter name="Service">CloseAccountingPeriod</parameter>
+        </command>
+    </types>
+</configuration>

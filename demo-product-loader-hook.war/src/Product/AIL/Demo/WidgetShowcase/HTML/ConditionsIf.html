@@ -1,0 +1,20 @@
+<hr/>
+<p>In this example the &quot;if&quot; widget is used to enabled or
+	disable a parsedUrlContent widget.
+<p>Note that this condition is applied when the page is loaded. Use
+	the Submit Page button at the foot of the page to force the page to
+	reload.</p>
+<u>PageFlow</u>
+<pre>
+&lt;question title=&quot;Display conditional &apos;if&apos; section&quot; binding=&quot;/asset[id=&apos;conditionsData&apos;]/attribute[id=&apos;if&apos;]&quot; /&gt;
+&lt;if condition=&quot;i:test(/asset[id=&apos;conditionsData&apos;]/attribute[id=&apos;if&apos;]/value[.=&apos;Yes&apos;])&quot;&gt;
+    &lt;parsedUrlContent url=&quot;~/HTML/ConditionMet.html&quot;/&gt;
+&lt;/if&gt;
+</pre>
+<u>Model</u>
+<pre>
+&lt;asset id=&quot;conditionsData&quot; assetTypeId=&quot;ConditionsData&quot;&gt;
+    &lt;attribute id=&quot;if&quot; value=&quot;No&quot; format=&quot;yesorno&quot; /&gt;
+&lt;/asset&gt;
+</pre>
+<hr />

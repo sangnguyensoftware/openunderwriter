@@ -1,0 +1,56 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-775 Add createdBy and updatedBy audit columns" author="richard">
+        <sql dbms="mysql">
+            ALTER TABLE ashAssessmentSheet
+              ADD COLUMN `ashCreatedBy` bigint(20) DEFAULT NULL,
+              ADD COLUMN `ashUpdatedBy` bigint(20) DEFAULT NULL;
+            ALTER TABLE dcoDocumentContent
+              ADD COLUMN `dcoCreatedBy` bigint(20) DEFAULT NULL,
+              ADD COLUMN `dcoUpdatedBy` bigint(20) DEFAULT NULL;
+            ALTER TABLE docDocument
+              ADD COLUMN `docCreatedBy` bigint(20) DEFAULT NULL,
+              ADD COLUMN `docUpdatedBy` bigint(20) DEFAULT NULL;
+            ALTER TABLE dreDocumentRequest
+              ADD COLUMN `dreCreatedBy` bigint(20) DEFAULT NULL,
+              ADD COLUMN `dreUpdatedBy` bigint(20) DEFAULT NULL;
+            ALTER TABLE fsrForeignSystemReference
+              ADD COLUMN `fsrCreatedBy` bigint(20) DEFAULT NULL,
+              ADD COLUMN `fsrUpdatedBy` bigint(20) DEFAULT NULL;
+            ALTER TABLE mprMoneyProvision
+              ADD COLUMN `mprCreatedBy` bigint(20) DEFAULT NULL,
+              ADD COLUMN `mprUpdatedBy` bigint(20) DEFAULT NULL;
+            ALTER TABLE notNote
+              ADD COLUMN `notCreatedBy` bigint(20) DEFAULT NULL,
+              ADD COLUMN `notUpdatedBy` bigint(20) DEFAULT NULL;
+            ALTER TABLE parParty
+              ADD COLUMN `parCreatedBy` bigint(20) DEFAULT NULL,
+              ADD COLUMN `parUpdatedBy` bigint(20) DEFAULT NULL;
+            ALTER TABLE pceProductChangeEvent
+              ADD COLUMN `pceCreatedBy` bigint(20) DEFAULT NULL,
+              ADD COLUMN `pceUpdatedBy` bigint(20) DEFAULT NULL;
+            ALTER TABLE pmePaymentMethod
+              ADD COLUMN `pmeCreatedBy` bigint(20) DEFAULT NULL,
+              ADD COLUMN `pmeUpdatedBy` bigint(20) DEFAULT NULL;
+            ALTER TABLE polPolicy
+              ADD COLUMN `polCreatedBy` bigint(20) DEFAULT NULL,
+              ADD COLUMN `polUpdatedBy` bigint(20) DEFAULT NULL;
+            ALTER TABLE prePaymentRecord
+              ADD COLUMN `preCreatedBy` bigint(20) DEFAULT NULL,
+              ADD COLUMN `preUpdatedBy` bigint(20) DEFAULT NULL;
+            ALTER TABLE pscPaymentSchedule
+              ADD COLUMN `pscCreatedBy` bigint(20) DEFAULT NULL,
+              ADD COLUMN `pscUpdatedBy` bigint(20) DEFAULT NULL;
+            ALTER TABLE secSection
+              ADD COLUMN `secCreatedBy` bigint(20) DEFAULT NULL,
+              ADD COLUMN `secUpdatedBy` bigint(20) DEFAULT NULL;
+            ALTER TABLE srrServiceRequestRecord
+              ADD COLUMN `srrCreatedBy` bigint(20) DEFAULT NULL,
+              ADD COLUMN `srrUpdatedBy` bigint(20) DEFAULT NULL;
+        </sql>
+    </changeSet>
+</databaseChangeLog>

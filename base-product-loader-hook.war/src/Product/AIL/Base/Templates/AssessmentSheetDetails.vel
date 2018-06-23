@@ -1,0 +1,301 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the AssessmentSheetDetails widget.
+## ------------------------------------------------------------------------------
+## Extract the argument values into variables to make them more easily accessible
+##
+#set( $policy = $args.ModelArgRet)
+#set( $pageElement = $args.PageElementArg )
+##
+<div class='pf-assessment-sheet-details'>
+	#if( $policy && $policy.AssessmentSheetList )
+		#render
+	#else
+		#renderNoSheetMessage
+	#end
+</div>
+##
+#macro(render)
+	#renderHeader
+	<div id="sheetToggler">
+		#foreach( $sheetName in ${policy.AssessmentSheetList.keySet()} )
+			#renderAssessmentSheet($sheetName)
+		#end
+	</div>
+#end
+##
+#macro(renderHeader)
+	<div class='pf-header'>
+        <div class='pf-header-title'>
+			$pageElement.i18n("i18n_assessment_sheet_details_title", $policy.QuotationNumber)
+		</div>
+        <div class='pf-header-summary'>
+            <div class='pf-header-summary-entry'>
+                <div class='pf-header-summary-title'>
+                    $pageElement.i18n("i18n_assessment_sheet_details_product_title")
+                </div>
+                <div class='pf-header-summary-value'>
+                    $policy.ProductName
+                </div>
+            </div>
+            <div class='pf-header-summary-entry'>
+                <div class='pf-header-summary-title'>
+                    $pageElement.i18n("i18n_assessment_sheet_details_status_title")
+                </div>
+                <div class='pf-header-summary-value'>
+                    $pageElement.i18n($policy.Status.LongName)
+                </div>
+            </div>
+			#if( $policy.TotalPremiumDefined )
+                <div class='pf-header-summary-entry'>
+                    <div class='pf-header-summary-title'>
+                        $pageElement.i18n("i18n_assessment_sheet_details_total_premium_title")
+                    </div>
+                    <div class='pf-header-summary-value'>
+                        $policy.TotalPremium
+                    </div>
+                </div>
+			#end
+		</div>
+		<div style="clear:both;"></div>
+	</div>
+#end
+##
+#macro(renderNoSheetMessage)
+	#if( !$policy ) 
+		$pageElement.i18n('i18n_no_policy_message')
+	#else
+		$pageElement.i18n('i18n_assessment_sheet_details_no_assessment_sheet_message')
+	#end
+#end
+##
+#macro(renderAssessmentSheet $sheetName)
+	#if( ${policy.isAggregator()} )
+		<div class='pf-page-section'>
+			<div class='header'>#renderSheetHeader(${sheetName})</div>
+			<div class='content'>
+	#end
+	#renderSheetDetails( "$pageElement.i18n('i18n_assessment_sheet_details_policy_title')" ${policy.getAssessmentSheetFor($sheetName)} )
+	#foreach( $section in $policy.Section )
+		#set( $sheet = ${section.getAssessmentSheetFor($sheetName)} )
+		#if( ${sheet} && ${sheet.AssessmentLine} && ${sheet.AssessmentLine.size()} != 0 )
+			#renderSheetDetails( "$pageElement.i18n('i18n_assessment_sheet_details_section_title')$section.SectionTypeId" ${sheet} )
+		#end
+	#end
+	#if( ${policy.isAggregator()} )
+			</div>
+		</div>
+	#end
+#end
+##
+#macro(renderSheetHeader $sheetName)
+	$sheetName
+	<div class='pf-header-summary'>
+        <div class='pf-header-summary-value'>
+            #if( ${policy.getAssessmentSheetFor($sheetName).isMarkedForDecline()} )
+                <div class='pf-header-summary-title'>
+                    $pageElement.i18n("i18n_assessment_sheet_details_status_title")
+                </div>
+                <div class='pf-header-summary-value'>
+                    DECLINED
+                </div>
+            #elseif( ${policy.getAssessmentSheetFor($sheetName).isMarkedForRefer()} )
+                <div class='pf-header-summary-title'>
+                    $pageElement.i18n("i18n_assessment_sheet_details_status_title")
+                </div>
+                <div class='pf-header-summary-value'>
+                    REFERRED
+                </div>
+            #else
+                <div class='pf-header-summary-title'>
+                    $pageElement.i18n("i18n_assessment_sheet_details_total_premium_title")
+                </div>
+                <div class='pf-header-summary-value'>
+                    $!{policy.getAssessmentSheetFor($sheetName).getTotalPremium()}
+                </div>
+            #end
+        </div>
+	</div>
+#end
+##
+#macro(renderSheetDetails $title $sheet)
+	<div class='pf-body'>
+	    <div class='pf-section-title'>
+	        $pageElement.i18n("i18n_assessment_sheet_section_title", $title)
+	    </div>
+        ##
+        ## Output the calculation lines
+        ##
+        <div class='pf-assessment-sheet-details-calculation-lines-body pf-body'>
+            <div class='pf-section-description'>
+                $pageElement.i18n("i18n_assessment_sheet_calculations_title")
+            </div>
+            <table>
+                <tr>
+                    <th>$pageElement.i18n("i18n_assessment_sheet_id_title")</th>
+                    <th>$pageElement.i18n("i18n_assessment_sheet_description_title")</th>
+                    <th>$pageElement.i18n("i18n_assessment_sheet_source_title")</th>
+                    <th>$pageElement.i18n("i18n_assessment_sheet_type_title")</th>
+                    <th>$pageElement.i18n("i18n_assessment_sheet_rate_title")</th>
+                    <th>$pageElement.i18n("i18n_assessment_sheet_amount_title")</th>
+                </tr>
+                #set( $calcLines = $pageElement.orderLines($sheet.calculationLines()) )
+                #if( $calcLines.size() != 0 )
+                    #foreach( $calcLine in $calcLines )
+                        <tr>
+                            <td>#lineId($calcLine.Id)</td>
+                            <td>$calcLine.Reason</td>
+                            <td>$calcLine.Origin</td>
+                            <td>#calculationLineType($calcLine)</td>
+                            <td>#calculationLineRate($calcLine)</td>
+                            <td>$calcLine.AmountAsString</td>
+                        </tr>
+                    #end    
+                #else
+                    <tr>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                #end
+            </table>
+        </div>
+		##
+		## Output the marker lines
+		##
+		#set( $markerLines = $pageElement.orderLines($sheet.markerLines()) )
+		#if( $markerLines.size() != 0 )
+	        <div class='pf-assessment-sheet-details-marker-lines-body pf-body'>
+			    <div class='pf-section-description'>
+			        $pageElement.i18n("i18n_assessment_sheet_markers_title")
+			    </div>
+		        <table>
+					<tr>
+						<th>$pageElement.i18n("i18n_assessment_sheet_id_title")</th>
+						<th>$pageElement.i18n("i18n_assessment_sheet_description_title")</th>
+						<th>$pageElement.i18n("i18n_assessment_sheet_source_title")</th>
+						<th>$pageElement.i18n("i18n_assessment_sheet_type_title")</th>
+					</tr>
+					#foreach( $markerLine in $markerLines )
+						<tr>
+	                        <td>#lineId($markerLine.Id)</td>
+							<td>${markerLine.Reason}</td>
+							<td>${markerLine.Origin}</td>
+							<td>${markerLine.Type}</td>
+						</tr>
+					#end	
+				</table>
+			</div>
+		#end
+        ##
+        ## Output the note lines
+        ##
+        #set( $notes = $pageElement.orderLines($sheet.noteLines()) )
+        #if( $notes.size() != 0 )
+	        <div class='pf-assessment-sheet-details-notes-body pf-body'>
+	            <div class='pf-section-description'>
+	                $pageElement.i18n("i18n_assessment_sheet_notes_title")
+	            </div>
+	            <table>
+	                <tr>
+	                    <th>$pageElement.i18n("i18n_assessment_sheet_id_title")</th>
+	                    <th>$pageElement.i18n("i18n_assessment_sheet_description_title")</th>
+	                    <th>$pageElement.i18n("i18n_assessment_sheet_source_title")</th>
+	                </tr>
+	                #foreach( $note in $notes )
+	                    <tr>
+	                        <td>#lineId($note.Id)</td>
+	                        <td>$note.Reason</td>
+	                        <td>$note.Origin</td>
+	                    </tr>
+	                #end    
+	           </table>
+	        </div>
+	    #end
+	</div>
+#end
+##
+#macro(calculationLineType $line)
+	#if( $line.Class.Name == "com.ail.insurance.policy.RateBehaviour" )
+		<div class='pf-assessment-sheet-details-calculation-detail'>
+			<div class='pf-assessment-sheet-details-calculation-name'>$line.Type.LongName</div>
+            <div class='pf-assessment-sheet-details-calculation-depends'>#valueAndLabel(${line.DependsOn} "i18n_assessment_sheet_depends_on")</div>
+            <div class='pf-assessment-sheet-details-calculation-contributes'>#valueAndLabel(${line.ContributesTo} "i18n_assessment_sheet_contributes_to") </div>
+        </div>
+	#elseif( $line.Class.Name == "com.ail.insurance.policy.FixedSum" )
+        <div class='pf-assessment-sheet-details-calculation-detail'>
+            <div class='pf-assessment-sheet-details-calculation-name'>$pageElement.i18n("i18n_assessment_sheet_fixedsum_title")</div>
+            <div class='pf-assessment-sheet-details-calculation-depends'>&nbsp;</div>
+            <div class='pf-assessment-sheet-details-calculation-contributes'>#valueAndLabel(${line.ContributesTo} "i18n_assessment_sheet_contributes_to")</div>
+        </div>
+	#elseif( $line.Class.Name == "com.ail.insurance.policy.SumBehaviour" )
+        <div class='pf-assessment-sheet-details-calculation-detail'>
+            <div class='pf-assessment-sheet-details-calculation-name'>${line.Type.LongName}</div>
+            <div class='pf-assessment-sheet-details-calculation-depends'>&nbsp;</div>
+            <div class='pf-assessment-sheet-details-calculation-contributes'>#valueAndLabel(${line.ContributesTo} "i18n_assessment_sheet_contributes_to")</div>
+        </div>
+	#end
+#end
+##
+#macro(calculationLineRate $line)
+	#if( $line.Class.Name == "com.ail.insurance.policy.RateBehaviour" )
+		${line.Rate.Rate}
+	#else
+		&nbsp;
+	#end
+#end
+##
+#macro(lineId $id)
+    #if( $id.startsWith("#") )
+        <div class='pf-system-id'>$id</div>
+    #else
+        <div class='pf-user-id'>$id</div>
+    #end
+#end
+##
+#macro(valueAndLabel $value $label)
+    #if( $value )
+    	$pageElement.i18n($label) $value
+    #end
+#end
+##
+<script type="text/javascript">
+YUI().use(
+  'aui-toggler',
+  function(Y) {
+    new Y.TogglerDelegate(
+      {
+        animated: true,
+        closeAllOnExpand: true,
+        container: '#sheetToggler',
+        content: '.content',
+        expanded: false,
+        header: '.header',
+        transition: {
+          duration: 0.2,
+          easing: 'cubic-bezier(0, 0.1, 0, 1)'
+        }
+      }
+    );
+  }
+);
+</script>

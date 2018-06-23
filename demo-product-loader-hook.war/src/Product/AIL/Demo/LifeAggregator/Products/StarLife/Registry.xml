@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd">
+    <name>Star Life</name>
+    <timeout>-1</timeout>
+    <who>OpenUnderwriter</who>
+    <version>1.0</version>
+    <manager>com.ail.core.product.resetproduct.ResetProductService</manager>
+    <parentNamespace>AIL.Demo.LifeAggregator.Registry</parentNamespace>
+
+    <parameter name="Aggregator">AIL.Demo.LifeAggregator</parameter>
+
+    <parameter name="ReferralNotificationEmail">admin@star.example.com</parameter>
+
+    <types>
+        <service name="AssessPolicyRiskRule" builder="CachingClassBuilder" key="com.ail.core.command.DroolsDecisionTableAccessor" >
+            <!--uncomment the following parameter to get a full dump of the rules (drl) and rule facts written to -->
+            <!--the console during risk assessment                                                                -->
+            <!--parameter name="LoggingIndicatorAsString">FULL</parameter-->
+            <parameter name="Url">~/Rules/PolicyRating.xls</parameter>
+        </service>
+
+        <service name="NotifyProductOwnerService" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/NotifyProductOwnerService.java</parameter>
+        </service>
+
+        <type name="QuotationPageFlow" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.PageFlow">
+            <parameter name="extends">super.QuotationPageFlow</parameter>
+            <parameter name="Url">~/PageFlows/QuotationPageFlow.xml</parameter>
+        </type>
+
+        <type name="Policy" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Policy">
+            <parameter name="extends">super.Policy</parameter>
+            <parameter name="Url">~/Model/Policy.xml</parameter>
+        </type>
+    </types>
+</configuration>

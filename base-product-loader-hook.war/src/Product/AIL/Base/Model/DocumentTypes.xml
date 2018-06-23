@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+ Defined the list of "system" document types. This list may be extended by products which need to define
+ their own product types. Note: Additional choice elements can be added to this type in the Base product
+ (i.e. in this very file) but those listed in the "standard" block should not be touched without also
+ understanding the effect on the Document & DocumentType classes.
+-->
+<choice id="DocumentTypes" xsi:type="java:com.ail.pageflow.util.Choice" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <choice name="i18n_?" />
+    <!-- Standard "system" document types. Do not alter these elements! -->
+    <choice name="i18n_Attachment" />
+    <choice name="i18n_Certificate" />
+    <choice name="i18n_Invoice" />
+    <choice name="i18n_Policy" />
+    <choice name="i18n_Quotation" />
+    <choice name="i18n_Schedule" />
+    <choice name="i18n_Unknown" />
+    <choice name="i18n_Wording" />
+    <choice name="i18n_Combined" />
+    <!-- End of "standard" types. -->
+    
+</choice>

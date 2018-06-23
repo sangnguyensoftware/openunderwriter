@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>TestProduct default config</name>
+    <timeout>600000</timeout>
+    <who>factory</who>
+    <version>$Revision: 1.6 $</version>
+
+    <group name="KeyGenerators">
+        <group name="Key">
+            <parameter name="ID">Test.Product00.ID</parameter>
+            <parameter name="Range">1000-*</parameter>
+        </group>
+    </group>
+
+    <group name="Products">
+    </group>
+
+    <types>
+
+        <!--==================================== -->
+        <!-- Define the component's services -->
+        <!--==================================== -->
+
+        <service name="CreateProductDefinitionService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.core.product.createproductdefinition.CreateProductDefinitionService</parameter>
+        </service>
+        <service name="DeleteProductDefinitionService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.core.product.deleteproductdefinition.DeleteProductDefinitionService</parameter>
+        </service>
+        <service name="GetProductDefinitionService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.core.product.getproductdefinition.GetProductDefinitionService</parameter>
+        </service>
+        <service name="GetProductDefinitionListService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.core.product.getproductdefinitionlist.GetProductDefinitionListService</parameter>
+        </service>
+        <service name="InstantiateProductService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.core.product.instantiateproduct.InstantiateProductService</parameter>
+        </service>
+        <service name="UpdateProductDefinitionService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="ServiceClass">com.ail.core.product.updateproductdefinition.UpdateProductDefinitionService</parameter>
+        </service>
+
+
+        <!--==================================== -->
+        <!-- Bind the commands to services -->
+        <!--==================================== -->
+
+        <command name="CreateProductDefinition" key="com.ail.core.product.createproductdefinition.CreateProductDefinitionCommand">
+            <parameter name="Service">CreateProductDefinitionService</parameter>
+        </command>
+        <command name="DeleteProductDefinition" key="com.ail.core.product.deleteproductdefinition.DeleteProductDefinitionCommand">
+            <parameter name="Service">DeleteProductDefinitionService</parameter>
+        </command>
+        <command name="GetProductDefinitionList" key="com.ail.core.product.getproductdefinitionlist.GetProductDefinitionListCommand">
+            <parameter name="Service">GetProductDefinitionListService</parameter>
+        </command>
+        <command name="GetProductDefinition" key="com.ail.core.product.getproductdefinition.GetProductDefinitionCommand">
+            <parameter name="Service">GetProductDefinitionService</parameter>
+        </command>
+        <command name="InstantiateProduct" key="com.ail.core.product.instantiateproduct.InstantiateProductCommand">
+            <parameter name="Service">InstantiateProductService</parameter>
+        </command>
+        <command name="UpdateProductDefinition" key="com.ail.core.product.updateproductdefinition.UpdateProductDefinitionCommand">
+            <parameter name="Service">UpdateProductDefinitionService</parameter>
+        </command>
+
+        <command name='com.ail.core.product.RegisterProductService.RegisterProductCommand' key='com.ail.core.product.RegisterProductCommandImpl'>
+            <parameter name='Service'>com.ail.core.product.catalog.CatalogRegisterProductService</parameter>
+        </command>
+        <command name='com.ail.core.product.UpdateProductService.UpdateProductCommand' key='com.ail.core.product.UpdateProductCommandImpl'>
+            <parameter name='Service'>com.ail.core.product.catalog.CatalogUpdateProductService</parameter>
+        </command>
+        <command name='com.ail.core.product.ScanForProductDefinitionsService.ScanForProductDefinitionsCommand' key='com.ail.core.product.ScanForProductDefinitionsCommandImpl'>
+            <parameter name='Service'>com.ail.core.product.catalog.CatalogScanForProductDefinitionsService</parameter>
+        </command>
+
+    </types>
+</configuration>

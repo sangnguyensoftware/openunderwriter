@@ -1,0 +1,1 @@
+Shape has: ${shapeFunctions.renderNumberOfSides($shape)} sides

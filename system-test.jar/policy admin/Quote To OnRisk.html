@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>Administrator</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Quote to On-Risk</td></tr>
+</thead><tbody>
+<tr>
+	<td>setTimeout</td>
+	<td>240000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/web/ou</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_58_login</td>
+	<td>adam@openunderwriter.org</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_58_password</td>
+	<td>adam</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=//button[text()=&quot; Sign In &quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/web/freightplus</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTitle</td>
+	<td>Welcome - OpenUnderwriter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=div.pf-page-title</td>
+	<td>Shipping Quotation</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L2Fzc2V0L2F0dHJpYnV0ZVtpZD0ndmFsdWVPZkdvb2RzJ10</td>
+	<td>10,000.00</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nZGVzdGluYXRpb24nXQ</td>
+	<td>label=European Union</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nbW9kZU9mVHJhbnNwb3J0J10</td>
+	<td>label=Rail</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=Quote</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>css=div.pf-section-title</td>
+	<td>glob:Your Quotation*</td>
+</tr>
+<tr>
+	<td>storeText</td>
+	<td>xpath=//div[@class=&quot;pf-quotation-summary-detail-section&quot;]/ul/li[1]/b</td>
+	<td>quoteNumber</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=a[role~='menuitem'][href$='/logout']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/web/ou</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_58_login</td>
+	<td>adam@openunderwriter.org</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_58_password</td>
+	<td>adam</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=//button[text()=&quot; Sign In &quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=a[role~='menuitem'][href$='/dashboard']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTitle</td>
+	<td>Dashboard - OpenUnderwriter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=a[role~='menuitem'][href$='/policies']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTitle</td>
+	<td>Policies - OpenUnderwriter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@class=&quot;gwt-TextBox gui-standard-text&quot;])[1]</td>
+	<td>${quoteNumber}</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//td/button[text()=&quot;Search&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//div[contains(text(), &quot;FreightPlus&quot;)][1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//div[contains(text(), &quot;FreightPlus&quot;)][1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//a[@id=&quot;QuoteToOnRiskPageFlow&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Override Details for Quotation</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//input[@value=&quot;Put On-Risk&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Policy Summary for POL</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeConfirmation</td>
+	<td>confirmationAlert</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=a[role~='menuitem'][href$='/logout']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTitle</td>
+	<td>Welcome - OpenUnderwriter</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!--
+ This file defines ant macros related to repository manipulations
+-->
+
+<project name="BuildRepository.xml" default="dummy" xmlns:ivy="antlib:org.apache.ivy.ant">
+  <target name="dummy" />
+
+  <macrodef name="_initialise_ivy_macro">
+    <sequential>
+      <path id="ivy.classpath">
+        <fileset dir="${project.dir}/build/boot" includes="*.jar" />
+      </path>
+      <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.classpath" />
+      <ivy:settings file="${project.dir}/build/macros/IvySettings.xml" />
+    </sequential>
+  </macrodef>
+
+  <macrodef name="fetch-dependency-path-macro">
+    <attribute name="org" />
+    <attribute name="name" />
+    <attribute name="rev" />
+    <attribute name="pathid" />
+    <attribute name="log" default="download-only" /> <!-- "default" for full details -->
+    <sequential>
+      <_initialise_ivy_macro />
+      <ivy:cachepath log="@{log}" organisation="@{org}" module="@{name}" revision="@{rev}" inline="true" pathid="@{pathid}" />
+    </sequential>
+  </macrodef>
+
+  <macrodef name="update-dependencies-macro">
+    <attribute name="todir" />
+    <attribute name="pattern" default="[artifact]-[revision](-[classifier]).[ext]" />
+    <attribute name="log" default="download-only" /> <!-- "default" for full details -->
+    <sequential>
+      <_set-output-dir-property-macro />
+      <_initialise_ivy_macro />
+      <ivy:retrieve file="Ivy.xml" log="@{log}" pattern="@{todir}/@{pattern}" />
+    </sequential>
+  </macrodef>
+
+  <macrodef name="install-addon-in-module-descriptor-macro">
+    <attribute name="module-path" />
+    <attribute name="addon-jar" />
+    <sequential>
+      <_initialise-ant-contribs-macro />
+
+      <property name="module.path" value="@{module-path}" />
+      <property name="addon.jar" value="@{addon-jar}" />
+
+      <script language="beanshell">
+        <classpath>
+          <fileset dir="${bootlib.dir}" includes="*.jar" />
+        </classpath>
+	        import java.nio.file.*;
+	
+			addOnName = project.getProperty("addon.jar");
+	        	
+	       	descPath = Paths.get(project.getProperty("module.path") + "/module.xml");
+	
+			descriptor = new String(Files.readAllBytes(descPth), "UTF-8");
+	        	
+			if (descriptor.indexOf(addOnName) > -1) {
+			    descriptor = descriptor.replace("(&lt;resources&gt;\R)", "$1&lt;resource-root path='"+addOnName+"' /%gt;");
+				Files.write(descPath, descriptor.getBytes("UTF-8"));
+		    }
+      </script>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="generate-module-descriptor-macro">
+    <attribute name="dependencies" default="none" />
+    <sequential>
+      <_initialise_ivy_macro />
+      <_initialise-ant-contribs-macro />
+      <_set-output-dir-property-macro />
+
+      <if>
+        <contains string="${output.dir}" substring=".jar" />
+        <then>
+          <property name="module.output.dir" value="${output.dir}/.." />
+        </then>
+        <else>
+          <property name="module.output.dir" value="${output.dir}/main" />
+        </else>
+      </if>
+
+      <!--  Generate a new module.xml descriptor. The dependencies, if specified, should be a comma-separated list of modules that will be added to the module.xml dependencies element, e.g.
+      		
+      			dependencies="asm.asm,javax.api,javax.persistence.api"
+      			
+      		will be added as
+      		
+      			<dependencies>
+		      		<module name='asm.asm' />
+		   			<module name='javax.api' />
+		    		<module name='javax.persistence.api' />
+		    	</dependencies>
+	    	
+	    	Additional attributes for a module can also be specified using the : and = separators. These are not validated but will be added to the module element, e.g.
+	    	
+	    		dependencies="org.javassist,org.jboss.as.jpa.hibernate:slot=4"
+	    		
+	    	will be added as
+	    	
+	    		<dependencies>
+		    		<module name='org.javassist' />
+	    			<module name='org.jboss.as.jpa.hibernate' slot='4' />
+    			</dependencies>
+      -->
+      <script language="beanshell">
+        <classpath>
+          <fileset dir="${bootlib.dir}" includes="*.jar" />
+        </classpath>
+            
+          import java.io.*;
+        
+          moduleOutputDir=project.getProperty("module.output.dir");
+          modulePath = new File(moduleOutputDir).getCanonicalFile().getParent();
+          moduleName = modulePath.replaceAll(".*modules.(.*)", "$1").replace(File.separator.charAt(0), '.');
+          mos = new PrintStream(new FileOutputStream(moduleOutputDir+"/module.xml"));
+            
+          mos.println("&lt;module xmlns='urn:jboss:module:1.1' name='"+moduleName+"'&gt;");
+          mos.println("  &lt;resources&gt;");
+            
+          files=new File(moduleOutputDir).listFiles();
+          for(i=0 ; i!=files.length ; i++) {
+              if (files[i].isDirectory()) {
+                  if (!files[i].getName().matches(".*(-javadoc.jar|-sources.jar|module.xml|index)")) {
+                      mos.println("    &lt;resource-root path='"+files[i].getName()+"'/&gt;");
+                  }
+              }
+          }
+          for(i=0 ; i!=files.length ; i++) {
+              if (files[i].isFile()) {
+                  if (!files[i].getName().matches(".*(-javadoc.jar|-sources.jar|module.xml|index)")) {
+                      mos.println("    &lt;resource-root path='"+files[i].getName()+"'/&gt;");
+                  }
+              }
+          }
+            
+          mos.println("  &lt;/resources&gt;");
+
+          if (!"@{dependencies}".equals("none")) {
+			  deps="@{dependencies}".split("[,\\s]+");
+
+              mos.println("  &lt;dependencies&gt;");
+
+              for(int i=0 ; i!=deps.length ; i++) {
+      			  attributes = deps[i].split(":");
+      			  depline = "    &lt;module name='" + attributes[0] + "'";
+      			  if (attributes.length > 1) {
+      				for (int j = 1; j != attributes.length; j++) {
+      	      			extraAttribute = attributes[j].split("=");
+      					depline += " " + extraAttribute[0] + "='" + extraAttribute[1] + "'";
+      	      		}
+      			  }
+      			  depline += " /&gt;";
+      			  mos.println(depline);
+              }
+              mos.println("  &lt;/dependencies&gt;");
+          }
+
+          mos.println("&lt;/module&gt;");
+          mos.close();
+            
+        </script>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="update-module-dependencies-macro">
+    <attribute name="dependencies" default="none" />
+    <attribute name="log" default="download-only" />
+    <!-- "default" for full details -->
+    <sequential>
+      <_initialise_ivy_macro />
+      <_initialise-ant-contribs-macro />
+      <_set-output-dir-property-macro />
+
+      <mkdir dir="${output.dir}" />
+
+      <!-- There are two "styles" of module source folder. Ones (like core.jar) into which -->
+      <!-- we are building our code, and those (like modules/org/drools) where we are just -->
+      <!-- packaging up 3rd party jars. We need to differentiate between them here, so we  -->
+      <!-- will do so based on the project's name ending with a .jar or not.               -->
+      <if>
+        <contains string="${output.dir}" substring=".jar" />
+        <then>
+          <property name="module.output.dir" value="${output.dir}/.." />
+        </then>
+        <else>
+          <property name="module.output.dir" value="${output.dir}/main" />
+        </else>
+      </if>
+
+      <!-- fetch all the dependencies to the module folder (in addition to whatever might already be there) -->
+      <ivy:retrieve file="Ivy.xml" log="@{log}" pattern="${module.output.dir}/[artifact]-[revision](-[classifier]).[ext]" />
+
+      <!-- (re)generate the module descriptor -->
+      <generate-module-descriptor-macro dependencies="@{dependencies}" />
+    </sequential>
+  </macrodef>
+
+  <!-- Explode a dependency to create a project's output.dir -->
+  <macrodef name="create-output-dir-from-exploded-dependency-macro">
+    <attribute name="org" />
+    <attribute name="name" />
+    <attribute name="rev" />
+    <sequential>
+
+      <_initialise-ant-contribs-macro />
+      <_set-output-dir-property-macro />
+
+      <fetch-dependency-path-macro org="@{org}" name="@{name}" rev="@{rev}" pathid="dep.pathid" />
+
+      <property name="dep.path" refid="dep.pathid" />
+
+      <mkdir dir="${output.dir}" />
+
+      <unjar src="${dep.path}" dest="${output.dir}" />
+
+      <touch file="${output.dir}.dodeploy" />
+
+    </sequential>
+  </macrodef>
+
+  <macrodef name="release-to-sourceforge-macro">
+    <sequential>
+      <scp trust="yes" file="${target.dir}/openunderwriter-community-${major.version}.${minor.version}.zip" todir="${sourceforge.credentials}@frs.sourceforge.net:${sourceforge.path}"/>
+      <scp trust="yes" file="${target.dir}/openunderwriter-product-sdk-${major.version}.${minor.version}.zip" todir="${sourceforge.credentials}@frs.sourceforge.net:${sourceforge.path}"/>
+    </sequential>
+  </macrodef>
+
+
+</project>
+

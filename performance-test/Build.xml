@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project default="build" name="openunderwriter:performance-test">
+	<import file="../BuildSettings.xml" />
+
+	<target name="clean" description="delete everything that the build can generate">
+		<delete dir="${test.reports.dir}/performance-test" failonerror="false"/>
+	</target>
+
+	<target name="build" description="compile (generate, copy, etc) all build outputs" />
+
+	<target name="setup" description="run all the one-time-only steps - like copying libs into place" />
+
+	<target name="teardown" description="undo whatever setup did">
+		<antcall target="clean" />
+	</target>
+
+	<target name="test" description="run tests defined in this project" depends="clean">
+		<_initialise-ant-contribs-macro />
+
+		<set-liferay-running-property-macro />
+
+		<if>
+			<istrue value="${liferay-running}" />
+			<then>
+				<mkdir dir="${test.reports.dir}/performance-test" />
+				<exec dir="${test.reports.dir}/performance-test" executable="${jmeter.home}/bin/jmeter" osfamily="unix">
+					<arg value="-t" />
+					<arg value="${project.dir}/performance-test/Test Plan.jmx" />
+					<arg value="-n" />
+					<arg value="-l" />
+					<arg value="${test.reports.dir}/performance-test/test-results.csv" />
+					<arg value="-JTEST_RESULTS_FILE=${test.reports.dir}/performance-test/test-results.csv" />
+					<arg value="-JTEST_RESULTS_DIR=${test.reports.dir}/performance-test" />
+				</exec>
+			</then>
+			<else>
+				<echo message="Liferay is not running." />
+			</else>
+		</if>
+
+	</target>
+
+</project>

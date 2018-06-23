@@ -1,0 +1,5 @@
+<claim xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="java:com.ail.insurance.claim.Claim"  xmlns:xi="http://www.w3.org/2001/XInclude"  xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Model-1.0.xsd">
+
+    <status xsi:type="java:java.lang.String">OPEN</status>
+
+</claim>

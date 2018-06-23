@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+  <info organisation="org.apache.commons.validator" module="validator" />
+  <dependencies>
+    <dependency org="commons-validator" name="commons-validator" rev="1.3.1" />
+    <exclude org="commons-collections" />
+    <exclude org="commons-beanutils" />
+    <exclude org="commons-digester" />
+    <exclude org="commons-logging" />
+  </dependencies>
+</ivy-module>

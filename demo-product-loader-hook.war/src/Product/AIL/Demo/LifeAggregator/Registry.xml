@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd">
+    <name>Life Aggregator</name>
+    <timeout>-1</timeout>
+    <who>OpenUnderwriter</who>
+    <version>1.0</version>
+    <manager>com.ail.core.product.resetproduct.ResetProductService</manager>
+    <parentNamespace>AIL.Base.Registry</parentNamespace>
+
+    <group name="Aggregator" >
+        <parameter name="AIL.Demo.LifeAggregator.Products.MetLife" />
+        <parameter name="AIL.Demo.LifeAggregator.Products.InfinityLife" />
+        <parameter name="AIL.Demo.LifeAggregator.Products.StarLife" />
+    </group>
+
+    <types>
+        <service name="InitialiseQuotation" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/InitialiseQuotation.java</parameter>
+        </service>
+
+        <service name="AssessPaymentOptionsService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/AssessPaymentOptionsService.java</parameter>
+        </service>
+        
+        <service name="NotifyProductOwnerService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="Service">com.ail.core.NullService</parameter>
+        </service>
+
+        <service name="InvokeServiceInMetLifeService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+            <parameter name="Url">~/JavaServices/InvokeServiceInMetLifeService.java</parameter>
+        </service>
+        
+        <service name="LabelPolicyService" key="com.ail.core.command.ClassAccessor">
+            <parameter name="Url">com.ail.core.NullService</parameter>
+        </service>
+        
+        <command name="AssessSectionRisk/Section" key="com.ail.insurance.quotation.AssessSectionRiskCommandImpl">
+            <parameter name="Service">com.ail.core.NullService</parameter>
+        </command>
+
+        <command name="InitialiseQuotationCommand" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">InitialiseQuotation</parameter>
+        </command>
+
+        <command name="AssessPaymentOptions" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">AssessPaymentOptionsService</parameter>
+        </command>
+
+        <command name="NotifyProductOwnerCommand" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">NotifyProductOwnerService</parameter>
+        </command>
+        
+        <command name="NotifyProductOwnerCommand" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">NotifyProductOwnerService</parameter>
+        </command>
+        
+        <command name="InvokeServiceInMetLifeCommand" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">InvokeServiceInMetLifeService</parameter>
+        </command>
+        
+        <command name="LabelPolicyCommand" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+            <parameter name="Service">LabelPolicyService</parameter>
+        </command>
+
+
+        <type name="Policy" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Policy">
+            <parameter name="Url">~/Model/Policy.xml</parameter>
+        </type>
+        
+        <type name="QuotationPageFlow" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.PageFlow">
+            <parameter name="extends">super.QuotationPageFlow</parameter>
+            <parameter name="Url">~/PageFlows/QuotationPageFlow.xml</parameter>
+        </type>
+    </types>
+</configuration>

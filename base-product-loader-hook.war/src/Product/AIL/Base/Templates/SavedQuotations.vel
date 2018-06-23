@@ -1,0 +1,66 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the SavedQuotations widget.
+##
+#set( $savedPolicySummaries = $args.ModelArgRet)
+#set( $savedQuotations = $args.PageElementArg )
+#set( $renderId = $args.RenderIdArg )
+##
+<div class='pf-saved-quotations' id='$!{renderId}'>
+    #if( $savedPolicySummaries )
+		<div class="pf-page-section">
+            #set( $summaries = $savedPolicySummaries.Policies )
+    	    <div class='pf-section-heading'>
+    	        #if( $summaries.size()==1 )
+    	            $savedQuotations.i18n("i18n_saved_quotations_title_quote")
+    	        #else
+    	            $savedQuotations.i18n("i18n_saved_quotations_title_quotes")
+    	        #end 
+    	    </div>
+    	    <div class='pf-saved-quotations-table'>
+    	        <div class='pf-saved-quotations-header-row'>
+    	            <div class='pf-saved-quotations-header-cell'>$savedQuotations.i18n("i18n_saved_quotations_quote_number_heading")</div>
+    	            <div class='pf-saved-quotations-header-cell'>$savedQuotations.i18n("i18n_saved_quotations_quote_date_heading")</div>
+    	            <div class='pf-saved-quotations-header-cell'>$savedQuotations.i18n("i18n_saved_quotations_expiry_date_heading")</div>
+                    <div class='pf-saved-quotations-header-cell'>$savedQuotations.i18n("i18n_saved_quotations_premium_heading")</div>
+                    <div class='pf-saved-quotations-header-cell'></div>
+    	        </div>
+    	        #foreach( $quote in $summaries )
+    		        <div class='pf-saved-quotations-data-row'>
+    	                <div class='pf-saved-quotations-data-cell'>$!quote.QuotationNumber</div>
+    	                <div class='pf-saved-quotations-data-cell'>#if( $quote.QuotationDate )$quote.xpathGet("u:longDate(/quotationDate)")#end</div>
+    	                <div class='pf-saved-quotations-data-cell'>#if( $quote.QuotationExpiryDate )$quote.xpathGet("u:longDate(/quotationExpiryDate)")#end</div>
+    	                <div class='pf-saved-quotations-data-cell'>#if( $quote.TotalPremiumDefined )$quote.TotalPremium.toFormattedString()#end</div>
+    	                <div class='pf-saved-quotations-data-cell'>
+                            #if( !$savedQuotations.ConfirmAndPayDisabled )
+                                <input type="submit" name="op=confirm:id=$!quote.SystemId" class="portlet-form-input-field" value="$savedQuotations.i18n($savedQuotations.ConfirmAndPayLabel)"/>
+                            #end
+                            #if( !$savedQuotations.RequoteDisabled )
+        	                    #set( $model = $savedQuotations.RequoteButtonAction.renderResponse($quote))
+                            #end
+                            #if( !$savedQuotations.ViewQuotationDisabled )
+        	                    #set( $model = $savedQuotations.ViewQuotationButtonAction.renderResponse($quote))
+                            #end
+    	                </div>
+    		        </div>
+    		    #end
+    	    </div>
+		</div>
+    #end
+</div>

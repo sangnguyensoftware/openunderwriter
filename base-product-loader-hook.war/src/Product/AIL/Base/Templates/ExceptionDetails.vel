@@ -1,0 +1,74 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+#set( $model = $args.ModelArgRet )
+#set( $request = $args.RequestArg )
+#set( $pageElement = $args.PageElementArg )
+#set( $dollar = "$" )
+##
+<div class='pf-exception-details'>
+	<div id="pf-toggler">
+	    #if( ${model} && ${model.Exception} && ${model.Exception.size()} != 0)
+	        #foreach( $er in ${pageElement.orderLines(${model.Exception})}  )
+	            #renderExceptionRecord(${er})
+	        #end
+	    #end
+		#if( ${request.isPortletRequest()} && ${request.getPortletRequest().getPortletSession().getAttribute("exception")} ) 
+	        #renderExceptionRecord( ${request.getPortletSession().getAttribute("exception")} );
+	    #end
+    </div>
+</div>
+##
+#macro(renderExceptionRecord $record)
+	<div class='pf-exception-header pf-toggler-header'>
+		<div class='pf-exception-reason'>${record.Reason}</div>
+		<div class='pf-exception-date'>${date.format("d-MMM-yyyy kk:mm:ss.SSS", $record.Date)}</div>
+	</div>
+	<div class='pf-exception-detail pf-toggler-content'>
+		#foreach( ${line} in ${record.Stack} )
+			#if( !$truncated )
+				<div class='pf-exception-stack'>${line}</div>
+			#end
+			#if( ${line} == ${record.CatchingClassName} )
+			 	#set( $truncated = "true" )
+			#end
+		#end
+		<div class='pf-exception-stack'>...</div>
+	</div>
+#end
+##
+<script type="text/javascript">
+YUI().use(
+  'aui-toggler',
+  function(Y) {
+    new Y.TogglerDelegate(
+      {
+        animated: true,
+        closeAllOnExpand: true,
+        container: '#pf-toggler',
+        content: '.pf-toggler-content',
+        expanded: false,
+        header: '.pf-toggler-header',
+        transition: {
+          duration: 0.3,
+          easing: 'cubic-bezier(0, 0.1, 0, 1)'
+        }
+      }
+    );
+  }
+);
+</script>

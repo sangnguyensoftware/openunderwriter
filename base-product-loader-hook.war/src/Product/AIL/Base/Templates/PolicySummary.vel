@@ -1,0 +1,220 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the QuotationSummary widget.
+##
+#set( $quote = $args.ModelArgRet)
+#set( $policySummary = $args.pageElementArg )
+#set( $policy = $args.PolicyArg )
+#set( $renderId = $args.RenderIdArg )
+##
+<div class='pf-policy-summary' id='$!{renderId}'>
+	#if( $policy )
+		<div class='pf-header'>
+			#renderHeader
+		</div>
+		<div class='pf-body'>
+			#renderDates
+			#contactDetails
+			#if ( !${policy.isAggregator()} )
+				#premiumDetails
+			#end
+			#idDetails
+		</div>
+	#else
+		#renderPolicyMessage
+	#end
+</div>
+##
+#macro(idDetails)
+    <div class='pf-section pf-policy-summary-id-section'>
+        <div class='pf-section-title'>
+            $policySummary.i18n("i18n_policy_summary_policy_id")
+        </div>
+        <div class='pf-section-body'>
+			#idRow( "i18n_policy_number", $!policy.PolicyNumber )
+			#idRow( "i18n_quote_number", $!policy.QuotationNumber )
+			#idRow( "i18n_system_id", $policy.SystemId )
+			#idRow( "i18n_external_id", $policy.ExternalSystemId )
+		</div>
+	</div>
+#end
+##
+#macro(premiumDetails)
+    <div class='pf-section pf-policy-summary-premium-section'>
+        <div class='pf-section-title'>$policySummary.i18n("i18n_policy_summary_premium_detail_title")</div>
+        <div class='pf-section-description'>$policySummary.i18n("i18n_policy_summary_premium_message")</div>
+        <div class='pf-section-body'>
+        #if ($policy.StatusAsString)
+			#if ($policy.StatusAsString == "SUBMITTED" || $policy.StatusAsString == "QUOTATION" || $policy.StatusAsString == "ON_RISK")
+				#set( $hasCharges = false )
+	            #foreach( $line in $quote.AssessmentSheet.behaviourLines() )
+	                #set( $type = $line.Type.Name )
+	                #if( $type == "TAX" || $type == "COMMISSION" || $type == "MANAGEMENT_CHARGE" || $type == "BROKERAGE")
+	                    <div class='pf-item'>
+	                        <div class='pf-item-value'>$line.Type.LongName</div>
+	                        <div class='pf-item-value'>$line.Reason</div>
+	                        <div class='pf-item-value'>#if( $line.Class.Name == "com.ail.insurance.policy.RateBehaviour" )$!line.Rate.Rate#end</div>
+	                        <div class='pf-item-value'>$line.AmountAsString</div>
+	                    </div>
+	                    #set( $hasCharges = true )
+	                #end
+	            #end
+	            #if ( $hasCharges != true )
+	            	<div class='pf-item'>
+                    	<div class='pf-item-value'>$policySummary.i18n("i18n_policy_summary_no_records")</div>
+                    	<div class='pf-item-value'>&nbsp;</div>
+                	</div>
+	            #end
+			#elseif( $policy.StatusAsString=="REFERRED" || $policy.StatusAsString=="DECLINED")
+    	        #foreach( $line in $quote.AssessmentSheet.markerLines() )
+    	            #set( $type = $line.Type.Name )
+    	            #if( $type == "REFER" || $type == "DECLINE" || $type == "SUBJECTIVITY" )
+ 	                    <div class='pf-item'>
+  	                        <div class='pf-item-value'>$line.Type.LongName</div>
+   	                        <div class='pf-item-value'>$line.Reason</div>
+   	                    </div>
+    	            #end
+    	        #end
+			#else
+                <div class='pf-item'>
+                    <div class='pf-item-value'>$policySummary.i18n("i18n_policy_summary_no_records")</div>
+                    <div class='pf-item-value'>&nbsp;</div>
+                </div>
+			#end
+		#end
+	    </div>
+    </div>
+#end
+##
+#macro(contactDetails)
+	#if( $quote.Client )
+		#set( $party = ${quote.Client} )
+	#end
+	
+	#if($party)
+	    <div class='pf-section pf-policy-summary-contact-section'>
+	        <div class='pf-section-title'>$policySummary.i18n("i18n_policy_summary_contact_title")</div>
+	        <div class='pf-section-body'>
+	        	#set( $address = ${party.Address} )
+	            #if( $party.Class.Name == "com.ail.insurance.policy.CommercialProposer" )
+	                #contactElement("i18n_policy_summary_contact_label" ${party.contact.LegalName})
+	                #contactElement("i18n_policy_summary_address_label" ${party.LegalName})
+	                #if($address)#contactElement("" ${address.Line1})#end
+	            #elseif( $party.Class.Name == "com.ail.insurance.policy.PersonalProposer" )
+	                #contactElement("i18n_policy_summary_legal_name_label" ${party.LegalName})
+	                #if($address)#contactElement("i18n_policy_summary_address_label" ${address.Line1})#end
+	            #end
+	            #if($address)#contactElement("&nbsp;" ${address.Line2})#end
+	            #if($address)#contactElement("&nbsp;" ${address.Town})#end
+	            #if($address)#contactElement("&nbsp;" ${address.County})#end
+	            #if($address)#contactElement("&nbsp;" ${address.Postcode})#end
+	            #contactElement("i18n_policy_summary_phone_label" ${party.TelephoneNumber})
+	            #contactElement("i18n_policy_summary_mobile_label" ${party.MobilephoneNumber})
+	            #contactElement("i18n_policy_summary_email_label" "<a href='mailto:$!{party.EmailAddress}'>$!{party.EmailAddress}</a>")
+	        </div>
+	    </div>
+	#end
+#end
+##
+#macro(renderDates)
+   	#if( $policy.StatusAsString && $policy.StatusAsString != "APPLICATION" )
+		<div class='pf-section pf-policy-summary-dates-section'>
+    		<div class='pf-section-title'>$policySummary.i18n("i18n_policy_summary_dates_title")</div>
+            <div class='pf-section-body'>
+            	#if( $policy.StatusAsString == "QUOTATION" )
+            		#summaryRow("i18n_policy_summary_quotation_date_label" ${quote.xpathGet("u:longDate(/quotationDate)","")} )
+            		#summaryRow("i18n_policy_summary_quotation_expiry_date_label" ${quote.xpathGet("u:longDate(/quotationExpiryDate)","")} )
+            	#else
+            		#summaryRow("i18n_policy_summary_cover_inception_date_label" ${quote.xpathGet("u:longDate(/inceptionDate)","")} )
+            		#summaryRow("i18n_policy_summary_cover_expiry_date_label" ${quote.xpathGet("u:longDate(/expiryDate)","")} )
+        		#end
+            </div>
+		</div>
+	#end
+#end
+##
+#macro(renderHeader)
+    <div class='pf-header-title'>
+		#if( $policy.PolicyNumber )
+			$policySummary.i18n("i18n_policy_summary_policy_title", $policy.PolicyNumber)
+		#elseif( $policy.QuotationNumber )
+			$policySummary.i18n("i18n_policy_summary_quotation_title", $policy.QuotationNumber)
+		#else
+			$policySummary.i18n("i18n_policy_summary_application_title", $policy.SystemId)
+		#end
+	</div>
+    <div class='pf-header-summary'>
+        <div class='pf-header-summary-entry'>
+            <div class='pf-header-summary-title'>
+                $policySummary.i18n("i18n_policy_summary_product_title")
+            </div>
+            <div class='pf-header-summary-value'>
+                $policy.ProductName
+            </div>
+        </div>
+        <div class='pf-header-summary-entry'>
+            <div class='pf-header-summary-title'>
+                $policySummary.i18n("i18n_policy_summary_status_title")
+            </div>
+            <div class='pf-header-summary-value'>
+                #if ( $policy.StatusAsString )
+                    $policySummary.i18n($policy.Status.LongName)
+                #end
+            </div>
+        </div>
+		#if( $policy.TotalPremiumDefined )
+            <div class='pf-header-summary-entry'>
+                <div class='pf-header-summary-title'>
+                    $policySummary.i18n("i18n_policy_summary_total_premium_title")
+                </div>
+                <div class='pf-header-summary-value'>
+                    $policy.TotalPremium
+                </div>
+            </div>
+		#end
+	</div>
+	<div style="clear:both;"></div>
+#end
+##
+#macro(renderPolicyMessage)
+	$policySummary.i18n('i18n_no_policy_message')
+#end
+##
+#macro(contactElement $label $value)
+    #if(${value} && ${value}!="")
+        <div class='pf-item'>
+            <div class='pf-item-label'>$policySummary.i18n($label)</div>
+            <div class='pf-item-value'>${value}</div>
+        </div>
+    #end
+#end
+##
+#macro(summaryRow $label $value)
+    <div class='pf-item'>
+        <div class='pf-item-label'>$policySummary.i18n($label)</div>
+        <div class='pf-item-value'>$value</div>
+    </div>
+#end
+#macro(idRow $label $value)
+    <div class='pf-item'>
+        <div class='pf-item-label'>$policySummary.i18n($label)</div>
+        <div class='pf-item-value'>$!value</div>
+    </div>
+#end
+

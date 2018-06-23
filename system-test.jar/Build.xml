@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project default="build" name="openunderwriter:system-test.jar">
+  <import file="../BuildSettings.xml" />
+
+  <target name="clean" description="delete everything that the build can generate" />
+
+  <target name="build" description="compile (generate, copy, etc) all build outputs" />
+
+  <target name="_build" />
+
+  <target name="setup" description="run all the one-time-only steps - like copying libs into place">
+    <update-dependencies-macro todir="${test.dir}/lib" />
+  </target>
+
+  <target name="teardown" description="undo whatever setup did" />
+
+  <target name="_test">
+    <run-system-tests-macro name="add application" />
+    <run-system-tests-macro name="dashboard checks" />
+    <run-system-tests-macro name="demo product accessibility" />
+    <run-system-tests-macro name="feedback" />
+    <run-system-tests-macro name="organisation administrator access" />
+    <run-system-tests-macro name="organisation structure" />
+  	<run-system-tests-macro name="pageflow error handling" /> 
+  	<run-system-tests-macro name="policy admin" /> 
+    <run-system-tests-macro name="report access" />
+    <run-system-tests-macro name="sandpit" />
+    <run-system-tests-macro name="talend portlet" />
+  	<run-system-tests-macro name="test menu access rights" />
+  	<run-system-tests-macro name="url forwarding" />
+  	<run-system-tests-macro name="jbpm console access" />
+  </target>
+
+  <target name="test" depends="_test" description="run tests defined in this project">
+	<fail-on-system-test-error-macro />
+  </target>
+</project>

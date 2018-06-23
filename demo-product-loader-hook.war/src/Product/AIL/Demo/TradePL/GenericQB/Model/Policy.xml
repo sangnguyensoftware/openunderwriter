@@ -1,0 +1,17 @@
+<!-- 
+Generic Quotation data model for the Quote and Buy product s
+-->
+<quotation xsi:type="java:com.ail.insurance.policy.Policy" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <productName>Quote and Buy</productName>
+
+  <xi:include href="product://localhost:8080/AIL/Demo/TradePL/GenericQB/Model/Broker.xml" />
+
+  <!-- Custom commercial proposer for Quote and Buy Products -->
+  <xi:include href="product://localhost:8080/AIL/Demo/TradePL/GenericQB/Model/CommercialProposer.xml"/>
+
+  <!-- endorsements are set here depending upon trades selected -->
+  <asset id="endorsements" assetTypeId="Endorsements">
+    <attribute id="EndorsementConfirmation" value="No" format="yesorno"/>
+  </asset>
+
+</quotation>

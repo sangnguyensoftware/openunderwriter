@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+    <info organisation="com.openquote" module="integration-test" />
+    <dependencies>
+        <dependency org="seleniumhq.org" name="selenium-server-standalone" rev="2.53.0" />
+    </dependencies>
+</ivy-module>

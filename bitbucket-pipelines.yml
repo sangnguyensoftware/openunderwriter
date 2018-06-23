@@ -1,0 +1,51 @@
+image: richardianderson/ou-build:2.0-java-8
+
+pipelines:
+  custom:
+    manual:
+    - step:
+        caches:
+          - ivy2
+        script:
+          - BUILD_OPTS="-Dnodemo=yes -Dmysql.version.check.override=yes -Dbuild.type=integration -Dbuild.number=99 -Dnexus.user=$NEXUS_USER -Dnexus.password=$NEXUS_PASSWORD -Dthreads=1"
+          - /etc/init.d/mysql start
+          - ant -f Build.xml teardown $BUILD_OPTS
+          - ant -f Build.xml setup $BUILD_OPTS
+          - rm -rf ./target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/*theme*
+          - ant -f Build.xml test -Dexcluded.tests=$EXCLUDED_TESTS $BUILD_OPTS
+  branches:
+    master:
+    - step:
+        caches:
+          - ivy2
+        script:
+          - BUILD_OPTS="-Dnodemo=yes -Dmysql.version.check.override=yes -Dbuild.type=integration -Dbuild.number=99 -Dnexus.user=$NEXUS_USER -Dnexus.password=$NEXUS_PASSWORD -Dthreads=1"
+          - /etc/init.d/mysql start
+          - ant -f Build.xml teardown $BUILD_OPTS
+          - ant -f Build.xml setup $BUILD_OPTS
+          - rm -rf ./target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/*theme* 
+          - rm -rf ./target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/notifications-portlet.war*
+          - rm -rf ./target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/sync-web.war*
+          - rm -rf ./target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/marketplace-portlet.war*
+          - rm -rf ./target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/resources-importer-web.war*
+          - rm -rf ./target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/calendar-portlet.war*
+          - rm -rf ./target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/opensocial-portlet.war*
+          - rm -rf ./target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/wsrp-portlet.war*
+          - ant -f Build.xml test -Dliferay.javaopts=-Xmx1536m -Dexcluded.tests=$EXCLUDED_TESTS -Dtest.reports.dir=./target/test-reports $BUILD_OPTS 
+    release/*:
+    - step:
+        caches:
+          - ivy2
+        script:
+          - MAJOR=$(echo $BITBUCKET_BRANCH | sed 's:release/\([0-9]*\).*:\1:')
+          - MINOR=$(echo $BITBUCKET_BRANCH | sed 's:release/.*\.\([0-9]*\):\1:')
+          - BUILD_OPTS="-Dmysql.version.check.override=yes -Dbuild.type=integration -Dbuild.number=99 -Dnexus.user=$NEXUS_USER -Dnexus.password=$NEXUS_PASSWORD -Dmajor.version=$MAJOR -Dminor.version=$MINOR -Dthreads=1"
+          - ant -f Build.xml teardown $BUILD_OPTS
+          - ant -f Build.xml setup $BUILD_OPTS
+          - ant -f Build.xml release $BUILD_OPTS
+          - curl -X POST "https://${BB_AUTH_STRING}@api.bitbucket.org/2.0/repositories/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}/downloads" --form file=@/opt/atlassian/pipelines/agent/build/target/openunderwriter-product-sdk-$MAJOR.$MINOR.zip
+          - curl -X POST "https://${BB_AUTH_STRING}@api.bitbucket.org/2.0/repositories/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}/downloads" --form file=@/opt/atlassian/pipelines/agent/build/target/openunderwriter-community-$MAJOR.$MINOR.zip
+          - curl -v -F r=releases -F hasPom=false -F e=zip -F g=openunderwriter -F a=openunderwriter-product-sdk -F v=$MAJOR.$MINOR -F p=zip -F file=@/opt/atlassian/pipelines/agent/build/target/openunderwriter-product-sdk-$MAJOR.$MINOR.zip -u $NEXUS_USER:$NEXUS_PASSWORD http://openunderwritercommunity.org/nexus/service/local/artifact/maven/content
+          - curl -v -F r=releases -F hasPom=false -F e=zip -F g=openunderwriter -F a=openunderwriter-community -F v=$MAJOR.$MINOR -F p=zip -F file=@/opt/atlassian/pipelines/agent/build/target/openunderwriter-community-$MAJOR.$MINOR.zip -u $NEXUS_USER:$NEXUS_PASSWORD http://openunderwritercommunity.org/nexus/service/local/artifact/maven/content
+          - ant -lib ./build/lib -f Build.xml "release to sourceforge" -Dsourceforge.credentials=$SOURCEFORGE_CREDENTIALS -Dsourceforge.path=$SOURCEFORGE_PATH -Dmajor.version=$MAJOR -Dminor.version=$MINOR -Dthreads=1
+          

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<labels type="java:com.ail.core.label.Labels" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Model-1.0.xsd">
+    <labels target=".*">
+        <labels discriminator="note_types">
+            <label text="i18n_label_note_general" />
+            <label text="i18n_label_note_watch_reason" />
+            <labels discriminator="payment_holiday_note_types">
+                <label text="i18n_label_payment_holiday_cancellation_new_business_opportunity" />
+                <label text="i18n_label_payment_holiday_cancellation_reason_two" />
+                <label text="i18n_label_payment_holiday_cancellation_reason_three" />
+            </labels>
+        </labels>
+        <label text="i18n_label_watch" />
+    </labels>
+
+    <labels target=".*Policy">
+        <labels discriminator="note_types">
+            <label text="i18n_label_note_cancellation_cooling_off" discriminator="cancellation_reason" />
+            <label text="i18n_label_note_cancellation_from_outset" discriminator="cancellation_reason" />
+            <label text="i18n_label_note_cancellation_non_disclosure" discriminator="cancellation_reason" />
+            <label text="i18n_label_note_cancellation_other_policy" discriminator="cancellation_reason" />
+            <label text="i18n_label_note_cancellation_other" discriminator="cancellation_reason" />
+            <label text="i18n_label_note_reinstatement_financial" discriminator="reinstatement_reason" />
+            <label text="i18n_label_note_reinstatement_other" discriminator="reinstatement_reason" />
+        </labels>
+        <labels discriminator="party_role_types">
+            <label text="i18n_party_role_policy_proposer" />
+            <label text="i18n_party_role_policy_policy_holder" />
+            <label text="i18n_party_role_policy_client" />
+            <label text="i18n_party_role_policy_broker" />
+        </labels>
+        <label text="i18n_label_policy_litigation" />
+        <label text="i18n_label_policy_reviewed" />
+    </labels>
+
+    <labels target=".*Claim">
+        <labels discriminator="note_types">
+        </labels>
+        <labels discriminator="party_role_types">
+            <label text="i18n_party_role_claim_loss_adjuster" />
+            <label text="i18n_party_role_claim_claim_handler" />
+        </labels>
+        <label text="i18n_label_claim_litigation" />
+    </labels>
+
+    <labels target=".*Note">
+        <label text="i18n_label_medical_sensitive" />
+        <label text="i18n_label_financially_sensitive" />
+    </labels>
+
+    <labels target=".*Party">
+        <labels discriminator="note_types">
+        </labels>
+        <labels discriminator="relationship_types">
+            <label text="i18n_party_relationship_doctor" />
+            <label text="i18n_party_relationship_guardian" />
+            <label text="i18n_party_relationship_power_of_attorney" />
+        </labels>
+        <labels discriminator="contact_system_types">
+            <label text="i18n_contact_system_main_phone_number" discriminator="phone_number" />
+            <label text="i18n_contact_system_mobile_phone_number" discriminator="phone_number" />
+            <label text="i18n_contact_system_home_phone_number" discriminator="phone_number" />
+            <label text="i18n_contact_system_office_phone_number" discriminator="phone_number" />
+            <label text="i18n_contact_system_fax_phone_number" discriminator="phone_number" />
+            <label text="i18n_contact_system_main_email_address" discriminator="email_address" />
+            <label text="i18n_contact_system_main_email_address" discriminator="email_address" />
+            <label type="i18n_contact_system_main_postal_address" discriminator="postal_address" />
+
+            <label text="i18n_contact_system_broker_quote_phone_number" discriminator="phone_number, broker" />
+            <label text="i18n_contact_system_broker_payment_phone_number" discriminator="phone_number, broker" />
+            <label text="i18n_contact_system_broker_claim_phone_number" discriminator="phone_number, broker" />
+            <label text="i18n_contact_system_broker_quote_email_address" discriminator="email_address, broker" />
+            <label text="i18n_contact_system_broker_policy_email_address" discriminator="email_address, broker" />
+        </labels>
+        <label text="i18n_label_party_hard_of_hearing" />
+        <label text="i18n_label_party_bereaved" />
+    </labels>
+
+    <labels target=".*Document">
+        <labels discriminator="note_types">
+        </labels>
+        <label text="i18n_label_medical_sensitive" />
+        <label text="i18n_label_financially_sensitive" />
+    </labels>
+</labels>

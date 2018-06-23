@@ -1,0 +1,213 @@
+<!-- 
+Quotation data model for the TradeQB product 
+Where possible id's are used that match the field names used in the'Q&B Spec v3.xls'
+-->
+<quotation xsi:type="jjava:com.ail.insurance.policy.Policy" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <productName>TradeQB</productName>
+
+  <!-- Declarations -->
+  <attribute id="Declarations" format="note">
+    <attribute id="PreviousInsuranceDeclined" value="?" format="yesorno"/>
+    <attribute id="PreviousConvictions" value="?" format="yesorno"/>
+    <attribute id="HealthAndSafety" value="?" format="yesorno"/>
+    <attribute id="Bankruptcy" value="?" format="yesorno"/>
+    <attribute id="PreviousClaims" value="?" format="yesorno"/>
+  </attribute>
+
+  <!-- Trade Asset (imported xml definition) - repeatable max 3 -->
+  <xi:include href="~/TradeAsset.xml"/>
+
+  <!-- Partner Asset (imported xml definition) - repeatable -->
+  <xi:include href="~/PartnerAsset.xml"/>
+
+  <!-- Policy level details -->
+  <attribute id="Policy" format="note">
+    <attribute id="PeriodFrom" value="dd/mm/yyyy" format="date,pattern=dd/MM/yyyy"/>
+    <attribute id="HardCopy" value="?" format="yesorno"/>
+    <attribute id="noPromotions" value="No" format="yesorno"/>
+    <!-- continuousYearsInsured is used to determine if insurance history questions require populating-->
+    <attribute id="continuousYearsInsured" value="?" format="yesorno"/>
+    <attribute id="NbrYearsInsured" value="0" format="number,min=0,###"/>
+    <attribute id="NbrYearsInsuredOptions" value="0" format="choice,options=0#0|1#1|2#2|3#3|4#4|5#5|6#6|7#7|8#8|9#9|10#10|99#11 or more"/>
+    <attribute id="InsuredName" value="" format="string;required=no"/>
+    <attribute id="TblInsurer_ABICodeID" value="?" format="choice,type=Abi81Insurers"/>
+    <attribute id="Current_Policy_Number" value="Unknown" format="string"/>
+  </attribute>
+
+  <!-- Trade section -->
+  <section id='Trade' sectionTypeId='Section' xsi:type="java:com.ail.insurance.policy.Section">
+
+    <!-- Contract Works Cover -->
+    <attribute id="CW_Limit" value="?" format="choice,options=-1#?|1#£50,000|2#£100,000|3#£250,000"/>
+    <attribute id="CW_Required" value="?" format="yesorno"/>
+    <coverage id="ContractWorks" enabled="false">
+      <description>Contract Works</description>
+      <limit amount="0.00" currency="GBP"/>
+    </coverage>
+
+    <!-- Hired in Plant Equipment Cover -->
+    <attribute id="HP_Limit" value="?" format="choice,options=-1#?|1#£10,000|2#£25,000|3#£50,000"/>
+    <attribute id="HP_Required" value="?" format="yesorno"/>
+    <coverage id="HiredInPlantEquipment" enabled="false">
+      <description>Hired in Plant Equipment</description>
+      <limit amount="0.00" currency="GBP"/>
+    </coverage>
+
+    <!-- Own Plant Equipment Cover -->
+    <attribute id="OP_Limit" value="?" format="choice,options=-1#?|1#£10,000|2#£25,000"/>
+    <attribute id="OP_Required" value="?" format="yesorno"/>
+    <coverage id="OwnPlantEquipment" enabled="false">
+      <description>Own Plant Equipment</description>
+      <limit amount="0.00" currency="GBP"/>
+    </coverage>
+
+    <!-- Business Contents and Equipment Cover -->
+    <attribute id="AR_BC_Required" value="?" format="yesorno"/>
+    <coverage id="BusinessContentsAndEquipment" enabled="false">
+      <description>Business Contents and Equipment</description>
+    </coverage>
+
+    <!-- Stock Cover -->
+    <attribute id="AR_SK_Required" value="?" format="yesorno"/>
+    <coverage id="Stock" enabled="false">
+      <description>Stock</description>
+    </coverage>
+
+    <!-- Business Interruption Cover -->
+    <attribute id="BI_Required" value="?" format="yesorno"/>
+    <coverage id="BusinessInterruption" enabled="false">
+      <description>Business Interruption</description>
+    </coverage>
+
+    <!-- Personal Accident Cover -->
+    <attribute id="PA_Required" value="?" format="yesorno"/>
+    <coverage id="PersonalAccident" enabled="false">
+      <description>Personal Accident</description>
+    </coverage>
+
+    <!-- Professional Indemnity Cover -->
+    <attribute id="PI_Required" value="?" format="yesorno"/>
+    <coverage id="ProfessionalIndemnity" enabled="false">
+      <description>Professional Indemnity</description>
+    </coverage>
+
+    <!-- Employers Liability Cover -->
+    <attribute id="EL_Enforced" value="No" format="yesorno"/>
+    <attribute id="EL_Available" value="No" format="yesorno"/>
+    <attribute id="ELCoveredElsewhere" value="?" format="yesorno"/>
+    <attribute id="ELStatutoryExemption" value="?" format="yesorno"/>
+    <attribute id="EL_Required" value="?" format="yesorno"/>
+    <attribute id="EL_TemporaryEmployees" value="No" format="yesorno"/>
+    <attribute id="EL_Limit" value="#£10,000,000" format="string"/>
+    <coverage id="EmployersLiability" enabled="false">
+      <description>Employers Liability</description>
+      <limit amount="10000000.00" currency="GBP"/>
+    </coverage>
+
+    <!-- Public Liability Cover -->
+    <attribute id="PL_Limit" value="?" format="choice,options=-1#?|1#£1,000,000|2#£2,000,000|3#£5,000,000|4#£10,000,000"/>
+    <coverage id="PublicLiability" enabled="true">
+      <description>Public Liability</description>
+      <limit amount="0.00" currency="GBP"/>
+    </coverage>
+
+    <!-- Tools and Goods in Transit Cover -->
+    <attribute id="TC_Required" value="?" format="yesorno"/>
+    <attribute id="TC_Limit" value="?" format="choice,options=-1#?|1#£1,500|2#£2,500|3#£5,000"/>
+    <coverage id="ToolsAndGoodsInTransit" enabled="false">
+      <description>Tools and Goods in Transit</description>
+      <limit amount="0.00" currency="GBP"/>
+    </coverage>
+
+    <!-- Tax and Property Protection any one investigation or proceedings Cover -->
+    <coverage id="TPPAOI" enabled="true">
+      <description>Tax and Property Protection any one investigation or proceedings</description>
+      <limit amount="25000.00" currency="GBP"/>
+    </coverage>
+
+    <!-- Tax and Property Protection total for period of insurance Cover -->
+    <coverage id="TPPTFPI" enabled="true">
+      <description>Tax and Property Protection total for period of insurance</description>
+      <limit amount="50000.00" currency="GBP"/>
+    </coverage>
+
+  </section>
+
+
+  <!-- Public Liability Excess -->
+  <excess id="PL_XS" enabled="true" xsi:type="java:com.ail.insurance.policy.Excess">
+    <title>Public Liability Excess</title>
+    <amount amount="250.00" currency="GBP"/>
+  </excess>
+
+  <!-- Tools And Goods In Transit Comp Excess -->
+  <excess id="TC_XS_Comp" enabled="false" xsi:type="java:com.ail.insurance.policy.Excess">
+    <title>Tools And Goods In Transit Comp Excess</title>
+    <amount amount="200.00" currency="GBP"/>
+  </excess>
+  <!-- Tools And Goods In Transit Glass Excess -->
+  <excess id="TC_XS_Glass" enabled="false" xsi:type="java:com.ail.insurance.policy.Excess">
+    <title>Tools And Goods In Transit Glass Excess</title>
+    <amount amount="100.00" currency="GBP"/>
+  </excess>
+  <!-- Tools And Goods In Transit Other Excess -->
+  <excess id="TC_XS_Other" enabled="false" xsi:type="java:com.ail.insurance.policy.Excess">
+    <title>Tools And Goods In Transit Other Excess</title>
+    <amount amount="50.00" currency="GBP"/>
+  </excess>
+
+  <!-- Company Asset -->
+  <asset id="Company" assetTypeId='Asset'>
+    <!-- Business overview -->
+    <attribute id="Business" format="note">
+      <attribute id="LimitedCompany" value="?" format="yesorno"/>
+      <attribute id="YearsBusinessEstablished" value="0" format="number,min=0,###"/>
+      <attribute id="YearsBusinessEstablishedOptions" value="0" format="choice,options=0#0|1#1|2#2|3#3|4#4|5#5|6#6|7#7|8#8|9#9|10#10|99#11 or more"/>
+      <attribute id="TotalAnnualTurnover" value="0" format="currency" unit="GBP"/>
+    </attribute>
+    <!-- Personnel details -->
+    <attribute id="Personnel" format="note">
+     <attribute id="NbrManualPPD" value="0" format="number,min=0,###"/>
+      <attribute id="NbrManualPPDOptions" value="0" format="choice,options=0#0|1#1|2#2|3#3|4#4|5#5|6#6|7#7|8#8|9#9|10#10|99#11 or more"/>
+      <attribute id="NbrNonManualPPD" value="0" format="number,min=0,###"/>
+      <attribute id="NbrNonManualPPDOptions" value="0" format="choice,options=0#0|1#1|2#2|3#3|4#4|5#5|6#6|7#7|8#8|9#9|10#10|99#11 or more"/>
+      <attribute id="MaximumNbrManualEmployees" value="0" format="number,min=0,####"/>
+      <attribute id="MaximumNbrManualEmployeesOptions" value="0" format="choice,options=0#0|1#1|2#2|3#3|4#4|5#5|6#6|7#7|8#8|9#9|10#10|99#11 or more"/>
+      <attribute id="MaximumNbrNonManualEmployees" value="0" format="number,min=0,####"/>
+      <attribute id="MaximumNbrNonManualEmployeesOptions" value="0" format="choice,options=0#0|1#1|2#2|3#3|4#4|5#5|6#6|7#7|8#8|9#9|10#10|99#11 or more"/>
+      <attribute id="MaximumNbrLOSC" value="0" format="number,min=0,####"/>
+      <attribute id="MaximumNbrLOSCOptions" value="0" format="choice,options=0#0|1#1|2#2|3#3|4#4|5#5|6#6|7#7|8#8|9#9|10#10|99#11 or more"/>
+      <attribute id="NbrPersonsinsured_PL" value="0" format="number,####"/>
+      <attribute id="NbrPersonsinsured_EL_Manual" value="0" format="number,####"/>
+      <attribute id="NbrPersonsinsured_EL_Clerical" value="0" format="number,####"/>
+      <attribute id="TemporaryEmployees" value="?" format="yesorno"/>
+      <attribute id="TemporaryEmployees_Payments" value="?" format="yesorno"/>
+      <attribute id="BonafideSubcontractors" value="?" format="yesorno"/>
+      <attribute id="BFSC_Payments" value="?" format="yesorno"/>
+    </attribute>
+    <!-- Hazardous material handling details -->
+    <attribute id="Hazardous_Materials" format="note">
+      <attribute id="HazardousMaterials1" value="?" format="yesorno"/>
+      <attribute id="HazardousMaterials2" value="?" format="yesorno"/>
+      <attribute id="HazardousMaterials3" value="?" format="yesorno"/>
+      <attribute id="HazardousMaterials4" value="?" format="yesorno"/>
+    </attribute>
+    <!-- Operating Locations -->
+    <attribute id="Risk_Locations" format="note">
+      <attribute id="LocationTrading" value="?" format="yesorno"/>
+      <attribute id="LocationBased" value="?" format="yesorno"/>
+    </attribute>
+    <!-- Working Practices -->
+    <attribute id="Working_Practices" format="note">
+      <attribute id="HeatEquipmentUsed" value="?" format="yesorno"/>
+      <attribute id="EL_StaffUsingWoodworkTools" value="?" format="yesorno"/>
+    </attribute>
+    <!-- flags to aid question requirements in pageflow -->
+    <attribute id="IncludesTradeType1" value="No" format="yesorno"/>
+    <attribute id="IncludesTradeType2" value="No" format="yesorno"/>
+    <attribute id="IncludesToolsAvailable" value="No" format="yesorno"/>
+    <attribute id="TradeClassification_Rated" value="0" format="number,####"/>
+    <attribute id="RatingVersion" value="0" format="number"/>
+  </asset>
+
+</quotation>

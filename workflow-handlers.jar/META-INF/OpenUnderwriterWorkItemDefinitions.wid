@@ -1,0 +1,154 @@
+import org.drools.core.process.core.datatype.impl.type.BooleanDataType;
+import org.drools.core.process.core.datatype.impl.type.EnumDataType;
+import org.drools.core.process.core.datatype.impl.type.FloatDataType;
+import org.drools.core.process.core.datatype.impl.type.IntegerDataType;
+import org.drools.core.process.core.datatype.impl.type.ObjectDataType;
+import org.drools.core.process.core.datatype.impl.type.ListDataType;
+import org.drools.core.process.core.datatype.impl.type.StringDataType;
+import org.drools.core.process.core.datatype.impl.type.UndefinedDataType;
+
+[
+  [
+    "name" : "ContactParty",
+    "description" : "Sends a communication to another user of the system, the method of communication, message text, and documentation to be attached can be configured. Lot of options here. 
+				    The 'case type' must be one of 'policy', 'party', 'claim'. 
+				    The 'case id' must be the external reference id for the case. 
+				    The 'product name' is required either where 'case type' is Party (as it can not be derived from Party), or where there is an overridden ContactParty service for the product. 
+				    The 'user to contact' must be either an xpath reference to the data item from the case, or a reference to a DataDictionary entry. 
+				    'send an email' should be true if the contact should be an email, else set false or leave blank. 
+				    'send an sms' should be true if the contact should be an sms, else set false or leave blank. NOT YET SUPPORTED. 
+				    'send to portal' should be true if the contact should be through the portal, else set false or leave blank. NOT YET SUPPORTED. 
+				    'send via post' should be true if the contact should be a letter, else set false or leave blank. NOT YET SUPPORTED. 
+				    'send using preferred method' should be true if the contact should be by the preferred contact method of the user, else set false or leave blank. NOT YET SUPPORTED. 
+				    The 'subject' should be the subject for the email. 
+				    The 'message' should be the content of the message, where appropriate for the 'template name'.
+				    The 'template name' will be the message template name appropriate for the particular context. Can be set to 'Proposer' or 'Broker' to send those particular default policy emails. 
+				    The 'documents to attach' will be a String of comma separated values. Each of these can either be the unique external id of a document, or the title of a document attached to the case.",
+    "parameters" : [
+        "case type" : new StringDataType(),
+    	"case id" : new StringDataType(),
+        "product name" : new StringDataType(),
+        "user to contact" : new StringDataType(),
+        "send an email" : new BooleanDataType(),
+        "send an sms" : new BooleanDataType(),
+        "send to portal" : new BooleanDataType(),
+        "send via post" : new BooleanDataType(),
+        "send using preferred method" : new BooleanDataType(),
+        "subject" : new StringDataType(),
+        "message" : new StringDataType(),
+        "template name" : new StringDataType(),
+        "documents to attach" : new StringDataType()
+    ],
+    "displayName" : "Contact Party",
+    "category" : "OpenUnderwriter",
+    "icon" : "contact.png"
+  ],
+  [
+    "name" : "GenerateDocument",
+    "description" : "Generates a document and attaches it to a case.
+				    The 'case type' must be one of 'policy', 'party', 'claim'. 
+				    The 'case id' must be the external reference id for the case. 
+				    The 'product name' is required either where 'case type' is Party (as it can not be derived from Party), or where there is an overridden GenerateDocument service for the product. 
+				    The 'template name' will be the template name appropriate for the particular context. 
+				    The 'document id' will be the unique external reference id of the document.",
+    "parameters" : [
+        "case type" : new StringDataType(),
+    	"case id" : new StringDataType(),
+        "product name" : new StringDataType(),
+        "template name" : new StringDataType()
+    ],
+    "results" : [
+        "document id" : new StringDataType(),
+    ],
+    "displayName" : "Generate Document",
+    "category" : "OpenUnderwriter",
+    "icon" : "generateDocument.png"
+  ],
+  [
+    "name" : "GetData",
+    "description" : "Gets a piece of data from the given case. 
+				    The 'case type' must be one of 'policy', 'party', 'claim'. 
+				    The 'case id' must be the external reference id for the case. 
+   					The 'data directory id' must be either an xpath reference to the data item from the case, or a reference to a DataDictionary entry. 
+    				The 'format' is optional but if supplied must be a valid FormatType - currently only TIMER is supported to return a valid workflow timer task format.
+				    The 'value' will be a String value.",
+    "parameters" : [
+    	"case type" : new StringDataType(),
+    	"case id" : new StringDataType(),
+        "data directory id" : new StringDataType(),
+        "format" : new StringDataType()
+    ],
+    "results" : [
+        "value" : new StringDataType(),
+    ],
+    "displayName" : "Get Data",
+    "category" : "OpenUnderwriter",
+    "icon" : "getdata.png"
+  ],
+  [
+    "name" : "SetData",
+    "description" : "Sets a piece of data from the given case. 
+				    The 'case type' must be one of 'policy', 'party', 'claim'. 
+				    The 'case id' must be the external reference id for the case. 
+				    The 'data directory id' must be either an xpath reference to the data item from the case, or a reference to a DataDictionary entry. 
+				    The 'value' must be a valid String value for the 'data directory id'.",
+    "parameters" : [
+    	"case type" : new StringDataType(),
+    	"case id" : new StringDataType(),
+        "data directory id" : new StringDataType(),
+        "value" : new StringDataType()
+    ],
+    "displayName" : "Set Data",
+    "category" : "OpenUnderwriter",
+    "icon" : "setdata.png"
+  ],
+  [
+    "name" : "CallProductService",
+    "description" : "Calls a product service. The context of the service call will be the type specified. 
+				    The 'case type' must be one of 'policy', 'party', 'claim'. If none of these then a default product service will be called. 
+				    The 'case id' must be the external reference id for the case. If empty then a default product service will be called. 
+				    The 'product name' is required where 'case type' is Party (as it can not be derived from Party). If empty then a default product service will be called. 
+				    The 'service name' is the name of the service. 
+				    The 'params' is optional and is a String of params in URL query param format, i.e. 'name1=value1&name2=value2'. They will be supplied to the product service in json format. 
+				    May also return a String of 'results' in URL query param form.",
+    "parameters" : [
+    	"case type" : new StringDataType(),
+    	"case id" : new StringDataType(),
+        "product name" : new StringDataType(),
+        "service name" : new StringDataType(),
+        "params" : new StringDataType()
+    ],
+    "results" : [
+        "results" : new StringDataType(),
+    ],
+    "displayName" : "Call Product Service",
+    "category" : "OpenUnderwriter",
+    "icon" : "callproductservice.png"
+  ],
+  [
+    "name" : "StartWorkflow",
+    "description" : "Starts another workflow. 
+				    The 'product name' is required only where there is an overridden StartWorkflow service for the product. 
+				    The 'workflow id' is the full id of the workflow to start, including package name. 
+				    The 'params' is optional and is a String of params in URL query param format, i.e. 'name1=value1&name2=value2' etc.",
+    "parameters" : [
+        "product name" : new StringDataType(),
+        "workflow id" : new StringDataType(),
+        "params" : new StringDataType()
+    ],
+    "displayName" : "Start Workflow",
+    "category" : "OpenUnderwriter",
+    "icon" : "workflow.png"
+  ],
+  [
+    "name" : "Link",
+    "description" : "The link task allows a case to be sent to a user or a team for manual processing.",
+    "parameters" : [
+        "user id" : new StringDataType(),
+        "group id" : new StringDataType()
+    ],
+    "displayName" : "Link",
+    "category" : "OpenUnderwriter",
+    "icon" : "link.png"
+  ],  
+]

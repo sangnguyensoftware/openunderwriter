@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <name>CommandServerBean configuration</name>
+  <timeout>-1</timeout>
+  <who>factory</who>
+  <version>$Revision$</version>
+
+  <types>
+  
+  	<service name="SendEmailService" key="com.ail.core.command.SpringAccessor">
+      <parameter name="ServiceClass">com.ail.core.email.SendEmailService</parameter>
+    </service>
+    
+    <command name="SendEmailArgumentImpl" key="com.ail.core.email.SendEmailCommandImpl">
+      <parameter name="Service">SendEmailService</parameter>
+    </command>
+    
+    <command name="LoggingArgumentImpl" key="com.ail.core.logging.LoggingCommandImpl">
+      <parameter name="Service">com.ail.core.logging.SystemOutLoggerService</parameter>
+    </command>
+
+    <command name="ClearProductCacheArgumentImpl" key="com.ail.core.product.ClearProductCacheCommandImpl">
+      <parameter name="Service">com.ail.core.product.ClearProductCacheService</parameter>
+    </command>
+    
+    <command name="ResetProductArgumentImpl" key="com.ail.core.product.ResetProductCommandImpl">
+      <parameter name="Service">com.ail.core.product.ResetProductService</parameter>
+    </command>
+
+    <command name="RegisterProductArgumentImpl" key="com.ail.core.product.RegisterProductCommandImpl">
+      <parameter name="Service">com.ail.core.product.liferay.LiferayRegisterProductService</parameter>
+    </command>
+
+    <command name="RemoveProductArgumentImpl" key="com.ail.core.product.RemoveProductCommandImpl">
+      <parameter name="Service">com.ail.core.product.RemoveProductService</parameter>
+    </command>
+
+    <!--======================================================================= -->
+    <!-- Bind the command server's commands directly to an implementation; -->
+    <!-- hibernate by default. This ensures that the command server won't -->
+    <!-- invoke the core's bindings - which may point at some wrapper (like -->
+    <!-- the command server itself!). -->
+    <!--======================================================================= -->
+    <command name="Update" key="com.ail.core.persistence.UpdateCommandImpl">
+      <parameter name="Service">com.ail.core.persistence.hibernate.HibernateUpdateService</parameter>
+    </command>
+
+    <command name="Query" key="com.ail.core.persistence.QueryCommandImpl">
+      <parameter name="Service">com.ail.core.persistence.hibernate.HibernateQueryService</parameter>
+    </command>
+
+    <command name="Load" key="com.ail.core.persistence.LoadCommandImpl">
+      <parameter name="Service">com.ail.core.persistence.hibernate.HibernateLoadService</parameter>
+    </command>
+
+    <command name="Create" key="com.ail.core.persistence.CreateCommandImpl">
+      <parameter name="Service">com.ail.core.persistence.hibernate.HibernateCreateService</parameter>
+    </command>
+
+    <command name="Delete" key="com.ail.core.persistence.DeleteCommandImpl">
+      <parameter name="Service">com.ail.core.persistence.hibernate.HibernateDeleteService</parameter>
+    </command>
+
+    <command name="OpenPersistenceSession" key="com.ail.core.persistence.OpenSessionCommandImpl">
+      <parameter name="Service">com.ail.core.persistence.hibernate.HibernateOpenSessionService</parameter>
+    </command>
+
+    <command name="ClosePersistenceSession" key="com.ail.core.persistence.CloseSessionCommandImpl">
+      <parameter name="Service">com.ail.core.persistence.hibernate.HibernateCloseSessionService</parameter>
+    </command>
+  </types>
+</configuration>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+<!DOCTYPE jboss-web PUBLIC
+   "-//JBoss Portal//DTD Portal 2.0//EN"
+   "http://www.jboss.org/portal/dtd/portal_2_0.dtd">
+-->
+
+<!--
+Define the configuration of a portal.
+-->
+<!ELEMENT portal (portal-name,properties,supported-modes?,supported-window-states?,pages)>
+
+<!--
+The portal name.
+-->
+<!ELEMENT portal-name (#PCDATA)>
+
+<!--
+Configures the set of properties of the portal.
+-->
+<!ELEMENT properties (property*)>
+
+<!--
+The definition of a property.
+-->
+<!ELEMENT property (name,value)>
+
+<!--
+A name.
+-->
+<!ELEMENT name (#PCDATA)>
+
+<!--
+A value.
+-->
+<!ELEMENT value (#PCDATA)>
+
+<!--
+Defines the set of supported modes for the components running in this portal.
+-->
+<!ELEMENT supported-modes (mode*)>
+
+<!--
+Define a mode value.
+-->
+<!ELEMENT mode (#PCDATA)>
+
+<!--
+Defines the set of supported window states for the components running in this portal.
+-->
+<!ELEMENT supported-window-states (window-state*)>
+
+<!--
+Define a window state value.
+-->
+<!ELEMENT window-state (#PCDATA)>
+
+<!--
+Define the set of pages available in the portal.
+-->
+<!ELEMENT pages (default-page,page*)>
+
+<!--
+The default page name. This page is displayed when no specific page is mandated during a request.
+-->
+<!ELEMENT default-page (#PCDATA)>
+
+<!--
+Defines a page.
+-->
+<!ELEMENT page (page-name,layout-name,window*)>
+
+<!--
+The page name.
+-->
+<!ELEMENT page-name (#PCDATA)>
+
+<!--
+The layout name of the page.
+-->
+<!ELEMENT layout-name (#PCDATA)>
+
+<!--
+A set of windows attached to the page.
+-->
+<!ELEMENT window (window-name,instance-ref,region,height)>
+
+<!--
+The window name.
+-->
+<!ELEMENT window-name (#PCDATA)>
+
+<!--
+The instance this window references.
+-->
+<!ELEMENT instance-ref (#PCDATA)>
+
+<!--
+The region in which the window is placed.
+-->
+<!ELEMENT region (#PCDATA)>
+
+<!--
+The height in the region this window is placed.
+-->
+<!ELEMENT height (#PCDATA)>

@@ -1,0 +1,194 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+#set($model = $args.ModelArgRet)
+#set($pageElement = $args.PageElementArg )
+#set($response = $args.ResponseArgRet)
+#set($renderId = $args.RenderIdArg)
+#set($javaDatePickerFormat = ${PageFlowFunctions.defaultDateFormat()})
+#set($jsonDatePickerFormat = ${PageFlowFunctions.simpleDateFormatToJqueryDateFormat($javaDatePickerFormat)}) 
+#set($datePlaceholder = ${PageFlowFunctions.defaultDateFormat().toUpperCase()})
+#set($frequencyOptions = ${pageElement.FrequencyOptions})
+#set($frequencyOptionsList = ${CoreFunctions.getStringArrayFromString($frequencyOptions, ',')})
+##
+#set($amountBinding = ${pageElement.encodeId('amount')})
+#set($methodBinding = ${pageElement.encodeId('method')})
+#set($frequencyBinding = ${pageElement.encodeId('frequency')})
+#set($dateBinding = ${pageElement.encodeId('date')})
+#set($numberBinding = ${pageElement.encodeId('number')})
+##
+<div class='pf-payment-schedule-details pf-body' id='$!renderId'>
+    #if( ${pageElement.Title} )
+       <div class='pf-section-title'>${pageElement.formattedTitle($args)}</div>
+    #end
+    #renderQuestions
+    #renderProjection
+</div>
+##
+#macro(renderQuestions)
+    <div class='pf-page-section'>
+        #set($amount = ${pageElement.determineAmountDue()})
+        <div class='pf-question'>
+            <div class='pf-input-label'><div class='pf-input-required'></div>#i18n('i18n_payment_scheduled_details_amount_due_label')</div>
+            <div class='pf-input-field'>
+                <div class='pf-attribute-field'>
+                    <div class='pf-attribute-field-prefix'>
+                        ${pageElement.determineAmountDue().Currency}
+                    </div>
+                    <div class='pf-attribute-field-input'>
+                        ${pageElement.determineAmountDue().Amount}
+                    </div>
+                    <div class='pf-attribute-field-sufix'>
+                    </div>
+                </div>
+            </div>
+        </div>
+        #set($amount = ${pageElement.selectedAmount()})
+        <div class='pf-question'>
+            <div class='pf-input-label'><div class='pf-input-required'></div>#i18n('i18n_payment_scheduled_details_amount_to_pay_label')</div>
+            <div class='pf-input-field'>
+                <div class='pf-attribute-field'>
+                    <div class='pf-attribute-field-prefix'>
+                        $!{amount.Currency}
+                    </div>
+                    <div class='pf-attribute-field-input'>
+                        <input name='${amountBinding}' class='pf-currency' onchange='formatnumber(this,".",",",2);' value='$!{amount.Amount}' size='7em' style='width:7em' type='text'></input>
+                    </div>
+                    <div class='pf-attribute-field-sufix'>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='pf-question'>
+            <div class='pf-input-label'><div class='pf-input-required'></div>#i18n('i18n_payment_scheduled_details_method_label')</div>
+            <div class='pf-input-field'>
+                <div class='pf-attribute-field'>
+                    <div class='pf-attribute-field-prefix'>
+                    </div>
+                    <div class='pf-attribute-field-input'>
+                        <select name='${methodBinding}' class='pf-choice'>
+                            #foreach($method in ${pageElement.determineMethodOptions()})
+                                <option value='${method.ExternalSystemId}' #if(${pageElement.selectedPaymentMethod()} && ${method.ExternalSystemId} == $!{pageElement.selectedPaymentMethod().ExternalSystemId})selected="selected"#end>${method.Class.SimpleName}: ${method.Id}</option>#end
+                        </select>
+                    </div>
+                    <div class='pf-attribute-field-sufix'>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='pf-question'>
+            <div class='pf-input-label'><div class='pf-input-required'></div>#i18n('i18n_payment_scheduled_details_frequency_label')</div>
+            <div class='pf-input-field'>
+                <div class='pf-attribute-field'>
+                    <div class='pf-attribute-field-prefix'>
+                    </div>
+                    <div class='pf-attribute-field-input'>
+                        <select class='pf-choice' name='${frequencyBinding}'>
+                            #foreach($opt in $frequencyOptionsList)
+                                <option #if($opt==${pageElement.selectedFrequency()})selected='selected'#end>$opt</option>
+                            #end</select>
+                    </div>
+                    <div class='pf-attribute-field-sufix'>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='pf-question'>
+            <div class='pf-input-label'><div class='pf-input-required'></div>#i18n('i18n_payment_scheduled_details_date_label')</div>
+            <div class='pf-input-field'>
+                <div class='pf-attribute-field'>
+                    <div class='pf-attribute-field-prefix'>
+                    </div>
+                    <div class='pf-attribute-field-input'>
+                        <input name='${dateBinding}' class='pf-date' size='7em' style='width:7em' type='text' placeholder='$datePlaceholder' value="${CoreFunctions.format(${pageElement.selectedPaymentDate()}, $javaDatePickerFormat)}"></input>
+                        <script type='text/javascript'>
+                            $("input[name='${dateBinding}']").datepicker({
+                              dateFormat: '$jsonDatePickerFormat',
+                              changeMonth: true,
+                              changeYear: true,
+                              minDate: 1
+                            });
+                        </script>
+                    </div>
+                    <div class='pf-attribute-field-sufix'>
+                    </div>
+                    #if($pageElement.hasErrorMarker("date", $model))
+                        #set($error=$pageElement.findError("date", $model, $pageElement))
+                        <div class='pf-input-error'>#i18n($error)</div>
+                    #end
+                </div>
+            </div>
+        </div>
+        <div id='${renderId}-repeating'>
+            <div class='pf-question'>
+                <div class='pf-input-label'><div class='pf-input-required'></div>#i18n('i18n_payment_scheduled_details_number_label')</div>
+                <div class='pf-input-field'>
+                    <div class='pf-attribute-field'>
+                        <div class='pf-attribute-field-prefix'>
+                        </div>
+                        <div class='pf-attribute-field-input'>
+                            <input name='${numberBinding}' class='pf-number' onchange='formatnumber(this,".",",",0);' size='7em' style='width:7em' type='text' value='${pageElement.selectedNumberOfPayments()}'></input>
+                        </div>
+                        <div class='pf-attribute-field-sufix'>
+                        </div>
+                        #if($pageElement.hasErrorMarker("number", $model))
+                            #set($error=$pageElement.findError("number", $model, $pageElement))
+                            <div class='pf-input-error'>#i18n($error)</div>
+                        #end
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type='text/javascript'>
+            $("[name='${frequencyBinding}']").change(function() {
+                if (this.options[this.selectedIndex].text == 'ONE_TIME') {
+                    $("#${renderId}-repeating").hide();
+                }
+                else if ($("#${renderId}-repeating").is(":hidden")) {
+                    $("#${renderId}-repeating").fadeIn("slow");
+                }
+            });
+            $("[name='${frequencyBinding}']").change();
+        </script>
+        #saveButton
+    </div>
+#end
+##
+#macro(renderProjection)
+    <div class='pf-page-section pf-data-table'>
+        <div class='pf-section-body'>
+            #foreach($payment in ${pageElement.determinActualizedPayments()})
+                <div class='pf-item'>
+                    <div class='pf-item-label'>${CoreFunctions.format($payment.PaymentsStartDate, $javaDatePickerFormat)}</div>
+                    <div class='pf-item-value'>${payment.Amount}</div>
+                </div>
+            #end
+        </div>
+        #calculateButton
+    </div>
+#end
+##
+#macro(calculateButton)
+    <input id="calculate" type="button" value='#i18n("i18n_payment_scheduled_details_calculate_button_label")' onclick="callServeResource('${response.createResourceURL()}', 'op=${pageElement.Class.SimpleName}-calculate'); return false;" />
+#end
+##
+#macro(saveButton)
+    <input id="save" type="button" value='#i18n("i18n_save_button_label")' onclick="callServeResource('${response.createResourceURL()}', 'op=${pageElement.Class.SimpleName}-save'); return false;" />
+#end
+##
+#macro(i18n $id)$pageElement.i18n("$id")#end
+

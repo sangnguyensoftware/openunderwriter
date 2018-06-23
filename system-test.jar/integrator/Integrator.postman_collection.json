@@ -1,0 +1,37 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Integrator",
+		"_postman_id": "c720df96-3117-b5c7-095b-5d6445c09cad",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "policies",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "adam@openunderwriter.org",
+						"password": "adam",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "{{protocol}}://{{host}}:{{port}}/integrator/policies",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRhbUBvcGVudW5kZXJ3cml0ZXIub3JnOmFkYW0=",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

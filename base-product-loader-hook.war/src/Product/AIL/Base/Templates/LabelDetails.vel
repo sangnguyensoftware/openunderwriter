@@ -1,0 +1,81 @@
+## Copyright Applied Industrial Logic Limited 2017. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+#set( $model = $args.ModelArgRet)
+#set( $pageElement = $args.PageElementArg )
+#set( $renderId = $args.RenderIdArg )
+#set( $availableLabels = ${pageElement.availableLabels($model)} )
+#set( $activeLabels = ${pageElement.activeLabels($model, $availableLabels)} )
+#set( $labelsInputId = ${pageElement.labelInputId()} )
+##
+<div class='pf-label-details pf-body' id='${renderId}'>
+    #if( ${pageElement.Title} )
+       <div class='pf-section-title'>${pageElement.formattedTitle($args)}</div>
+    #end
+    <input hidden="true" name="${labelsInputId}" id="${labelsInputId}" />
+    <ul id="${renderId}-tags">
+        #foreach($label in ${activeLabels.keySet()})
+            <li>$label</li>
+        #end
+    </ul>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#${labelsInputId}").prop('disabled', true);
+         
+            $("#${renderId}-tags").data("source",[
+                #foreach($label in ${availableLabels.keySet()})
+                    #if(${foreach.index} != 0),#end
+                    {
+                        "label": "${label}",
+                        "id": "${availableLabels.get(${label})}"
+                    }
+                #end
+            ]);
+
+            $("#${renderId}-tags").tagit({
+                availableTags: $("#${renderId}-tags").data("source").map(function(x){ return x[Object.keys(x)[0]]; }),
+                autocomplete: {delay: 0, minLength: 0},
+                showAutocompleteOnFocus: true,
+                caseSensitive: false,
+                allowSpaces: true,
+                placeholderText: "#i18n('i18n_label_add_label')",
+                afterTagAdded: function(event, ui) {
+                    if (!$("#${labelsInputId}").prop('disabled')) {
+                        $.each($("#${renderId}-tags").data("source"), function(i, v) {
+                            if (v.label == ui.tagLabel) {
+                                $('#${labelsInputId}').val($('#${labelsInputId}').val() + ',+' + v.id);
+                            }
+                        });
+                    }
+                },
+                afterTagRemoved: function(event, ui) {
+                    if (!$("#${labelsInputId}").prop('disabled')) {
+                        $.each($("#${renderId}-tags").data("source"), function(i, v) {
+                            if (v.label == ui.tagLabel) {
+                                $('#${labelsInputId}').val($('#${labelsInputId}').val() + ',-' + v.id);
+                            }
+                        });
+                    }
+                }
+            });
+
+            $("#${labelsInputId}").prop('disabled', false);
+        });
+    </script>
+</div>
+##
+#macro( i18n $id )$pageElement.i18n("$id")#end

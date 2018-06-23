@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TradeQB page flow definition.
+     The QuotationPageFlow.xml defines:
+     * the questions that are asked
+     * what data those questions are bound to in the Quotation.xml document
+     * what pages those questions appear on
+     * when different rulesets are applied
+-->
+<pageFlow id="QuotationPageFlow" type="java:com.ail.pageflow.PageFlow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/PageFlow-1.0.xsd">
+
+  <!-- Proposer details page -->
+  <questionPage id="Welcome" title="Your Business">
+    <blank id="Welcome" />
+
+    <!-- Individual contact details -->
+    <pageSection title="Your business details" styleClass="2col">
+      <questionSection>
+        <question title="Business name" binding="/proposer/attribute[id='companyName']" styleClass="required">
+          <errorText error="invalid">Please enter a valid name</errorText>
+          <hintText>Please fill in the name your business trades under. For example, Smith’s Plumbing Services or Bob Smith.</hintText>
+        </question>
+        <question title="Property name/no" binding="/proposer/attribute[id='addressLine1']"  styleClass="required">
+          <errorText error="invalid">Please enter a valid name / number</errorText>
+        </question>
+        <question title="Street" binding="/proposer/attribute[id='addressLine2']" styleClass="required">
+          <errorText error="invalid">Please enter a valid street</errorText>
+        </question>
+        <question title="Town" binding="/proposer/attribute[id='addressLine3']" styleClass="required">
+          <errorText error="invalid">Please enter a valid town</errorText>
+        </question>
+        <question title="County" binding="/proposer/attribute[id='addressLine4']" styleClass="required">
+          <errorText error="invalid">Please enter a valid county</errorText>
+        </question>
+        <question title="Postcode" binding="/proposer/attribute[id='postcode']" styleClass="required">
+          <errorText error="invalid">Please enter a valid postcode</errorText>
+          <hintText>Please enter the postcode of your business address, for example GU1 3AW. This must be a valid UK postcode.</hintText>
+        </question>
+      </questionSection>
+      
+      <pageSection>
+        <question title="Are you a Limited Company?" binding="/asset[id='Company']/attribute[id='Business']/attribute[id='LimitedCompany']" styleClass="required" renderHint="radio">
+          <errorText error="invalid">Please select an option</errorText>
+          <hintText>A Limited Company is a registered firm whose liability is limited by law.</hintText>
+        </question>
+        <question title="Number of years established" binding="/asset[id='Company']/attribute[id='Business']/attribute[id='YearsBusinessEstablishedOptions']" styleClass="required short">
+          <errorText error="invalid">Please enter a number to the nearest year. If under 1 year please enter 0.</errorText>
+          <hintText>Please tell us the number of years your business has been trading for. If under 1 year please enter 0.</hintText>
+        </question>
+        <question title="Predicted turnover this year" binding="/asset[id='Company']/attribute[id='Business']/attribute[id='TotalAnnualTurnover']" styleClass="required money">
+          <errorText error="invalid">Please enter a valid turnover</errorText>
+        </question>
+        <pageSection title="Please select the trades that best describe your business, you may select up to 3 trades if appropriate"> 
+          <rowScroller binding="/asset[assetTypeId='TradeAsset']" type="TradeAsset" minRows="1" maxRows="3" >
+            <attributeField title="Trade category" binding="attribute[id='TradeGroup']" styleClass="required">
+              <errorText error="invalid">Please select a category</errorText>
+            </attributeField>
+            <attributeField title="Trade description" binding="attribute[id='TradeDescription']" styleClass="required">
+              <errorText error="invalid">Please select a description</errorText>
+              <hintText>
+                Please tell us your main trade or occupation that you and your business undertake, for example, carpenter or accountant.
+                If you can not find your trade or occupation from the drop down list, please call us as not all of the trades we are able to cover are listed below.
+              </hintText>
+            </attributeField>
+          </rowScroller>
+        </pageSection>
+      </pageSection>
+    </pageSection>
+
+    <pageSection title="Main contact for this policy" styleClass="2col">
+      <questionSection>
+        <question title="Title" binding="/proposer/attribute[id='title']" styleClass="required short">
+          <errorText error="invalid">Please select a valid title</errorText>
+        </question>
+        <question title="Forename" binding="/proposer/attribute[id='firstName']" styleClass="required">
+          <errorText error="invalid">Please enter a valid name</errorText>
+        </question>
+        <question title="Surname" binding="/proposer/attribute[id='surname']" styleClass="required">
+          <errorText error="invalid">Please enter a valid name</errorText>
+        </question>
+        <question title="Email address" binding="/proposer/attribute[id='emailAddress']" styleClass="required">
+          <errorText error="invalid">Please enter a valid email address</errorText>
+          <hintText>Please enter a valid email address which you can access directly.</hintText>
+        </question>
+      </questionSection>
+
+      <questionSection>
+        <question title="Contact telephone no." binding="/proposer/attribute[id='telephoneNumber']" styleClass="required">
+          <errorText error="invalid">Please enter a valid telephone number</errorText>
+          <hintText>Please specify the best telephone number to contact you regarding your insurance needs. This can be a landline or mobile number.</hintText>
+        </question>
+        <question title="Alternative telephone no." binding="/proposer/attribute[id='mobileNumber']" >
+          <errorText error="invalid">Please enter a valid telephone number</errorText>
+        </question>
+        <question title="Date of birth" binding="/proposer/attribute[id='dateOfBirth']" styleClass="dob required">
+          <errorText error="invalid">Proposer must be 18 or older</errorText>
+          <hintText>Your date of birth will be used as a security question for data protection.</hintText>
+        </question>
+      </questionSection>
+    </pageSection>
+
+    <!-- page navigation buttons -->
+    <navigationSection id="Navigation" quitDisabled="true">
+      <blank id="Quote" />
+      <commandButtonAction id="Next" destinationPageId="Personnel" label="i18n_next_button_label" styleClass="submit">
+        <!-- when next button submits perform custom page level validation - in this case an age check -->
+        <action when="onProcessValidations" commandName="ProposerPageValidation"/>
+        <action when="onProcessValidations" commandName="BusinessPageValidation"/>
+        <action when="onProcessActions" commandName="QuotationToApplication" />
+        <action when="onProcessActions" commandName="TradeFactorLookup"/>
+      </commandButtonAction>
+    </navigationSection>
+    <blank id="SavedQuotes" />
+  </questionPage>
+
+  <!-- Personnel overview questions page -->
+  <questionPage id="Personnel" title="About Your Personnel">
+    <!-- Director and partner details -->
+    <pageSection title="Details about your partners, principles and directors">
+      <!-- If TradeType = 1 (Manual) -->
+      <question title="Number of manual partners, principals or directors" binding="/asset[id='Company']/attribute[id='Personnel']/attribute[id='NbrManualPPDOptions']" condition="i:test(asset[id='Company']/attribute[id='IncludesTradeType1']/value[.='Yes'])" styleClass="required short">
+        <errorText error="invalid">Please enter a valid number</errorText>
+        <hintText>Please fill in the number of all partners, principals, or directors undertaking manual work within your business. This should only exclude those who undertake purely managerial, clerical or administrative roles. These should be entered in the number of non manual partners, principals and directors box on the next question.</hintText>
+      </question>
+      <question title="Number of non manual partners, principals or directors" binding="/asset[id='Company']/attribute[id='Personnel']/attribute[id='NbrNonManualPPDOptions']" styleClass="required short">
+        <errorText error="invalid">Please enter a valid number</errorText>
+        <errorText error="all">All partners, principals and directors must be listed</errorText>
+        <errorText error="one">You must specify at least one partner, principle or director</errorText>
+        <hintText>Please select the number of partners, principles or directors not undertaking manual work within your business.</hintText>
+      </question>
+
+      <!-- repeatable - name and experience of at least one director-->
+      <pageSection title="Directors names and experience">
+        <rowScroller binding="/asset[assetTypeId='PartnerAsset']" type="PartnerAsset" minRows="1">
+          <attributeField title="Full names of principals, partners or directors" binding="attribute[id='PPDName']" styleClass="required">
+            <errorText error="invalid">Please enter valid names</errorText>
+          </attributeField>
+          <attributeField title="Number of years experience in trade" binding="attribute[id='PPDYearsInTradeOptions']" styleClass="required short">
+            <errorText error="invalid">Please enter a valid number</errorText>
+            <hintText>Please tell us the number of years experience in the selected trade or occupation.</hintText>
+          </attributeField>
+        </rowScroller>
+      </pageSection>
+    </pageSection>
+
+    <!-- Employee details -->
+    <questionSection title="Details of your employees">
+      <!-- If TradeType = 1 (Manual) -->
+      <question title="Number of manual employees" binding="/asset[id='Company']/attribute[id='Personnel']/attribute[id='MaximumNbrManualEmployeesOptions']" condition="i:test(asset[id='Company']/attribute[id='IncludesTradeType1']/value[.='Yes'])" styleClass="short">
+        <errorText error="invalid">Please enter a valid number</errorText>
+        <hintText>
+          Please select the number of employees undertaking manual work you currently have working for your business.
+          An employee is considered to be a person working for you under a contract of service or as an apprentice.
+        </hintText>
+      </question>
+      <question title="Number of non manual employees" binding="/asset[id='Company']/attribute[id='Personnel']/attribute[id='MaximumNbrNonManualEmployeesOptions']" styleClass="short">
+        <errorText error="invalid">All partners, principles and directors must be listed below</errorText>
+        <hintText>
+          Please select the number of employees not undertaking manual work you currently have working for your business.
+          An employee is considered to be a person working for you under a contract of service or as an apprentice.
+        </hintText>
+      </question>
+      <!-- If TradeType = 1 (Manual) -->
+      <questionWithDetails title="Do you employ temporary employees?" binding="/asset[id='Company']/attribute[id='Personnel']/attribute[id='TemporaryEmployees']"
+        detailsTitle="Do payments to temporary employees exceed 25% of your annual turnover?" detailsBinding="/asset[id='Company']/attribute[id='Personnel']/attribute[id='TemporaryEmployees_Payments']" styleClass="required" renderHint="radio">
+        <errorText error="invalid">Please select an option</errorText>
+      </questionWithDetails>
+    </questionSection>
+
+    <!-- Subcontractor details -->
+    <questionSection title="Please provide details of any contractors">
+      <!-- If TradeType = 1 (Manual) -->
+      <question title="Number of labour only subcontractors" binding="/asset[id='Company']/attribute[id='Personnel']/attribute[id='MaximumNbrLOSCOptions']" condition="i:test(asset[id='Company']/attribute[id='IncludesTradeType1']/value[.='Yes'])">
+        <errorText error="invalid">Please enter a valid number</errorText>
+        <hintText>
+          Please select the number of labour only subcontractors you have working for your business.
+          Labour only subcontractors provide the service of labour only. Any work undertaken is under direction of you or your business.
+        </hintText>
+      </question>
+      <questionWithDetails title="Do you employ bonafide subcontractors?" binding="/asset[id='Company']/attribute[id='Personnel']/attribute[id='BonafideSubcontractors']"
+        detailsTitle="Do payments to bonafide sub contractors exceed 25% of your annual turnover?" detailsBinding="/asset[id='Company']/attribute[id='Personnel']/attribute[id='BFSC_Payments']" styleClass="required" renderHint="radio">
+        <errorText error="invalid">Please select an option</errorText>
+        <hintText>Bona fide subcontractors are independent companies or firms trading in their own right, engaged by you or your business on a formal contractual basis, to undertake a specialist task specified in the contract.</hintText>
+      </questionWithDetails>
+    </questionSection>
+
+    <!-- page navigation buttons -->
+    <navigationSection quitDisabled="true">
+      <commandButtonAction label="i18n_previous_button_label" destinationPageId="Welcome" immediate="true" />
+      <commandButtonAction label="i18n_next_button_label" destinationPageId="Working_Practices" styleClass="submit">
+        <!-- when next button submits perform custom page level validation and processing- in this case an check that the number of partner assets added equals the number specified and update the counter fields in the model with the selected drop down values-->
+        <action when="onProcessValidations" commandName="PersonnelPageValidation"/>
+        <!-- When next button submits, perform rules to calculated the various people counters that need setting in the quote model -->
+        <action when="onProcessActions" commandName="PeopleCount" />
+      </commandButtonAction>
+    </navigationSection>
+  </questionPage>
+
+  
+  
+  <!-- Working practices questions -->
+  <questionPage id="Working_Practices" title="Working Practices">
+    <!-- Materials handled -->
+    <questionSection title="Will any of the following be handled, disposed of or used in connection with the Business">
+      <question title="asbestos or silica, or materials containing asbestos or silica?" binding="/asset[id='Company']/attribute[id='Hazardous_Materials']/attribute[id='HazardousMaterials1']" styleClass="required indent" renderHint="radio">
+        <errorText error="invalid">Please select an option</errorText>
+      </question>
+      <question title="radioisotopes, radioactive substances or other sources of ionising radiation?" binding="/asset[id='Company']/attribute[id='Hazardous_Materials']/attribute[id='HazardousMaterials2']" styleClass="required indent" renderHint="radio">
+        <errorText error="invalid">Please select an option</errorText>
+      </question>
+      <question title="hazardous chemicals, explosives, solvents, acids or other dangerous substances, other than chemicals and other substances that are normal for the trade?" binding="/asset[id='Company']/attribute[id='Hazardous_Materials']/attribute[id='HazardousMaterials3']" styleClass="required indent" renderHint="radio">
+        <errorText error="invalid">Please select an option</errorText>
+      </question>
+      <question title="toxic, noxious, poisonous or polluting liquids, waste or other pollutants?" binding="/asset[id='Company']/attribute[id='Hazardous_Materials']/attribute[id='HazardousMaterials4']" styleClass="required indent" renderHint="radio">
+        <errorText error="invalid">Please select an option</errorText>
+      </question>
+    </questionSection>
+
+    <!-- Equipment used and locations worked -->
+    <questionSection title="Do you use any form of" condition="i:test(asset[id='Company']/attribute[id='IncludesTradeType1']/value[.='Yes'])">
+      <!-- If TradeType = 1 (Manual) -->
+      <question title="heat equipment?" binding="/asset[id='Company']/attribute[id='Working_Practices']/attribute[id='HeatEquipmentUsed']" condition="i:test(asset[id='Company']/attribute[id='IncludesTradeType1']/value[.='Yes'])" styleClass="required mainQuestion indent" renderHint="radio">
+        <errorText error="invalid">Please select an option</errorText>
+      </question>
+      <!-- If TradeType = 1 (Manual) -->
+      <question title="woodworking machinery?" binding="/asset[id='Company']/attribute[id='Working_Practices']/attribute[id='EL_StaffUsingWoodworkTools']" condition="i:test(asset[id='Company']/attribute[id='IncludesTradeType1']/value[.='Yes'])" styleClass="required mainQuestion indent" renderHint="radio">
+        <errorText error="invalid">Please select an option</errorText>
+      </question>
+    </questionSection>
+
+    <questionSection condition="i:test(asset[id='Company']/attribute[id='Business']/attribute[id='YearsBusinessEstablished']/value[.>0])">
+      <!-- If YearsBusinessEstablished > 0 -->
+      <questionWithSubSection title="Have you been continuously insured for a year or more?" binding="/attribute[id='Policy']/attribute[id='continuousYearsInsured']" styleClass="required mainQuestion" renderHint="radio">
+        <questionSection>
+          <question title="For how many years have you been continuously insured?" binding="/attribute[id='Policy']/attribute[id='NbrYearsInsuredOptions']" styleClass="indent">
+            <errorText error="invalid">Please enter a valid number</errorText>
+          </question>
+          <question title="Who is your current insurer" binding="/attribute[id='Policy']/attribute[id='TblInsurer_ABICodeID']" styleClass="indent">
+            <errorText error="invalid">Please enter a valid name</errorText>
+          </question>
+          <question title="Your current policy number" binding="/attribute[id='Policy']/attribute[id='Current_Policy_Number']" styleClass="indent">
+            <errorText error="invalid">Please enter a valid number</errorText>
+          </question>
+        </questionSection>
+      </questionWithSubSection>
+    </questionSection>
+    
+    <!-- Employers Liability circumstances -->
+    <questionSection condition="i:test(section[id='Trade']/attribute[id='EL_Available']/value[.='Yes'])">
+      <question title="Do you have a statutory exemption from Employers' Liability Insurance?" binding="/section[id='Trade']/attribute[id='ELStatutoryExemption']" styleClass="mainQuestion" renderHint="radio">
+        <helpText>
+          <![CDATA[The following employers are exempt: <br /> <ul><li>family businesses, however, this exemption does not apply to family businesses which are incorporated as limited companies;</li><li>companies employing only their owner where that employee also owns 50&#37; or more of the issued share capital in the company.</li></ul>Other companies and organisations may also be specifically exempted, please refer to the HSE website <a target="_blank" href="http://www.hse.gov.uk/business/elci.htm">http://www.hse.gov.uk/business/elci.htm</a> for further information.]]>
+        </helpText>
+      </question>
+      <question title="Do you have cover elsewhere for your Employers' Liability?" binding="/section[id='Trade']/attribute[id='ELCoveredElsewhere']" styleClass="mainQuestion" renderHint="radio"/>
+    </questionSection>
+
+    <!-- directors and partners history -->
+    <questionSection title="Have you or any of your partners or directors">
+      <question title="had any previous insurance declined or cancelled, required increased premium or special terms, had a renewal or proposal refused?" binding="/attribute[id='Declarations']/attribute[id='PreviousInsuranceDeclined']" styleClass="required indent" renderHint="radio">
+        <errorText error="invalid">Please select an option</errorText>
+      </question>
+      <question title="been convicted of or prosecuted for any criminal offence involving  dishonesty, arson, theft or wilful damage, or are there any prosecutions outstanding?" binding="/attribute[id='Declarations']/attribute[id='PreviousConvictions']" styleClass="required indent" renderHint="radio">
+        <errorText error="invalid">Please select an option</errorText>
+      </question>
+      <question title="been prosecuted or summons under health and safety legislation?" binding="/attribute[id='Declarations']/attribute[id='HealthAndSafety']" styleClass="required indent" renderHint="radio">
+        <errorText error="invalid">Please select an option</errorText>
+      </question>
+      <question title="been declared bankrupt or insolvent or been the subject of bankruptcy proceedings?" binding="/attribute[id='Declarations']/attribute[id='Bankruptcy']" styleClass="required indent" renderHint="radio">
+        <errorText error="invalid">Please select an option</errorText>
+      </question>
+    </questionSection>
+
+    <!-- business history -->
+    <questionSection>
+      <question title="Do you undertake any work outside of England, Scotland, Wales, the Isle of Man and the Channel Islands?" binding="/asset[id='Company']/attribute[id='Risk_Locations']/attribute[id='LocationTrading']" styleClass="required mainQuestion" renderHint="radio">
+        <errorText error="invalid">Please select an option</errorText>
+      </question>
+      <question title="Is your business based outside of Great Britain, the Channel Islands or the Isle of Man?" binding="/asset[id='Company']/attribute[id='Risk_Locations']/attribute[id='LocationBased']" styleClass="required mainQuestion" renderHint="radio">
+        <errorText error="invalid">Please select an option</errorText>
+      </question>
+      <question title="Has your business suffered any claims, losses or incidents in the last 3 years?" binding="/attribute[id='Declarations']/attribute[id='PreviousClaims']" styleClass="required mainQuestion" renderHint="radio">
+        <errorText error="invalid">Please select an option</errorText>
+      </question>
+    </questionSection>
+
+    <!-- page navigation buttons -->
+    <navigationSection quitDisabled="true">
+      <commandButtonAction label="i18n_previous_button_label" destinationPageId="Personnel" immediate="true" />
+      <commandButtonAction label="i18n_next_button_label" destinationPageId="Cover" >
+        <!-- when next button submits perform custom page level validation and processing - update the number of years insured field in the model with the selected drop down values-->
+        <action when="onProcessValidations" commandName="WorkingPracticesPageValidation"/>
+        <action when="onProcessActions" commandName="EnforceCoverages" />
+      </commandButtonAction>
+    </navigationSection>
+  </questionPage>
+
+  <!-- Insurance cover required questions -->
+  <questionPage id="Cover" title="Required Insurance Cover">
+    <!-- Cover details -->
+    <questionSection title="Please select your policy options">
+      <question title="Date of cover start (Must be within the next 30 days)" binding="/attribute[id='Policy']/attribute[id='PeriodFrom']" styleClass="required">
+        <errorText error="invalid">Please enter a date within the next 30 days</errorText>
+        <hintText>Please indicate the date you need your insurance cover to commence from. This can be from today onwards. Any quotations provided will be valid for 30 days from the date issued.</hintText>
+      </question>
+      <question title="Apart from your business name, please provide other trading names" binding="/attribute[id='Policy']/attribute[id='InsuredName']" >
+        <errorText error="invalid">Please enter a valid name</errorText>
+        <hintText>Please provide details of other names, in addition to your business name, that you trade under. For example, your business name is Bob Smith and you also trade under Bobs Plumbing and Bob Smith Services, then please enter, separated by a comma: Bobs Plumbing, Bob Smith Services.</hintText>
+      </question>
+      <question title="Do you require a hard copy of the policy documentation?" binding="/attribute[id='Policy']/attribute[id='HardCopy']" styleClass="required" renderHint="radio">
+        <errorText error="invalid">Please select an option</errorText>
+        <hintText>We send all of your documentation via email, not only is it fast and convenient, it helps the environment.  Should you need a paper copy of your documents we can arrange to send these to you via post.</hintText>
+      </question>
+    </questionSection>
+
+    <!-- Public Liability Cover -->
+    <questionSection title="Public liability insurance">
+      <question title="Please select the level of Public Liability cover required" binding="/section[id='Trade']/attribute[id='PL_Limit']" styleClass="required">
+        <errorText error="invalid">Please select the level you require</errorText>
+      </question>
+    </questionSection>
+
+    <!-- Tools and goods in transit -->
+    <questionSection title="Tools and Goods Cover">
+      <questionWithDetails title="Do you require cover for tools and goods (including computers) in transit?" binding="/section[id='Trade']/attribute[id='TC_Required']" detailsTitle="Sum of items insured?"
+        detailsBinding="/section[id='Trade']/attribute[id='TC_Limit']" styleClass="required" renderHint="radio">
+        <errorText error="invalid">Please select an option</errorText>
+        <hintText>Tools cover provides insurance against loss or damage to your business tools and equipment, including laptops and tablets.</hintText>
+      </questionWithDetails>
+    </questionSection>
+
+    <!-- Employee Liability Cover - if limited company or staff numbers > 0 -->
+    <pageSection title="Employers' liability insurance" condition="i:test(section[id='Trade']/attribute[id='EL_Available']/value[.='Yes'])">
+      <questionSection condition="i:test(section[id='Trade']/attribute[id='EL_Enforced']/value[.='No'])">
+        <question title="Do you require employers liability cover?" binding="/section[id='Trade']/attribute[id='EL_Required']" renderHint="radio"/>
+        <!-- if sub contractors or temporary employees used -->
+        <!--question title="Do you require employers liability cover for temporary employees?" binding="/section[id='Trade']/attribute[id='EL_TemporaryEmployees']" condition="i:test(asset[id='Company']/attribute[id='Personnel']/attribute[id='TemporaryEmployees']/value[.='Yes']) or i:test(asset[id='Company']/attribute[id='Personnel']/attribute[id='BonafideSubcontractors']/value[.='Yes'])" /-->
+      </questionSection>
+      <!-- Employee Liability Cover - if not enforced -->
+      <parsedUrlContent url="~/HTML/Employers Liability Warning.html" condition="i:test(section[id='Trade']/attribute[id='EL_Enforced']/value[.='No'])"/>
+      <!-- Employee Liability Cover - if enforced -->
+      <parsedUrlContent url="~/HTML/Employers Liability Enforced.html" condition="i:test(section[id='Trade']/attribute[id='EL_Enforced']/value[.='Yes'])"/>
+    </pageSection>
+
+    <!-- additional coverages required -->
+    <pageSection title="Additional cover">
+      <parsedUrlContent url="~/HTML/Additional Cover Options.html" />
+      <questionSection>
+        <!-- Professional Indemnity - if TradeType = 2 (Non-manual) -->
+        <question title="Do you require professional indemnity cover?" binding="/section[id='Trade']/attribute[id='PI_Required']" condition="i:test(asset[id='Company']/attribute[id='IncludesTradeType2']/value[.='Yes'])" styleClass="required" renderHint="radio">
+          <errorText error="invalid">Please select an option</errorText>
+        </question>
+
+        <!-- Contract Works Cover - if TradeType = 1 (Manual) -->
+        <questionWithDetails title="Do you require cover for contracts works?" binding="/section[id='Trade']/attribute[id='CW_Required']" detailsTitle="Amount of cover required?"
+          detailsBinding="/section[id='Trade']/attribute[id='CW_Limit']" condition="i:test(asset[id='Company']/attribute[id='IncludesTradeType1']/value[.='Yes'])" styleClass="required" renderHint="radio">
+          <errorText error="invalid">Please select an option</errorText>
+          <hintText>Contract works provides cover for materials and other goods to be incorporated into the works you have been contracted to perform.</hintText>
+        </questionWithDetails>
+
+        <!-- Hired in plant equipment cover - if TradeType = 1 (Manual) -->
+        <questionWithDetails title="Do you require cover for hired in plant equipment?" binding="/section[id='Trade']/attribute[id='HP_Required']" detailsTitle="Amount of cover required?"
+          detailsBinding="/section[id='Trade']/attribute[id='HP_Limit']" condition="i:test(asset[id='Company']/attribute[id='IncludesTradeType1']/value[.='Yes'])" styleClass="required" renderHint="radio">
+          <errorText error="invalid">Please select an option</errorText>
+          <hintText>Hired in plant provides protection against loss or damage to equipment you have hired to perform a job.</hintText>
+          <!--hint error="Hired in plant provides protection against loss or damage to equipment you have hired to perform a job. " /-->
+        </questionWithDetails>
+
+        <!-- Own plant equipment cover - if TradeType = 1 (Manual) -->
+        <questionWithDetails title="Do you require cover for your own plant equipment?" binding="/section[id='Trade']/attribute[id='OP_Required']" detailsTitle="Amount of cover required?"
+          detailsBinding="/section[id='Trade']/attribute[id='OP_Limit']" condition="i:test(asset[id='Company']/attribute[id='IncludesTradeType1']/value[.='Yes'])" styleClass="required" renderHint="radio">
+          <errorText error="invalid">Please select an option</errorText>
+          <hintText>Own plant provides protection against loss or damage to equipment you own.</hintText>
+        </questionWithDetails>
+
+        <!-- Business contents and equipment cover -->
+        <question title="Do you require business contents and equipment cover?" binding="/section[id='Trade']/attribute[id='AR_BC_Required']" styleClass="required" renderHint="radio">
+          <errorText error="invalid">Please select an option</errorText>
+          <hintText>If you operate from an office, warehouse or from home, we can look to extend your insurance policy to provide cover for your contents and equipment.</hintText>
+        </question>
+
+        <!-- Stock cover -->
+        <question title="Do you require stock cover?" binding="/section[id='Trade']/attribute[id='AR_SK_Required']" styleClass="required" renderHint="radio">
+          <errorText error="invalid">Please select an option</errorText>
+          <hintText>Stock cover can be included under your policy. This will cover materials you require to carry out your job.</hintText>
+        </question>
+
+        <!-- Business interruption cover -->
+        <question title="Do you require business interruption cover?" binding="/section[id='Trade']/attribute[id='BI_Required']" styleClass="required" renderHint="radio">
+          <errorText error="invalid">Please select an option</errorText>
+          <hintText>Business interruption cover protects against  additional costs resulting from a temporary shutdown because of an insured peril.</hintText>
+        </question>
+
+        <!-- Personal accident cover -->
+        <question title="Do you require personal accident cover?" binding="/section[id='Trade']/attribute[id='PA_Required']" styleClass="required" renderHint="radio">
+          <errorText error="invalid">Please select an option</errorText>
+          <hintText>Personal accident provides cover for the loss of income should an insured person be involved in an accident and are unable to work.</hintText>
+        </question>
+      </questionSection>
+    </pageSection>
+
+    <!-- Promotional contact use question -->
+    <pageSection title="Future Contact">
+      <questionSection title="By providing your contact details when completing this online quotation request you are consenting to be contacted about this quotation. We would also like to keep you informed by post, telephone , email, text messaging or other electronic means with news, offers, services and promotions that we feel may be of interest to you." styleClass="notH3">
+        <question title="Please tick the box if you do not want us to keep you informed of news, offers and promotions" binding="/attribute[id='Policy']/attribute[id='noPromotions']" renderHint="checkbox"/>
+      </questionSection>
+    </pageSection>
+
+    <!-- page navigation buttons -->
+    <navigationSection quitDisabled="true">
+      <commandButtonAction label="i18n_previous_button_label" destinationPageId="Working_Practices" immediate="true" />
+      <commandButtonAction label="Get A Quote &gt;" destinationPageId="Quotation" styleClass="submit">
+        <!-- When 'get a quote' is submitted, validate the cover page - specifically check the cover start date not in the past, or more than 30 days in the future -->
+        <action when="onProcessValidations" commandName="CoverPageValidation"/>
+        <!-- Next, apply all the endorsements required by the selected trades to the quote model -->
+        <action when="onProcessActions" commandName="TradeEndorsementLookup"/>
+        <!-- Next, apply all the selected limits and excess to the quote model and turn on required coverages -->
+        <action when="onProcessActions" commandName="LimitAndExcessLookup"/>
+        <!-- Finally, run the risk assessment and premium calculation rules -->
+        <action when="onProcessActions" commandName="PremiumCalculation"/>
+        <!-- Apply broker fee -->
+        <action when="onProcessActions" commandName="ApplyBrokerFee" condition="i:test(status[.='QUOTATION'])" />
+        <!-- After the rules are run, if the quote model status is 'QUOTATION' then advance to the quotation page -->
+        <pageForwardAction when="onProcessActions" condition="i:test(status[.='QUOTATION'])" destinationPageId="Quotation" />
+        <!-- Alternatively, if the quote model status is not 'QUOTATION' then advance to the referral page -->
+        <pageForwardAction when="onProcessActions" condition="i:test(status[.!='QUOTATION'])" destinationPageId="Referral" />
+      </commandButtonAction>
+    </navigationSection>
+  </questionPage>
+
+  <!-- Quotation details -->
+  <questionPage id="Quotation">
+    <!-- Generated quote reference -->
+    <pageSection title="Your quotation">
+      <answerSection title="Quote">
+        <answer title="Your quote reference is" binding="/quotationNumber"/>
+      </answerSection>
+    </pageSection>
+    <!--parsedUrlContent id="Content" url="~/HTML/ThirtyDays.html" /-->
+    <!-- Summary of cover -->
+    <pageSection title="Your cover">
+
+      <!-- Public Liability summary -->
+      <pageSection title="Public Liability">
+        <answerSection title="Limits">
+          <answer title="Limit" binding="/section[id='Trade']/coverage[id='PublicLiability']/limit"/>
+        </answerSection>
+        <answerSection title="Excess">
+          <answer title="Excess" binding="/excess[id='PL_XS']/amount"/>
+        </answerSection>
+      </pageSection>
+
+      <!-- Employers Liability summary - if enabled -->
+      <pageSection title="Employers Liability" condition="i:test(/section[id='Trade']/coverage[id='EmployersLiability']/enabled[.='true'])">
+        <answerSection title="Limits">
+          <answer title="Limit" binding="/section[id='Trade']/coverage[id='EmployersLiability']/limit"/>
+        </answerSection>
+      </pageSection>
+      <!-- Tools And Goods In Transit summary - if enabled -->
+      <pageSection title="Tools And Goods In Transit" condition="i:test(/section[id='Trade']/coverage[id='ToolsAndGoodsInTransit']/enabled[.='true'])">
+        <answerSection title="Limits">
+
+          <answer title="Limit" binding="/section[id='Trade']/coverage[id='ToolsAndGoodsInTransit']/limit"/>
+        </answerSection>
+        <answerSection title="Excess">
+          <answer title="${/excess[id='TC_XS_Comp']/title}" binding="/excess[id='TC_XS_Comp']/amount" condition="i:test(/excess[id='TC_XS_Comp']/enabled[.='true'])"/>
+          <answer title="${/excess[id='TC_XS_Glass']/title}" binding="/excess[id='TC_XS_Glass']/amount" condition="i:test(/excess[id='TC_XS_Glass']/enabled[.='true'])"/>
+          <answer title="${/excess[id='TC_XS_Other']/title}" binding="/excess[id='PL_XS']/amount" condition="i:test(/excess[id='TC_XS_Other']/enabled[.='true'])"/>
+        </answerSection>
+      </pageSection>
+      <!-- Tax and Property summary -->
+
+      <pageSection title="Tax and Property">
+        <answerSection title="Limits">
+          <answer title="${/section[id='Trade']/coverage[id='TPPAOI']/description}" binding="/section[id='Trade']/coverage[id='TPPAOI']/limit"/>
+          <answer title="${/section[id='Trade']/coverage[id='TPPTFPI']/description}" binding="/section[id='Trade']/coverage[id='TPPTFPI']/limit"/>
+        </answerSection>
+      </pageSection>
+    </pageSection>
+    <!-- Endorsement details -->
+    <pageSection title="Your cover endorsements" condition="i:test(/clause)">
+
+      <answerSection title="Endorsements applicable">
+        <answerScroller binding="/clause">
+          <answer title="Title" binding="title"/>
+          <answer title="Reference" binding="reference"/>
+          <answer title="Description" binding="text"/>
+        </answerScroller>
+      </answerSection>
+      <!--clauseDetails groupBy="relatesTo/id"/-->
+      <!-- Confirm Endorsements are read and understood -->
+
+      <questionSection>
+        <question title="Do you confirm that you have read and understand all applicable endorsements?" binding="/asset[id='endorsements']/attribute[id='EndorsementConfirmation']" renderHint="checkbox"/>
+      </questionSection>
+    </pageSection>
+    <!-- Premium detail -->
+    <pageSection title="Your quote premium">
+      <answerSection>
+        <answer title="Premium" binding="/assessmentSheet/line[id='total premium']/amount"/>
+        <answer title="Insurance premium tax @ 5%" binding="/assessmentSheet/line[reason='IPT']/amount"/>
+
+        <answer title="Broker fee" binding="/assessmentSheet/line[id='Brokerage']/amount"/>
+      </answerSection>
+    </pageSection>
+    <!-- page navigation buttons -->
+    <navigationSection>
+      <requoteButtonAction destinationPageId="Welcome"/>
+	  <viewQuotationButtonAction label="View quotation document" />
+    </navigationSection>
+  </questionPage>
+
+</pageFlow>

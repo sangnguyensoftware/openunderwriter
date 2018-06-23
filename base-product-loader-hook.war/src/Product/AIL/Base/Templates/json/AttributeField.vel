@@ -1,0 +1,125 @@
+## Copyright Applied Industrial Logic Limited 2017. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+#set( $attr = $args.ModelArgRet)              ## Instance of com.ail.core.Attribute
+#set( $pageElement = $args.PageElementArg )     ## Instance of com.ail.pageflow.AttributeField
+#set( $core = $args.CoreArg )
+#set( $policy = $args.PolicyArg )
+#set( $renderId = $args.RenderIdArg )
+#set( $formatQualifiers = ["size", "min", "max", "options", "pattern", "type", "master", "slave", "required", "ref", "placeholder", "percent"] )
+#set( $choiceTypeName = ${attr.getFormatOption("type")} )
+#if( ${attr.isChoiceType()} && ${choiceTypeName} )
+	#set( $product = ${policy.ProductTypeId} )
+	#set( $choice = ${core.newProductType("${product}", "${choiceTypeName}")} )
+#end
+##
+"valueId": "${renderId}",
+"value": "$!attr.Value",
+#format
+#unit
+#rowContext
+#userHint
+#error
+##
+#macro(format)
+	"format": {
+		"type": "$attr.FormatType"
+		#foreach( $qual in $formatQualifiers )#formatQualifier( $qual )#end
+		#renderHint
+	}
+#end
+##
+#macro(formatQualifier $qual)
+	#set( $val = ${attr.getFormatOption("$qual")} )
+	#if( $qual == "options" )
+		#if( $val ),#formatOptions($val)#end
+	#elseif( ${attr.isChoiceMasterType()} )
+		#if( $val ),#formatTypeOptionsMaster()#end
+	#elseif( ${attr.isChoiceSlaveType()} )
+		#if( $val ),#formatTypeOptionsSlave()#end
+	#elseif ( ${attr.isChoiceType()} )
+		#if( $val ),#formatTypeOptions()#end
+	#else
+		#if( $val ),"$qual": "$val"#end
+	#end
+#end
+##
+#macro(formatOptions $options)
+	"options": [
+     	#foreach( $opts in ${attr.getFormatOption("options").split("[|]")} )
+        	#set( $opt = ${opts.split("[#]").get(1)} )
+            {
+            	"id":"$opt",
+            	"value": "${pageElement.i18n($opt)}"
+            	#if(${opt} == ${attr.Value}),"selected": true#end
+           	}#if( $foreach.hasNext ),#end
+        #end
+    ] 
+#end
+##
+#macro(formatTypeOptionsMaster)
+	"optionsURL": "$pageElement.getOptionsURL($choiceTypeName)",
+	"id": "$attr.getId()",
+	"slave": "$attr.findChoiceSlave()"
+#end
+##
+#macro(formatTypeOptionsSlave)
+	"optionsURL": "$pageElement.getSlaveOptionsURL($choiceTypeName, $attr)",
+	"id": "$attr.getId()",
+	"master": "$attr.findChoiceMaster()"
+#end
+##
+#macro(formatTypeOptions)
+	"optionsURL": "$pageElement.getOptionsURL($choiceTypeName)",
+	"id": "$attr.getId()"
+#end
+##
+#macro(unit)
+	#if( $attr.Unit && $attr.Unit.length()!=0  )
+		,"unit": "$attr.Unit"
+	#end
+#end
+##
+#macro(rowContext)
+	#if( $args.RowContextArg && $args.RowContextArg.length()!=0  )
+		,"rowContext": "$args.RowContextArg"
+	#end
+#end
+##
+#macro(userHint)
+    #if( ${pageElement.HintText} && ${pageElement.HintText.Text} )
+        ,"hintText": "$pageElement.i18n(${pageElement.HintText.Text})"
+    #elseif( ${attr.isDateType()} )
+        ,"hintText": "$attr.dateFormat().toUpperCase()"
+    #end
+#end
+##
+#macro(renderHint)
+    #if( $args.RenderHintArg )       
+        ,"clientHint": "$args.RenderHintArg"
+    #end
+#end
+##
+#macro(error)
+    #if( $pageElement.hasErrorMarker($attr) )
+        ,"error": "$pageElement.findErrors($attr, $pageElement)"
+    #end
+#end
+##
+#macro(numberUnit)
+	#if( $attr.getFormatOption("percent") )%#elseif( $attr.Unit )${attr.Unit}#end
+#end

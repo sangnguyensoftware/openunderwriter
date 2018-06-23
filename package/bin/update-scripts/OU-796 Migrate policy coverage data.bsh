@@ -1,0 +1,116 @@
+import java.net.*;
+import java.util.*;
+import java.lang.*;
+import java.sql.*;
+import java.io.*;
+import java.math.*;
+import java.nio.file.*;
+import java.util.logging.*;
+import java.util.regex.*;
+import com.ail.core.persistence.hibernate.HibernateSessionBuilder;
+import org.hibernate.*;
+import com.ail.core.*;
+import com.ail.pageflow.*;
+import com.ail.insurance.*;
+import com.ail.financial.*;
+import com.ail.insurance.policy.*;
+
+
+main() {
+    if (migrate(bsh.args[0], bsh.args[1])) {
+        System.exit(0);
+    }
+    else {
+        System.exit(1);
+    }
+}
+
+boolean migrate(String jboss, String bin) {
+
+    Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
+
+    try {
+        url = System.getenv("dbUrl");
+        userName = System.getenv("dbUsername");
+        password = System.getenv("dbPassword");
+        print("Update being applied to: "+url);
+
+        Map config = new HashMap();
+
+        config.put("hibernate.listeners.envers.autoRegister", "false");
+
+        config.put("hibernate.connection.url", url);
+        config.put("hibernate.connection.username", userName);
+        config.put("hibernate.connection.password", password);
+        config.put("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
+        config.put("hibernate.connection.current_session_context_class", "thread");
+        config.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+        config.put("hibernate.connection.pool_size", "1");
+
+        config.put("hibernate.bytecode.use_reflection_optimizer", "true");
+        config.put("hibernate.show_sql", "false");
+        config.put("hibernate.format_sql", "true");
+
+        migratePolicyCoverage(config);
+
+        return true;
+
+    } catch (Throwable e) {
+        print("Exception: OU-796 Migrate policy coverage date (policy): " + e.getMessage());
+        e.printStackTrace();
+        return false;
+    }
+
+}
+
+void migratePolicyCoverage(Map config) throws Throwable {
+	CoreProxy core = new CoreProxy();
+
+    Session session = HibernateSessionBuilder.getSessionFactory(config).openSession();
+
+    Query rawDataQuery = session.createSQLQuery("select pol.polUID, pol.polCoverage from polpolicy pol where pol.polCoverage is not null");
+
+    List rawPolicies = rawDataQuery.list();
+    List rows = new ArrayList();
+    for (Object[] rawPolicy : rawPolicies) {
+        rows.add(new Object[]{Long.valueOf(rawPolicy[0].toString()), rawPolicy[1]});
+    }
+    session.close();
+
+    session = HibernateSessionBuilder.getSessionFactory(config).openSession();
+    Transaction tx = session.beginTransaction();
+
+    for (Object[] row : rows) {
+        Long id = row[0];
+        String coverageString = row[1];
+
+        Query policyQuery = session.getNamedQuery("get.policy.by.systemId");
+        policyQuery.setParameter(0, id);
+
+        List policyList = policyQuery.list();
+        Policy policy = policyList.get(0);
+
+        XMLString coverageXML = new XMLString(coverageString);
+        List coverageRecords = core.fromXML(coverageXML.getType(), coverageXML);
+        policy.setCoverage(coverageRecords);
+
+        session.flush();
+        session.clear();
+    }
+
+    tx.commit();
+    session.close();
+}
+
+String readFile(String file) {
+
+    String line = null;
+    StringBuilder stringBuilder = new StringBuilder();
+    BufferedReader reader = new BufferedReader(new FileReader(file));
+    while((line = reader.readLine()) != null) {
+        stringBuilder.append(line);
+    }
+    return stringBuilder.toString();
+}
+
+main();

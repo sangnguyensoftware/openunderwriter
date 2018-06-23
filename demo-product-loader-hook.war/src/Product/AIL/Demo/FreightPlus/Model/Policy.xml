@@ -1,0 +1,16 @@
+<quotation xsi:type="java:com.ail.insurance.policy.Policy" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <productName>FreightPlus</productName>
+
+  <xi:include href="product://localhost:8080/AIL/Base/Model/PersonalProposer.xml" />
+
+  <section id="section" sectionTypeId="Section" xsi:type="java:com.ail.insurance.policy.Section"/>
+
+  <asset id="asset" assetTypeId="Asset" xsi:type="java:com.ail.insurance.policy.Asset">
+    <attribute id="valueOfGoods" format="currency" unit="GBP"/>
+    <attribute id="destination" value="?" format="choice,type=Countries" />
+    <attribute id="modeOfTransport" value="?" format="choice,options=-1#?|1#Road|2#Rail|3#Air|4#Sea" />
+    <attribute id="shippingDelayCover" value="No" format="yesorno"/>
+  </asset>
+
+  <xi:include href="product://localhost:8080/AIL/Base/Model/Acme.xml" />
+</quotation>

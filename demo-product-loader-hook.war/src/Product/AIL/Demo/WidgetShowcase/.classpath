@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="JavaServices"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/openunderwriter"/>
+	<classpathentry kind="lib" path="/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/jxpath/main/commons-jxpath-1.3.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

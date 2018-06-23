@@ -1,0 +1,23 @@
+<p>The yesorno type supports the entry of true or false values from
+	pick lists. The format options supported by the attribute affect the
+	rendering/validate in the follow ways:</p>
+<u>PageFlow</u>
+<pre>
+	&lt;sectionScroller [section scroller options]&gt;
+		&lt;question title="<i>title</i>" binding="<i>xpath binding</i>" [renderHint="radio|checkbox"]/&gt;
+ 	&lt;/sectionScroller&gt;
+</pre>
+<ul>
+    <li><i>title</i> Title rendered to the left of the answer field.</li> 
+	<li><i>binding</i> xpath binding referring to an Attribute in the
+		model to which this column is bound.</li>
+	<li><i>renderHint</i> The options will be rendered as a list of
+		radio buttons when <i>renderHint="radio"</i> or as a tickbox when <i>renderHint="checkbox"</i>
+		is present. The default is to display the list as a drop down list.
+	<li>
+</ul>
+<u>Model</u>
+<pre>
+	&lt;attribute id="<i>id</i>" value="<i>value</i>" format="yesorno"/&gt;
+</pre>
+<hr />

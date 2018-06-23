@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documentDefinition xsi:type="java:com.ail.core.document.model.DocumentDefinition" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+    <documentData>
+        
+        <chapterData title="Basic Details" border="true">
+            <blockData placement="body" applicability="all" title="Proposer">
+                <modelData title="Proposer" class='string'>${/proposer/actualTitle} ${/proposer/firstName} ${proposer/surname}</modelData>
+                <modelData class="line" binding="/proposer/address/line1"/>
+                <modelData class="line" binding="/proposer/address/line2"/>
+                <modelData class="line" binding="/proposer/address/line3"/>
+                <modelData class="line" binding="/proposer/address/line4"/>
+                <modelData class="line" binding="/proposer/address/line5"/>
+                <modelData class="town" binding="/proposer/address/town"/>
+                <modelData class="county" binding="/proposer/address/county"/>
+                <modelData class="country" binding="/proposer/address/country"/>
+                <modelData class="postcode" binding="/proposer/address/postcode"/>
+
+                <modelData title='Phone number' class='phone' binding="/proposer/telephoneNumber"/>
+                <modelData title='Email address' class='email' binding="/proposer/emailAddress"/>
+            </blockData>
+            
+            <blockData placement="body" applicability="all" title="Quotation summary" border="true">
+                <modelData title='Quotation number' class='string' binding='/quotationNumber'/>
+                <modelData title='Total premium' class='string' binding="/assessmentSheet/line[id='total premium']/amountAsString"/>
+                <modelData title='Quotation date' class='date' binding='c:format(/quotationDate,"d MMMMM, yyyy")'/>
+                <modelData title='Quotation expiry date' class='date' binding='c:format(/quotationExpiryDate,"d MMMMM, yyyy")'/>    
+            </blockData>
+            
+            <blockData placement="body" applicability="all" title="Information about your shipment" border="true">
+                <modelData title="Value of goods" binding="/asset/attribute[id='valueOfGoods']/formattedValue"/>
+                <modelData title="Mode of transport" binding="/asset/attribute[id='modeOfTransport']/formattedValue"/>
+                <modelData title="Destination" binding="/asset/attribute[id='destination']/formattedValue"/>
+            </blockData>            
+
+            <blockData applicability="all" placement="body" title="Terms and Conditions" border="true">
+                <urlData class="wording" title="Terms and Conditions" url="product://localhost:8080/AIL/Demo/FreightPlus/HTML/TermsAndConditions.html"/> 
+            </blockData>
+        </chapterData>
+    </documentData> 
+</documentDefinition>

@@ -1,0 +1,32 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-900 add phoPaymentHoliday - notNote join" author="matthewt">
+        <sql dbms="mysql">
+			CREATE TABLE `jPhoNotNot` (
+			  `UIDpho` bigint(20) NOT NULL,
+			  `noteUIDnot` bigint(20) NOT NULL,
+			  UNIQUE KEY `noteUIDnot` (`noteUIDnot`),
+			  KEY `FK2A85920DB3C35E1F` (`noteUIDnot`),
+			  KEY `FK2A85920D4CE2A575` (`UIDpho`),
+			  CONSTRAINT `FK2A85920D4CE2A575` FOREIGN KEY (`UIDpho`) REFERENCES `phoPaymentHoliday` (`phoUID`),
+			  CONSTRAINT `FK2A85920DB3C35E1F` FOREIGN KEY (`noteUIDnot`) REFERENCES `notNote` (`notUID`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;   
+			CREATE TABLE `jPhoNotNot_` (
+			  `secREV` int(11) NOT NULL,
+			  `secUIDpho` bigint(20) NOT NULL,
+			  `secNoteUIDnot` bigint(20) NOT NULL,
+			  `REVTYPE` tinyint(4) DEFAULT NULL,
+			  PRIMARY KEY (`secREV`,`secUIDpho`,`secNoteUIDnot`),
+			  KEY `FK262CAFF252AE8777` (`secREV`),
+			  CONSTRAINT `FK262CAFF252AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    
+    
+    
+</databaseChangeLog>

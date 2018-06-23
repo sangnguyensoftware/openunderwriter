@@ -1,0 +1,46 @@
+<p>This is a reasonably complex widget that gives the user the
+	ability to view and manage the documents associated with a Policy and
+	to upload new documents. The widget also gives access to an Archive
+	area where documents are stored when deleted.</p>
+<u>PageFlow</u>
+<pre>
+&lt;documentManager [renderHint="<i>inline</i>"] 
+                 [validDocumentTypes="<i>regular expression</i>"] 
+                 [validLabels="<i>regular expression</i>"]
+                 [fileTypes="<i>file extension list</i>"]
+                 [binding="<i>xpath</i>"]/&gt;
+</pre>
+<ul>
+	<li><i>render hint</i> - By default when the user downloads a file
+		from the document manager, it will be given the Content-Disposition of
+		attachment. Most browsers will respond by downloading the content and
+		storing it in the user's Downloads folder. However, If a value of "<i>inline</i>"
+		is used, the Content-Disposition will be set to "inline". Typically,
+		browsers will now open the document in a new browser tab if they have
+		a viewer for the file's mime type.</li>
+	<li><i>validDocumentTypes</i> - A regular expression constraining
+		the document types which should be included in the manager.</li>
+	<li><i>validLabels</i> - A regular expression to constrain the
+		documents included in the manager based on the labels associated with
+		the document.</li>
+	<li><i>fileTypes</i> - A comma separated list of file extensions
+		that should be accepted for uploaded. For example: "pdf,png,jpg".
+		Defaults to "png"</li>
+	<li><i>binding</i> - A xPath for the source of the Documents. 
+		This is the path to a Type that implements HasDocuments.
+		For example "/" will bind to the actual policy.
+		If the binding is not set it will default to use the policy.</li>
+</ul>
+<u>Examples</u>
+<p>Display only the quotation and certificate documents.</p>
+<pre>&lt;documentManager validDocumentTypes="i18n_Quotation|i18n_Certificate" /&gt;</pre>
+
+<p>Exclude documents that are labelled as medically or financially
+	sensitive.</p>
+<pre>&lt;documentManager validLabels="(?!.*?(i18n_label_medical_sensitive|i18n_label_financially_sensitive))^.*$" /&gt; </pre>
+
+<hr />
+
+<p>On this page, the document manager is configured to display all
+	document types but exclude any document that is labelled as financially
+	or medically sensitive</p>

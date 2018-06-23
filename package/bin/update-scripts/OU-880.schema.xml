@@ -1,0 +1,742 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+	
+    <changeSet id="OU-880 Create audit tables" author="richard">
+        <sql dbms="mysql">
+
+CREATE TABLE `revRevision` (
+  `revId` int(11) NOT NULL AUTO_INCREMENT,
+  `revTimestamp` bigint(20) NOT NULL,
+  `revServiceRequestRecord` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`revId`),
+  KEY `FKFAAB819E70D05A0` (`revServiceRequestRecord`),
+  CONSTRAINT `FKFAAB819E70D05A0` FOREIGN KEY (`revServiceRequestRecord`) REFERENCES `srrServiceRequestRecord` (`srrUID`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `recRevisionChanges` (
+  `recRev` int(11) NOT NULL,
+  `recEntityName` varchar(255) DEFAULT NULL,
+  KEY `FK24FB93B850F9AED8` (`recRev`),
+  CONSTRAINT `FK24FB93B850F9AED8` FOREIGN KEY (`recRev`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `accAccount_` (
+  `accUID` bigint(20) NOT NULL,
+  `secREV` int(11) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  `accAttribute` longtext,
+  `accCreatedBy` bigint(20) DEFAULT NULL,
+  `accCreatedDate` datetime DEFAULT NULL,
+  `accExternalSystemId` varchar(255) DEFAULT NULL,
+  `accForeignSystemId` varchar(255) DEFAULT NULL,
+  `accUpdatedBy` bigint(20) DEFAULT NULL,
+  `accUpdatedDate` datetime DEFAULT NULL,
+  `accCurrency` varchar(255) DEFAULT NULL,
+  `accDescription` longtext,
+  `accName` varchar(255) DEFAULT NULL,
+  `accOpeningDate` datetime DEFAULT NULL,
+  `accStatus` varchar(255) DEFAULT NULL,
+  `accType` varchar(255) DEFAULT NULL,
+  `accAccountHolderUIDpar` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`accUID`,`secREV`),
+  KEY `FKBDFD877352AE8777` (`secREV`),
+  CONSTRAINT `FKBDFD877352AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `apeAccountingPeriod_` (
+  `apeUID` bigint(20) NOT NULL,
+  `secREV` int(11) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  `apeAttribute` longtext,
+  `apeCreatedBy` bigint(20) DEFAULT NULL,
+  `apeCreatedDate` datetime DEFAULT NULL,
+  `apeExternalSystemId` varchar(255) DEFAULT NULL,
+  `apeForeignSystemId` varchar(255) DEFAULT NULL,
+  `apeUpdatedBy` bigint(20) DEFAULT NULL,
+  `apeUpdatedDate` datetime DEFAULT NULL,
+  `apeEndDate` datetime DEFAULT NULL,
+  `apeStartDate` datetime DEFAULT NULL,
+  `apeStatus` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`apeUID`,`secREV`),
+  KEY `FK67B5EAF352AE8777` (`secREV`),
+  CONSTRAINT `FK67B5EAF352AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ashAssessmentSheet_` (
+  `ashUID` bigint(20) NOT NULL,
+  `secREV` int(11) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  `ashAttribute` longtext,
+  `ashCreatedBy` bigint(20) DEFAULT NULL,
+  `ashCreatedDate` datetime DEFAULT NULL,
+  `ashExternalSystemId` varchar(255) DEFAULT NULL,
+  `ashForeignSystemId` varchar(255) DEFAULT NULL,
+  `ashUpdatedBy` bigint(20) DEFAULT NULL,
+  `ashUpdatedDate` datetime DEFAULT NULL,
+  `ashAssessmentLines` longtext,
+  `ashAutoPriority` int(11) DEFAULT NULL,
+  `ashProcessedOrderCounter` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ashUID`,`secREV`),
+  KEY `FK3C74EAD852AE8777` (`secREV`),
+  CONSTRAINT `FK3C74EAD852AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `assAsset_` (
+  `assUID` bigint(20) NOT NULL,
+  `secREV` int(11) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  `assAttribute` longtext,
+  `assCreatedBy` bigint(20) DEFAULT NULL,
+  `assCreatedDate` datetime DEFAULT NULL,
+  `assExternalSystemId` varchar(255) DEFAULT NULL,
+  `assForeignSystemId` varchar(255) DEFAULT NULL,
+  `assUpdatedBy` bigint(20) DEFAULT NULL,
+  `assUpdatedDate` datetime DEFAULT NULL,
+  `assAssetTypeId` varchar(255) DEFAULT NULL,
+  `assId` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`assUID`,`secREV`),
+  KEY `FK10F7355052AE8777` (`secREV`),
+  CONSTRAINT `FK10F7355052AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `balBalance_` (
+  `balUID` bigint(20) NOT NULL,
+  `secREV` int(11) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  `balAttribute` longtext,
+  `balCreatedBy` bigint(20) DEFAULT NULL,
+  `balCreatedDate` datetime DEFAULT NULL,
+  `balExternalSystemId` varchar(255) DEFAULT NULL,
+  `balForeignSystemId` varchar(255) DEFAULT NULL,
+  `balUpdatedBy` bigint(20) DEFAULT NULL,
+  `balUpdatedDate` datetime DEFAULT NULL,
+  `balAmount` decimal(19,2) DEFAULT NULL,
+  `balCurrency` varchar(255) DEFAULT NULL,
+  `balDate` datetime DEFAULT NULL,
+  `balAccountUID` bigint(20) DEFAULT NULL,
+  `balJournalLineUIDjli` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`balUID`,`secREV`),
+  KEY `FKAD5EF03052AE8777` (`secREV`),
+  CONSTRAINT `FKAD5EF03052AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `covCoverage_` (
+  `covUID` bigint(20) NOT NULL,
+  `secREV` int(11) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  `covAttribute` longtext,
+  `covCreatedBy` bigint(20) DEFAULT NULL,
+  `covCreatedDate` datetime DEFAULT NULL,
+  `covExternalSystemId` varchar(255) DEFAULT NULL,
+  `covForeignSystemId` varchar(255) DEFAULT NULL,
+  `covUpdatedBy` bigint(20) DEFAULT NULL,
+  `covUpdatedDate` datetime DEFAULT NULL,
+  `covCoverageTypeId` varchar(255) DEFAULT NULL,
+  `covDeductibleAmount` decimal(19,2) DEFAULT NULL,
+  `covDeductibleCurrency` varchar(255) DEFAULT NULL,
+  `covDescription` varchar(255) DEFAULT NULL,
+  `covEffectiveDate` datetime DEFAULT NULL,
+  `covEnabled` bit(1) DEFAULT NULL,
+  `covExpiryDate` datetime DEFAULT NULL,
+  `covId` varchar(255) DEFAULT NULL,
+  `covLimitAmount` decimal(19,2) DEFAULT NULL,
+  `covLimitCurrency` varchar(255) DEFAULT NULL,
+  `covName` varchar(255) DEFAULT NULL,
+  `covOptional` bit(1) DEFAULT NULL,
+  `covBrokerUIDpar` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`covUID`,`secREV`),
+  KEY `FK102F010D52AE8777` (`secREV`),
+  CONSTRAINT `FK102F010D52AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `dcoDocumentContent_` (
+  `dcoUID` bigint(20) NOT NULL,
+  `secREV` int(11) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  `dcoAttribute` longtext,
+  `dcoCreatedBy` bigint(20) DEFAULT NULL,
+  `dcoCreatedDate` datetime DEFAULT NULL,
+  `dcoExternalSystemId` varchar(255) DEFAULT NULL,
+  `dcoForeignSystemId` varchar(255) DEFAULT NULL,
+  `dcoUpdatedBy` bigint(20) DEFAULT NULL,
+  `dcoUpdatedDate` datetime DEFAULT NULL,
+  `dcoInTableContent` longblob,
+  `dcoProductTypeId` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`dcoUID`,`secREV`),
+  KEY `FK9DA16D3152AE8777` (`secREV`),
+  CONSTRAINT `FK9DA16D3152AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `docDocument_` (
+  `docUID` bigint(20) NOT NULL,
+  `secREV` int(11) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  `docAttribute` longtext,
+  `docCreatedBy` bigint(20) DEFAULT NULL,
+  `docCreatedDate` datetime DEFAULT NULL,
+  `docExternalSystemId` varchar(255) DEFAULT NULL,
+  `docForeignSystemId` varchar(255) DEFAULT NULL,
+  `docUpdatedBy` bigint(20) DEFAULT NULL,
+  `docUpdatedDate` datetime DEFAULT NULL,
+  `docDescription` longtext,
+  `docFileName` varchar(255) DEFAULT NULL,
+  `docMimeType` varchar(255) DEFAULT NULL,
+  `docOtherType` varchar(255) DEFAULT NULL,
+  `docTitle` varchar(255) DEFAULT NULL,
+  `docType` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`docUID`,`secREV`),
+  KEY `FKB8A44C4C52AE8777` (`secREV`),
+  CONSTRAINT `FKB8A44C4C52AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `fsrForeignSystemReference_` (
+  `fsrUID` bigint(20) NOT NULL,
+  `secREV` int(11) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  `fsrAttribute` longtext,
+  `fsrCreatedBy` bigint(20) DEFAULT NULL,
+  `fsrCreatedDate` datetime DEFAULT NULL,
+  `fsrExternalSystemId` varchar(255) DEFAULT NULL,
+  `fsrForeignSystemId` varchar(255) DEFAULT NULL,
+  `fsrUpdatedBy` bigint(20) DEFAULT NULL,
+  `fsrUpdatedDate` datetime DEFAULT NULL,
+  `fsrReference` varchar(255) DEFAULT NULL,
+  `fsrType` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`fsrUID`,`secREV`),
+  KEY `FK6AE513F252AE8777` (`secREV`),
+  CONSTRAINT `FK6AE513F252AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jAssAssAss_` (
+  `secREV` int(11) NOT NULL,
+  `secUIDass` bigint(20) NOT NULL,
+  `secAssetUIDass` bigint(20) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`secREV`,`secUIDass`,`secAssetUIDass`),
+  KEY `FK2B62F66852AE8777` (`secREV`),
+  CONSTRAINT `FK2B62F66852AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jDcoFsrFsr_` (
+  `secREV` int(11) NOT NULL,
+  `secUIDdco` bigint(20) NOT NULL,
+  `secForeignSystemReferenceUIDfsr` bigint(20) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`secREV`,`secUIDdco`,`secForeignSystemReferenceUIDfsr`),
+  KEY `FK2CE6FCB952AE8777` (`secREV`),
+  CONSTRAINT `FK2CE6FCB952AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jJouJliJli_` (
+  `secREV` int(11) NOT NULL,
+  `secUIDjou` bigint(20) NOT NULL,
+  `secJournalLineUIDjli` bigint(20) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`secREV`,`secUIDjou`,`secJournalLineUIDjli`),
+  KEY `FK1045C7F952AE8777` (`secREV`),
+  CONSTRAINT `FK1045C7F952AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jLedJliJli_` (
+  `secREV` int(11) NOT NULL,
+  `secUIDled` bigint(20) NOT NULL,
+  `secJournalLineUIDjli` bigint(20) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`secREV`,`secUIDled`,`secJournalLineUIDjli`),
+  KEY `FK4838595E52AE8777` (`secREV`),
+  CONSTRAINT `FK4838595E52AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jPolAdoDoc_` (
+  `secREV` int(11) NOT NULL,
+  `secUIDpol` bigint(20) NOT NULL,
+  `secArchivedDocumentUIDdoc` bigint(20) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`secREV`,`secUIDpol`,`secArchivedDocumentUIDdoc`),
+  KEY `FK39A6DDF052AE8777` (`secREV`),
+  CONSTRAINT `FK39A6DDF052AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jPolAslAsh_` (
+  `secREV` int(11) NOT NULL,
+  `secUIDpol` bigint(20) NOT NULL,
+  `secAssessmentSheetListUIDash` bigint(20) NOT NULL,
+  `sheet_name` varchar(255) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`secREV`,`secUIDpol`,`secAssessmentSheetListUIDash`,`sheet_name`),
+  KEY `FK5313FB4052AE8777` (`secREV`),
+  CONSTRAINT `FK5313FB4052AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jPolAssAss_` (
+  `secREV` int(11) NOT NULL,
+  `secUIDpol` bigint(20) NOT NULL,
+  `secAssetUIDass` bigint(20) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`secREV`,`secUIDpol`,`secAssetUIDass`),
+  KEY `FK5376A11C52AE8777` (`secREV`),
+  CONSTRAINT `FK5376A11C52AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jPolCovCov_` (
+  `secREV` int(11) NOT NULL,
+  `secUIDpol` bigint(20) NOT NULL,
+  `secCoverageUIDcov` bigint(20) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`secREV`,`secUIDpol`,`secCoverageUIDcov`),
+  KEY `FKB69AD5BC52AE8777` (`secREV`),
+  CONSTRAINT `FKB69AD5BC52AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jPolDocDoc_` (
+  `secREV` int(11) NOT NULL,
+  `secUIDpol` bigint(20) NOT NULL,
+  `secDocumentUIDdoc` bigint(20) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`secREV`,`secUIDpol`,`secDocumentUIDdoc`),
+  KEY `FKEA75C47C52AE8777` (`secREV`),
+  CONSTRAINT `FKEA75C47C52AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jPolNotNot_` (
+  `secREV` int(11) NOT NULL,
+  `secUIDpol` bigint(20) NOT NULL,
+  `secNoteUIDnot` bigint(20) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`secREV`,`secUIDpol`,`secNoteUIDnot`),
+  KEY `FKFC68325C52AE8777` (`secREV`),
+  CONSTRAINT `FKFC68325C52AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jPolPhiPre_` (
+  `secREV` int(11) NOT NULL,
+  `secUIDpol` bigint(20) NOT NULL,
+  `secPaymentHistoryUIDpre` bigint(20) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`secREV`,`secUIDpol`,`secPaymentHistoryUIDpre`),
+  KEY `FK59A8AC2A52AE8777` (`secREV`),
+  CONSTRAINT `FK59A8AC2A52AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jPolPhoPho_` (
+  `secREV` int(11) NOT NULL,
+  `phoPolicyUIDpol` bigint(20) NOT NULL,
+  `phoUID` bigint(20) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`secREV`,`phoPolicyUIDpol`,`phoUID`),
+  KEY `FK59FD14DC52AE8777` (`secREV`),
+  CONSTRAINT `FK59FD14DC52AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jPolPopPsc_` (
+  `secREV` int(11) NOT NULL,
+  `secUIDpol` bigint(20) NOT NULL,
+  `secPaymentOptionUIDpsc` bigint(20) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`secREV`,`secUIDpol`,`secPaymentOptionUIDpsc`),
+  KEY `FK65FD408D52AE8777` (`secREV`),
+  CONSTRAINT `FK65FD408D52AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jPolSecSec_` (
+  `secREV` int(11) NOT NULL,
+  `secUIDpol` bigint(20) NOT NULL,
+  `secSectionUIDsec` bigint(20) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`secREV`,`secUIDpol`,`secSectionUIDsec`),
+  KEY `FKF2E9731C52AE8777` (`secREV`),
+  CONSTRAINT `FKF2E9731C52AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jPscMprMpr_` (
+  `secREV` int(11) NOT NULL,
+  `secUIDpsc` bigint(20) NOT NULL,
+  `secMoneyProvisionUIDmpr` bigint(20) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`secREV`,`secUIDpsc`,`secMoneyProvisionUIDmpr`),
+  KEY `FK7341580952AE8777` (`secREV`),
+  CONSTRAINT `FK7341580952AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jSecAslAsh_` (
+  `secREV` int(11) NOT NULL,
+  `secUIDsec` bigint(20) NOT NULL,
+  `secAssessmentSheetListUIDash` bigint(20) NOT NULL,
+  `sheet_name` varchar(255) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`secREV`,`secUIDsec`,`secAssessmentSheetListUIDash`,`sheet_name`),
+  KEY `FKBE5964BC52AE8777` (`secREV`),
+  CONSTRAINT `FKBE5964BC52AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jSecCovCov_` (
+  `secREV` int(11) NOT NULL,
+  `secUIDsec` bigint(20) NOT NULL,
+  `secCoverageUIDcov` bigint(20) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`secREV`,`secUIDsec`,`secCoverageUIDcov`),
+  KEY `FK21E03F3852AE8777` (`secREV`),
+  CONSTRAINT `FK21E03F3852AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jdocConDco_` (
+  `secREV` int(11) NOT NULL,
+  `dcoDocumentUIDdoc` bigint(20) NOT NULL,
+  `dcoUID` bigint(20) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`secREV`,`dcoDocumentUIDdoc`,`dcoUID`),
+  KEY `FK24FCA2C352AE8777` (`secREV`),
+  CONSTRAINT `FK24FCA2C352AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jliJournalLine_` (
+  `jliUID` bigint(20) NOT NULL,
+  `secREV` int(11) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  `jliAttribute` longtext,
+  `jliCreatedBy` bigint(20) DEFAULT NULL,
+  `jliCreatedDate` datetime DEFAULT NULL,
+  `jliExternalSystemId` varchar(255) DEFAULT NULL,
+  `jliForeignSystemId` varchar(255) DEFAULT NULL,
+  `jliUpdatedBy` bigint(20) DEFAULT NULL,
+  `jliUpdatedDate` datetime DEFAULT NULL,
+  `jliAmount` decimal(19,2) DEFAULT NULL,
+  `jliCurrency` varchar(255) DEFAULT NULL,
+  `jliDescription` longtext,
+  `jliTransactionType` varchar(255) DEFAULT NULL,
+  `jliType` varchar(255) DEFAULT NULL,
+  `jliJournalUIDjou` bigint(20) DEFAULT NULL,
+  `jliLedgerUIDled` bigint(20) DEFAULT NULL,
+  `jliPaymentMethodUIDpme` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`jliUID`,`secREV`),
+  KEY `FK315FA6FB52AE8777` (`secREV`),
+  CONSTRAINT `FK315FA6FB52AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jouJournal_` (
+  `jouUID` bigint(20) NOT NULL,
+  `secREV` int(11) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  `jouAttribute` longtext,
+  `jouCreatedBy` bigint(20) DEFAULT NULL,
+  `jouCreatedDate` datetime DEFAULT NULL,
+  `jouExternalSystemId` varchar(255) DEFAULT NULL,
+  `jouForeignSystemId` varchar(255) DEFAULT NULL,
+  `jouUpdatedBy` bigint(20) DEFAULT NULL,
+  `jouUpdatedDate` datetime DEFAULT NULL,
+  `jouPostedDate` datetime DEFAULT NULL,
+  `jouSubjectId` varchar(255) DEFAULT NULL,
+  `jouSubjectType` varchar(255) DEFAULT NULL,
+  `jouTransactionDate` datetime DEFAULT NULL,
+  `jouType` varchar(255) DEFAULT NULL,
+  `jouAccountingPeriodUIDape` bigint(20) DEFAULT NULL,
+  `jouContraOfUIDjou` bigint(20) DEFAULT NULL,
+  `jouOriginUIDmpr` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`jouUID`,`secREV`),
+  KEY `FK1ADC67F852AE8777` (`secREV`),
+  CONSTRAINT `FK1ADC67F852AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ledLedger_` (
+  `ledUID` bigint(20) NOT NULL,
+  `secREV` int(11) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  `ledAttribute` longtext,
+  `ledCreatedBy` bigint(20) DEFAULT NULL,
+  `ledCreatedDate` datetime DEFAULT NULL,
+  `ledExternalSystemId` varchar(255) DEFAULT NULL,
+  `ledForeignSystemId` varchar(255) DEFAULT NULL,
+  `ledUpdatedBy` bigint(20) DEFAULT NULL,
+  `ledUpdatedDate` datetime DEFAULT NULL,
+  `ledDescription` longtext,
+  `ledName` varchar(255) DEFAULT NULL,
+  `ledAccountUIDacc` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`ledUID`,`secREV`),
+  KEY `FK8855A38B52AE8777` (`secREV`),
+  CONSTRAINT `FK8855A38B52AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `mprMoneyProvision_` (
+  `mprUID` bigint(20) NOT NULL,
+  `secREV` int(11) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  `mprAttribute` longtext,
+  `mprCreatedBy` bigint(20) DEFAULT NULL,
+  `mprCreatedDate` datetime DEFAULT NULL,
+  `mprExternalSystemId` varchar(255) DEFAULT NULL,
+  `mprForeignSystemId` varchar(255) DEFAULT NULL,
+  `mprUpdatedBy` bigint(20) DEFAULT NULL,
+  `mprUpdatedDate` datetime DEFAULT NULL,
+  `mprAmount` decimal(19,2) DEFAULT NULL,
+  `mprCurrency` varchar(255) DEFAULT NULL,
+  `mprDay` int(11) DEFAULT NULL,
+  `mprDescription` varchar(255) DEFAULT NULL,
+  `mprFrequency` varchar(255) DEFAULT NULL,
+  `mprNumber` int(11) DEFAULT NULL,
+  `mprPaymentId` varchar(255) DEFAULT NULL,
+  `mprPaymentsEndDate` datetime DEFAULT NULL,
+  `mprPaymentsStartDate` datetime DEFAULT NULL,
+  `mprSaleId` varchar(255) DEFAULT NULL,
+  `mprStatus` varchar(255) DEFAULT NULL,
+  `mprPaymentMethodUIDpme` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`mprUID`,`secREV`),
+  KEY `FKCEE97BDB52AE8777` (`secREV`),
+  CONSTRAINT `FKCEE97BDB52AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `notNote_` (
+  `notUID` bigint(20) NOT NULL,
+  `secREV` int(11) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  `notAttribute` longtext,
+  `notCreatedBy` bigint(20) DEFAULT NULL,
+  `notCreatedDate` datetime DEFAULT NULL,
+  `notExternalSystemId` varchar(255) DEFAULT NULL,
+  `notForeignSystemId` varchar(255) DEFAULT NULL,
+  `notUpdatedBy` bigint(20) DEFAULT NULL,
+  `notUpdatedDate` datetime DEFAULT NULL,
+  `notBody` longtext,
+  `notTitle` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`notUID`,`secREV`),
+  KEY `FK5D067F9A52AE8777` (`secREV`),
+  CONSTRAINT `FK5D067F9A52AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `parParty_` (
+  `parDSC` varchar(31) NOT NULL,
+  `parUID` bigint(20) NOT NULL,
+  `secREV` int(11) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  `parAttribute` longtext,
+  `parCreatedBy` bigint(20) DEFAULT NULL,
+  `parCreatedDate` datetime DEFAULT NULL,
+  `parExternalSystemId` varchar(255) DEFAULT NULL,
+  `parForeignSystemId` varchar(255) DEFAULT NULL,
+  `parUpdatedBy` bigint(20) DEFAULT NULL,
+  `parUpdatedDate` datetime DEFAULT NULL,
+  `parCountry` varchar(255) DEFAULT NULL,
+  `parCounty` varchar(255) DEFAULT NULL,
+  `parFullAddress` varchar(255) DEFAULT NULL,
+  `parLine1` varchar(255) DEFAULT NULL,
+  `parLine2` varchar(255) DEFAULT NULL,
+  `parLine3` varchar(255) DEFAULT NULL,
+  `parLine4` varchar(255) DEFAULT NULL,
+  `parLine5` varchar(255) DEFAULT NULL,
+  `parPostcode` varchar(255) DEFAULT NULL,
+  `parTown` varchar(255) DEFAULT NULL,
+  `parEmailAddress` varchar(255) DEFAULT NULL,
+  `parLegalName` varchar(255) DEFAULT NULL,
+  `parMobilephoneNumber` varchar(255) DEFAULT NULL,
+  `parPartyId` varchar(255) DEFAULT NULL,
+  `parTelephoneNumber` varchar(255) DEFAULT NULL,
+  `parOrganisationRegistrationNumber` varchar(255) DEFAULT NULL,
+  `taxRegistrationNumber` varchar(255) DEFAULT NULL,
+  `parContactUIDpar` bigint(20) DEFAULT NULL,
+  `parClaimTelephoneNumber` varchar(255) DEFAULT NULL,
+  `parContactName` varchar(255) DEFAULT NULL,
+  `parDirectDebitIdentificationNumber` varchar(255) DEFAULT NULL,
+  `parPaymentTelephoneNumber` varchar(255) DEFAULT NULL,
+  `parPolicyEmailAddress` varchar(255) DEFAULT NULL,
+  `parQuoteEmailAddress` varchar(255) DEFAULT NULL,
+  `parQuoteTelephoneNumber` varchar(255) DEFAULT NULL,
+  `parTradingName` varchar(255) DEFAULT NULL,
+  `parDateOfBirth` datetime DEFAULT NULL,
+  `parFirstName` varchar(255) DEFAULT NULL,
+  `parOtherTitle` varchar(255) DEFAULT NULL,
+  `parSurname` varchar(255) DEFAULT NULL,
+  `parTitle` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`parUID`,`secREV`),
+  KEY `FK56D9223A52AE8777` (`secREV`),
+  CONSTRAINT `FK56D9223A52AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `phoPaymentHoliday_` (
+  `phoUID` bigint(20) NOT NULL,
+  `secREV` int(11) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  `phoAttribute` longtext,
+  `phoCreatedBy` bigint(20) DEFAULT NULL,
+  `phoCreatedDate` datetime DEFAULT NULL,
+  `phoExternalSystemId` varchar(255) DEFAULT NULL,
+  `phoForeignSystemId` varchar(255) DEFAULT NULL,
+  `phoUpdatedBy` bigint(20) DEFAULT NULL,
+  `phoUpdatedDate` datetime DEFAULT NULL,
+  `phoEndDate` datetime DEFAULT NULL,
+  `phoStartDate` datetime DEFAULT NULL,
+  PRIMARY KEY (`phoUID`,`secREV`),
+  KEY `FK9761CB652AE8777` (`secREV`),
+  CONSTRAINT `FK9761CB652AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `pmePaymentMethod_` (
+  `pmeDSC` varchar(31) NOT NULL,
+  `pmeUID` bigint(20) NOT NULL,
+  `secREV` int(11) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  `pmeAttribute` longtext,
+  `pmeCreatedBy` bigint(20) DEFAULT NULL,
+  `pmeCreatedDate` datetime DEFAULT NULL,
+  `pmeExternalSystemId` varchar(255) DEFAULT NULL,
+  `pmeForeignSystemId` varchar(255) DEFAULT NULL,
+  `pmeUpdatedBy` bigint(20) DEFAULT NULL,
+  `pmeUpdatedDate` datetime DEFAULT NULL,
+  `pmeIdentifier` varchar(255) DEFAULT NULL,
+  `mprCardHoldersName` varchar(255) DEFAULT NULL,
+  `mprCardNumber` varchar(255) DEFAULT NULL,
+  `mprExpiryDate` datetime DEFAULT NULL,
+  `mprIssueNumber` varchar(255) DEFAULT NULL,
+  `mprIssuer` varchar(255) DEFAULT NULL,
+  `mprSecurityCode` varchar(255) DEFAULT NULL,
+  `mprStartDate` datetime DEFAULT NULL,
+  `pmeAccountNumber` varchar(255) DEFAULT NULL,
+  `pmeSortCode` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`pmeUID`,`secREV`),
+  KEY `FK8ADFCEE052AE8777` (`secREV`),
+  CONSTRAINT `FK8ADFCEE052AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `polPolicy_` (
+  `polUID` bigint(20) NOT NULL,
+  `secREV` int(11) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  `polAttribute` longtext,
+  `polCreatedBy` bigint(20) DEFAULT NULL,
+  `polCreatedDate` datetime DEFAULT NULL,
+  `polExternalSystemId` varchar(255) DEFAULT NULL,
+  `polForeignSystemId` varchar(255) DEFAULT NULL,
+  `polUpdatedBy` bigint(20) DEFAULT NULL,
+  `polUpdatedDate` datetime DEFAULT NULL,
+  `polAggregator` bit(1) DEFAULT NULL,
+  `polAllowable` longtext,
+  `polBaseCurrency` varchar(255) DEFAULT NULL,
+  `polClause` longtext,
+  `polException` longtext,
+  `polExcess` longtext,
+  `polExpiryDate` datetime DEFAULT NULL,
+  `polId` varchar(255) DEFAULT NULL,
+  `polInceptionDate` datetime DEFAULT NULL,
+  `polMtaIndex` bigint(20) DEFAULT NULL,
+  `polOwningUser` bigint(20) DEFAULT NULL,
+  `polPageVisit` longtext,
+  `polPolicyLink` longtext,
+  `polPolicyNumber` varchar(255) DEFAULT NULL,
+  `polProductName` varchar(255) DEFAULT NULL,
+  `polProductTypeId` varchar(255) DEFAULT NULL,
+  `polQuotationDate` datetime DEFAULT NULL,
+  `polQuotationExpiryDate` datetime DEFAULT NULL,
+  `polQuotationNumber` varchar(255) DEFAULT NULL,
+  `polRenewalIndex` bigint(20) DEFAULT NULL,
+  `polStatus` varchar(255) DEFAULT NULL,
+  `polTestCase` bit(1) DEFAULT NULL,
+  `polUserSaved` bit(1) DEFAULT NULL,
+  `polVersionEffectiveDate` datetime DEFAULT NULL,
+  `polWording` longtext,
+  `polBrokerUIDpar` bigint(20) DEFAULT NULL,
+  `polPaymentDetailsUIDpsc` bigint(20) DEFAULT NULL,
+  `polPolicyHolderUIDpar` bigint(20) DEFAULT NULL,
+  `polProposerUIDpar` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`polUID`,`secREV`),
+  KEY `FK484C266052AE8777` (`secREV`),
+  CONSTRAINT `FK484C266052AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `prePaymentRecord_` (
+  `preUID` bigint(20) NOT NULL,
+  `secREV` int(11) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  `preAttribute` longtext,
+  `preCreatedBy` bigint(20) DEFAULT NULL,
+  `preCreatedDate` datetime DEFAULT NULL,
+  `preExternalSystemId` varchar(255) DEFAULT NULL,
+  `preForeignSystemId` varchar(255) DEFAULT NULL,
+  `preUpdatedBy` bigint(20) DEFAULT NULL,
+  `preUpdatedDate` datetime DEFAULT NULL,
+  `preAmount` decimal(19,2) DEFAULT NULL,
+  `preCurrency` varchar(255) DEFAULT NULL,
+  `preDate` datetime DEFAULT NULL,
+  `preDescription` varchar(255) DEFAULT NULL,
+  `preMethodIdentifier` varchar(255) DEFAULT NULL,
+  `preTransactionReference` varchar(255) DEFAULT NULL,
+  `preType` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`preUID`,`secREV`),
+  KEY `FKFA4BF6CB52AE8777` (`secREV`),
+  CONSTRAINT `FKFA4BF6CB52AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `pscPaymentSchedule_` (
+  `pscUID` bigint(20) NOT NULL,
+  `secREV` int(11) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  `pscAttribute` longtext,
+  `pscCreatedBy` bigint(20) DEFAULT NULL,
+  `pscCreatedDate` datetime DEFAULT NULL,
+  `pscExternalSystemId` varchar(255) DEFAULT NULL,
+  `pscForeignSystemId` varchar(255) DEFAULT NULL,
+  `pscUpdatedBy` bigint(20) DEFAULT NULL,
+  `pscUpdatedDate` datetime DEFAULT NULL,
+  `pscDescription` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`pscUID`,`secREV`),
+  KEY `FK759B0C2252AE8777` (`secREV`),
+  CONSTRAINT `FK759B0C2252AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `pviPageVisit_` (
+  `pviUID` bigint(20) NOT NULL,
+  `secREV` int(11) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  `pviAttribute` longtext,
+  `pviCreatedBy` bigint(20) DEFAULT NULL,
+  `pviCreatedDate` datetime DEFAULT NULL,
+  `pviExternalSystemId` varchar(255) DEFAULT NULL,
+  `pviForeignSystemId` varchar(255) DEFAULT NULL,
+  `pviUpdatedBy` bigint(20) DEFAULT NULL,
+  `pviUpdatedDate` datetime DEFAULT NULL,
+  `pviPageFlowName` varchar(255) DEFAULT NULL,
+  `pviPageName` varchar(255) DEFAULT NULL,
+  `pviVisited` datetime DEFAULT NULL,
+  PRIMARY KEY (`pviUID`,`secREV`),
+  KEY `FKBF10836652AE8777` (`secREV`),
+  CONSTRAINT `FKBF10836652AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `secSection_` (
+  `secUID` bigint(20) NOT NULL,
+  `secREV` int(11) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  `secAttribute` longtext,
+  `secCreatedBy` bigint(20) DEFAULT NULL,
+  `secCreatedDate` datetime DEFAULT NULL,
+  `secExternalSystemId` varchar(255) DEFAULT NULL,
+  `secForeignSystemId` varchar(255) DEFAULT NULL,
+  `secUpdatedBy` bigint(20) DEFAULT NULL,
+  `secUpdatedDate` datetime DEFAULT NULL,
+  `secAssetId` longtext,
+  `secClause` longtext,
+  `secExcessId` longtext,
+  `secExcluded` varchar(255) DEFAULT NULL,
+  `secId` varchar(255) DEFAULT NULL,
+  `secIncluded` varchar(255) DEFAULT NULL,
+  `secSectionTypeId` varchar(255) DEFAULT NULL,
+  `secUninsuredAssetId` longtext,
+  `secWording` longtext,
+  PRIMARY KEY (`secUID`,`secREV`),
+  KEY `FKD6879D8B52AE8777` (`secREV`),
+  CONSTRAINT `FKD6879D8B52AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ukeUniqueKey_` (
+  `ukeId` varchar(255) NOT NULL,
+  `secREV` int(11) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  `ukeValue` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`ukeId`,`secREV`),
+  KEY `FK8B7C574052AE8777` (`secREV`),
+  CONSTRAINT `FK8B7C574052AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		</sql>
+	</changeSet>
+
+</databaseChangeLog>

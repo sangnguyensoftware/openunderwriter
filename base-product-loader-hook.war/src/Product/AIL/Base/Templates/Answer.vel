@@ -1,0 +1,32 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the Answer widget.
+##
+## This widget simply displays the answer given to a previous asked question. 
+## These elements are generally used as part of a summary screen at the end of a 
+## pageflow to confirm with the user the data they have entered. An AnswerSection
+## widget is used to group a number of Answers together. 
+##
+#set( $pageElement = $args.PageElementArg )
+#set( $renderId = $args.RenderIdArg )
+##
+<div class='pf-answer pf-item' id='$!renderId'>
+    <div class='pf-item-label'>${pageElement.formattedTitle($args)}</div>
+    <div class='pf-item-value'>$!{pageElement.formattedAnswer($args)}</div>
+</div>

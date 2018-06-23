@@ -1,0 +1,114 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#set( $model = $args.ModelArgRet)
+#set( $pageElement = $args.PageElementArg )
+#set( $renderId = $args.RenderIdArg )
+#set( $id = $args.RenderIdArg )
+#set( $binding = $pageElement.Binding )
+#set( $response = $args.ResponseArgRet )
+#set( $title = ${pageElement.formattedTitle($args)} )
+#set( $string = '' )
+#set( $dateFormat = '%1$ta %1$tb %1$te %1$tY %1$tR' )
+#locateNotes()
+##
+<div class='pf-note-details' id='$!{renderId}'>
+    #if( $title )
+        <div class='pf-section-heading'>
+            $title
+        </div>
+    #end
+    <div class='pf-page-section'>
+        #foreach( $note in ${pageElement.filteredNotes($source)} )
+            #set( $titleId = ${pageElement.titleId($source, $foreach.index)} )
+            #set( $bodyId = ${pageElement.bodyId($source, $foreach.index)} )
+            #set( $typeId = ${pageElement.typeId($source, $foreach.index)} )
+            <div class='pf-note-details-note'>
+                <div class='pf-note-details-details'>
+                    <div>
+                        <div class='pf-note-details-type'>
+                            <div>#i18n('i18n_note_details_type_label')</div>
+                            <div>
+                                <select name="$typeId" value="$!note.Type" #readOnly>
+                                    #foreach($opt in ${pageElement.getNoteTypeOptions($source)})
+                                        <option value="$opt" #if($opt == $note.Type)selected="yes"#end>#i18n($opt)</option>
+                                    #end
+                                </select>
+                            </div>
+                        </div>
+                        <div class='pf-note-details-title'>
+                            <div>#i18n('i18n_note_details_title_label')</div>
+                            <div>
+                                <input name='$titleId' id='$titleId' class='pf-note-title' value="$!note.Title" #readOnly></input>
+                            </div>
+                        </div>
+                        <div class="pf-note-details-dates">
+                            #if($note.CreatedDate)#auditString('i18n_note_details_created_message' $note.CreatedDate $note.CreatedBy)#end
+                            <br/>
+                            #if($note.UpdatedDate)#auditString('i18n_note_details_updated_message' $note.UpdatedDate $note.UpdatedBy)#end
+                        </div>
+                    </div>
+                    <div>
+                        <div class='pf-note-details-body'>
+                            <textarea name='$bodyId' id='$bodyId' class='pf-note-body'  rows='5' #readOnly>$!note.Body</textarea>
+                            #set($dummy = ${pageElement.getLabelDetails($foreach.index).renderResponse($note)})
+                        </div>
+                    </div>
+                </div>
+                <div class='pf-note-details-delete'>
+                    #if( $pageElement.AddAndDeleteEnabled && !$pageElement.ReadOnly )
+                        <div class='pf-delete'>
+                             <input id="delete" type="button" class="pf-delete-button" value="" onclick="callServeResource('${response.createResourceURL()}', 
+                                 '${pageElement.deleteOp($source,$foreach.index)}'); return false;"/>
+                        </div>
+                    #end
+                </div>
+            </div>
+        #end
+    </div>
+    #renderAddAction()
+</div>
+##
+#macro(renderAddAction)
+    #if( $pageElement.AddAndDeleteEnabled && !$pageElement.ReadOnly )
+        <div class='pf-add'>
+           <input id="add" type="button" value="#i18n('i18n_note_details_add_note_label')"  class="pf-add-button" value="" onclick="callServeResource('${response.createResourceURL()}', '${pageElement.addOp($source)}'); return false;"/>
+        </div>
+    #end
+#end
+##
+#macro(locateNotes)
+    #if( $binding )
+        #set($source = $model.xpathGet($binding))
+    #else
+        #set($source = $model)
+    #end
+#end
+##
+#macro(readOnly)
+    #if( $pageElement.ReadOnly )readOnly="readOnly"#end
+#end
+##
+#macro(auditString $format $date $who)
+    #set($stringFormat = $pageElement.i18n("$format") )
+    #set($auditDate = ${string.format($dateFormat, $date)})
+    #set($auditWho = ${pageElement.getUsernameForUserId($who)})
+    ${string.format( $stringFormat, $auditDate, $auditWho)}
+#end
+##
+#macro(getId $name)$name#if($pageElement.ReadOnly)ReadOnly#end#end
+##
+#macro(i18n $id)$pageElement.i18n("$id")#end

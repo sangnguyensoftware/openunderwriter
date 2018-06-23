@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documentDefinition xsi:type="java:com.ail.core.document.model.DocumentDefinition" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <documentData>
+        <headerData applicability="all" id="cert.head">
+            <modelData id='head' class='string'>Certificate of Public Liability Insurance</modelData>
+        </headerData>
+		
+		<chapterData id="cert.base">
+			<blockData placement="body" applicability="all" title="Liabilities" order="50" border="false">
+				<modelData title="Limit of Public Liability:" class="String" binding='/excess[id="PL_XS"]/amount/formattedValue'/>
+				<modelData title="Limit of Employers Liability:" class="String" binding='/excess[id="EL_XS"]/amount/formattedValue'/>
+			</blockData>
+		</chapterData>
+		
+    </documentData> 
+</documentDefinition>

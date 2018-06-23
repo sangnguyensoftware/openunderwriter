@@ -1,0 +1,75 @@
+
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the Answer widget.
+##
+## This widget simply displays the answer given to a previous asked question. 
+## These elements are generally used as part of a summary screen at the end of a 
+## pageflow to confirm with the user the data they have entered. An AnswerSection
+## widget is used to group a number of Answers together. 
+##
+#set( $pageElement = $args.PageElementArg )
+#set( $renderId = $args.RenderIdArg )
+#set( $model = $args.ModelArgRet)
+#set( $context = $model )
+##
+#if( $pageElement.Binding ) 
+    #set( $context = ${model.xpathGet($pageElement.Binding, null)} )
+#end
+##
+<div class='pf-custom-letter-builder' id='$!renderId'>
+	<div class='pf-input-label'>
+		#i18n('i18n_custom_letter_builder_document_type_label'):
+	</div> 
+	<div class='pf-attribute-field-input'>
+		<select name="${pageElement.SelectedDocumentTypeFieldId}">
+			#foreach($templateId in $pageElement.fetchValidDocumentTypes())
+				<option value="$templateId" #if(${pageElement.SelectedDocumentType}==$templateId)selected='yes'#end>#i18n($templateId)</option>
+			#end
+		</select>
+	</div>
+	
+	<div class='pf-input-label'>
+		#i18n('i18n_custom_letter_builder_recipient_label'):
+	</div> 
+	<div class='pf-attribute-field-input'>
+		<select name="${pageElement.SelectedRecipientFieldId}">
+			#foreach($partyRole in $pageElement.fetchValidRecipients($model))
+				<option value="${partyRole.Party.ExternalSystemId}">#party($partyRole)</option>
+			#end
+		</select>
+	</div>
+	
+	<div class='pf-input-label'>
+		#i18n('i18n_custom_letter_builder_custom_content_label'):
+	</div>
+	<div class='pf-attribute-field-input' style='width:100%'>
+        <textarea name="${pageElement.CustomContentFieldId}" class="pf-note pf-rich-note" rows='3' style='width:100%'>$!{pageElement.getCustomContent($context, ${pageElement.SelectedDocumentType})}</textarea>
+    </div>
+	
+	<div>
+	    #foreach( $element in $pageElement.PageElement )
+		    #set( $tmp = ${element.renderResponse($context)} )
+		#end
+	</div>
+</div>
+##
+#macro(i18n $id)$pageElement.i18n("$id")#end
+##
+#macro(party $partyRole)${partyRole.Party.LegalName} (#i18n(${partyRole.Role})) - $!{partyRole.Party.Address.FullAddress}#end

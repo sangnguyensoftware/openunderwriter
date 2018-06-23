@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project default="build" name="openunderwriter:database">
+  <import file="../BuildSettings.xml" />
+
+  <target name="clean" description="delete everything that the build can generate">
+  </target>
+
+  <target name="_build">
+    <_initialise-ant-contribs-macro />
+    <set-mysql-running-property-macro />
+
+    <if>
+      <isset property="mysql-running" />
+      <then>
+        <mkdir dir="${package.tmp.dir}" />
+        
+        <echo file="${package.tmp.dir}/loader.properties">
+          loaderClass=com.ail.core.configure.JDBCConfigurationLoader
+          driver=com.mysql.jdbc.Driver
+          createTableSql=CREATE TABLE conConfig (namespace VARCHAR(255) NOT NULL, manager VARCHAR(255) NOT NULL, validfrom BIGINT(20) NOT NULL, configuration LONGBLOB NOT NULL, validto BIGINT(20), who VARCHAR(32), version VARCHAR(32)) ENGINE=InnoDB
+          url=jdbc:mysql://${dbhost}:3306/${dbname.openunderwriter}
+          databaseName=
+          user=${dbusername}
+          password=${dbpassword}
+          table=conConfig
+        </echo>
+        
+        <java jar="${package.lib.dir}/liquibase.jar" fork="true" failonerror="true" dir="${package.bin.dir}">
+          <env key="OPENUNDERWRITER_JBOSS_HOME" value="${jboss.dir}"/>
+          <env key="dbUrl" value="jdbc:mysql://${dbhost}:3306/${dbname.openunderwriter}"/>
+          <env key="dbUsername" value="${dbusername}"/>
+          <env key="dbPassword" value="${dbpassword}"/>
+          <jvmarg value="-Dliquibase.databaseChangeLogTableName=liqChangeLog" />
+          <jvmarg value="-Dliquibase.databaseChangeLogLockTableName=liqChangeLogLock"/>
+          <arg value="--driver=${mysql.driver}"/>
+          <arg value="--classpath=${package.bin.dir}/update-scripts${path.separator}${package.lib.dir}/mysql-connector-java.jar"/>
+          <arg value="--changeLogFile=${package.bin.dir}/update-scripts/db.changelog.xml" />
+          <arg value="--url=jdbc:mysql://${dbhost}:3306/${dbname.openunderwriter}" />
+          <arg value="--username=${dbusername}" />
+          <arg value="--password=${dbpassword}" />
+          <arg value="--logLevel=info" />
+          <arg value="update" />
+        </java>
+        
+        <delete dir="${package.tmp.dir}" />
+      </then>
+      <else>
+        <echo level="info">
+          Database could not be initialised. Either ${package.lib.dir} doesn't exit (try running setup), or
+          mysql is not running.
+        </echo>
+      </else>
+    </if>
+  </target>
+
+  <target name="build" description="compile (generate, copy, etc) all build outputs">
+    <antcall target="_build" />
+  </target>
+
+  <target name="setup" description="run all the one-time-only steps - like copying libs into place">
+    <_initialise-ant-contribs-macro />
+    <set-mysql-running-property-macro />
+
+    <verify-mysql-version-macro required="5.7"/>
+
+    <!-- copy package files with variables expanded -->
+    <mkdir dir="${package.lib.dir}" />
+    <copy todir="${package.lib.dir}">
+      <filterset refid="copy.filterset.sql" />
+      <fileset dir="." includes="**/*.sql, **/*.sh, **/db.changelog.xml" />
+    </copy>
+
+    <if>
+      <isset property="mysql-running" />
+      <then>
+        <exec dir="${package.lib.dir}" executable="bash" osfamily="unix" >
+          <arg line="-l -c 'cat Setup.sql | mysql -u root --host=${dbhost} --password=${mysql.root.password}'"/>
+        </exec>
+        <exec dir="${package.lib.dir}" executable="cmd" osfamily="windows">
+          <arg line='/c "type Setup.sql | mysql -u root --host=${dbhost} --password=${mysql.root.password}"'/>
+        </exec>
+
+        <if>
+          <not>
+            <istrue value="${nodemo}" />
+          </not>
+          <then>
+            <exec dir="${package.lib.dir}/content/openunderwriter" executable="bash" osfamily="unix" >
+              <arg line="-l -c 'cat TestData.sql | mysql -u root --host=${dbhost} --password=${mysql.root.password}'"/>
+            </exec>
+            <exec dir="${package.lib.dir}/content/openunderwriter" executable="cmd" osfamily="windows">
+              <arg line='/c "type TestData.sql | mysql -u root --host=${dbhost} --password=${mysql.root.password}"'/>
+            </exec>
+          </then>
+        </if>
+      </then>
+      <else>
+        <echo level="info">
+          Database could not be initialised. Either ${package.lib.dir} doesn't exit (try running setup), or
+          mysql is not running.
+        </echo>
+      </else>
+    </if>
+  </target>
+
+  <target name="teardown" description="undo whatever setup did">
+    <_initialise-ant-contribs-macro />
+    <set-mysql-running-property-macro />
+
+    <if>
+      <and>
+        <isset property="mysql-running" />
+        <available file="${package.lib.dir}" />
+      </and>
+      <then>
+        <exec dir="${package.lib.dir}" executable="bash" osfamily="unix" >
+          <arg line="-l -c 'cat Teardown.sql | mysql -u root --host=${dbhost} --password=${mysql.root.password}'"/>
+        </exec>
+        <exec dir="${package.lib.dir}" executable="cmd" osfamily="windows">
+          <arg line='/c "type Teardown.sql | mysql -u root --host=${dbhost} --password=${mysql.root.password}"'/>
+        </exec>
+      </then>
+      <else>
+        <echo level="info">
+          Database could not been cleared down. Either ${package.lib.dir} doesn't exit (try running setup), or
+          mysql is not running.
+        </echo>
+      </else>
+    </if>
+
+  </target>
+</project>

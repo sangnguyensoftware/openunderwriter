@@ -1,0 +1,34 @@
+{
+  "id": "0413de2a-dd42-a095-ec3e-c349ccc3059e",
+  "name": "localhost",
+  "values": [
+    {
+      "enabled": true,
+      "key": "host",
+      "value": "localhost",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "port",
+      "value": "8080",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "protocol",
+      "value": "http",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "todaysDate",
+      "value": "2017-08-16T15:27:33.831Z",
+      "type": "text"
+    }
+  ],
+  "timestamp": 1502897253847,
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2017-08-17T09:57:19.261Z",
+  "_postman_exported_using": "Postman/5.1.3"
+}

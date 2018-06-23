@@ -1,0 +1,35 @@
+<p>The number type supports the entry of numeric values. The format
+	options supported by the number attribute affect the rendering/validate
+	in the follow ways:</p>
+<u>PageFlow</u>
+<pre>
+	&lt;rowScroller [row scroller options]&gt;
+		&lt;attributeField title="<i>title</i>" subTitle="<i>sub title</i>" binding="<i>xpath binding</i>" [condition="<i>XPath expression</i>"] [columnCondition="<i>XPath expression</i>"]/&gt;
+ 	&lt;/rowScroller&gt;
+</pre>
+<ul>
+	<li><i>title</i> Title rendered at the top of the column.</li>
+	<li><i>subTitle</i> Rendered below the main title.</li>
+	<li><i>binding</i> xpath binding referring to an Attribute in the
+		model to which this column is bound.</li>
+	<li><i>condition</i> An optional XPath condition that controls
+		whether a given cell appears in the table or is hidden.</li>
+	<li><i>columnCondition</i> An optional XPath expression that can
+		be used to show/hide the entire column.</li>
+</ul>
+<u>Model</u>
+<pre>
+	&lt;attribute id="<i>id</i>" value="<i>value</i>" format="number,[min=<i>min value</i>],[max=<i>max value</i>],[percent],[pattern=<i>numeric pattern</i>]/&gt;
+</pre>
+<ul>
+	<li><i>min</i> Used during validation to define the minimum value
+		that will be accepted.</li>
+	<li><i>max</i> Used during validation to define the maximum value
+		that will be accepted.</li>
+	<li><i>percent</i> If present the number will be displayed with a
+		trailing '%' character and will be validated to be in the range 0-100.</li>
+	<li><i>pattern</i> Defines the format of the number that will be
+		accepted. The pattern is expected to be in a format accepted by Java's
+		DecimalFormat class.</li>
+</ul>
+<hr />

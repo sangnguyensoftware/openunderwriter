@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>DocumentManager</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">DocumentManager</td></tr>
+</thead><tbody>
+<tr>
+	<td>setTimeout</td>
+	<td>20000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=resetPageflow</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectAndWait</td>
+	<td>name=selectedPage</td>
+	<td>label=DocumentManager</td>
+</tr>
+<!--============================================-->
+<!--== Test widget with no documents listed-->
+<!--============================================-->
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[@class=&quot;pf-row-scroller-header-title&quot;])[1]</td>
+	<td>glob:*Type*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[@class=&quot;pf-row-scroller-header-title&quot;])[2]</td>
+	<td>glob:*Title*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[@class=&quot;pf-row-scroller-header-title&quot;])[4]</td>
+	<td>glob:*Description*</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=(//div[@id=&quot;archive&quot;]//select[@class='pf-choice' and @disabled='disabled'])[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=(//div[@id=&quot;archive&quot;]//input[@type='text' and @disabled='disabled'])[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=//div[@id=&quot;archive&quot;]//input[@value=&quot;Download&quot; and @disabled=&quot;disabled&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=//div[@id=&quot;archive&quot;]//textarea[@disabled=&quot;disabled&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=(//div[@id=&quot;archive&quot;]//input[@type='text' and @disabled='disabled'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=//div[@id=&quot;archive&quot;]//input[@type=&quot;button&quot; and @id=&quot;restore&quot; and @disabled=&quot;disabled&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@type=&quot;file&quot; ]</td>
+	<td></td>
+</tr>
+<!--============================================-->
+<!--== Create documents using the DocumentButtonAction page-->
+<!--============================================-->
+<tr>
+	<td>selectAndWait</td>
+	<td>name=selectedPage</td>
+	<td>label=DocumentButtonActions</td>
+</tr>
+<!--Test that expected buttons are present-->
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value=&quot;Certificate&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value=&quot;Invoice&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value=&quot;Quotation&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value=&quot;Wording&quot;]</td>
+	<td></td>
+</tr>
+<!--Apply test values for policy and quote numbers-->
+<tr>
+	<td>storeEval</td>
+	<td>&quot;QUO&quot;+Math.floor(Math.random()*10000)+1;</td>
+	<td>quoteNumber</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>YXNzZXRbaWQ9J2NvbW1hbmRBY3Rpb25CdXR0b24nXS9hdHRyaWJ1dGVbaWQ9J3F1b3RlTnVtYmVyT3ZlcnJpZGUnXQ</td>
+	<td>${quoteNumber}</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>&quot;POL&quot;+Math.floor(Math.random()*10000)+1;</td>
+	<td>policyNumber</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>YXNzZXRbaWQ9J2NvbW1hbmRBY3Rpb25CdXR0b24nXS9hdHRyaWJ1dGVbaWQ9J3BvbGljeU51bWJlck92ZXJyaWRlJ10</td>
+	<td>${policyNumber}</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>YXNzZXRbaWQ9J2NvbW1hbmRBY3Rpb25CdXR0b24nXS9hdHRyaWJ1dGVbaWQ9J3BvbGljeVN0YXR1c092ZXJyaWRlJ10</td>
+	<td>label=Quotation</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Apply Overrides&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Apply Overrides&quot; and @disabled]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Apply Overrides&quot; and not(@disabled)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<!--Test Quotation button-->
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Quotation&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=iframe[style*=&quot;display: none;&quot;]:nth-of-type(1)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Quotation&quot; and @disabled]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Quotation&quot; and not(@disabled)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<!--Apply "On Risk" status-->
+<tr>
+	<td>select</td>
+	<td>YXNzZXRbaWQ9J2NvbW1hbmRBY3Rpb25CdXR0b24nXS9hdHRyaWJ1dGVbaWQ9J3BvbGljeVN0YXR1c092ZXJyaWRlJ10</td>
+	<td>label=On Risk</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Apply Overrides&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Apply Overrides&quot; and @disabled]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Apply Overrides&quot; and not(@disabled)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<!--Test certificaate button-->
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Certificate&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=iframe[style*=&quot;display: none;&quot;]:nth-of-type(2)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Certificate&quot; and @disabled]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Certificate&quot; and not(@disabled)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<!--Test wording button-->
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Wording&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=iframe[style*=&quot;display: none;&quot;]:nth-of-type(3)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Wording&quot; and @disabled]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Wording&quot; and not(@disabled)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<!--Test invoice button-->
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Invoice&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=iframe[style*=&quot;display: none;&quot;]:nth-of-type(4)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Invoice&quot; and @disabled]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Invoice&quot; and not(@disabled)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value=&quot;Invoice&quot; and not(@disabled)]</td>
+	<td></td>
+</tr>
+<!--============================================-->
+<!--== Return to DocumentManager (now populated with docs)-->
+<!--============================================-->
+<tr>
+	<td>selectAndWait</td>
+	<td>name=selectedPage</td>
+	<td>label=DocumentManager</td>
+</tr>
+<!--Verify first row-->
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=(//div[@class='pf-row-scroller-table-data-row'])[1]//select/option[@value=&quot;i18n_Quotation&quot; and @selected=&quot;yes&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=(//div[@class='pf-row-scroller-table-data-row'])[1]//input[@value=&quot;Quotation ${quoteNumber}&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=(//div[@class='pf-row-scroller-table-data-row'])[1]//input[@value=&quot;Quotation ${quoteNumber}.pdf&quot;]</td>
+	<td></td>
+</tr>
+<!--Verify second row-->
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=(//div[@class='pf-row-scroller-table-data-row'])[2]//select/option[@value=&quot;i18n_Certificate&quot; and @selected=&quot;yes&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=(//div[@class='pf-row-scroller-table-data-row'])[2]//input[@value=&quot;Certificate ${policyNumber}&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=(//div[@class='pf-row-scroller-table-data-row'])[2]//input[@value=&quot;Certificate ${policyNumber}.pdf&quot;]</td>
+	<td></td>
+</tr>
+<!--Verify third row-->
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=(//div[@class='pf-row-scroller-table-data-row'])[3]//select/option[@value=&quot;i18n_Wording&quot; and @selected=&quot;yes&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=(//div[@class='pf-row-scroller-table-data-row'])[3]//input[@value=&quot;Wording ${policyNumber}&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=(//div[@class='pf-row-scroller-table-data-row'])[3]//input[@value=&quot;Wording ${policyNumber}.pdf&quot;]</td>
+	<td></td>
+</tr>
+<!--Verify fourth row-->
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=(//div[@class='pf-row-scroller-table-data-row'])[4]//select/option[@value=&quot;i18n_Invoice&quot; and @selected=&quot;yes&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=(//div[@class='pf-row-scroller-table-data-row'])[4]//input[@value=&quot;Invoice ${policyNumber}&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=(//div[@class='pf-row-scroller-table-data-row'])[4]//input[@value=&quot;Invoice ${policyNumber}.pdf&quot;]</td>
+	<td></td>
+</tr>
+<!--Verify the "Created" dates (down to the day)-->
+<tr>
+	<td>storeEval</td>
+	<td>new Date().toLocaleString('en-UK',{weekday:'short',month:'short',day:'numeric',year:'numeric'}).replace(/,/g,&quot;&quot;)</td>
+	<td>createdDate</td>
+</tr>
+<tr>
+	<td>storeText</td>
+	<td>xpath=//div[@class=&quot;pf-row-scroller-table-data-cell&quot; and contains(.,&quot;Created:&quot;)]</td>
+	<td>display1</td>
+</tr>
+<tr>
+	<td>verifyEval</td>
+	<td>&quot;${display1}&quot;.contains(&quot;${createdDate}&quot;)</td>
+	<td>true</td>
+</tr>
+<!--Delete the Wording document-->
+<tr>
+	<td>verifyXpathCount</td>
+	<td>//div[@id=&quot;documents&quot;]//div[@class=&quot;pf-row-scroller-table-data-row&quot;]</td>
+	<td>4</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@id=&quot;delete&quot;])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForXpathCount</td>
+	<td>//div[@id=&quot;documents&quot;]//div[@class=&quot;pf-row-scroller-table-data-row&quot;]</td>
+	<td>3</td>
+</tr>
+<!--Verify that the deleted Wording is in the archive-->
+<tr>
+	<td>click</td>
+	<td>link=Archive</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForVisible</td>
+	<td>//option[@value=&quot;i18n_Wording&quot; and @selected=&quot;yes&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForXpathCount</td>
+	<td>//div[@id=&quot;archive&quot;]//div[@class=&quot;pf-row-scroller-table-data-row&quot;]</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//option[@value=&quot;i18n_Wording&quot; and @selected=&quot;yes&quot;]</td>
+	<td></td>
+</tr>
+<!--Restore the Wording document-->
+<tr>
+	<td>click</td>
+	<td>//input[@id=&quot;restore&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForXpathCount</td>
+	<td>//div[@id=&quot;documents&quot;]//div[@class=&quot;pf-row-scroller-table-data-row&quot;]</td>
+	<td>4</td>
+</tr>
+<!--Update the editable fields for a doc and save-->
+<tr>
+	<td>select</td>
+	<td>xpath=(//select[@class='pf-choice'])[1]</td>
+	<td>Attachment</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[contains(@class, 'pf-string')])[1]</td>
+	<td>A new title</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//textarea)[1]</td>
+	<td>A new description</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[contains(@class, 'pf-string')])[2]</td>
+	<td>A New Filename.pdf</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Save&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//div[@class=&quot;pf-row-scroller-table-data-cell&quot; and contains(.,&quot;Updated:&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>xpath=(//select[@class='pf-choice'])[1]</td>
+	<td>i18n_Attachment</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=(//div[@class='pf-row-scroller-table-data-row'])[1]//select/option[@value=&quot;i18n_Attachment&quot; and @selected=&quot;yes&quot;]</td>
+	<td>A new title</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>xpath=(//div[@class='pf-row-scroller-table-data-row'])[1]//textarea</td>
+	<td>A new description</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>xpath=(//div[@class='pf-row-scroller-table-data-row'])[1]//input[@placeholder='Document filename']</td>
+	<td>A New Filename.pdf</td>
+</tr>
+<!--Filename cannot be blank-->
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//div[@class='pf-row-scroller-table-data-row'])[1]//input[@placeholder='Document filename']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Save&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>//div[@class=&quot;pf-input-error&quot;]</td>
+	<td>Required</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//div[@class='pf-row-scroller-table-data-row'])[1]//input[@placeholder='Document filename']</td>
+	<td>Filename.pdf</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Save&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForNotText</td>
+	<td>//div[@class=&quot;pf-input-error&quot;]</td>
+	<td>Required</td>
+</tr>
+<!--Some document types (e.g. Quotation) cannot be duplicated-->
+<tr>
+	<td>select</td>
+	<td>xpath=(//select[@class='pf-choice'])[1]</td>
+	<td>Quotation</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>xpath=(//select[@class='pf-choice'])[2]</td>
+	<td>Quotation</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Save&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>//div[@class=&quot;pf-input-error&quot;]</td>
+	<td>Duplicate</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>xpath=(//select[@class='pf-choice'])[1]</td>
+	<td>Attachment</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Save&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForNotText</td>
+	<td>//div[@class=&quot;pf-input-error&quot;]</td>
+	<td>Duplicate</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Combine documents&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=(//div[@id=&quot;archive&quot;]//select[@class='pf-choice' and @disabled='disabled'])[1]</td>
+	<td></td>
+</tr>
+<!--Add a "Watch" label to the 1st document on the page-->
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@placeholder=&quot;+Label&quot;])[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//li[@class=&quot;ui-menu-item&quot; and text()=&quot;Watch&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//li[@class=&quot;ui-menu-item&quot; and text()=&quot;Watch&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//span[@class=&quot;tagit-label&quot; and text()=&quot;Watch&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Save&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<!--Add a "Medically Sensitive" label to the 2nd document (doc type "Attachment") on the page and confirm it is hidden following a Save-->
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@placeholder=&quot;+Label&quot;])[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//li[@class=&quot;ui-menu-item&quot; and text()=&quot;Medically sensitive&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//li[@class=&quot;ui-menu-item&quot; and text()=&quot;Medically sensitive&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//span[@class=&quot;tagit-label&quot; and text()=&quot;Medically sensitive&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=//option[@value=&quot;i18n_Attachment&quot; and @selected=&quot;yes&quot;]</td>
+	<td>i18n_Attachment</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Save&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementNotPresent</td>
+	<td>xpath=//option[@value=&quot;i18n_Attachment&quot; and @selected=&quot;yes&quot;]</td>
+	<td>i18n_Attachment</td>
+</tr>
+</tbody></table>
+</body>
+</html>

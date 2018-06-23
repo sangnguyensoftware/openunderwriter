@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" version="2.1">
+	<!-- 
+===========================================================================
+Change Log:
+18/10/2005: Steve Turner
+Ammended <xs:attribute name="reprint-indicator"  to "optional"
+2.1
+12/01/2006: Leila Shayegi, Steve Turner
+<xs:element name="ServiceLicenseInformation" type="ServiceLevelLicenseInformation" minOccurs="0"/> 
+and new type: 	<xs:complexType  name="ServiceLevelLicenseInformation"> has been added.
+===========================================================================
+-->
+	<xs:include schemaLocation="address.xsd"/>
+	<xs:include schemaLocation="reusable-types.xsd"/>
+	<!-- Reusable Types begin -->
+	<xs:complexType name="ReturnedItemType">
+		<xs:choice>
+			<xs:element name="PayerAccount" type="AccountType"/>
+			<xs:element name="ReceiverAccount" type="AccountType"/>
+		</xs:choice>
+		<xs:attribute name="ref" type="xs:string" use="required"/>
+		<xs:attribute name="transCode" type="xs:string" use="required"/>
+		<xs:attribute name="returnCode" type="xs:string" use="required"/>
+		<xs:attribute name="returnDescription" type="xs:string" use="required"/>
+		<xs:attribute name="originalProcessingDate" type="xs:date" use="optional"/>
+		<xs:attribute name="uacName" type="xs:string" use="optional"/>
+		<xs:attribute name="valueOf" type="ValueType" use="required"/>
+		<xs:attribute name="currency" type="CurrencyType" use="required"/>
+	</xs:complexType>
+	<!-- Reusable Types end -->
+	<xs:element name="Header">
+		<xs:complexType>
+			<xs:attribute name="reportType" type="xs:string" use="required"/>
+			<xs:attribute name="adviceNumber" type="xs:integer" use="required"/>
+			<xs:attribute name="currentProcessingDate" type="xs:date" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Advice">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="OriginatingAccountRecords" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OriginatingAccountRecords">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="OriginatingAccountRecord" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OriginatingAccountRecord">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ServiceLicenseInformation" type="ServiceLevelLicenseInformation" minOccurs="0"/>
+				<xs:element name="OriginatingAccount" type="AccountType"/>
+				<xs:choice>
+					<xs:element ref="ReturnedDebitItem" maxOccurs="unbounded"/>
+					<xs:element ref="ReturnedCreditItem" maxOccurs="unbounded"/>
+				</xs:choice>
+				<xs:element ref="Totals" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ReturnedDebitItem" type="ReturnedItemType"/>
+	<xs:element name="ReturnedCreditItem" type="ReturnedItemType"/>
+	<xs:element name="Totals">
+		<xs:complexType>
+			<xs:attribute name="numberOf" type="xs:integer" use="required"/>
+			<xs:attribute name="valueOf" type="ValueType" use="required"/>
+			<xs:attribute name="currency" type="CurrencyType" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ServiceLicenseInformation">
+		<xs:complexType>
+			<xs:attribute name="userName" type="xs:string"/>
+			<xs:attribute name="userNumber" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType  name="ServiceLevelLicenseInformation">
+			<xs:attribute name="userName" type="xs:string"/>
+			<xs:attribute name="userNumber" type="xs:string"/>
+			<xs:attribute name="streamCode" type="xs:string"/>
+	</xs:complexType>
+	<xs:element name="MessagingHeader">
+		<xs:complexType>
+			<xs:attribute name="document-number" type="xs:int" use="required"/>
+			<xs:attribute name="advice-type" type="xs:string" use="required"/>
+			<xs:attribute name="subject-first-aosn" type="xs:int" use="required"/>
+			<xs:attribute name="subject-last-aosn" type="xs:int" use="required"/>
+			<xs:attribute name="user-number" type="xs:int" use="required"/>
+			<xs:attribute name="stream-identifier" type="xs:long" use="required"/>
+			<xs:attribute name="reprint-indicator" type="xs:string" use="optional"/>
+			<xs:attribute name="envelope-sequence-number" type="xs:int" use="required"/>
+			<xs:attribute name="report-generation-date" type="xs:date" use="required"/>
+			<xs:attribute name="user-name" type="xs:string" use="required"/>
+			<xs:attribute name="report-type" type="xs:int" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="MessagingAdvice">
+		<xs:complexType>
+			<xs:attribute name="user-number" type="xs:int" use="optional"/>
+			<xs:attribute name="record-type" type="xs:string" use="optional"/>
+			<xs:attribute name="effective-date" type="xs:date" use="optional"/>
+			<xs:attribute name="reference" type="xs:string" use="optional"/>
+			<xs:attribute name="payer-name" type="xs:string" use="optional"/>
+			<xs:attribute name="payer-account-number" type="xs:int" use="optional"/>
+			<xs:attribute name="payer-sort-code" type="xs:string" use="optional"/>
+			<xs:attribute name="due-date" type="xs:date" use="optional"/>
+			<xs:attribute name="payment-frequency" type="xs:string" use="optional"/>
+			<xs:attribute name="amount-of-payment" type="xs:int" use="optional"/>
+			<xs:attribute name="reason-code" type="xs:string" use="optional"/>
+			<xs:attribute name="payer-new-name" type="xs:string" use="optional"/>
+			<xs:attribute name="payer-new-account-number" type="xs:int" use="optional"/>
+			<xs:attribute name="payer-new-sort-code" type="xs:string" use="optional"/>
+			<xs:attribute name="new-due-date" type="xs:date" use="optional"/>
+			<xs:attribute name="new-payment-frequency" type="xs:string" use="optional"/>
+			<xs:attribute name="amount-of-new-payment" type="xs:int" use="optional"/>
+			<xs:attribute name="last-payment-date" type="xs:date" use="optional"/>
+			<xs:attribute name="aosn" type="xs:int" use="optional"/>
+			<xs:attribute name="transaction-code" type="xs:string" use="optional"/>
+			<xs:attribute name="orig-sort-code" type="xs:string" use="optional"/>
+			<xs:attribute name="orig-account-number" type="xs:int" use="optional"/>
+			<xs:attribute name="orig-ddi-information" type="xs:string" use="optional"/>
+			<xs:attribute name="original-proc-date" type="xs:date" use="optional"/>
+			<xs:attribute name="originator-name" type="xs:string" use="optional"/>
+			<xs:attribute name="processing-date" type="xs:date" use="optional"/>
+			<xs:attribute name="originator-file-number" type="xs:int" use="optional"/>
+			<xs:attribute name="work-code" type="xs:string" use="optional"/>
+			<xs:attribute name="file-type" type="xs:string" use="optional"/>
+			<xs:attribute name="accepted-ddi" type="xs:int" use="optional"/>
+			<xs:attribute name="rejected-ddi" type="xs:int" use="optional"/>
+			<xs:attribute name="bureau-number" type="xs:string" use="optional"/>
+			<xs:attribute name="vol-serial-number" type="xs:string" use="optional"/>
+			<xs:attribute name="file-error-code" type="xs:int" use="optional"/>
+			<xs:attribute name="building-society-roll-number" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="MessagingError">
+		<xs:complexType>
+			<xs:attribute name="line1" type="xs:string" use="optional"/>
+			<xs:attribute name="line2" type="xs:string" use="optional"/>
+			<xs:attribute name="line3" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

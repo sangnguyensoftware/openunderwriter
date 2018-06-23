@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <list-property name="configVars">
+        <structure>
+            <property name="name">__isdisplay__InputName_51_0</property>
+            <property name="value">%</property>
+        </structure>
+        <structure>
+            <property name="name">__isdisplay__InputStartDate_53_1</property>
+            <property name="value">2001-01-01</property>
+        </structure>
+        <structure>
+            <property name="name">__isdisplay__InputCompany_55_2</property>
+            <property name="value">%</property>
+        </structure>
+        <structure>
+            <property name="name">InputStartDate_53_3</property>
+            <property name="value">2001-01-01</property>
+        </structure>
+        <structure>
+            <property name="name">InputStartDate_53_type_</property>
+            <property name="value">string</property>
+        </structure>
+        <structure>
+            <property name="name">InputCompany_55_4</property>
+            <property name="value">%</property>
+        </structure>
+        <structure>
+            <property name="name">InputCompany_55_type_</property>
+            <property name="value">string</property>
+        </structure>
+        <structure>
+            <property name="name">InputCompany_55_expr_</property>
+            <property name="value">dataSetRow["webId"]</property>
+        </structure>
+        <structure>
+            <property name="name">InputName_51_5</property>
+            <property name="value">%</property>
+        </structure>
+        <structure>
+            <property name="name">InputName_51_type_</property>
+            <property name="value">string</property>
+        </structure>
+    </list-property>
+</report>

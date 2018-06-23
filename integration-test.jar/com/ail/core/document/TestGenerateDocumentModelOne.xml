@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documentDefinition xsi:type="java:com.ail.core.document.model.DocumentDefinition" 
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <mergeCommand>com.ail.core.document.MergeDocumentCommand</mergeCommand>
+    <styleCommand>com.ail.core.document.StyleCommand</styleCommand>
+    <renderCommand>TransclassionCommand</renderCommand>
+    
+    <documentData>
+        <watermark>http://someplace/image.gif</watermark>
+
+        <headerData applicability="ALL">
+            <modelData id='qn' title='Quote number' class='string' binding="/quotationNumber"/>
+        </headerData>
+        
+        <chapterData id="section1" title="Section One">
+            
+            <blockData id="bl1" title="A Block Title" placement="BODY" order="1">
+                <modelData id='it1' title='Surname' class='string' binding="/some/path/to/the/data[0]"/>
+                <repeatingData id='rp1' title='Vehicles' binding='/asset[assetType="vehicle"]'>
+                    <blockData placement="HEADER">
+                        <modelData>Make</modelData>
+                        <modelData>Model</modelData>
+                        <modelData>Engine size</modelData>
+                    </blockData>
+                    <blockData placement="BODY">
+                        <modelData binding='attribute[id="make"]' class='string'/>
+                        <modelData binding='attribute[id="model"]' class='string'/>
+                        <modelData binding='attribute[id="cc"]' class='number'/>
+                    </blockData>
+                </repeatingData>
+            </blockData>
+            <blockData id="prop" title="Proposer&apos; address" order="2">
+                <modelData binding="/proposer/address/line1"/>
+                <modelData binding="/proposer/address/line2"/>
+                <modelData binding="/proposer/address/line3"/>
+                <modelData binding="/proposer/address/line4"/>
+            </blockData>
+        </chapterData>
+    </documentData> 
+</documentDefinition>
+    

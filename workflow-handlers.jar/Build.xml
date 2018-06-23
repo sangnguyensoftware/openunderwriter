@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project default="build" name="openunderwriter:workflow-handlers.jar">
+	<import file="../BuildSettings.xml" />
+
+	<property name="groupId" value="com.ail" />
+	<property name="artifactId" value="openunderwriter-workflow-handlers" />
+	<property name="version" value="1.0" />
+
+	<property name="jbpm-console.dir" value="${deploy.dir}/jbpm-console.war" />
+
+	<property name="deployment.dir" value="deployments" />
+
+	<target name="clean" description="delete everything that the build can generate">
+		<delete-jar-macro />
+	</target>
+
+	<target name="_build">
+		
+		<_set-output-dir-property-macro />
+		
+		<compile-jar-macro merge-configs="no" packagable="false">
+			<javac-classpath>
+		        <fileset dir="${module.dir}/org/codehaus/jackson/jackson-mapper-asl" includes="**/*.jar" />
+		        <fileset dir="${module.dir}/org/codehaus/jackson/jackson-core-asl" includes="**/*.jar" />
+				<fileset dir="${module.dir}/com/liferay/portal" includes="**/*.jar" />
+				<fileset dir="../build/lib" includes="*.jar" />
+				<fileset dir="${jbpm-console.dir}/WEB-INF/lib" includes="*.jar" />
+			</javac-classpath>
+		</compile-jar-macro>
+		
+		<property name="meta-inf.dir" value="${output.dir}/META-INF/maven/${groupId}/${artifactId}" />
+
+		<move todir="${meta-inf.dir}" file="${output.dir}/META-INF/maven/pom.properties" />
+		<move todir="${meta-inf.dir}" file="${output.dir}/META-INF/maven/pom.xml" />
+		<replace dir="${meta-inf.dir}" token="$GROUP_ID" value="${groupId}" />
+		<replace dir="${meta-inf.dir}" token="$ARTIFACT_ID" value="${artifactId}" />
+		<replace dir="${meta-inf.dir}" token="$VERSION" value="${version}" />
+		
+        <package-exploded-jar-macro />
+
+		<copy overwrite="true" tofile="${test.dir}/lib/${artifactId}-${version}.jar" file="${output.dir}" />
+		<move overwrite="true" tofile="${jbpm-console.dir}/WEB-INF/lib/${artifactId}-${version}.jar" file="${output.dir}" />
+
+	    <copy todir="${jbpm-console.dir}/WEB-INF/classes/META-INF" file="META-INF/CustomWorkItemHandlers.conf" overwrite="true" />
+		
+		<copy todir="${jbpm-console.dir}/WEB-INF/lib">
+	        <fileset dir="${module.dir}/org/codehaus/jackson/jackson-mapper-asl" includes="**/*.jar" />
+	        <fileset dir="${module.dir}/org/codehaus/jackson/jackson-core-asl" includes="**/*.jar" />
+		</copy>
+
+		<echo message="=== Server RESTART required to register custom handler changes ===" />
+	</target>
+
+	<target name="build" description="compile (generate, copy, etc) all build outputs">
+		<antcall target="_build" />
+	</target>
+
+	<target name="setup" description="run all the one-time-only steps - like copying libs into place">
+	</target>
+
+	<target name="teardown" description="undo whatever setup did" depends="clean">
+	</target>
+
+	<target name="release" description="build and promote releasable artifacts">
+		<antcall target="teardown" />
+		<antcall target="setup" />
+		<antcall target="build" />
+		<package-exploded-jar-macro />
+	</target>
+</project>

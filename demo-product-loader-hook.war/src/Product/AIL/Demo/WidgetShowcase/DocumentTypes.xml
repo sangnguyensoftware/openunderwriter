@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+ Defined the list of "system" document types. This list may be extended by products which need to define
+ their own product types. 
+-->
+<choice id="DocumentTypes" xsi:type="java:com.ail.pageflow.util.Choice" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <choice name="i18n_document_template_claim_form">
+        <attribute id="template" value="~/Documents/Claim Form.docx" />
+        <attribute id="multiplicity" value="MANY" />
+        <attribute id="title" value="document_generation_claimform_title"/>
+        <attribute id="filename" value="document_generation_claimform_filename"/>
+    </choice> 
+    
+    <choice name="i18n_document_template_change_of_address_form">
+        <attribute id="template" value="~/Documents/Example Change Of Address.xml" />
+    </choice>
+
+    <choice name="i18n_document_template_bespoke_letter">
+        <attribute id="template" value="~/Documents/Bespoke Letter - Letter.docx" />
+    </choice>
+</choice>

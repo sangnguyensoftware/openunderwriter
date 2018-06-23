@@ -1,0 +1,69 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the Question widget.
+##
+#set( $quote = $args.ModelArgRet)           ## instance of com.ail.core.Attribute
+#set( $question = $args.PageElementArg )    ## instance of com.ail.pageflow.Question
+#set( $rowContext = $args.RowContextArg )   ## If we're rendering into a scroller, this'll be the row number in xpath predicate format (e.g. "[1]"). Otherwise ""
+#set( $styleClass = $args.StyleClassArg )   ## String defining CSS class, or null
+#set( $renderId = $args.RenderIdArg )
+##
+#set( $binding = $question.Binding )
+#set( $attribute = ${question.fetchBoundObject($quote)} )
+#set( $renderHint = $question.RenderHint )
+#set( $onChange = $question.OnChange )
+#set( $onLoad = $question.OnLoad )
+#set( $title = ${question.formattedTitle($args)} )
+##
+<div class='pf-question $!styleClass' id='pf-$renderId'>
+	<div class='pf-input-label'>
+		#if( $attribute.Required )
+    		<div class='pf-input-required'></div>
+        #else
+            <div class='pf-input-optional'></div>
+        #end
+        ${title}
+    </div>
+    <div class='pf-input-field'>
+        #set( $tmp = $question.renderAttribute($quote, $binding, $rowContext, $onChange, $onLoad, $renderHint) )
+    </div>
+    #if( $question.HelpText && $question.HelpText.Text )
+    	<div id='pf-${renderId}-help' class='pf-help'>
+    	</div>
+		<script type='text/javascript'>
+			$('#pf-${renderId}-help').on('click', function() {
+				$('#pf-${renderId}-help-div').toggle(0, function() {
+				    if ($(this).is(':visible'))
+				        $(this).css('display','table-row');
+				});
+			});
+		</script>
+    #end
+</div>
+#if( $question.HelpText && $question.HelpText.Text )
+	<div id='pf-${renderId}-help-div' style="display:none">
+		<div style="display:table-cell"></div>
+		<div style="display:table-cell"></div>
+		<div style="display:table-cell">
+			<div class="pf-help-text" style="width:28em;position:relative;left:-140%;">
+				$question.i18n(${question.HelpText.Text})
+			</div>
+		</div>
+	</div>
+#end

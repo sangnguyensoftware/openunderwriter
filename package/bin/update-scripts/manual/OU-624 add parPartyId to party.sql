@@ -1,0 +1,2 @@
+ALTER TABLE parParty 
+  ADD COLUMN parPartyId VARCHAR(255); 

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ This file defines the default (factory) configuration for the
+ AddQuoteNumber Service. This configuration is used by the entry point's
+ resetConfiguration() method.
+-->
+<configuration 
+  xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <name>Add quotation number service</name>
+  <timeout>-1</timeout>
+  <who>factory</who>
+  <version>1.0</version>
+
+ <!-- Select the method used to generate new numbers. Options are:                            -->
+ <!--  ConfigurePropertyUniqueNumberHandler - which stores the numbers in configuration.       -->
+ <!--  PolicyIdUniqueNumberGeneratorHandler - use the policy's unique ID as the quote number. -->
+ <parameter name="UniqueQuotationNumberHandler">PolicyIdUniqueNumberGeneratorHandler</parameter>
+
+</configuration>

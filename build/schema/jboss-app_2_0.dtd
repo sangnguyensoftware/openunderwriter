@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+<!DOCTYPE jboss-web PUBLIC
+   "-//JBoss Portal//DTD JBoss Web Application 2.0//EN"
+   "http://www.jboss.org/portal/dtd/jboss-app_2_0.dtd">
+-->
+
+<!ELEMENT jboss-app (app-name?)>
+
+<!--
+When a web application is deployed, the context path under wich it is deployed is taken as application
+name. The application name value in this descriptor is used to override it. When a component references a
+references a portlet, it needs to reference the application too and if the portlet application war file is renammed
+the reference is not valid anymore. Therefore this tag is used to have an application name that does not depend
+upon the context path under which the application is deployed.
+-->
+<!ELEMENT app-name (#PCDATA)>

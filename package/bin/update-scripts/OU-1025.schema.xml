@@ -1,0 +1,129 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-1025 Add document placeholders" author="mattc">
+        <sql dbms="mysql">
+        
+CREATE TABLE `dplDocumentPlaceholder` (
+  `dplUID` bigint(20) NOT NULL,
+  `dplAttribute` longtext,
+  `dplCreatedBy` bigint(20) DEFAULT NULL,
+  `dplCreatedDate` datetime DEFAULT NULL,
+  `dplExternalSystemId` varchar(255) NOT NULL,
+  `dplForeignSystemId` varchar(255) DEFAULT NULL,
+  `dplLock` bit(1) DEFAULT NULL,
+  `dplSerialVersion` bigint(20) NOT NULL,
+  `dplUpdatedBy` bigint(20) DEFAULT NULL,
+  `dplUpdatedDate` datetime DEFAULT NULL,
+  `dplDescription` longtext,
+  `dplOtherType` varchar(255) DEFAULT NULL,
+  `dplTitle` varchar(255) DEFAULT NULL,
+  `dplType` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`dplUID`),
+  UNIQUE KEY `dplExternalSystemId` (`dplExternalSystemId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `dplDocumentPlaceholder_` (
+  `dplUID` bigint(20) NOT NULL,
+  `REV` int(11) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  `dplAttribute` longtext,
+  `dplCreatedBy` bigint(20) DEFAULT NULL,
+  `dplCreatedDate` datetime DEFAULT NULL,
+  `dplExternalSystemId` varchar(255) DEFAULT NULL,
+  `dplForeignSystemId` varchar(255) DEFAULT NULL,
+  `dplUpdatedBy` bigint(20) DEFAULT NULL,
+  `dplUpdatedDate` datetime DEFAULT NULL,
+  `dplDescription` longtext,
+  `dplOtherType` varchar(255) DEFAULT NULL,
+  `dplTitle` varchar(255) DEFAULT NULL,
+  `dplType` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`dplUID`,`REV`),
+  KEY `FKB6DEC78788B4F168` (`REV`),
+  CONSTRAINT `FKB6DEC78788B4F168` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `cDplLab` (
+  `UIDdpl` bigint(20) NOT NULL,
+  `dplLabel` varchar(255) DEFAULT NULL,
+  KEY `FKEF6EFE5049D8A0D` (`UIDdpl`),
+  CONSTRAINT `FKEF6EFE5049D8A0D` FOREIGN KEY (`UIDdpl`) REFERENCES `dplDocumentPlaceholder` (`dplUID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `cDplLab_` (
+  `REV` int(11) NOT NULL,
+  `UIDdpl` bigint(20) NOT NULL,
+  `dplLabel` varchar(255) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`REV`,`UIDdpl`,`dplLabel`),
+  KEY `FKFE70CC0F88B4F168` (`REV`),
+  CONSTRAINT `FKFE70CC0F88B4F168` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jPolDplDpl` (
+  `UIDpol` bigint(20) NOT NULL,
+  `documentPlaceholderUIDdpl` bigint(20) NOT NULL,
+  UNIQUE KEY `documentPlaceholderUIDdpl` (`documentPlaceholderUIDdpl`),
+  KEY `FK51F4F34384156FE0` (`UIDpol`),
+  KEY `FK51F4F3436F9D1585` (`documentPlaceholderUIDdpl`),
+  CONSTRAINT `FK51F4F3436F9D1585` FOREIGN KEY (`documentPlaceholderUIDdpl`) REFERENCES `dplDocumentPlaceholder` (`dplUID`),
+  CONSTRAINT `FK51F4F34384156FE0` FOREIGN KEY (`UIDpol`) REFERENCES `polPolicy` (`polUID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jPolDplDpl_` (
+  `REV` int(11) NOT NULL,
+  `UIDpol` bigint(20) NOT NULL,
+  `documentPlaceholderUIDdpl` bigint(20) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`REV`,`UIDpol`,`documentPlaceholderUIDdpl`),
+  KEY `FKECA9757C88B4F168` (`REV`),
+  CONSTRAINT `FKECA9757C88B4F168` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jParDplDpl` (
+  `UIDpar` bigint(20) NOT NULL,
+  `documentPlaceholderUIDdpl` bigint(20) NOT NULL,
+  UNIQUE KEY `documentPlaceholderUIDdpl` (`documentPlaceholderUIDdpl`),
+  KEY `FKE109E2976F9D1585` (`documentPlaceholderUIDdpl`),
+  KEY `FKE109E29743E35FF8` (`UIDpar`),
+  CONSTRAINT `FKE109E29743E35FF8` FOREIGN KEY (`UIDpar`) REFERENCES `parParty` (`parUID`),
+  CONSTRAINT `FKE109E2976F9D1585` FOREIGN KEY (`documentPlaceholderUIDdpl`) REFERENCES `dplDocumentPlaceholder` (`dplUID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jParDplDpl_` (
+  `REV` int(11) NOT NULL,
+  `UIDpar` bigint(20) NOT NULL,
+  `documentPlaceholderUIDdpl` bigint(20) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`REV`,`UIDpar`,`documentPlaceholderUIDdpl`),
+  KEY `FK403270A888B4F168` (`REV`),
+  CONSTRAINT `FK403270A888B4F168` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jClaDplDpl` (
+  `UIDcla` bigint(20) NOT NULL,
+  `documentPlaceholderUIDdpl` bigint(20) NOT NULL,
+  UNIQUE KEY `documentPlaceholderUIDdpl` (`documentPlaceholderUIDdpl`),
+  KEY `FK4CF33DCE6F9D1585` (`documentPlaceholderUIDdpl`),
+  KEY `FK4CF33DCEE0CB4A47` (`UIDcla`),
+  CONSTRAINT `FK4CF33DCE6F9D1585` FOREIGN KEY (`documentPlaceholderUIDdpl`) REFERENCES `dplDocumentPlaceholder` (`dplUID`),
+  CONSTRAINT `FK4CF33DCEE0CB4A47` FOREIGN KEY (`UIDcla`) REFERENCES `claClaim` (`claUID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `jClaDplDpl_` (
+  `REV` int(11) NOT NULL,
+  `UIDcla` bigint(20) NOT NULL,
+  `documentPlaceholderUIDdpl` bigint(20) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`REV`,`UIDcla`,`documentPlaceholderUIDdpl`),
+  KEY `FK51747C5188B4F168` (`REV`),
+  CONSTRAINT `FK51747C5188B4F168` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

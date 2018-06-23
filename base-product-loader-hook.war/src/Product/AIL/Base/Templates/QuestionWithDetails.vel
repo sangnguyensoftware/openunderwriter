@@ -1,0 +1,84 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the QuestionWithDetails widget.
+##
+#set( $quote = $args.ModelArgRet)
+#set( $questionWithDetails = $args.PageElementArg )
+#set( $detailId = $args.DetailIdArg )
+#set( $renderId = $args.RenderIdArg )
+#set( $rowContext = $args.RowContextArg )
+#set( $renderHint = $args.RenderHintArg )
+##
+#set( $binding = $questionWithDetails.Binding )
+#set( $attribute = ${quote.xpathGet($binding)} )
+#set( $onLoad = $questionWithDetails.OnLoad )
+#set( $detailsRenderHint = $questionWithDetails.DetailsRenderHint )
+#set( $detailsOnChange = $questionWithDetails.DetailsOnChange )
+#set( $detailsOnLoad = $questionWithDetails.DetailsOnLoad )
+#set( $detailsBinding = $questionWithDetails.DetailsBinding )
+#set( $title = ${questionWithDetails.formattedTitle($args)} )
+##
+#set( $Q='"' )
+##
+#if( $renderHint == "radio" )
+    #set( $onChange = "enableTargetIf(this.checked && isInList(this.value, ${Q}${questionWithDetails.DetailsEnabledFor}${Q}), ${Q}${detailId}${Q})" )
+#elseif( $renderHint == "checkbox" )
+    #set( $onChange = "enableTargetIf(this.checked, ${Q}${detailId}${Q})" )
+#else
+    #set( $onChange = "enableTargetIf(isInList(this.options[this.selectedIndex].value, ${Q}${questionWithDetails.DetailsEnabledFor}${Q}), ${Q}${detailId}${Q})" )
+#end
+##
+<div class='pf-question-with-details' id='pf-$renderId'>
+	<div class='pf-input-label'>
+	    #if( $attribute.Required )
+	        <div class='pf-input-required'></div>
+	    #else
+	        <div class='pf-input-optional'></div>
+	    #end
+	    ${title}
+	</div>
+	<div class='pf-input-field'>
+	    #set( $args.ModelArgRet = ${questionWithDetails.renderAttribute($quote, $binding, $rowContext, $onChange, $onLoad, $renderHint)} )
+	</div>
+	<div class='pf-details'>
+		<div class='pf-input-label'>
+		    ${questionWithDetails.formattedDetailsTitle($args)}
+		</div>
+		<div class='pf-input-field'>
+		    #set( $args.ModelArgRet = ${questionWithDetails.renderAttribute($quote, $detailsBinding, $rowContext, $detailsOnChange, $detailsOnLoad, $detailsRenderHint)} )
+		</div>
+	</div>
+	##
+	#if( $renderHint == "radio" )
+	    <script type='text/javascript'>
+	        radio=findElementsByName("$renderId")[1];
+	        enableTargetIf(radio.checked, "$detailId")
+	    </script>
+	#elseif( $renderHint == "checkbox" )
+	    <script type='text/javascript'>
+	        cbox=findElementsByName("$renderId")[0];
+	        enableTargetIf(cbox.checked, "$detailId")
+	    </script>
+	#else
+	    <script type='text/javascript'>
+	        elem=findElementsByName("$renderId")[0];
+	        enableTargetIf(isInList(elem.options[elem.selectedIndex].value, "$questionWithDetails.DetailsEnabledFor"), "$detailId")
+	    </script>
+	#end
+</div>

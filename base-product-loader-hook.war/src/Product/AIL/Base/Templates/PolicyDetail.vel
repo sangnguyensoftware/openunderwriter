@@ -1,0 +1,191 @@
+## Copyright Applied Industrial Logic Limited 2016. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the PolicyDetial widget.
+##
+#set( $quote = $args.ModelArgRet)
+#set( $policyDetail = $args.pageElementArg )
+#set( $policy = $args.PolicyArg )
+#set( $renderId = $args.RenderIdArg )
+##
+<div class='pf-policy-summary' id='$!{renderId}'>
+	#if( $policy )
+		<div class='pf-header'>
+			#renderHeader
+		</div>
+		<div class='pf-body'>
+			#coverages
+			#assets
+		</div>
+	#else
+		#renderPolicyMessage
+	#end
+</div>
+##
+#macro(assets)
+    <div class='pf-section pf-policy-detail-coverages-section'>
+    	#if( $quote.Asset && $quote.Asset.size() != 0 )
+    		<div class='pf-section-title'>
+            	$policyDetail.i18n("i18n_policy_detail_policy_asset_title")
+        	</div>
+			#foreach( $asset in $quote.Asset )
+				#renderAsset ( $asset )
+			#end
+		#end
+		
+	</div>
+#end
+##
+#macro(coverages)
+
+    <div class='pf-section pf-policy-detail-coverages-section'>
+    	#if( $quote.Coverage && $quote.Coverage.size() != 0 )
+    		<div class='pf-section-title'>
+            	$policyDetail.i18n("i18n_policy_detail_policy_coverage_title")
+        	</div>
+			#foreach( $coverage in $quote.Coverage )
+				#if( $coverage.Enabled )
+					#renderCoverage ( $coverage )
+				#end
+			#end
+		#end
+		
+		#if( $quote.Section && $quote.Section.size() != 0 )
+			
+        	#foreach( $section in $quote.Section )
+        		#if( $section.Coverage && $section.Coverage.size() != 0 )
+        			<div class='pf-section-title'>
+            			$policyDetail.i18n("i18n_policy_detail_section_coverage_title") for $section.id.substring(0,1).toUpperCase()$section.id.substring(1)
+        			</div>
+        			#foreach( $coverage in $section.Coverage )
+        				#if( $coverage.Enabled )
+							#renderCoverage ( $coverage )
+						#end
+					#end
+				#end
+        	#end
+		#end
+	</div>
+#end
+##
+#macro( renderAsset $asset )
+	<div class='pf-section-body'>
+				
+		#if( $asset.id )
+			#set( $assetId = $asset.id.substring(0,1).toUpperCase() + $asset.id.substring(1) )
+		#else 
+			#set( $assetId = $asset.assetTypeId.substring(0,1).toUpperCase() + $asset.assetTypeId.substring(1) )
+		#end
+			
+		
+			#summaryRow( $assetId, "", 'pf-item pf-item-header', 'color:lightgrey')
+				
+		#foreach( $attr in $asset.Attribute )
+			#set ( $attrId = $attr.Id.substring(0,1).toUpperCase() + $attr.Id.substring(1) )
+			#summaryRow( $attrId, $attr.Value)
+		#end
+	</div>
+	<br/>
+#end
+##
+#macro( renderCoverage $coverage )
+	<div class='pf-section-body'>
+		
+		#summaryRow( "Id", $coverage.Id, 'pf-item pf-item-header', 'color:lightgrey' )	
+		
+		#summaryRow( "Description", $coverage.Description )
+		#if ( $coverage.Limit )
+			#summaryRow( "Limit", $coverage.Limit.FormattedValue )
+		#end
+		#if ( $coverage.Deductible )
+			#summaryRow( "Deductible", $coverage.Deductable.FormattedValue )
+		#end
+		
+	</div>
+	<br/>
+#end
+##
+#macro(renderHeader)
+    <div class='pf-header-title'>
+		#if( $policy.PolicyNumber )
+			$policyDetail.i18n("i18n_policy_detail_policy_title", $policy.PolicyNumber)
+		#elseif( $policy.QuotationNumber )
+			$policyDetail.i18n("i18n_policy_detail_quotation_title", $policy.QuotationNumber)
+		#else
+			$policyDetail.i18n("i18n_policy_detail_application_title", $policy.SystemId)
+		#end
+	</div>
+    <div class='pf-header-summary'>
+        <div class='pf-header-summary-entry'>
+            <div class='pf-header-summary-title'>
+                $policyDetail.i18n("i18n_policy_summary_product_title")
+            </div>
+            <div class='pf-header-summary-value'>
+                $policy.ProductName
+            </div>
+        </div>
+        <div class='pf-header-summary-entry'>
+            <div class='pf-header-summary-title'>
+                $policyDetail.i18n("i18n_policy_summary_status_title")
+            </div>
+            <div class='pf-header-summary-value'>
+                $policyDetail.i18n($policy.Status.LongName)
+            </div>
+        </div>
+		#if( $policy.TotalPremiumDefined )
+            <div class='pf-header-summary-entry'>
+                <div class='pf-header-summary-title'>
+                    $policyDetail.i18n("i18n_policy_summary_total_premium_title")
+                </div>
+                <div class='pf-header-summary-value'>
+                    $policy.TotalPremium
+                </div>
+            </div>
+		#end
+	</div>
+	<div style="clear:both;"></div>
+#end
+##
+#macro(renderPolicyMessage)
+	$policyDetail.i18n('i18n_no_policy_message')
+#end
+##
+#macro(summaryRow $label $value $class $style)
+	
+	#if( !$class )
+		#set( $class = 'pf-item' )
+	#end	
+	#if( !$style )
+		#set( $style = '' )
+	#end
+    <div class='$class'>
+        <div style='$style' class='pf-item-label'>
+        	#if ( $label )
+        		$label
+       		#end
+       	</div>
+        <div style='$style' class='pf-item-value'>
+        	#if ($value && $value.startsWith("i18n_"))
+        		$policyDetail.i18n($value)
+        	#elseif($value)
+        		$value
+        	#end
+        </div>
+    </div>
+#end
+##

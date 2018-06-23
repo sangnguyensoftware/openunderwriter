@@ -1,0 +1,95 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-1015 Add csyContactSystem" author="richard">
+        <sql dbms="mysql">
+            CREATE TABLE `csyContactSystem` (
+              `csyDSC` varchar(31) NOT NULL,
+              `csyUID` bigint(20) NOT NULL,
+              `csyAttribute` longtext,
+              `csyCreatedBy` bigint(20) DEFAULT NULL,
+              `csyCreatedDate` datetime DEFAULT NULL,
+              `csyExternalSystemId` varchar(255) NOT NULL,
+              `csyForeignSystemId` varchar(255) DEFAULT NULL,
+              `csyLock` bit(1) DEFAULT NULL,
+              `csySerialVersion` bigint(20) NOT NULL,
+              `csyUpdatedBy` bigint(20) DEFAULT NULL,
+              `csyUpdatedDate` datetime DEFAULT NULL,
+              `csyEndDate` timestamp(4) NULL DEFAULT NULL,
+              `csyFullAddress` varchar(255) DEFAULT NULL,
+              `csyPrimary` bit(1) DEFAULT NULL,
+              `csyStartDate` timestamp(4) NULL DEFAULT NULL,
+              `csyType` varchar(255) DEFAULT NULL,
+              `csyCountry` varchar(255) DEFAULT NULL,
+              `csyCounty` varchar(255) DEFAULT NULL,
+              `csyLine1` varchar(255) DEFAULT NULL,
+              `csyLine2` varchar(255) DEFAULT NULL,
+              `csyLine3` varchar(255) DEFAULT NULL,
+              `csyLine4` varchar(255) DEFAULT NULL,
+              `csyLine5` varchar(255) DEFAULT NULL,
+              `csyPostcode` varchar(255) DEFAULT NULL,
+              `csyTown` varchar(255) DEFAULT NULL,
+              `csyEmailAddress` varchar(255) DEFAULT NULL,
+              `csyPhoneNumber` varchar(255) DEFAULT NULL,
+              PRIMARY KEY (`csyUID`),
+              UNIQUE KEY `csyExternalSystemId` (`csyExternalSystemId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            CREATE TABLE `csyContactSystem_` (
+              `csyDSC` varchar(31) NOT NULL,
+              `csyUID` bigint(20) NOT NULL,
+              `REV` int(11) NOT NULL,
+              `REVTYPE` tinyint(4) DEFAULT NULL,
+              `csyAttribute` longtext,
+              `csyCreatedBy` bigint(20) DEFAULT NULL,
+              `csyCreatedDate` datetime DEFAULT NULL,
+              `csyExternalSystemId` varchar(255) DEFAULT NULL,
+              `csyForeignSystemId` varchar(255) DEFAULT NULL,
+              `csyUpdatedBy` bigint(20) DEFAULT NULL,
+              `csyUpdatedDate` datetime DEFAULT NULL,
+              `csyEndDate` timestamp(4) NULL DEFAULT NULL,
+              `csyFullAddress` varchar(255) DEFAULT NULL,
+              `csyPrimary` bit(1) DEFAULT NULL,
+              `csyStartDate` timestamp(4) NULL DEFAULT NULL,
+              `csyType` varchar(255) DEFAULT NULL,
+              `csyPhoneNumber` varchar(255) DEFAULT NULL,
+              `csyCountry` varchar(255) DEFAULT NULL,
+              `csyCounty` varchar(255) DEFAULT NULL,
+              `csyLine1` varchar(255) DEFAULT NULL,
+              `csyLine2` varchar(255) DEFAULT NULL,
+              `csyLine3` varchar(255) DEFAULT NULL,
+              `csyLine4` varchar(255) DEFAULT NULL,
+              `csyLine5` varchar(255) DEFAULT NULL,
+              `csyPostcode` varchar(255) DEFAULT NULL,
+              `csyTown` varchar(255) DEFAULT NULL,
+              `csyEmailAddress` varchar(255) DEFAULT NULL,
+              PRIMARY KEY (`csyUID`,`REV`),
+              KEY `FK40BBEE3988B4F168` (`REV`),
+              CONSTRAINT `FK40BBEE3988B4F168` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+            CREATE TABLE `jParCsyCsy` (
+              `UIDpar` bigint(20) NOT NULL,
+              `contactSystemUIDcsy` bigint(20) NOT NULL,
+              UNIQUE KEY `contactSystemUIDcsy` (`contactSystemUIDcsy`),
+              KEY `FKDF8535F7E86376F8` (`contactSystemUIDcsy`),
+              KEY `FKDF8535F743E35FF8` (`UIDpar`),
+              CONSTRAINT `FKDF8535F743E35FF8` FOREIGN KEY (`UIDpar`) REFERENCES `parParty` (`parUID`),
+              CONSTRAINT `FKDF8535F7E86376F8` FOREIGN KEY (`contactSystemUIDcsy`) REFERENCES `csyContactSystem` (`csyUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            CREATE TABLE `jParCsyCsy_` (
+              `REV` int(11) NOT NULL,
+              `UIDpar` bigint(20) NOT NULL,
+              `contactSystemUIDcsy` bigint(20) NOT NULL,
+              `REVTYPE` tinyint(4) DEFAULT NULL,
+              PRIMARY KEY (`REV`,`UIDpar`,`contactSystemUIDcsy`),
+              KEY `FK1121894888B4F168` (`REV`),
+              CONSTRAINT `FK1121894888B4F168` FOREIGN KEY (`REV`) REFERENCES `revRevision` (`revId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>    
+</databaseChangeLog>

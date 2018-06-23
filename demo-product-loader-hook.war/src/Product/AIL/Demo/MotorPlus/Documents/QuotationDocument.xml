@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documentDefinition xsi:type="java:com.ail.core.document.model.DocumentDefinition" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+    <documentData>
+        
+        <chapterData id="c1" title="Basic Details">
+            <blockData pd="prop" placement="body" applicability="all" title="Proposer" border="true">
+                <modelData id='pn' title="Proposer&apos;s name" class='string'>${/proposer/actualTitle} ${/proposer/firstName} ${proposer/surname}</modelData>
+                <modelData id="line2" class="line" binding="/proposer/address/line2"/>
+                <modelData id="line3" class="line" binding="/proposer/address/line3"/>
+                <modelData id="line4" class="line" binding="/proposer/address/line4"/>
+                <modelData id="line5" class="line" binding="/proposer/address/line5"/>
+                <modelData id="town" class="town" binding="/proposer/address/town"/>
+                <modelData id="county" class="county" binding="/proposer/address/county"/>
+                <modelData id="country" class="country" binding="/proposer/address/country"/>
+                <modelData id="postcode" class="postcode" binding="/proposer/address/postcode"/>
+
+                <modelData id='pn' title='Phone number' class='phone' binding="/proposer/telephoneNumber"/>
+                <modelData id='em' title='Email address' class='email' binding="/proposer/emailAddress"/>
+            </blockData>
+            
+            <blockData id="qs" placement="body" applicability="all" title="Quotation summary" border="true">
+                <modelData id='qn' title='Quotation number' class='string' binding='/quotationNumber'/>
+                <modelData id='pm' title='Total premium' class='string' binding="/assessmentSheet/line[id='total premium']/amountAsString"/>
+                <modelData id='qd' title='Quotation date' class='date' binding='c:format(/quotationDate,"d MMMMM, yyyy")'/>
+                <modelData id="qx" title='Quotation expiry date' class='date' binding='c:format(/quotationExpiryDate,"d MMMMM, yyyy")'/>    
+            </blockData>
+
+            <blockData placement="body" applicability="all" title="Motor Vehicles" border="true">
+                <repeatingData binding="asset[assetTypeId='VehicleAsset']" class='table'>
+                    <blockData placement="header">
+                        <modelData>Make</modelData>
+                        <modelData>Model</modelData>
+                        <modelData>Engine size</modelData>
+                        <modelData>Body type</modelData>
+                        <modelData>Registration number</modelData>
+                        <modelData>Value</modelData>
+                    </blockData>
+                    <blockData placement="body">
+                        <modelData class='string' binding="attribute[id='make']/formattedValue"/>
+                        <modelData class='string' binding="attribute[id='model']/formattedValue"/>
+                        <modelData class='integer' binding="attribute[id='cc']/formattedValue"/>
+                        <modelData class='string' binding="attribute[id='bodytype']/formattedValue"/>
+                        <modelData class='string' binding="attribute[id='registration']/formattedValue"/>
+                        <modelData class='currency' binding="attribute[id='value']/formattedValue"/>
+                    </blockData>
+                </repeatingData>
+			</blockData>
+
+            <blockData placement="body" applicability="all" title="Drivers" border="true">
+                <repeatingData binding="asset[assetTypeId='DriverAsset']" class='table'>
+                    <blockData placement="header">
+                        <modelData>Name</modelData>
+                        <modelData>Date of birth</modelData>
+                        <modelData>Occupation</modelData>
+                        <modelData>Years driving experience</modelData>
+                    </blockData>
+                    <blockData placement="body">
+                        <modelData class='string' binding="attribute[id='name']/formattedValue"/>
+                        <modelData class='date' binding="attribute[id='dob']/formattedValue"/>
+                        <modelData class='string' binding="attribute[id='occupation']/formattedValue"/>
+                        <modelData class='integer' binding="attribute[id='yearsLicenseHeld']/formattedValue"/>
+                    </blockData>
+                </repeatingData>
+            </blockData>            
+
+            <blockData placement="body" applicability="all" title="Coverage" border="true">
+                <modelData id="exc" class="string"><![CDATA[The following coverages are offered under this quotation:]]></modelData>
+                <modelData id="exc" class="string"><![CDATA[a) ${section/coverage[id='damage']/description} is incuded to a limit of ${section/coverage[id='damage']/limit/formattedValue}.]]></modelData>
+                <modelData id="exc" class="string"><![CDATA[b) ${section/coverage[id='personalInjury']/description} is included.]]></modelData>
+                <modelData id="exc" class="string"><![CDATA[c) ${section/coverage[id='fireOrTheft']/description} is incuded with an excess of ${section/coverage[id='fireOrTheft']/deductible/formattedValue}.]]></modelData>
+                <modelData id="exc" class="string"><![CDATA[d) ${section/coverage[id='accidentalDamage']/description} is incuded with an excess of ${section/coverage[id='accidentalDamage']/deductible/formattedValue}.]]></modelData>
+                <modelData id="exc" class="string"><![CDATA[e) ${section/coverage[id='cdEquipment']/description} is included to a limit of ${section/coverage[id='cdEquipment']/limit/formattedValue} and an excess of ${section/coverage[id='cdEquipment']/deductible/formattedValue}]]></modelData>
+                <modelData id="exc" class="string"><![CDATA[f) ${section/coverage[id='windscreen']/description} is included to a limit of ${section/coverage[id='windscreen']/limit/formattedValue}.]]></modelData>
+                <modelData id="exc" class="string"><![CDATA[g) ${section/coverage[id='carHire']/description} is included.]]></modelData>
+                <modelData id="exc" class="string"><![CDATA[h) ${section/coverage[id='personalAccident']/description} to a limit of ${section/coverage[id='personalAccident']/limit/formattedValue}.]]></modelData>
+            </blockData>            
+        </chapterData>
+        
+        <chapterData id="c3" title="Terms and Conditions">
+            <blockData applicability="all" placement="body" title="Terms and Conditions" border="true">
+                <urlData class="wording" title="Terms and Conditions" url="product://localhost:8080/AIL/Demo/MotorPlus/HTML/TermsAndConditions.html"/> 
+            </blockData>
+        </chapterData>
+    </documentData> 
+</documentDefinition>

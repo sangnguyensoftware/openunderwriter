@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>InformationPage</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">InformationPage</td></tr>
+</thead><tbody>
+<tr>
+	<td>setTimeout</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<!--Open AccountDetails page-->
+<tr>
+	<td>clickAndWait</td>
+	<td>name=resetPageflow</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectAndWait</td>
+	<td>name=selectedPage</td>
+	<td>label=PaymentHolidayDetails</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>class=pf-page-title</td>
+	<td>PaymentHolidayDetails</td>
+</tr>
+<!--Verify page content-->
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[@class='pf-section-heading'])[1]</td>
+	<td>Current Payment Holiday</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[@class='pf-section-heading'])[2]</td>
+	<td>Previous Payment Holidays</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[@class='pf-section-heading'])[3]</td>
+	<td>All Payment Holidays</td>
+</tr>
+<!--Add a payment holiday (in the past)-->
+<tr>
+	<td>storeEval</td>
+	<td>var d=new Date(); d.setMonth(d.getMonth()-3); d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();</td>
+	<td>holidayStartDate</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>var d=new Date(); d.setMonth(d.getMonth()-2); d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();</td>
+	<td>holidayEndDate</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>name=L3BheW1lbnRIb2xpZGF5WzFdL3N0YXJ0RGF0ZQ</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L3BheW1lbnRIb2xpZGF5WzFdL3N0YXJ0RGF0ZQ</td>
+	<td>${holidayStartDate}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L3BheW1lbnRIb2xpZGF5WzFdL2VuZERhdGU</td>
+	<td>${holidayEndDate}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@class='pf-note-title'])[1]</td>
+	<td>Travelling to Mexico</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//textarea[@class='pf-note-body'])[1]</td>
+	<td>Holiday in mexico</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>class=pf-input-error</td>
+	<td>You cannot create a payment holiday in the past</td>
+</tr>
+<!--Alter holiday to make it future-->
+<tr>
+	<td>storeEval</td>
+	<td>var d=new Date(); d.setMonth(d.getMonth()+1); d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();</td>
+	<td>holidayStartDate</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>var d=new Date(); d.setMonth(d.getMonth()+2); d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();</td>
+	<td>holidayEndDate</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L3BheW1lbnRIb2xpZGF5WzFdL3N0YXJ0RGF0ZQ</td>
+	<td>${holidayStartDate}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L3BheW1lbnRIb2xpZGF5WzFdL2VuZERhdGU</td>
+	<td>${holidayEndDate}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@class='pf-note-title'])[1]</td>
+	<td>Travelling to Egypt</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//textarea[@class='pf-note-body'])[1]</td>
+	<td>Holiday in Egypt</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>class=pf-input-error</td>
+	<td>You cannot create a payment holiday in the past</td>
+</tr>
+<!--Add a payment holiday (present)-->
+<tr>
+	<td>storeEval</td>
+	<td>var d=new Date(); d.setMonth(d.getMonth()-1); d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();</td>
+	<td>holidayStartDate</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>var d=new Date(); d.setMonth(d.getMonth()+1); d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();</td>
+	<td>holidayEndDate</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@id='add'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>name=L3BheW1lbnRIb2xpZGF5WzJdL3N0YXJ0RGF0ZQ</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L3BheW1lbnRIb2xpZGF5WzJdL3N0YXJ0RGF0ZQ</td>
+	<td>${holidayStartDate}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L3BheW1lbnRIb2xpZGF5WzJdL2VuZERhdGU</td>
+	<td>${holidayEndDate}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@class='pf-note-title'])[2]</td>
+	<td>Travelling to Bali</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//textarea[@class='pf-note-body'])[1]</td>
+	<td>Holiday in Bali</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>class=pf-input-error</td>
+	<td>You cannot create a payment holiday in the past</td>
+</tr>
+<!--Add a second note-->
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@id='add'])[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=(//input[@class='pf-note-title'])[2][@value='']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@class='pf-note-title'])[2]</td>
+	<td>Staying in Egypt</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//textarea[@class='pf-note-body'])[2]</td>
+	<td>Moving to Egypt for good.</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//input[@readonly='readOnly' and @value='Staying in Egypt']</td>
+	<td></td>
+</tr>
+<!--Delete 1st note-->
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@id='delete'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=(//input[@class='pf-note-title'])[1][@value='Staying in Egypt']</td>
+	<td></td>
+</tr>
+<!--Test reverse dates-->
+<tr>
+	<td>storeEval</td>
+	<td>var d=new Date(); d.setMonth(d.getMonth()+1); d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();</td>
+	<td>holidayStartDate</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>var d=new Date(); d.setMonth(d.getMonth()-1); d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();</td>
+	<td>holidayEndDate</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@id='add'])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//input[@name='L3BheW1lbnRIb2xpZGF5WzNdL3N0YXJ0RGF0ZQ']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L3BheW1lbnRIb2xpZGF5WzNdL3N0YXJ0RGF0ZQ</td>
+	<td>${holidayStartDate}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L3BheW1lbnRIb2xpZGF5WzNdL2VuZERhdGU</td>
+	<td>${holidayEndDate}</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>xpath=//div[@class='pf-input-error']</td>
+	<td>Periods overlap</td>
+</tr>
+</tbody></table>
+</body>
+</html>

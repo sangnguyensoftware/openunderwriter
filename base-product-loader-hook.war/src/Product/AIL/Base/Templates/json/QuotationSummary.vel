@@ -1,0 +1,97 @@
+## Copyright Applied Industrial Logic Limited 2017. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the QuotationSummary widget.
+##
+#set( $quote = $args.ModelArgRet)
+#set( $pageElement = $args.PageElementArg )
+#set( $policy = $args.PolicyArg )
+#set( $response = $args.ResponseArgRet )
+#set( $id = $args.RenderIdArg )
+#set( $premium = $quote.TotalPremium )
+##
+{
+	"type": "$pageElement.Class.SimpleName",
+	"id": "$id",
+	"premium": "${premium.toFormattedString()}",
+	"quotationNumber": "$quote.QuotationNumber",
+	"expiryDate": "${date.format("yyyy/MM/dd", $policy.quotationExpiryDate)}"
+	#taxSummary()
+	#answerSummary()
+	#wordingLink()
+	#termsAndConditions()
+	#navigationSection()
+	#renderHint()
+}
+##
+#macro(taxSummary)
+	,"taxSummary": [
+		#set( $mark = $response.writerMark() )
+		#foreach( $line in $quote.AssessmentSheet.behaviourLines() )
+			#if( $line.Type.Name == "TAX" )
+	   			#if( $mark != $response.writerMark()),#end
+    	   		#set( $mark = $response.writerMark() )
+           		{
+	       			"type": "$line.Class.SimpleName",
+    	   			"reason": "$line.Reason",
+	        		#if( $line.Class.Name == "com.ail.insurance.policy.RateBehaviour" )
+            			"rate": "$line.Rate.Rate"
+            		#elseif( $line.Class.Name == "com.ail.insurance.policy.SumBehaviour" )
+                		"amount": "$line.Amount.toFormattedString()"
+            		#end
+            	}
+        	#end
+    	#end
+    ]
+#end
+#macro(answerSummary)
+	,"answerSummary": [
+		#set( $mark = $response.writerMark() )
+        #foreach( $element in $pageElement.PageElement )
+            #if( $element.Class.Name == "com.ail.pageflow.AnswerSection" )
+	   			#if( $mark != $response.writerMark()),#end
+    	   		#set( $mark = $response.writerMark() )
+				#set( $tmp = ${element.renderResponse($quote)} )
+            #end
+        #end
+	]
+#end
+##
+#macro(wordingLink)
+	#if( $pageElement.WordingsUrl )
+		#set( $wordingUrl = $pageElement.getWordingUrlExternalForm($pageElement, $quote) )
+		,"wordingLink": "$wordingUrl
+	#end
+#end
+##
+#macro(termsAndConditions)
+    #if( $pageElement.TermsAndConditionsUrl )
+		#set( $fullUrl = $pageElement.expandRelativeUrlToProductUrl($pageElement.TermsAndConditionsUrl, $policy.ProductTypeId) )
+		,"termsAndConditions": "$pageElement.expand($fullUrl, $quote).replace('"', "'")"
+    #end       
+#end
+##
+#macro(navigationSection)
+	,"navigation": #set( $tmp = ${pageElement.navigationSection().renderResponse($quote)} )
+#end
+##
+#macro(renderHint)
+    #if( $args.RenderHintArg )       
+        ,"clientHint": "$args.RenderHintArg"
+    #end
+#end

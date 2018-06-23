@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project default="build" name="openunderwriter:unit-test.jar">
+  <import file="../BuildSettings.xml" />
+
+  <target name="clean" description="delete everything that the build can generate">
+    <delete-jar-macro />
+  </target>
+
+  <target name="_build">
+    <compile-jar-macro packagable="no">
+      <javac-classpath>
+        <fileset dir="${test.dir}/lib" includes="*.jar" />
+        <dirset dir="${module.dir}/com/ail" includes="**/*.jar" />
+        <fileset dir="${module.dir}/com/ail" includes="**/*.jar" />
+        <fileset dir="${jboss.dir}/bin/client" includes="**/*.jar" />
+        <fileset dir="${module.dir}/com/itext/itextpdf" includes="**/*.jar" />
+        <fileset dir="${module.dir}/com/liferay/portal" includes="**/*.jar" />
+        <fileset dir="${module.dir}/com/sagepay" includes="**/*.jar" />
+        <fileset dir="${module.dir}/com/paypal" includes="**/*.jar" />
+        <fileset dir="${module.dir}/net/sourceforge/saxon" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/beanshell" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/bouncycastle" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/codehaus/castor" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/codehaus/jackson/jackson-core-asl" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/codehaus/jackson/jackson-mapper-asl" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/drools" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/hibernate" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/janino" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/jboss/as/web" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/jboss/resteasy/resteasy-jaxrs" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/jboss/resteasy/resteasy-multipart-provider" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/rhino/js" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/spring/spring-context" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/velocity" includes="**/*.jar" />
+        <fileset dir="${module.dir}/javax/annotation/api" includes="**/*.jar" />
+        <fileset dir="${module.dir}/javax/mail/api" includes="**/*.jar" />
+        <fileset dir="${module.dir}/javax/persistence/api" includes="**/*.jar" />
+        <fileset dir="${module.dir}/javax/ws/rs/api" includes="**/*.jar" />
+      </javac-classpath>
+    </compile-jar-macro>
+  </target>
+
+  <target name="build" description="compile (generate, copy, etc) all build outputs">
+    <!-- call the internal build target -->
+    <antcall target="_build" />
+  </target>
+
+  <target name="setup" description="run all the one-time-only steps - like copying libs into place">
+    <update-dependencies-macro todir="${test.dir}/lib" />
+  </target>
+
+  <target name="teardown" description="undo whatever setup did">
+    <delete dir="${test.dir}" failonerror="no" />
+  </target>
+
+  <target name="test" description="run tests defined in this project">
+    <run-unit-tests-macro>
+      <junit-classpath>
+        <dirset dir="${test.dir}" includes="unit-test.jar" />
+        <fileset dir="${test.dir}/lib" includes="*.jar" />
+        <dirset dir="${module.dir}/com/ail" includes="**/*.jar" />
+        <fileset dir="${module.dir}/com/ail" includes="**/*.jar" />
+        <fileset dir="${jboss.dir}/bin/client" includes="**/*.jar" />
+      	<fileset dir="${module.dir}/com/github/ffpojo" includes="**/*.jar" />
+        <fileset dir="${module.dir}/com/google/lambdaj" includes="**/*.jar" />
+        <fileset dir="${module.dir}/com/itext/itextpdf" includes="**/*.jar" />
+        <fileset dir="${module.dir}/com/liferay/portal" includes="**/*.jar" />
+        <fileset dir="${module.dir}/com/sagepay" includes="**/*.jar" />
+        <fileset dir="${module.dir}/com/paypal" includes="**/*.jar" />
+        <fileset dir="${module.dir}/javax/annotation/api" includes="**/*.jar" />
+        <fileset dir="${module.dir}/javax/mail/api" includes="**/*.jar" />
+        <fileset dir="${module.dir}/javax/persistence/api" includes="**/*.jar" />
+        <fileset dir="${module.dir}/javax/ws/rs/api" includes="**/*.jar" />
+        <fileset dir="${module.dir}/net/sourceforge/saxon" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/apache/commons/lang" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/apache/commons/jxpath" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/apache/commons/validator" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/apache/log4j" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/bouncycastle" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/codehaus/castor" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/codehaus/jackson/jackson-core-asl" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/codehaus/jackson/jackson-mapper-asl" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/drools" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/hibernate" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/janino" includes="**/*.jar" />
+      	<fileset dir="${module.dir}/org/jresesarch/google-rfc-2445" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/jboss/as/web" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/jboss/resteasy/resteasy-jaxrs" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/jboss/resteasy/resteasy-multipart-provider" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/rhino/js" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/spring/spring-context" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/velocity" includes="**/*.jar" />
+		<fileset dir="${buildlib.dir}" includes="jbpm*.jar" />
+		<fileset dir="${buildlib.dir}" includes="kie*.jar" />
+      </junit-classpath>
+    </run-unit-tests-macro>
+  </target>
+
+</project>

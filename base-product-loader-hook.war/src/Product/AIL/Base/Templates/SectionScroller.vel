@@ -1,0 +1,85 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the SectionScroller widget.
+##
+#set( $model = $args.ModelArgRet)
+#set( $sectionScroller = $args.PageElementArg )
+#set( $renderId = $args.RenderIdArg )
+#set( $response = $args.ResponseArgRet )
+##
+#set( $title = $sectionScroller.formattedTitle($args) ) 
+##
+<div class='pf-section-scroller' id='$!{renderId}'>
+    ##
+    ## Output the table title if there is one
+    ##
+    #if( $title )
+        <div class='pf-section-heading'>
+            $title
+        </div>
+    #end
+    ##
+    <div class='pf-section-body'>
+	    ##
+	    ## Output a section for each object returned by the binding
+	    ##
+	    #set( $rowCount = 0 )
+	    #foreach( $t in ${sectionScroller.fetchBoundCollection($model)} )
+            <div class='pf-section'>
+                #if( $sectionScroller.RepeatedTitle )
+                    <div class='pf-section-scroller-heading'>
+                    	$sectionScroller.formattedRepeatedTitle($t)
+                    </div>
+                #end
+                #if( $sectionScroller.AddAndDeleteEnabled && $rowCount >= $sectionScroller.MinRows )
+                    <div class='pf-delete'>
+                    	<input id="delete" type="button" value="" onclick="callServeResource('${response.createResourceURL()}', 'op=delete:id=$sectionScroller.Id:row=$rowCount:immediate=true:'); return false;"/>
+                    </div>
+                #end
+	            <div class='pf-section-body pf-scroller-data'>
+		            ##
+		            ## Output the questions themselves
+		            ##
+		            #foreach( $question in $sectionScroller.Item )
+		                #set( $mode = $question.renderResponse($t, "${sectionScroller.Binding}[${rowCount}]") )
+		            #end 
+		            ##
+		            #set( $rowCount = $rowCount + 1 )
+		            ##
+		        </div>
+		    </div>
+	    #end
+	    ##
+	    ## If Add and Delete are enabled, put an 'Add' button to the bottom right of the scroller.
+	    ##
+	    #if( $sectionScroller.AddAndDeleteEnabled )
+            #if( $sectionScroller.MaxRows != -1 && $rowCount==$sectionScroller.MaxRows )
+                <div class='pf-add-disabled'>
+                    <input id="add-disabled" type="button" value="" disabled="true"/>
+                </div>
+            #else
+                <div class='pf-add'>
+				    <input id="add" type="button" value="#i18n('i18n_section_scroller_add_record_label')" onclick="callServeResource('${response.createResourceURL()}', 'op=add:id=$sectionScroller.Id:immediate=true'); return false;"/>
+                </div>
+            #end
+	    #end
+    </div>
+</div>
+##
+#macro( i18n $id )$sectionScroller.i18n("$id")#end

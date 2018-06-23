@@ -1,0 +1,31 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-989 Migrate policy parties to party roles" author="richard">
+        <executeCommand os="Linux" executable="../bin/liquibase-exec.sh">
+            <arg value="OU-989 Migrate policy data.bsh"/>
+        </executeCommand>
+        <executeCommand os="Mac OS X" executable="../bin/liquibase-exec.sh">
+            <arg value="OU-989 Migrate policy data.bsh"/>
+        </executeCommand>
+        <executeCommand os="Windows XP" executable="../bin/liquibase-exec.bat">
+            <arg value="OU-989 Migrate policy data.bsh"/>
+        </executeCommand>
+    </changeSet> 
+
+    <changeSet id="OU-989 Drop redundant columns" author="richard">
+        <sql dbms="mysql">
+            ALTER TABLE polPolicy 
+                DROP FOREIGN KEY FKC88695DFF97558C1,
+                DROP COLUMN polBrokerUIDpar,
+                DROP FOREIGN KEY FKC88695DFD76D8BF9,
+                DROP COLUMN polProposerUIDpar,
+                DROP FOREIGN KEY FKC88695DF3FFA3FE3,
+                DROP COLUMN polPolicyHolderUIDpar;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

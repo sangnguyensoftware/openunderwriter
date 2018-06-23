@@ -1,0 +1,71 @@
+<p>Display summary information about an party's account and payment
+	schedule.</p>
+<p>The options listed below control what information is presented
+	and in what format. Information is taken from the financial account and
+	transaction data associated with a party on the policy and and a
+	payment schedule held on the policy.</p>
+<p>
+	When an <i>accountBinding</i> is specified a summary of the account
+	will be displayed including status, balance, opening date, currency
+	etc. Additionally, if <i>showStatement</i> is set to <i>true</i> the a
+	statement showing transactions on the account is also included. The <i>period</i>
+	option controls how far back in history the statement should cover.
+</p>
+<p>
+	If <i>showNormalizedSchedule</i> is set to <i>true</i> then the payment
+	scheduled identified by <i>scheduleBinding</i> is displayed in its
+	normalized form. In this form a payment that is set to repeat monthly
+	is listed as one entry.
+</p>
+<p>
+	The <i>showActualizedSchedule</i> options is similar, but repeating
+	payments are shown "unrolled". So, if <i>period</i> is set to 3 Month,
+	a repeating payment which is valid for the whole period would show as
+	three separate payments. Also, in this mode, when multiple payments
+	fall due on the same day they are rolled up into one row with a
+	description explaining how they are made up.
+</p>
+<u>Pageflow</u>
+<pre>
+    &lt;accountDetails [title="<i>title</i>"]
+                       [accountBinding="<i>binding</i>"]
+                       [scheduleBinding="<i>binding</i>"]
+                       [period="<i>period</i>"] 
+                       [showNormalizedSchedule="<i>true/false</i>"]
+                       [showActualizedSchedule="<i>true/false</i>"]
+                       [showStatement="<i>true/false</i>"]
+                       [renderHint="<i>render hint</i>"] /&gt;
+</pre>
+<ul>
+	<li><i>title</i> Title text for the base question.</li>
+	<li><i>accountBinding</i> XPath pointing to the party in the
+		current policy for whom an account summary should be rendered.</li>
+	<li><i>showStatement</i> Include a statement for the selected
+		account.</li>
+	<li><i>scheduleBinding</i> XPath pointing to a payment schedule in
+		the policy to display payments for.</li>
+	<li><i>period</i> Defines the period for the statement and payment
+		schedules in ISO 8601 format.</li>
+	<li><i>showNormalizedSchedule</i> Render the payment schedule in
+		normalized format.</li>
+	<li><i>showActualizedSchedule</i> Render the payment schedule in
+		actualized format..</li>
+	<li><i>renderHint</i> Render hint to be output.</li>
+</ul>
+<u>Examples</u>
+<p>Display details for the broker's account including a statement covering the last 3 Months.</p>
+<pre>&lt;accountDetails title="Broker&apos;s account" accountBinding="/broker" showStatement="true" period="P3M" /&gt;</pre>
+
+<p>Display the client's account with a statement covering the last 6 Months.</p>
+<pre>&lt;accountDetails title="Client&apos;s account statement" accountBinding="/client" showStatement="true" period="P6M" /&gt;</pre>
+
+<p>Show an actualized payment scheduled from the policy's payment details covering the next 3 months.</p>
+<pre>&lt;accountDetails title="Client&apos;s actualized payment schedule" scheduleBinding="/paymentDetails"" showActualizedSchedule="true" period="P3M" /&gt;</pre>
+
+<p>Show an normalized payment scheduled from the policy's payment details covering the next 3 months.</p>
+<pre>&lt;accountDetails title="Client&apos;s normalized payment schedule" scheduleBinding="/"paymentDetails"" showNormalizedSchedule="true" period="P3M" /&gt;</pre>
+
+<p>Display the client's account summary and statement for the previous year and the normalized payment schedule for the coming year.</p>
+<pre>&lt;accountDetails title="Client&apos;s normalized payment schedule" accountBinding="/client" showStatement="true" scheduleBinding="/"paymentDetails"" showNormalizedSchedule="true" period="P1Y" /&gt;</pre>
+
+<hr />

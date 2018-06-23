@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd">
+
+  <name>Generic TradePL product configuration</name>
+  <timeout>-1</timeout>
+  <who>Applied Industrial Logic</who>
+  <version>1.0</version>
+  <manager>com.ail.core.product.resetproduct.ResetProductService</manager>
+  <parentNamespace>AIL.Base.Registry</parentNamespace>
+
+  <types>
+
+    <service name="ApplyBrokerFeeService" builder="CachingClassBuilder" key="com.ail.core.command.DroolsDecisionTableAccessor" >
+      <parameter name="Url">~/Rules/ApplyBrokerFee.xls</parameter>
+    </service>
+
+    <service name="ProposerPageValidationService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor">
+      <parameter name="Url">~/JavaServices/ProposerPageValidationService.java</parameter>
+    </service>
+
+    <service name="CoverPageValidationService" builder="CachingClassBuilder" key="com.ail.core.command.JaninoAccessor" >
+      <parameter name="Url">~/JavaServices/CoverPageValidationService.java</parameter>
+    </service>
+
+    <command name="ApplyBrokerFee" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+      <parameter name="Service">ApplyBrokerFeeService</parameter>
+    </command>
+
+    <command name="ProposerPageValidation" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+      <parameter name="Service">ProposerPageValidationService</parameter>
+    </command>
+
+    <command name="CoverPageValidation" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+      <parameter name="Service">CoverPageValidationService</parameter>
+    </command>
+    
+    <type name="Policy" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Policy">
+      <parameter name="extends">super.Policy</parameter>
+      <parameter name="Url">product://localhost:8080/AIL/Demo/TradePL/GenericQB/Model/Policy.xml</parameter>
+    </type>
+
+    <type name="QuotationPageFlow" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.PageFlow">
+      <parameter name="extends">super.QuotationPageFlow</parameter>
+      <parameter name="Url">product://localhost:8080/AIL/Demo/TradePL/GenericQB/QuotationPageFlow.xml</parameter>
+    </type>
+
+    <type name="CommercialProposer" builder="CastorXMLBuilder" key="com.ail.insurance.policy.CommercialProposer">
+      <parameter name="Url">~/Model/CommercialProposer.xml</parameter>
+    </type>
+
+    <type name="Abi81Insurers" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.util.Choice">
+      <parameter name="Url">~/Lists/Abi81Insurers.xml</parameter>
+    </type>
+
+    <type name="Broker" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Broker">
+       <parameter name="Url">~/Model/Broker.xml</parameter>
+     </type>
+
+	<type name="QuotationDocument" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.document.model.DocumentDefinition">
+		<parameter name="Url">~/Documents/QuotationDocument.xml</parameter>
+	</type>
+
+    <type name="Translations" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.language.Translations">
+      <parameter name="Extends">super.Translations</parameter>
+      <parameter name="Url">~/Translations.xml</parameter>
+    </type>
+
+  </types>
+
+</configuration>

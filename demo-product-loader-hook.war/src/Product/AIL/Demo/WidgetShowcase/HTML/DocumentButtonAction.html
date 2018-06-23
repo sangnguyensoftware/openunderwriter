@@ -1,0 +1,34 @@
+<p>Document buttons are a set of specialised UI buttons which
+	generate and display common documents.
+<p>
+<p>The buttons will enable and disable automatically depending on
+	the state of the Policy object being used by the PageFlow. When
+	selected, they will either generate and then display the associated
+	document or, if the document is already present, they will simply
+	display it.</p>
+<u>PageFlow</u>
+<p>There are 6 buttons, one for each document type:
+<pre>
+&lt;viewQuotationButtonAction /&gt;
+&lt;viewCertificateButtonAction /&gt;
+&lt;viewInvoiceButtonAction /&gt;
+&lt;viewWordingButtonAction /&gt;
+&lt;viewScheduleButtonAction /&gt;
+&lt;viewPolicyButtonAction /&gt;
+</pre>
+<p>Each button supports the same options:
+<p>
+<pre>
+&lt;viewQuotationButtonAction label="<i>label</i>" [renderHint="<i>inline</i>"] /&gt;
+</pre>
+<ul>
+	<li><i>label</i> - Override the default button label <i>label</i>.</li>
+	<li><i>render hint</i> - By default the file will be downloaded
+		with a Content-Disposition of attachment. Most browsers will respond
+		by downloading the content and storing it in the user's Downloads
+		folder. However, If a value of "<i>inline</i>" is used, the
+		Content-Disposition will be set to "inline". Typically, browsers will
+		now open the document in a new browser tab if they have a viewer for
+		the file's mime type.</li>
+</ul>
+<hr />

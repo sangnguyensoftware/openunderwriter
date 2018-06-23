@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>Actuary</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Applications Present</td></tr>
+</thead><tbody>
+<tr>
+	<td>setTimeout</td>
+	<td>480000</td>
+	<td></td>
+</tr>
+<!--Login as adam-->
+<tr>
+	<td>open</td>
+	<td>/web/ou</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_58_login</td>
+	<td>adam@openunderwriter.org</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_58_password</td>
+	<td>adam</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Adam OpenUnderwriter</td>
+	<td></td>
+</tr>
+<!--Go to the Welcome page-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Welcome</td>
+	<td></td>
+</tr>
+<!--Add PageFlow Portlet -->
+<tr>
+	<td>click</td>
+	<td>link=Add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>100</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//span[@class=&quot;add-content-item &quot; and @data-title=&quot;Quotation&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//span[@class=&quot;add-content-item &quot; and @data-title=&quot;Quotation&quot;]</td>
+	<td></td>
+</tr>
+<!--Configure Portlet to use WidgetShowcase-->
+<tr>
+	<td>waitForTextPresent</td>
+	<td>This quotation portlet is not currently configured.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//span[@class=&quot;taglib-text-icon&quot; and text()=&quot;Preferences&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Select a product and page flow from the lists below</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectAndWait</td>
+	<td>name=productName</td>
+	<td>label=AIL.Demo.WidgetShowcase</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=pageFlowName</td>
+	<td>label=QuotationPageFlow</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//button[@value=&quot;Save Preferences&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>class=pf-page-title</td>
+	<td>Welcome to the Widget Showcase</td>
+</tr>
+<!--Trigger error-->
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Test error handling&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>class=pf-page-title</td>
+	<td>PageFlow Error</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Force a PageFlow error&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//h2[text()=&quot;Internal system error&quot;]</td>
+	<td></td>
+</tr>
+<!--Remove PageFlow Portlet from page-->
+<tr>
+	<td>click</td>
+	<td>//a[@id='_quotation_WAR_pageflowportlet_ppsw_column1_0']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeConfirmation</td>
+	<td>confirmationAlert</td>
+	<td></td>
+</tr>
+<!--Login out-->
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Sign Out</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

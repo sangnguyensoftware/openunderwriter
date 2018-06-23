@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+    
+	<display-name>OpenUnderwriter Product Service</display-name>
+    
+    <context-param>
+      <param-name>resteasy.providers</param-name>
+      <param-value>com.ail.service.product.SecurityInterceptor</param-value>
+    </context-param>
+ 
+	<!-- 	
+	 *** To use JWT tokens, enable the jwtSecurityFilter sections in this file and ***
+	 *** disable the ontext-param section resteasy.provider section above.         ***
+	 
+     <filter> 
+	    <filter-name>jwtSecurityFilter</filter-name> 
+	    <filter-class>com.ail.core.security.filter.JwtSecurityFilter</filter-class> 
+	</filter>
+	-->
+    <filter>
+        <filter-name>Hibernate Session Servlet Filter - REQUEST</filter-name>
+        <filter-class>com.ail.core.persistence.hibernate.HibernateSessionServletFilter</filter-class>
+        <init-param>
+            <param-name>dispatcher</param-name>
+            <param-value>REQUEST</param-value>
+        </init-param>
+    </filter>
+    <filter>
+        <filter-name>PageFlowContext Servlet Filter - REQUEST</filter-name>
+        <filter-class>com.ail.pageflow.servlet.PageFlowContextServletFilter</filter-class>
+        <init-param>
+            <param-name>dispatcher</param-name>
+            <param-value>REQUEST</param-value>
+        </init-param>
+    </filter>
+	<!--  	
+	<filter-mapping>
+	    <filter-name>jwtSecurityFilter</filter-name>
+	    <url-pattern>/*</url-pattern>
+	</filter-mapping>
+	-->
+    <filter-mapping>
+        <filter-name>Hibernate Session Servlet Filter - REQUEST</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>PageFlowContext Servlet Filter - REQUEST</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+</web-app>

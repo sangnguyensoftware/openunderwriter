@@ -1,0 +1,185 @@
+## Copyright Applied Industrial Logic Limited 2015. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the PolicyDetial widget.
+##
+#set( $quote = $args.ModelArgRet)
+#set( $policyDetail = $args.pageElementArg )
+#set( $policy = $args.PolicyArg )
+#set( $renderId = $args.RenderIdArg )
+##
+<div class='pf-policy-summary' id='${renderId}'>
+	#if( $policy )
+		<div class='pf-header'>
+			#renderHeader
+		</div>
+		<div class='pf-body'>
+			#policySummaryDetail
+			#coverages
+			#travellers
+		</div>
+	#else
+		#renderPolicyMessage
+	#end
+</div>
+##
+#macro(coverages)
+    <div class='pf-section pf-policy-detail-coverages-section'>
+        <div class='pf-section-title'>
+            $policyDetail.i18n("i18n_policy_detail_coverage_title")
+        </div>
+    	#if( $quote.Section && $quote.Section.size() != 0 )
+            <div class='pf-section-body'>
+				#foreach( $section in $quote.Section )
+					#foreach( $attr in $section.Attribute )
+						#if( $attr.Id == "sectionEnabled" && $attr.Value == "Yes" )
+							#coverageDetailRow("i18n_winter_sports_limit_label", $section, "winterSports")
+							#coverageDetailRow("i18n_natural_catastrophe_limit_label", $section, "naturalCatastrophe")
+							#coverageDetailRow("i18n_personal_accident_limit_label", $section, "personalAccident")
+							#coverageDetailRow("i18n_trip_cancellation_limit_label", $section, "tripCancellation")
+							#coverageDetailRow("i18n_loss_of_personal_money_limit_label", $section, "lossOfPersonalMoney")
+							#coverageDetailRow("i18n_loss_of_personal_belongings_limit_label", $section, "lossOfPersonalBelongings")
+							#coverageDetailRow("i18n_medical_expenses_limit_label", $section, "medicalExpenses")
+							#coverageDetailRow("i18n_personal_liability_limit_label", $section, "personalLiability")
+							#coverageDetailRow("i18n_cutting_your_trip_short_limit_label", $section, "cuttingYourTripShort")
+							#coverageDetailRow("i18n_passport_and_travel_documents_limit_label", $section, "passportAndTravelDocuments")
+							#coverageDetailRow("i18n_scheduled_airline_failure_limit_label", $section, "personalAccident")
+							#coverageDetailRow("i18n_scheduled_airline_failure_limit_label", $section, "scheduledAirlineFailure")
+							#coverageDetailRow("i18n_end_supplier_failure_limit_label", $section, "endSupplierFailure")
+							#coverageDetailRow("i18n_concierge_service_limit_label", $section, "conciergeService")
+                 	  	#end
+                 	#end
+				#end
+			</div>
+		#end
+	</div>
+#end
+##
+#macro(policySummaryDetail)
+    <div class='pf-section pf-policy-detail-summar-section'>
+        <div class='pf-section-title'>
+            $policyDetail.i18n("i18n_summary_label")
+        </div>
+        <div class='pf-section-body'>
+	    	#summaryRow("i18n_policy_type_label", "policyType")
+    		#summaryRow("i18n_destination_label", "destination")
+    		#summaryRow("i18n_party_type_label", "partyType")
+    	</div>
+	</div>
+#end
+##
+#macro(travellers)
+	<div class='pf-section pf-policy-detail-travellers-section'>
+        <div class='pf-section-title'>
+            $policyDetail.i18n("i18n_travellers_label")
+        </div>
+       <div class="pf-row-scroller">
+	        <div class="pf-row-scroller-table pf-section-body">
+                <div class="pf-row-scroller-table-header-row">
+                    <div style="text-align:left;" class="pf-row-scroller-table-header-cell pf-row-scroller-header-title">
+						$policyDetail.i18n("i18n_first_name_label")
+					</div>
+                    <div style="text-align:left;" class="pf-row-scroller-table-header-cell pf-row-scroller-header-title">
+                    	$policyDetail.i18n("i18n_last_name_label")
+                    </div>
+                    <div style="text-align:left;" class="pf-row-scroller-table-header-cell pf-row-scroller-header-title">
+                    	$policyDetail.i18n("i18n_age_label")
+                    </div>
+                </div>
+                #foreach( $traveller in $quote.Asset )
+                	#if( $traveller.AssetTypeId == 'TravellerAsset')
+                   		 <div class="pf-row-scroller-table-data-row">
+							<div style="text-align:left;" class="pf-row-scroller-table-data-cell pf-item-label">
+								${traveller.xpathGet("attribute[id='firstName']/@value")}
+							</div>
+                        	<div style="text-align:left;" class="pf-row-scroller-table-data-cell pf-item-label">
+                        		${traveller.xpathGet("attribute[id='lastName']/@value")}
+                        	</div>
+                        	<div style="text-align:left;" class="pf-row-scroller-table-data-cell pf-item-label">
+                        		${traveller.xpathGet("attribute[id='age']/@value")}
+                        	</div>
+                   		 </div>
+                   	#end
+                #end    
+            </div>
+        </div>
+    </div>
+#end
+##
+#macro(renderHeader)
+    <div class='pf-header-title'>
+		#if( $policy.PolicyNumber )
+			$policyDetail.i18n("i18n_policy_detail_policy_title", $policy.PolicyNumber)
+		#elseif( $policy.QuotationNumber )
+			$policyDetail.i18n("i18n_policy_detail_quotation_title", $policy.QuotationNumber)
+		#else
+			$policyDetail.i18n("i18n_policy_detail_application_title", $policy.SystemId)
+		#end
+	</div>
+    <div class='pf-header-summary'>
+        <div class='pf-header-summary-entry'>
+            <div class='pf-header-summary-title'>
+                $policyDetail.i18n("i18n_policy_summary_product_title")
+            </div>
+            <div class='pf-header-summary-value'>
+                $policy.ProductName
+            </div>
+        </div>
+        <div class='pf-header-summary-entry'>
+            <div class='pf-header-summary-title'>
+                $policyDetail.i18n("i18n_policy_summary_status_title")
+            </div>
+            <div class='pf-header-summary-value'>
+                $policyDetail.i18n($policy.Status.LongName)
+            </div>
+        </div>
+		#if( $policy.TotalPremiumDefined )
+            <div class='pf-header-summary-entry'>
+                <div class='pf-header-summary-title'>
+                    $policyDetail.i18n("i18n_policy_summary_total_premium_title")
+                </div>
+                <div class='pf-header-summary-value'>
+                    $policy.TotalPremium
+                </div>
+            </div>
+		#end
+	</div>
+	<div style="clear:both;"></div>
+#end
+##
+#macro(renderPolicyMessage)
+	$policyDetail.i18n('i18n_no_policy_message')
+#end
+##
+#macro(coverageDetailRow $label $section $id)
+    <div class='pf-item'>
+        <div class='pf-item-label'>$policyDetail.i18n($label)</div>
+        #if(${section.xpathGet("i:test(coverage[id='$id' and enabled='true'])")}) 
+        	<div class='pf-item-value'>${section.xpathGet("coverage[id='$id']/limit")}</div>
+        #else
+        	<div class='pf-item-value'>-</div>
+        #end
+    </div>
+#end
+##
+#macro(summaryRow $label $id)
+    <div class='pf-item'>
+        <div class='pf-item-label'>$policyDetail.i18n($label)</div>
+        <div class='pf-item-value'>$policyDetail.i18n(${quote.xpathGet("asset[assetTypeId='TravelAsset']/attribute[id='$id']/@value")})</div>
+    </div>
+#end

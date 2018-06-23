@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+  <info organisation="org.velocity" module="velocity" />
+  <dependencies>
+    <dependency org="org.apache.velocity" name="velocity" rev="1.7" />
+    <dependency org="org.apache.velocity" name="velocity-tools" rev="2.0" />
+    <exclude org="ant" />
+    <exclude org="commons-beanutils" />
+    <exclude org="commons-digester" />
+    <exclude org="commons-logging" />
+    <exclude org="commons-collections" />
+    <exclude org="commons-lang" />
+    <exclude org="commons-validator" />
+    <exclude org="dom4j" />
+    <exclude org="javax.servlet" />
+    <exclude org="jdom" />
+    <exclude org="log4j" />
+    <exclude org="logkit" />
+    <exclude org="org.apache.struts" />
+    <exclude org="org.dom4j" />
+    <exclude org="oro" />
+  </dependencies>
+</ivy-module>

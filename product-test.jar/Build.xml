@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project default="build" name="openunderwriter:product-test.jar">
+	<import file="../BuildSettings.xml" />
+
+	<target name="clean" description="delete everything that the build can generate" />
+
+	<target name="build" description="compile (generate, copy, etc) all build outputs" />
+
+	<target name="_build" />
+
+	<target name="setup" description="run all the one-time-only steps - like copying libs into place">
+		<update-dependencies-macro todir="${test.dir}/lib" />
+	</target>
+
+	<target name="teardown" description="undo whatever setup did" />
+
+	<target name="_test">
+		<ant dir="../base-product-loader-hook.war/src/Product/AIL/Base/Workflows" antfile="Build.xml" target="build" />
+		<run-product-tests-macro product="AIL.Demo.MotorPlus" />
+		<run-product-tests-macro product="AIL.Demo.LifePlus" />
+		<run-product-tests-macro product="AIL.Demo.FreightPlus" />
+		<run-product-tests-macro product="AIL.Demo.EquinePlus" />
+		<run-product-tests-macro product="AIL.Demo.IrishBrokerPI" />
+		<run-product-tests-macro product="AIL.Demo.TradePL.TradeQB" />
+		<run-product-tests-macro product="AIL.Demo.TravelPlus" />
+		<run-product-tests-macro product="AIL.Demo.LifeAggregator" />
+		<run-product-tests-macro product="AIL.Demo.WidgetShowcase" />
+	</target>
+
+	<target name="test" depends="_test" description="run tests defined in this project">
+		<fail-on-product-test-error-macro />
+	</target>
+</project>

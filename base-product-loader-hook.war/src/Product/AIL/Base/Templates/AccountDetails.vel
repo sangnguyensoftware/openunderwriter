@@ -1,0 +1,137 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+##
+## Template for the AccountDetails widget.
+##
+#set( $model = $args.ModelArgRet)
+#set( $pageElement = $args.PageElementArg )
+#set( $renderId = $args.RenderIdArg )
+#set( $context = $model )
+#set( $string = '' )
+#set( $dateFormat = '%1$tY-%1$tm-%1$tdT%1$tT' )
+##
+<div class='pf-account-details pf-body' id='$!renderId'>
+    #if( ${pageElement.Title} )
+       <div class='pf-section-title'>${pageElement.formattedTitle($args)}</div>
+    #end
+    #renderAccount
+    #if(${pageElement.ShowSchedule})
+        #renderSchedule
+    #end
+</div>
+##
+#macro(renderAccount)
+    #if(${pageElement.ShowSummary} || ${pageElement.ShowStatement})
+        #foreach($account in $pageElement.accounts($model))
+            <div class='pf-page-section pf-account-summary'>
+                #if(${pageElement.ShowSummary})
+                <div class='pf-section-title'>Account summary</div>
+                <table>
+                    <tr>
+                        <td class='pf-item-label'>Account ID</td><td class='pf-item-value'>$!{account.SystemId}</td>
+                        <td class='pf-item-label'>Type</td><td class='pf-item-value'>$!{account.Type}</td>
+                        <td class='pf-item-label'>Opening date</td><td class='pf-item-value'>${date.format("dd/MM/yyyy", ${account.OpeningDate})}</td>
+                    </tr>
+                    <tr>
+                        <td class='pf-item-label'>Name</td><td class='pf-item-value'>$!{account.Name}</td>
+                        <td class='pf-item-label'>Currency</td><td class='pf-item-value'>$!{account.Currency}</td>
+                        <td class='pf-item-label'>Status</td><td class='pf-item-value'>$!{account.Status}</td>
+                    </tr>
+                    <tr>
+                        <td class='pf-item-label'>Description</td><td colspan="3" class='pf-item-value'>$!{account.Description}</td>
+                        <td class='pf-item-label'>Balance</td><td class='pf-item-value'>$!{pageElement.balance($account)}</td>
+                    </tr>
+                </table>
+                #end
+                #if(${pageElement.ShowStatement})
+                    #renderStatement($account)
+                #end
+            </div>
+        #end
+    #end
+#end
+##
+#macro(renderStatement $account)
+    <div class='pf-account-statement pf-table'>
+        <div class='pf-table-header-row'>    
+            <div>Date</div>
+            <div>Journal line ID</div>
+            <div>Journal ID</div>
+            <div>Description</div>
+            <div>Kind</div>
+            <div>Type</div>
+            <div>Amount</div>
+        </div>
+        #foreach($line in ${pageElement.journalLines($account)})
+            <div class='pf-table-data-row'>
+                <div>${date.format("dd/MM/yyyy", ${line.journal.TransactionDate})}</div>
+                <div>${line.SystemId}</div>
+                <div>${line.journal.SystemId}</div>
+                <div>${line.Description}</div>
+                <div>${line.Type}</div>
+                <div>${line.TransactionType}</div>
+                <div>${line.Amount.AmountAsString}</div>
+            </div>
+        #end
+    </div>
+#end
+##
+#macro(renderSchedule)
+    #set($schedule = ${pageElement.schedule($model)})
+    #if($schedule)
+        <div class='pf-page-section pf-payment-schedule'>
+            <div class='pf-section-title'>Payment schedule</div>
+            <div>
+                <div class='pf-answer pf-item'>
+                    <div class='pf-item-label'>Type</div><div class='pf-item-value'>$!{schedule.Type}</div>
+                </div>
+                <div class='pf-answer pf-item'>
+                    <div class='pf-item-label'>Description</div><div class='pf-item-value'>$!{schedule.Description}</div>
+                </div>
+            </div>
+            <div class='pf-section pf-table'>
+                <div class='pf-table-header-row'>    
+                    <div>Start date</div>
+                    <div>End date</div>
+                    <div>Payment method</div>
+                    <div>Number</div>
+                    <div>Description</div>
+                    <div>Frequency</div>
+                    <div>Day</div>
+                    <div>Status</div>
+                    <div>Purpose</div>
+                    <div>Amount</div>
+                </div>
+                #foreach($m in ${schedule.MoneyProvision})
+                    <div class='pf-table-data-row'>
+                        <div>#if(${m.PaymentsStartDate})${date.format("dd/MM/yyyy", ${m.PaymentsStartDate})}#end</div>
+                        <div>#if(${m.PaymentsEndDate})${date.format("dd/MM/yyyy", ${m.PaymentsEndDate})}#end</div>
+                        <div>$!{m.PaymentMethod.Class.SimpleName}</div>
+                        <div>$!{m.Number}</div>
+                        <div>$!{m.Description}</div>
+                        <div>$!{m.Frequency}</div>
+                        <div>$!{m.Day}</div>
+                        <div>$!{m.Status}</div>
+                        <div>$!{m.Purpose}</div>
+                        <div>$!{m.Amount}</div>
+                    </div>
+                #end
+            </div>
+        </div>
+    #end
+#end

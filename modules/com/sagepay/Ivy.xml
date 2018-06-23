@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+  <info organisation="org.sagepay" module="sagepay" />
+  <dependencies>
+	<dependency org="com.sagepay" name="sagepay-api" rev="1.2.2.0" />
+	<dependency org="com.sagepay" name="sagepay-util-nodep" rev="1.4.0.1" />
+  </dependencies>
+</ivy-module>

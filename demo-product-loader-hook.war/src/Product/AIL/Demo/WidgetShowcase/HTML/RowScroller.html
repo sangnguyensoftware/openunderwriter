@@ -1,0 +1,87 @@
+<p>
+	A RowScroller represents a Collection of records in a table format with
+	one row per record. 
+</p>
+
+<p>
+	The records included in the scroller are selected by the scroller's <i>binding</i>,
+	and the columns are defined by the <i>AttributeFields</i> included in
+	the scroller's <i>items</i> list.
+</p>
+<p>
+	The form elements used to render each item cell and the validations
+	applied to them are both defined by the nature of the <i>Attribute</i>
+	that the item is bound to. The binding itself is evaluated relative to
+	the binding of the scroller. See <i>SectionScroller</i> for an example.
+</p>
+<p>
+	RowScroller supports the addition and removal of rows from the scroller
+	if the <i>addAndDeleteEnabled</i> property is set to true. If this is
+	the case, then the <b>row controls</b> (see screenshot) are rendered.
+	The <i>minRows</i> and <i>maxRows</i> properties limit what the user
+	can do. A user cannot remove rows if that would leave the scroller with
+	less than <i>minRows</i>, and the <b>add row</b> icon will be disabled
+	if the scroller already contains <i>maxRows</i>. In the screenshot
+	above, the scroller has <i>minRows</i> set to 1, so the user cannot
+	remove the first row. <i>maxRows</i> is set to 4, so in its current
+	state the user can add one more row.
+</p>
+<p>
+	An AttributeField represents an individual model attribute and may be
+	represented as a column within a <i>RowScroller</i>.
+</p>
+
+<p>The Attribute which the AttributeField is bound to dictates the
+	HTML form elements used to represent it, and the validations that will
+	be applied to it. For example, a "choice" attribute is rendered as a
+	drop down list; a "string" is rendered as a right justified text field.</p>
+
+<p>Within a RowScroller, the RowScroller itself iterates over a
+	collection of results rendering one row on the screen for each row of
+	data in the collection. The columns in each row are represented by
+	AttributeFields which are bound to <i>Attributes</i>
+	in the quotation.</p>
+<p>
+	In the example above the RowScroller is bound to a collection of
+	vehicle assets. The current quote contains two assets matching the
+	criteria - an Alfa Romeo and a Bentley. The RowScroller contains nine
+	AttributeFields each of which is bound to a different Attribute in the
+	assets. The AttributeField bindings are taken to be relative to the
+	binding of the RowScroller. In this case the RowScroller is bound to
+	<code>asset[assetTypeId='Vehicle']</code>
+	, and the individual AttributeFields are bound to
+	<code>attribute[id='Make']</code>
+	,
+	<code>attribute[id='Model']</code>
+	, etc
+</p>
+<p>
+	Each AttributeField defines it's column <i>title</i>, and an optional <i>subTitle</i>
+	which can be used when the titles are fixed. Dynamic titles - the text
+	of which is picked up from another part of the quote - can be defined
+	using a $&#123;xpath&#125; notation within the title or subtitle. It
+	may also define javascript to be executed either onLoad (when the page
+	is loaded); or onChange (when a fields value is changed).
+</p>
+<p>The AttributeField also supports the concept of RenderHints. The
+	rendering engine will take these hints into account as it displays the
+	field within the page. The values of hint supported are dependent on
+	the Attribute being rendered. The supported hints are listed below:</p>
+<table>
+	<tr>
+		<td><u>Attribute Type</u></td>
+		<td><u>Render Hints</u></td>
+	</tr>
+	<tr>
+		<td>choice</td>
+		<td>"dropdown" - Display the options on a drop down menu
+			(default)<br />"radio" - Display the choice list as radio buttons
+	</tr>
+	<tr>
+		<td>yesorno</td>
+		<td>"dropdown" - Display the options on a drop down menu
+			(default)<br />"checkbox" - Display as a checkbox<br />"radio" -
+			Display Yes/No as radio buttons
+	</tr>
+</table>
+<hr />

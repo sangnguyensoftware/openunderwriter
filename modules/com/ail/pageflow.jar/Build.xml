@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project default="build" name="openunderwriter:modules/com/ail/pageflow.jar">
+  <import file="../../../../BuildSettings.xml" />
+
+  <target name="clean" description="delete everything that the build can generate">
+    <delete-jar-macro />
+  </target>
+
+  <target name="_build">
+    <compile-jar-macro module="yes" dependencies="com.google.guava, com.google.lambdaj, com.itext.itextpdf, com.liferay.portal, com.ail.core, com.ail.commercial, com.ail.insurance, com.ail.stripe, org.cglib, org.codehaus.castor, org.drools, org.janino, org.apache.commons.codec, org.apache.commons.jxpath, org.apache.commons.io, org.apache.commons.lang, org.hamcrest, org.hibernate, org.hibernate.envers, org.jboss.resteasy.resteasy-jaxrs, org.jboss.resteasy.resteasy-multipart-provider, org.spring.spring-context, javax.ws.rs.api, javax.servlet.api, javax.activation.api, javax.mail.api, javax.persistence.api">
+      <javac-classpath>
+        <dirset dir="${module.dir}/com/ail" includes="**/*.jar" />
+        <fileset dir="${module.dir}/com/ail" includes="**/*.jar" />
+        <fileset dir="${module.dir}/com/google/lambdaj" includes="**/*.jar" />
+        <fileset dir="${module.dir}/com/itext/itextpdf" includes="**/*.jar" />
+        <fileset dir="${module.dir}/com/liferay/portal" includes="**/*.jar" />
+        <fileset dir="${module.dir}/javax/mail/api" includes="**/*.jar" />
+        <fileset dir="${module.dir}/javax/servlet/api" includes="**/*.jar" />
+        <fileset dir="${module.dir}/javax/persistence/api" includes="**/*.jar" />
+        <fileset dir="${module.dir}/javax/ws/rs/api" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/jboss/resteasy/resteasy-jaxrs" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/jboss/resteasy/resteasy-multipart-provider" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/spring/spring-context" includes="**/*.jar" />
+        <fileset dir="${deploy.dir}/ROOT.war/WEB-INF/lib" includes="portal-impl.jar" />
+        <fileset dir="${module.dir}/org/hamcrest" includes="**/*.jar" />
+        <fileset dir="${module.dir}/org/hibernate" includes="**/*.jar" />
+      </javac-classpath>
+    </compile-jar-macro>
+  </target>
+
+  <target name="build" description="compile (generate, copy, etc) all build outputs">
+    <antcall target="_build" />
+  </target>
+
+  <target name="setup" description="run all the one-time-only steps - like copying libs into place">
+  </target>
+
+  <target name="teardown" description="undo whatever setup did">
+    <delete-module-macro />
+  </target>
+</project>

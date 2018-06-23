@@ -1,0 +1,75 @@
+## Copyright Applied Industrial Logic Limited 2018. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#set( $model = $args.ModelArgRet)
+#set( $pageElement = $args.PageElementArg )
+#set( $renderId = $args.RenderIdArg )
+#set( $title = ${pageElement.formattedTitle($args)} )
+#setSource()
+##
+<div class='pf-note-record' id='$!{renderId}'>
+    #if( $title )
+        <div class='pf-section-heading'>
+            $title
+        </div>
+    #end
+    <div class='pf-page-section'>
+        #set( $note = ${pageElement.getNote($source)} )
+        #set( $titleId = ${pageElement.titleId($source)} )
+        #set( $bodyId = ${pageElement.bodyId($source)} )
+        #set( $typeId = ${pageElement.typeId($source)} )
+        #set( $noteId = ${pageElement.noteId()} )
+        <input name="$noteId" id="$noteId" value="$!{note.SystemId}" hidden="yes" />
+        <div class='pf-note-details-note'>
+            <div class='pf-note-details-details'>
+                <div>
+                    <div class='pf-note-details-type'>
+                        <div>#i18n('i18n_note_details_type_label')</div>
+                        <div>
+                            <select name="$typeId" value="$!{note.Type}">
+                                #foreach($opt in ${pageElement.getNoteTypeOptions($source)})
+                                    <option value="$opt" #if($opt == $!{note.Type})selected="yes"#end>#i18n($opt)</option>
+                                #end
+                            </select>
+                        </div>
+                    </div>
+                    <div class='pf-note-details-title'>
+                        <div>#i18n('i18n_note_details_title_label')</div>
+                        <div>
+                            <input name='$titleId' id='$titleId' class='pf-note-title' value="$!{note.Title}"></input>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class='pf-note-details-body'>
+                        <textarea name='$bodyId' id='$bodyId' class='pf-note-body'  rows='5'>$!{note.Body}</textarea>
+                        #set($dummy = ${pageElement.getLabelDetails().renderResponse($note)})
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+##
+#macro(setSource)
+    #if( $binding )
+        #set($source = $model.xpathGet($binding))
+    #else
+        #set($source = $model)
+    #end
+#end
+##
+#macro(i18n $id)$pageElement.i18n("$id")#end

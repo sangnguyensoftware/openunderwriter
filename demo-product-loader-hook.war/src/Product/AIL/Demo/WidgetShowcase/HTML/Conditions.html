@@ -1,0 +1,32 @@
+<p>Conditions are an essential element of PageFlow design. You might want to control
+the content and questions displayed to a user based on an answer given on a previous 
+page; you may want to fork the PageFlow down different routes based on the user's 
+selections. You might also want to immediately prompt for additional details when the 
+user answers a question in a specific way.</p>
+
+<p>There are a number ways to achieve conditional content:
+
+<ul>
+	<li><p>
+			<b>The QuestionWithDetails and QuestionWithSubSection widgets.</b>
+			This is the most dynamic approach. The user is presented with the
+			conditional content as soon as they have answered the question
+			controlling it. Examples of these widgets can be found on the
+			QuestionWithDetails and QuestionWithSubSection pages in the show
+			case.
+		</p></li>
+	<li><p>
+			<b>The 'condition' attribute.</b> This attribute is available to all
+			widget types. It's value will be evaluated as an XPath expression
+			then the page is rendered. If the result is true, then the related
+			widget is included in the page; if it is false, it is not.
+		</p></li>
+	<li><p>
+			<b>The "if" pageflow element.</b> This is very similar to the
+			'condition' attribute above, but this widget has no side effect other
+			than to evaluate the expression and render the content accordingly. A
+			PageSection widget with a condition would have almost exactly the
+			same effect from the user's perspective.
+		</p></li>
+</ul>
+<hr />

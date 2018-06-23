@@ -1,0 +1,698 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="" />
+<title>Test Validation on Commercial Proposer</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Test Validation on Commercial Proposer</td></tr>
+</thead><tbody>
+<tr>
+	<td>setTimeout</td>
+	<td>300000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Get A Quote']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Proposer's Details</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>companyName</td>
+	<td>Test</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>address1</td>
+	<td>Test</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>address2</td>
+	<td>Test</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>town</td>
+	<td>Test</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>county</td>
+	<td>Test</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>postcode</td>
+	<td>TEST</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>title</td>
+	<td>label=Mr.</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>firstname</td>
+	<td>Test</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>surname</td>
+	<td>Test</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>phone</td>
+	<td>1234</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>email</td>
+	<td>test@test.com</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>About The Proposer's Company</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Previous']</td>
+	<td></td>
+</tr>
+<!--Company name cannot be blank-->
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Proposer's Details</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>companyName</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>companyName</td>
+	<td>Test</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>About The Proposer's Company</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Previous']</td>
+	<td></td>
+</tr>
+<!--Address 1 cannot be blank-->
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Proposer's Details</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>address1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>address1</td>
+	<td>Test</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>About The Proposer's Company</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Previous']</td>
+	<td></td>
+</tr>
+<!--Address 2 can be blank-->
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Proposer's Details</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>address2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>About The Proposer's Company</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Previous']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Proposer's Details</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>address2</td>
+	<td>Test</td>
+</tr>
+<!--Town can be blank-->
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Proposer's Details</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>town</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>About The Proposer's Company</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Previous']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Proposer's Details</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>town</td>
+	<td>Test</td>
+</tr>
+<!--Postcode cannot be blank-->
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Proposer's Details</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>postcode</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>postcode</td>
+	<td>TEST</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>About The Proposer's Company</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Previous']</td>
+	<td></td>
+</tr>
+<!--Title cannot be blank-->
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Proposer's Details</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>title</td>
+	<td>label=Title?</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>title</td>
+	<td>label=Mr.</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>About The Proposer's Company</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Previous']</td>
+	<td></td>
+</tr>
+<!--Test "Other" title-->
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Proposer's Details</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>title</td>
+	<td>label=Other</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>title</td>
+	<td>label=Mr.</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>About The Proposer's Company</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Previous']</td>
+	<td></td>
+</tr>
+<!--Firstname cannot be blank-->
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Proposer's Details</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>firstname</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>firstname</td>
+	<td>Test</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>About The Proposer's Company</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Previous']</td>
+	<td></td>
+</tr>
+<!--Surname cannot be blank-->
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Proposer's Details</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>surname</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>surname</td>
+	<td>Test</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>About The Proposer's Company</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Previous']</td>
+	<td></td>
+</tr>
+<!--Phone cannot be blank and must be a number-->
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Proposer's Details</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>phone</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>phone</td>
+	<td>asdf</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>invalid</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>phone</td>
+	<td>1234</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>About The Proposer's Company</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Previous']</td>
+	<td></td>
+</tr>
+<!--Email cannot be blank and must be well formatted-->
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Proposer's Details</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>email</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>required</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>email</td>
+	<td>test@test.test</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>About The Proposer's Company</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Previous']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Proposer's Details</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>email</td>
+	<td>123</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>invalid</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>email</td>
+	<td>test@test.test</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>About The Proposer's Company</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Previous']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Proposer's Details</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>email</td>
+	<td>asdf</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>invalid</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>email</td>
+	<td>test@test.test</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>About The Proposer's Company</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Previous']</td>
+	<td></td>
+</tr>
+<!--International characters must be accepted-->
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Proposer's Details</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>companyName</td>
+	<td>Testü</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>address1</td>
+	<td>Testü</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>address2</td>
+	<td>Testü</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>town</td>
+	<td>Testü</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>county</td>
+	<td>Testü</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>firstname</td>
+	<td>Testü</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>surname</td>
+	<td>Testü</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>About The Proposer's Company</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Quit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>IBA/PIBA Professional Indemnity</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

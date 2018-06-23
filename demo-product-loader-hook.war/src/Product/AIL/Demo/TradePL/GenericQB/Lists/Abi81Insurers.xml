@@ -1,0 +1,322 @@
+<choice id="abi_insurers" xsi:type="java:com.ail.pageflow.util.Choice" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+     <choice name="-"/>
+     <choice name="A A Mutual International"><attribute id="abiCode" format="string" value="159"/></choice>
+     <choice name="Abbey Life Assurance"><attribute id="abiCode" format="string" value="392"/></choice>
+     <choice name="Abbey Motor Policies"><attribute id="abiCode" format="string" value="1"/></choice>
+     <choice name="ABC Insurance"><attribute id="abiCode" format="string" value="442"/></choice>
+     <choice name="ACE European Group"><attribute id="abiCode" format="string" value="419"/></choice>
+     <choice name="Acme Motor Policies"><attribute id="abiCode" format="string" value="393"/></choice>
+     <choice name="Acme Motor Policies"><attribute id="abiCode" format="string" value="2"/></choice>
+     <choice name="Admiral Insurance"><attribute id="abiCode" format="string" value="3"/></choice>
+     <choice name="Advantage Insurance Company Limited"><attribute id="abiCode" format="string" value="437"/></choice>
+     <choice name="Affinitas Ltd"><attribute id="abiCode" format="string" value="238"/></choice>
+     <choice name="AGF Insurance Limited"><attribute id="abiCode" format="string" value="4"/></choice>
+     <choice name="Agricultural And General Insurance"><attribute id="abiCode" format="string" value="160"/></choice>
+     <choice name="AIB Group (UK) PLC"><attribute id="abiCode" format="string" value="394"/></choice>
+     <choice name="AIG"><attribute id="abiCode" format="string" value="420"/></choice>
+     <choice name="AIG Insurance Ireland"><attribute id="abiCode" format="string" value="188"/></choice>
+     <choice name="Aioi Insurance"><attribute id="abiCode" format="string" value="385"/></choice>
+     <choice name="Albany Life Assurance Co Ltd"><attribute id="abiCode" format="string" value="395"/></choice>
+     <choice name="Albion Insurance Company Ltd"><attribute id="abiCode" format="string" value="161"/></choice>
+     <choice name="All Seasons Underwriting Agencies Limited"><attribute id="abiCode" format="string" value="425"/></choice>
+     <choice name="Alliance &amp; Leicester"><attribute id="abiCode" format="string" value="396"/></choice>
+     <choice name="Allianz Direct"><attribute id="abiCode" format="string" value="431"/></choice>
+     <choice name="Allianz Insurance PLC"><attribute id="abiCode" format="string" value="391"/></choice>
+     <choice name="Allianz Ireland"><attribute id="abiCode" format="string" value="429"/></choice>
+     <choice name="Allianz Ireland FC Rebroke"><attribute id="abiCode" format="string" value="430"/></choice>
+     <choice name="Allianz N.I."><attribute id="abiCode" format="string" value="234"/></choice>
+     <choice name="Allied Dunbar"><attribute id="abiCode" format="string" value="397"/></choice>
+     <choice name="Allied Underwriting Agencies"><attribute id="abiCode" format="string" value="443"/></choice>
+     <choice name="ALS"><attribute id="abiCode" format="string" value="5"/></choice>
+     <choice name="Ambassador Motor Policies"><attribute id="abiCode" format="string" value="118"/></choice>
+     <choice name="American International Underwriters (UK) Limited"><attribute id="abiCode" format="string" value="119"/></choice>
+     <choice name="Amev Insurance Ireland"><attribute id="abiCode" format="string" value="189"/></choice>
+     <choice name="Amlin"><attribute id="abiCode" format="string" value="421"/></choice>
+     <choice name="Anchor Underwriters"><attribute id="abiCode" format="string" value="120"/></choice>
+     <choice name="Ansvar Insurance"><attribute id="abiCode" format="string" value="6"/></choice>
+     <choice name="ARB Underwriting Ltd"><attribute id="abiCode" format="string" value="199"/></choice>
+     <choice name="Aron Insurance"><attribute id="abiCode" format="string" value="162"/></choice>
+     <choice name="Atlas Assurance"><attribute id="abiCode" format="string" value="163"/></choice>
+     <choice name="Aviva"><attribute id="abiCode" format="string" value="450"/></choice>
+     <choice name="Avon Insurance"><attribute id="abiCode" format="string" value="121"/></choice>
+     <choice name="AXA Broker, Ireland"><attribute id="abiCode" format="string" value="240"/></choice>
+     <choice name="AXA Insurance Company Limited"><attribute id="abiCode" format="string" value="7"/></choice>
+     <choice name="AXA Insurance UK PLC"><attribute id="abiCode" format="string" value="236"/></choice>
+     <choice name="AXA Insurance, Ireland"><attribute id="abiCode" format="string" value="398"/></choice>
+     <choice name="AXA Insurance, Ireland"><attribute id="abiCode" format="string" value="209"/></choice>
+     <choice name="Baptist Insurance Company Limited"><attribute id="abiCode" format="string" value="122"/></choice>
+     <choice name="Beacon"><attribute id="abiCode" format="string" value="164"/></choice>
+     <choice name="Beaufort Insurance Company Limited"><attribute id="abiCode" format="string" value="8"/></choice>
+     <choice name="Bell Insurance"><attribute id="abiCode" format="string" value="233"/></choice>
+     <choice name="Bishopsgate Insurance Limited"><attribute id="abiCode" format="string" value="9"/></choice>
+     <choice name="Black Sea &amp; Baltic General Insurance Limited"><attribute id="abiCode" format="string" value="10"/></choice>
+     <choice name="Blackfriars Insurance Company Limited"><attribute id="abiCode" format="string" value="123"/></choice>
+     <choice name="Bluesure"><attribute id="abiCode" format="string" value="239"/></choice>
+     <choice name="Bradford Pennine Insurance Company Limited"><attribute id="abiCode" format="string" value="11"/></choice>
+     <choice name="Brit Insurance"><attribute id="abiCode" format="string" value="410"/></choice>
+     <choice name="Britannic Assurance Plc"><attribute id="abiCode" format="string" value="13"/></choice>
+     <choice name="British Commonwealth Insurance"><attribute id="abiCode" format="string" value="165"/></choice>
+     <choice name="British Equitable Assurance"><attribute id="abiCode" format="string" value="166"/></choice>
+     <choice name="British Standard Assurance Association"><attribute id="abiCode" format="string" value="12"/></choice>
+     <choice name="British Standard Assurance Association"><attribute id="abiCode" format="string" value="167"/></choice>
+     <choice name="Broker Direct"><attribute id="abiCode" format="string" value="216"/></choice>
+     <choice name="Broker Line Direct, Dublin"><attribute id="abiCode" format="string" value="198"/></choice>
+     <choice name="Budget Insurance Company Limited"><attribute id="abiCode" format="string" value="14"/></choice>
+     <choice name="Builders Accident Insurance"><attribute id="abiCode" format="string" value="186"/></choice>
+     <choice name="Bureau Veritas"><attribute id="abiCode" format="string" value="435"/></choice>
+     <choice name="Car And General Insurance"><attribute id="abiCode" format="string" value="168"/></choice>
+     <choice name="Catlin"><attribute id="abiCode" format="string" value="452"/></choice>
+     <choice name="Celtic International Insurance Co, Galway"><attribute id="abiCode" format="string" value="197"/></choice>
+     <choice name="CGU Insurance"><attribute id="abiCode" format="string" value="220"/></choice>
+     <choice name="Chaucer Insurance"><attribute id="abiCode" format="string" value="54"/></choice>
+     <choice name="Cherished Car Underwriting Agency"><attribute id="abiCode" format="string" value="436"/></choice>
+     <choice name="China Insurance Company (UK) Limited"><attribute id="abiCode" format="string" value="15"/></choice>
+     <choice name="Chubb Insurance Company of Europe SA"><attribute id="abiCode" format="string" value="232"/></choice>
+     <choice name="Chubb Insurance, Dublin"><attribute id="abiCode" format="string" value="204"/></choice>
+     <choice name="Church &amp; General Insurance, Ireland"><attribute id="abiCode" format="string" value="190"/></choice>
+     <choice name="Church And General Insurance Company Limited"><attribute id="abiCode" format="string" value="124"/></choice>
+     <choice name="Churchill Insurance Company Limited"><attribute id="abiCode" format="string" value="16"/></choice>
+     <choice name="Chyoda Fire &amp; Marine Insurance Company (Europe) Limited"><attribute id="abiCode" format="string" value="17"/></choice>
+     <choice name="Cigna Insurance of Europe"><attribute id="abiCode" format="string" value="18"/></choice>
+     <choice name="City of Westminster"><attribute id="abiCode" format="string" value="19"/></choice>
+     <choice name="Cloverleaf"><attribute id="abiCode" format="string" value="20"/></choice>
+     <choice name="CNA International Insurance Company, Birmingham"><attribute id="abiCode" format="string" value="169"/></choice>
+     <choice name="Co-operative Insurance Society Limited"><attribute id="abiCode" format="string" value="21"/></choice>
+     <choice name="Colonial Insurance Company (UK) Limited"><attribute id="abiCode" format="string" value="170"/></choice>
+     <choice name="Commercial Union Assurance Company Plc"><attribute id="abiCode" format="string" value="22"/></choice>
+     <choice name="Congregational &amp; General Insurance PLC"><attribute id="abiCode" format="string" value="383"/></choice>
+     <choice name="Continental Insurance Company (Europe) Limited"><attribute id="abiCode" format="string" value="23"/></choice>
+     <choice name="Corinthian"><attribute id="abiCode" format="string" value="24"/></choice>
+     <choice name="Corinthian"><attribute id="abiCode" format="string" value="225"/></choice>
+     <choice name="Cornhill Direct"><attribute id="abiCode" format="string" value="223"/></choice>
+     <choice name="Cornhill Insurance Plc"><attribute id="abiCode" format="string" value="25"/></choice>
+     <choice name="Cornish Mutual Assurance Company Ltd"><attribute id="abiCode" format="string" value="213"/></choice>
+     <choice name="Crowe"><attribute id="abiCode" format="string" value="26"/></choice>
+     <choice name="Crusader Insurance Company Limited"><attribute id="abiCode" format="string" value="125"/></choice>
+     <choice name="DAS Legal Expenses"><attribute id="abiCode" format="string" value="201"/></choice>
+     <choice name="Direct Line Insurance Limited"><attribute id="abiCode" format="string" value="27"/></choice>
+     <choice name="Dominion Insurance Company Limited"><attribute id="abiCode" format="string" value="28"/></choice>
+     <choice name="Doric"><attribute id="abiCode" format="string" value="29"/></choice>
+     <choice name="Dowa Insurance Company (UK) Limited"><attribute id="abiCode" format="string" value="126"/></choice>
+     <choice name="Drake Insurance plc"><attribute id="abiCode" format="string" value="30"/></choice>
+     <choice name="E-Sure"><attribute id="abiCode" format="string" value="386"/></choice>
+     <choice name="Eagle Star (Ireland) Ltd"><attribute id="abiCode" format="string" value="217"/></choice>
+     <choice name="Eagle Star Direct"><attribute id="abiCode" format="string" value="157"/></choice>
+     <choice name="Eagle Star Insurance Company Plc"><attribute id="abiCode" format="string" value="31"/></choice>
+     <choice name="East West Insurance Company Limited"><attribute id="abiCode" format="string" value="32"/></choice>
+     <choice name="Ecclesiastical Insurance Office Plc"><attribute id="abiCode" format="string" value="33"/></choice>
+     <choice name="Eclipse"><attribute id="abiCode" format="string" value="34"/></choice>
+     <choice name="Economic Insurance Company Limited"><attribute id="abiCode" format="string" value="35"/></choice>
+     <choice name="Egg PLC"><attribute id="abiCode" format="string" value="399"/></choice>
+     <choice name="Endsleigh Insurance Services"><attribute id="abiCode" format="string" value="389"/></choice>
+     <choice name="Ensign"><attribute id="abiCode" format="string" value="36"/></choice>
+     <choice name="Enterprise"><attribute id="abiCode" format="string" value="37"/></choice>
+     <choice name="Equity Red Star"><attribute id="abiCode" format="string" value="38"/></choice>
+     <choice name="Erin"><attribute id="abiCode" format="string" value="196"/></choice>
+     <choice name="Euclidian Underwriting"><attribute id="abiCode" format="string" value="417"/></choice>
+     <choice name="Europa General Insurance, Galway"><attribute id="abiCode" format="string" value="195"/></choice>
+     <choice name="Europa Underwriting Ltd"><attribute id="abiCode" format="string" value="444"/></choice>
+     <choice name="Eversure"><attribute id="abiCode" format="string" value="39"/></choice>
+     <choice name="Excess Insurance Company Limited"><attribute id="abiCode" format="string" value="127"/></choice>
+     <choice name="Fanum Motor Policies"><attribute id="abiCode" format="string" value="128"/></choice>
+     <choice name="FBD Insurance"><attribute id="abiCode" format="string" value="206"/></choice>
+     <choice name="FBO Insurance Company Limited"><attribute id="abiCode" format="string" value="129"/></choice>
+     <choice name="Federation General Insurance"><attribute id="abiCode" format="string" value="40"/></choice>
+     <choice name="First Call Direct, Dublin"><attribute id="abiCode" format="string" value="205"/></choice>
+     <choice name="First Rate Direct"><attribute id="abiCode" format="string" value="235"/></choice>
+     <choice name="Fleet"><attribute id="abiCode" format="string" value="171"/></choice>
+     <choice name="Folgate Insurance Company Limited"><attribute id="abiCode" format="string" value="41"/></choice>
+     <choice name="Fortis Insurance"><attribute id="abiCode" format="string" value="230"/></choice>
+     <choice name="Fortress Underwriting Agencies Ltd"><attribute id="abiCode" format="string" value="418"/></choice>
+     <choice name="Fuji Fire And Marine Insurance Company (UK) Limited"><attribute id="abiCode" format="string" value="130"/></choice>
+     <choice name="Fusion Insurance Services"><attribute id="abiCode" format="string" value="242"/></choice>
+     <choice name="GA Bonus"><attribute id="abiCode" format="string" value="187"/></choice>
+     <choice name="Gan Insurance Company"><attribute id="abiCode" format="string" value="42"/></choice>
+     <choice name="GE Frankona"><attribute id="abiCode" format="string" value="422"/></choice>
+     <choice name="General Accident 1-2-1"><attribute id="abiCode" format="string" value="43"/></choice>
+     <choice name="General Accident Direct"><attribute id="abiCode" format="string" value="44"/></choice>
+     <choice name="General Accident Plc"><attribute id="abiCode" format="string" value="45"/></choice>
+     <choice name="Generali Insurance, Dublin"><attribute id="abiCode" format="string" value="207"/></choice>
+     <choice name="Gracechurch Insurance Company Limited"><attribute id="abiCode" format="string" value="131"/></choice>
+     <choice name="Groupama Insurance Company Ltd"><attribute id="abiCode" format="string" value="231"/></choice>
+     <choice name="Guardian"><attribute id="abiCode" format="string" value="46"/></choice>
+     <choice name="Guardian Direct"><attribute id="abiCode" format="string" value="47"/></choice>
+     <choice name="Guardian Eastern Insurance"><attribute id="abiCode" format="string" value="172"/></choice>
+     <choice name="Guardian Insurance Ireland"><attribute id="abiCode" format="string" value="191"/></choice>
+     <choice name="Guardian Royal Exchange"><attribute id="abiCode" format="string" value="48"/></choice>
+     <choice name="Halifax"><attribute id="abiCode" format="string" value="49"/></choice>
+     <choice name="Hallmark Insurance"><attribute id="abiCode" format="string" value="173"/></choice>
+     <choice name="Hanover Services"><attribute id="abiCode" format="string" value="388"/></choice>
+     <choice name="Hastings Insurance Brokers"><attribute id="abiCode" format="string" value="384"/></choice>
+     <choice name="Haven Insurance Policies"><attribute id="abiCode" format="string" value="132"/></choice>
+     <choice name="Heath Lambert"><attribute id="abiCode" format="string" value="445"/></choice>
+     <choice name="Hermes"><attribute id="abiCode" format="string" value="50"/></choice>
+     <choice name="HGP Motor Policies"><attribute id="abiCode" format="string" value="133"/></choice>
+     <choice name="Hibernian Aviva Insurance"><attribute id="abiCode" format="string" value="51"/></choice>
+     <choice name="Hibernian Insurance Ireland"><attribute id="abiCode" format="string" value="192"/></choice>
+     <choice name="Highway"><attribute id="abiCode" format="string" value="52"/></choice>
+     <choice name="Hiscox Ltd"><attribute id="abiCode" format="string" value="390"/></choice>
+     <choice name="Holdsure"><attribute id="abiCode" format="string" value="53"/></choice>
+     <choice name="HSB Haughton Engineering"><attribute id="abiCode" format="string" value="243"/></choice>
+     <choice name="HSBC"><attribute id="abiCode" format="string" value="412"/></choice>
+     <choice name="Ibex"><attribute id="abiCode" format="string" value="400"/></choice>
+     <choice name="ICI, Dublin"><attribute id="abiCode" format="string" value="208"/></choice>
+     <choice name="Independent Insurance Company Limited"><attribute id="abiCode" format="string" value="55"/></choice>
+     <choice name="Insurance (GB) Limited"><attribute id="abiCode" format="string" value="56"/></choice>
+     <choice name="Insurance Corporation of Channel Islands"><attribute id="abiCode" format="string" value="57"/></choice>
+     <choice name="Insurance Corporation of Ireland"><attribute id="abiCode" format="string" value="58"/></choice>
+     <choice name="Intelligent Finance"><attribute id="abiCode" format="string" value="401"/></choice>
+     <choice name="Irish National Insurance"><attribute id="abiCode" format="string" value="59"/></choice>
+     <choice name="Irish National Insurance Ireland"><attribute id="abiCode" format="string" value="193"/></choice>
+     <choice name="Iron Trades Insurance Group"><attribute id="abiCode" format="string" value="60"/></choice>
+     <choice name="ITT London &amp; Edinburgh"><attribute id="abiCode" format="string" value="61"/></choice>
+     <choice name="IUS, Galway"><attribute id="abiCode" format="string" value="202"/></choice>
+     <choice name="JSB"><attribute id="abiCode" format="string" value="62"/></choice>
+     <choice name="Jubilee"><attribute id="abiCode" format="string" value="414"/></choice>
+     <choice name="Kestral"><attribute id="abiCode" format="string" value="63"/></choice>
+     <choice name="KGM"><attribute id="abiCode" format="string" value="64"/></choice>
+     <choice name="Kinetic Underwriting"><attribute id="abiCode" format="string" value="387"/></choice>
+     <choice name="Koa Insurance Company (UK) Limited"><attribute id="abiCode" format="string" value="134"/></choice>
+     <choice name="Landmark (also AIG UK and AIG Europe)"><attribute id="abiCode" format="string" value="135"/></choice>
+     <choice name="Leadenhall Motor Policies"><attribute id="abiCode" format="string" value="65"/></choice>
+     <choice name="Legal &amp; General Insurance Limited"><attribute id="abiCode" format="string" value="66"/></choice>
+     <choice name="Liberty Motor"><attribute id="abiCode" format="string" value="229"/></choice>
+     <choice name="Link"><attribute id="abiCode" format="string" value="67"/></choice>
+     <choice name="Link Insurance"><attribute id="abiCode" format="string" value="224"/></choice>
+     <choice name="Lion Insurance Company Limited"><attribute id="abiCode" format="string" value="68"/></choice>
+     <choice name="Liverpool Victoria"><attribute id="abiCode" format="string" value="222"/></choice>
+     <choice name="Lloyds"><attribute id="abiCode" format="string" value="439"/></choice>
+     <choice name="Lloyds TSB General Insurance"><attribute id="abiCode" format="string" value="237"/></choice>
+     <choice name="Lombard Continental Insurance (UK) Limited"><attribute id="abiCode" format="string" value="69"/></choice>
+     <choice name="London And Lancashire Insurance"><attribute id="abiCode" format="string" value="174"/></choice>
+     <choice name="Lovatt"><attribute id="abiCode" format="string" value="136"/></choice>
+     <choice name="Markel (UK) Ltd"><attribute id="abiCode" format="string" value="241"/></choice>
+     <choice name="Markerstudy Ltd"><attribute id="abiCode" format="string" value="409"/></choice>
+     <choice name="Milestone"><attribute id="abiCode" format="string" value="226"/></choice>
+     <choice name="Milestone"><attribute id="abiCode" format="string" value="137"/></choice>
+     <choice name="Mitre Insurance Association"><attribute id="abiCode" format="string" value="138"/></choice>
+     <choice name="Mitsui Marine"><attribute id="abiCode" format="string" value="415"/></choice>
+     <choice name="MMA Insurance"><attribute id="abiCode" format="string" value="74"/></choice>
+     <choice name="Moorhouse"><attribute id="abiCode" format="string" value="446"/></choice>
+     <choice name="MT"><attribute id="abiCode" format="string" value="70"/></choice>
+     <choice name="Municipal General Insurance"><attribute id="abiCode" format="string" value="156"/></choice>
+     <choice name="Municipal Mutual Insurance Limited"><attribute id="abiCode" format="string" value="139"/></choice>
+     <choice name="Nat Employers Mutual General Insurance Association Limited"><attribute id="abiCode" format="string" value="140"/></choice>
+     <choice name="Nat West"><attribute id="abiCode" format="string" value="403"/></choice>
+     <choice name="National Farmers Union Mutual and Avon Insurance Group"><attribute id="abiCode" format="string" value="71"/></choice>
+     <choice name="National Motor &amp; Accident"><attribute id="abiCode" format="string" value="141"/></choice>
+     <choice name="Nationwide"><attribute id="abiCode" format="string" value="402"/></choice>
+     <choice name="Nemwill"><attribute id="abiCode" format="string" value="416"/></choice>
+     <choice name="New Hampshire Insurance Company"><attribute id="abiCode" format="string" value="175"/></choice>
+     <choice name="New India Assurance Company Limited"><attribute id="abiCode" format="string" value="72"/></choice>
+     <choice name="New Zealand Insurance Plc"><attribute id="abiCode" format="string" value="142"/></choice>
+     <choice name="Newline"><attribute id="abiCode" format="string" value="453"/></choice>
+     <choice name="NIG"><attribute id="abiCode" format="string" value="73"/></choice>
+     <choice name="No Previous Insurance"><attribute id="abiCode" format="string" value="998"/></choice>
+     <choice name="Nordern Insurance Company (UK) Limited"><attribute id="abiCode" format="string" value="143"/></choice>
+     <choice name="Northern Star Insurance Company Limited"><attribute id="abiCode" format="string" value="75"/></choice>
+     <choice name="Norwich Union Fire Insurance Society"><attribute id="abiCode" format="string" value="76"/></choice>
+     <choice name="Norwich Union General Insurance (Ireland) Limited"><attribute id="abiCode" format="string" value="194"/></choice>
+     <choice name="Norwich Union Insurance Limited"><attribute id="abiCode" format="string" value="218"/></choice>
+     <choice name="Novae Insurance Company Limited"><attribute id="abiCode" format="string" value="441"/></choice>
+     <choice name="Novitas Underwriting Agency"><attribute id="abiCode" format="string" value="434"/></choice>
+     <choice name="Ocaso UK Insurance"><attribute id="abiCode" format="string" value="451"/></choice>
+     <choice name="Octavian"><attribute id="abiCode" format="string" value="219"/></choice>
+     <choice name="One Direct"><attribute id="abiCode" format="string" value="428"/></choice>
+     <choice name="Orion Personal Insurances"><attribute id="abiCode" format="string" value="77"/></choice>
+     <choice name="Paladin"><attribute id="abiCode" format="string" value="78"/></choice>
+     <choice name="Paragon Underwriting"><attribute id="abiCode" format="string" value="447"/></choice>
+     <choice name="Paramount Insurance Company Limited"><attribute id="abiCode" format="string" value="79"/></choice>
+     <choice name="Paymentshield Ltd"><attribute id="abiCode" format="string" value="426"/></choice>
+     <choice name="Pearl Assurance Plc"><attribute id="abiCode" format="string" value="80"/></choice>
+     <choice name="Pegasus"><attribute id="abiCode" format="string" value="81"/></choice>
+     <choice name="Pennine"><attribute id="abiCode" format="string" value="423"/></choice>
+     <choice name="Phoenix Assurance"><attribute id="abiCode" format="string" value="176"/></choice>
+     <choice name="Planet Insurance Company"><attribute id="abiCode" format="string" value="427"/></choice>
+     <choice name="Pohjola Insurance Company (UK) Limited"><attribute id="abiCode" format="string" value="82"/></choice>
+     <choice name="Preferred Assurance"><attribute id="abiCode" format="string" value="177"/></choice>
+     <choice name="Preferred Direct Insurance"><attribute id="abiCode" format="string" value="83"/></choice>
+     <choice name="Premier Direct"><attribute id="abiCode" format="string" value="210"/></choice>
+     <choice name="Primary Insurance"><attribute id="abiCode" format="string" value="432"/></choice>
+     <choice name="Privilege Insurance"><attribute id="abiCode" format="string" value="214"/></choice>
+     <choice name="Prospero Direct"><attribute id="abiCode" format="string" value="158"/></choice>
+     <choice name="Provident Insurance Plc"><attribute id="abiCode" format="string" value="84"/></choice>
+     <choice name="Provincial Insurance Plc"><attribute id="abiCode" format="string" value="85"/></choice>
+     <choice name="Prudential Assurance Company Plc"><attribute id="abiCode" format="string" value="86"/></choice>
+     <choice name="QBE International Insurance Limited"><attribute id="abiCode" format="string" value="144"/></choice>
+     <choice name="Quinn Direct"><attribute id="abiCode" format="string" value="203"/></choice>
+     <choice name="QUINN-Insurance"><attribute id="abiCode" format="string" value="449"/></choice>
+     <choice name="RB"><attribute id="abiCode" format="string" value="87"/></choice>
+     <choice name="Redstar Policies"><attribute id="abiCode" format="string" value="145"/></choice>
+     <choice name="Refuge Assurance Plc"><attribute id="abiCode" format="string" value="146"/></choice>
+     <choice name="Regency"><attribute id="abiCode" format="string" value="227"/></choice>
+     <choice name="Regency Motor Policies"><attribute id="abiCode" format="string" value="147"/></choice>
+     <choice name="Reliance Fire And Accident Insurance Corporation Limited"><attribute id="abiCode" format="string" value="148"/></choice>
+     <choice name="Renown"><attribute id="abiCode" format="string" value="88"/></choice>
+     <choice name="Royal &amp; Sun Alliance (Ireland)"><attribute id="abiCode" format="string" value="212"/></choice>
+     <choice name="Royal Bank of Scotland PLC"><attribute id="abiCode" format="string" value="404"/></choice>
+     <choice name="Royal Insurance (UK) Limited"><attribute id="abiCode" format="string" value="89"/></choice>
+     <choice name="Royal London General Insurance Company Limited"><attribute id="abiCode" format="string" value="90"/></choice>
+     <choice name="RSA"><attribute id="abiCode" format="string" value="200"/></choice>
+     <choice name="Sabre Insurance Company Limited"><attribute id="abiCode" format="string" value="91"/></choice>
+     <choice name="Saga Insurance"><attribute id="abiCode" format="string" value="438"/></choice>
+     <choice name="Sainsburys Bank"><attribute id="abiCode" format="string" value="405"/></choice>
+     <choice name="Sampo Insurance Co (UK) Ltd"><attribute id="abiCode" format="string" value="178"/></choice>
+     <choice name="Samsung Insurance Company of Europe Limited"><attribute id="abiCode" format="string" value="92"/></choice>
+     <choice name="Scottish General Insurance Company Limited"><attribute id="abiCode" format="string" value="93"/></choice>
+     <choice name="Secretan"><attribute id="abiCode" format="string" value="94"/></choice>
+     <choice name="Sentry"><attribute id="abiCode" format="string" value="95"/></choice>
+     <choice name="Sentry (UK) Insurance Co. Ltd"><attribute id="abiCode" format="string" value="179"/></choice>
+     <choice name="Service"><attribute id="abiCode" format="string" value="96"/></choice>
+     <choice name="Service"><attribute id="abiCode" format="string" value="221"/></choice>
+     <choice name="Shead"><attribute id="abiCode" format="string" value="97"/></choice>
+     <choice name="Shield Insurance Company Limited"><attribute id="abiCode" format="string" value="149"/></choice>
+     <choice name="SMT Insurance Company Limited"><attribute id="abiCode" format="string" value="150"/></choice>
+     <choice name="Solar"><attribute id="abiCode" format="string" value="98"/></choice>
+     <choice name="Sphere"><attribute id="abiCode" format="string" value="99"/></choice>
+     <choice name="St Katherines Policies"><attribute id="abiCode" format="string" value="151"/></choice>
+     <choice name="St Stephens Motor Policies"><attribute id="abiCode" format="string" value="101"/></choice>
+     <choice name="Standard Bank"><attribute id="abiCode" format="string" value="406"/></choice>
+     <choice name="Sterling Insurance"><attribute id="abiCode" format="string" value="244"/></choice>
+     <choice name="Summit"><attribute id="abiCode" format="string" value="102"/></choice>
+     <choice name="Sun Alliance Insurance UK"><attribute id="abiCode" format="string" value="103"/></choice>
+     <choice name="Swan"><attribute id="abiCode" format="string" value="104"/></choice>
+     <choice name="Symphony Insurance"><attribute id="abiCode" format="string" value="408"/></choice>
+     <choice name="Tanker Insurance"><attribute id="abiCode" format="string" value="180"/></choice>
+     <choice name="Terra Nova Insurance"><attribute id="abiCode" format="string" value="181"/></choice>
+     <choice name="Tesco Insurance"><attribute id="abiCode" format="string" value="413"/></choice>
+     <choice name="The Continental Insurance Co. (UK) Ltd"><attribute id="abiCode" format="string" value="182"/></choice>
+     <choice name="The Insurance Service"><attribute id="abiCode" format="string" value="105"/></choice>
+     <choice name="The Underwriter"><attribute id="abiCode" format="string" value="424"/></choice>
+     <choice name="The Warwick Insurance Co Ltd"><attribute id="abiCode" format="string" value="183"/></choice>
+     <choice name="Torch"><attribute id="abiCode" format="string" value="106"/></choice>
+     <choice name="Touchline Insurance Company Limited"><attribute id="abiCode" format="string" value="107"/></choice>
+     <choice name="Towergate Insurance"><attribute id="abiCode" format="string" value="228"/></choice>
+     <choice name="Tradewise Insurance Services Ltd"><attribute id="abiCode" format="string" value="448"/></choice>
+     <choice name="Tradex Insurance Co Ltd"><attribute id="abiCode" format="string" value="433"/></choice>
+     <choice name="Trafalgar Insurance"><attribute id="abiCode" format="string" value="215"/></choice>
+     <choice name="Travelers Insurance Company Ltd"><attribute id="abiCode" format="string" value="100"/></choice>
+     <choice name="Trinity Insurance Company Limited"><attribute id="abiCode" format="string" value="184"/></choice>
+     <choice name="Trojan Motor Policies"><attribute id="abiCode" format="string" value="152"/></choice>
+     <choice name="UAP Provincial"><attribute id="abiCode" format="string" value="382"/></choice>
+     <choice name="United Friendly Insurance Co Ltd"><attribute id="abiCode" format="string" value="153"/></choice>
+     <choice name="Unknown"><attribute id="abiCode" format="string" value="997"/></choice>
+     <choice name="Unlisted Insurer"><attribute id="abiCode" format="string" value="999"/></choice>
+     <choice name="USAA Limited"><attribute id="abiCode" format="string" value="108"/></choice>
+     <choice name="Vasek"><attribute id="abiCode" format="string" value="440"/></choice>
+     <choice name="Warwick Motor Policies"><attribute id="abiCode" format="string" value="154"/></choice>
+     <choice name="Wellington Insurance Service"><attribute id="abiCode" format="string" value="109"/></choice>
+     <choice name="Wesleyan Assurance Society"><attribute id="abiCode" format="string" value="110"/></choice>
+     <choice name="Wessex"><attribute id="abiCode" format="string" value="111"/></choice>
+     <choice name="West Yorkshire Insurance Company"><attribute id="abiCode" format="string" value="112"/></choice>
+     <choice name="Western Australia"><attribute id="abiCode" format="string" value="155"/></choice>
+     <choice name="Westminster Motor Insurance Association"><attribute id="abiCode" format="string" value="113"/></choice>
+     <choice name="Winterthur Life"><attribute id="abiCode" format="string" value="407"/></choice>
+     <choice name="Wren"><attribute id="abiCode" format="string" value="114"/></choice>
+     <choice name="Wrightway Underwriting Ltd"><attribute id="abiCode" format="string" value="411"/></choice>
+     <choice name="Yorkshire Insurance Co. Ltd"><attribute id="abiCode" format="string" value="185"/></choice>
+     <choice name="Zenith Insurance plc"><attribute id="abiCode" format="string" value="115"/></choice>
+     <choice name="Zenith Motor Policies, Haywards Heath, West Sussex"><attribute id="abiCode" format="string" value="211"/></choice>
+     <choice name="Zurich Insurance plc"><attribute id="abiCode" format="string" value="116"/></choice>
+     <choice name="Zurich Municipal"><attribute id="abiCode" format="string" value="117"/></choice>
+</choice>

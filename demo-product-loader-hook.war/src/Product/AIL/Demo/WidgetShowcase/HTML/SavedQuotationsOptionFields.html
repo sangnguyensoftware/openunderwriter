@@ -1,0 +1,43 @@
+<div>
+    <p>The SavedQuotations widget is different from most other widgets in that it doesn't work within the context of a quote, but
+    instead creates its own context of a list of saved quotation. The Widget lists the quotations which the user has previously made
+    but not taken up. Basic information about each quote is displayed including the quotation date and the expiry date and premium. 
+    The user is give the option to select a quote as the basis of a requote, to confirm and pay a quote, or to view (download) the 
+    quotation document.</p>
+    <pre>
+        &lt;savedQuotations [requoteDestinationPageId="<i>requote page</i>"] 
+                            [confirmAndPayDestinationPageId="<i>pay page id</i>"] 
+                            [requoteDisabled="<i>requote disabled</i>"] 
+                            [confirmAndPayDisabled="<i>confirm and pay disabled</i>"] 
+                            [viewQuotationDisabled="<i>view quotation disabled</i>"] /&gt;
+    </pre>
+    <ul>
+        <li><i>requote page</i> Page ID of the page to be opened if the user selects the requote option.</li>
+        <li><i>pay page id</i> The ID of the page to be opened if the user selects the confirm and pay option.</li>
+        <li><i>requote disabled</i> Set to "true" to hide the requote button.</li>
+        <li><i>confirm and pay disabled</i> Set to "true" to hide the confirm and pay option.</li>
+        <li><i>view quotation disabled</i> set to "true" to hide the view quotation button.</li>
+    </ul>
+    <hr />
+    <p>The form below can be used to add new saved quotations to the
+    system. Simply fill in the form, and hit "Update and Save" and the details will appear in the SavedQuotations widget at the foot of the page.</p>
+    
+	<div style="display:table; margin: 0px 350px;" >
+        <div style="display:table-row">
+            <div style="display:table-cell">Quotation number:</div>
+            <div style="display:table-cell"><input value="" name="quotation-number-override" type="text"/></div>
+        </div>
+        <div style="display:table-row">
+            <div style="display:table-cell">Quotation date override:</div>
+            <div style="display:table-cell"><input value="dd/mm/yyyy" name="quotation-date-override" type="text"/></div>
+        </div>
+	    <div style="display:table-row">
+	        <div style="display:table-cell">Expiry date override:</div>
+	        <div style="display:table-cell"><input value="dd/mm/yyyy" name="expiry-date-override" type="text"/></div>
+	    </div>
+	    <div style="display:table-row">
+	        <div style="display:table-cell">Premium override:</div>
+	        <div style="display:table-cell"><input value="0.00" name="premium-override" type="text"/></div>
+	    </div>
+	</div>
+</div>

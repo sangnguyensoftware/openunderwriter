@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    This file defines the default (factory) configuration use by ListProducts service.
+-->
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd">
+    <name>List Products Service</name>
+    <timeout>-1</timeout>
+    <who>factory</who>
+    <version>1.0</version>
+    <manager>com.ail.core.product.ListProductsService</manager>
+    
+    <parameter name="productCatalogNamespace">com.ail.core.product.ProductCatalog</parameter>
+</configuration>

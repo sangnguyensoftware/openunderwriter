@@ -1,0 +1,5 @@
+<moneyProvision type="java:com.ail.financial.MoneyProvision" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Model-1.0.xsd">
+    <frequency>MONTHLY</frequency> 
+    <purpose>PREMIUM</purpose>
+    <status>NEW</status>
+</moneyProvision>

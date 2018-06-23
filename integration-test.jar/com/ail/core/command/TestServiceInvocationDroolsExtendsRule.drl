@@ -1,0 +1,26 @@
+package com.ail.core
+ 
+import com.ail.core.dummyservice.DummyService.DummyArgument;
+
+/* This package is used by the inheritance test. It 'extends' TestServiceInvocationDroolsRule.drl (see
+ * it's entry in TestServiceInvocationDefaultConfig.xml for details of how) and adds a new rule to those
+ * defined in that package, and overrides another.
+ */
+
+/* This is the rule added by this package */
+rule "Add numbers when X is exactly 100"
+	when
+	    eval(true)
+		args : DummyArgument( x == 100 )
+	then
+		args.setR(args.getX());
+end
+ 
+/* This rule 'overrides' one in the extended package */
+rule "Add numbers when X more than 100"
+	when
+		args : DummyArgument( x > 100 )
+	then
+		args.setR( (3*args.getX())+args.getY() );
+end
+ 

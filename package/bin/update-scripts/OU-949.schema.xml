@@ -1,0 +1,51 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-949 Add Document to Claim" author="richard">
+        <sql dbms="mysql">
+            CREATE TABLE `jClaDocDoc` (
+              `UIDcla` bigint(20) NOT NULL,
+              `documentUIDdoc` bigint(20) NOT NULL,
+              UNIQUE KEY `documentUIDdoc` (`documentUIDdoc`),
+              KEY `FK4CE10ECEAAA21859` (`documentUIDdoc`),
+              KEY `FK4CE10ECEE0CB4A47` (`UIDcla`),
+              CONSTRAINT `FK4CE10ECEAAA21859` FOREIGN KEY (`documentUIDdoc`) REFERENCES `docDocument` (`docUID`),
+              CONSTRAINT `FK4CE10ECEE0CB4A47` FOREIGN KEY (`UIDcla`) REFERENCES `claClaim` (`claUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            CREATE TABLE `jClaDocDoc_` (
+              `secREV` int(11) NOT NULL,
+              `secUIDcla` bigint(20) NOT NULL,
+              `secDocumentUIDdoc` bigint(20) NOT NULL,
+              `REVTYPE` tinyint(4) DEFAULT NULL,
+              PRIMARY KEY (`secREV`,`secUIDcla`,`secDocumentUIDdoc`),
+              KEY `FK4F40CB5152AE8777` (`secREV`),
+              CONSTRAINT `FK4F40CB5152AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            CREATE TABLE `jClaAdoDoc` (
+              `UIDcla` bigint(20) NOT NULL,
+              `archivedDocumentUIDdoc` bigint(20) NOT NULL,
+              UNIQUE KEY `archivedDocumentUIDdoc` (`archivedDocumentUIDdoc`),
+              KEY `FK472CF6DAE0CB4A47` (`UIDcla`),
+              KEY `FK472CF6DA469CDCBB` (`archivedDocumentUIDdoc`),
+              CONSTRAINT `FK472CF6DA469CDCBB` FOREIGN KEY (`archivedDocumentUIDdoc`) REFERENCES `docDocument` (`docUID`),
+              CONSTRAINT `FK472CF6DAE0CB4A47` FOREIGN KEY (`UIDcla`) REFERENCES `claClaim` (`claUID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            CREATE TABLE `jClaAdoDoc_` (
+              `secREV` int(11) NOT NULL,
+              `secUIDcla` bigint(20) NOT NULL,
+              `secArchivedDocumentUIDdoc` bigint(20) NOT NULL,
+              `REVTYPE` tinyint(4) DEFAULT NULL,
+              PRIMARY KEY (`secREV`,`secUIDcla`,`secArchivedDocumentUIDdoc`),
+              KEY `FK9E71E4C552AE8777` (`secREV`),
+              CONSTRAINT `FK9E71E4C552AE8777` FOREIGN KEY (`secREV`) REFERENCES `revRevision` (`revId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet> 
+
+</databaseChangeLog>

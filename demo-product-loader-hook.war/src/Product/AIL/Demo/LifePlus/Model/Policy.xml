@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quotation xsi:type="java:com.ail.insurance.policy.Policy" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <productName>LifePlus</productName>
+
+    <status xsi:type="java:java.lang.String">UNUSED</status>
+	<baseCurrency xsi:type="java:java.lang.String">GBP</baseCurrency>
+	
+    <xi:include href="product://localhost:8080/AIL/Base/Model/Acme.xml" />
+    <xi:include href="product://localhost:8080/AIL/Base/Model/PersonalProposer.xml" />
+    
+    <section id="section" sectionTypeId="Section"/>
+    
+    <asset id="asset" assetTypeId="Asset">
+        <attribute id="gender" value="?" format="choice,options=-1#?|1#Male|2#Female"/>
+        <attribute id="age" value="0" format="number,###"/>
+        <attribute id="smoker" format="yesorno"/>
+        <attribute id="exercise" format="yesorno"/>
+    </asset>
+    
+    <attribute id="iWinPayUsername" value="" format="string,size=20"/>
+    
+</quotation>

@@ -1,0 +1,35 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-868 add account status column" author="richard">
+        <sql dbms="mysql">
+			ALTER TABLE `accAccount` ADD COLUMN `accStatus` varchar(255) DEFAULT 'OPEN';
+        </sql>
+    </changeSet>
+    
+    <changeSet id="OU-868 add journal to money provision link" author="richard">
+        <sql dbms="mysql">
+			ALTER TABLE `jouJournal` ADD COLUMN `jouOriginUIDmpr` bigint DEFAULT NULL;
+			ALTER TABLE `jouJournal` ADD CONSTRAINT `FKF89BC1478B4FEA56` FOREIGN KEY (`jouOriginUIDmpr`) REFERENCES `mprMoneyProvision` (`mprUID`);
+        </sql>
+    </changeSet>
+
+    <changeSet id="OU-868 correct accountHolderUIDpar to accountHolderUIDpty" author="richard">
+        <sql dbms="mysql">
+			ALTER TABLE `accAccount` DROP FOREIGN KEY `FK2F6B466C6917B84`;
+        		ALTER TABLE `accAccount` CHANGE `accAccountHolderUIDpty` `accAccountHolderUIDpar` bigint(20);
+			ALTER TABLE `accAccount` ADD CONSTRAINT `FK2F6B466C6917B84` FOREIGN KEY (`accAccountHolderUIDpar`) REFERENCES `parParty` (`parUID`);
+        </sql>
+    </changeSet>
+    
+    <changeSet id="OU-868 drop accOpeningCurrency (accCurrency makes it redundant)" author="richard">
+        <sql dbms="mysql">
+        		ALTER TABLE `accAccount` DROP `accOpeningCurrency`;
+        </sql>
+    </changeSet>
+    
+    
+</databaseChangeLog>

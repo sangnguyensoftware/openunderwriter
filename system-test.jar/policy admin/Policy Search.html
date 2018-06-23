@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>Administrator</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Policy Search</td></tr>
+</thead><tbody>
+<tr>
+	<td>setTimeout</td>
+	<td>240000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/web/ou</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_58_login</td>
+	<td>adam@openunderwriter.org</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_58_password</td>
+	<td>adam</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=//button[text()=&quot; Sign In &quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/web/freightplus</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTitle</td>
+	<td>Welcome - OpenUnderwriter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L2Fzc2V0L2F0dHJpYnV0ZVtpZD0ndmFsdWVPZkdvb2RzJ10</td>
+	<td>2,000.00</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nZGVzdGluYXRpb24nXQ</td>
+	<td>label=European Union</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nbW9kZU9mVHJhbnNwb3J0J10</td>
+	<td>label=Rail</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=Quote</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>css=#OQ0-1-0-0 &gt; div.pf-section-title</td>
+	<td>Summary of your cover</td>
+</tr>
+<tr>
+	<td>storeText</td>
+	<td>xpath=//div[@class=&quot;pf-quotation-summary-detail-section&quot;]/ul/li[1]/b</td>
+	<td>quoteNumber</td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/web/ou/policies</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTitle</td>
+	<td>Policies - OpenUnderwriter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@class=&quot;gwt-TextBox gui-standard-text&quot;])[1]</td>
+	<td>${quoteNumber}</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//td/button[text()=&quot;Search&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//div[contains(text(), &quot;QUO&quot;)][1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//div[contains(text(), &quot;QUO&quot;)][1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//td[contains(text(), &quot;Quotation&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//td[contains(text(), &quot;Client ID&quot;)]/../td/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//td[contains(text(), &quot;Client ID&quot;)]/../td/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//div[contains(text(), &quot;QUO&quot;)][1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//div[contains(text(), &quot;QUO&quot;)][1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//td[contains(text(), &quot;Quotation&quot;)]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=//a[@id=&quot;PolicySummaryPageFlow&quot; and @class=&quot;disable-enable-tab-selector pf-tab-enabled&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//a[@id=&quot;PolicySummaryPageFlow&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Premium details</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//a[@id=&quot;AssessmentSheetPageFlow&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Calculations</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//a[@id=&quot;PolicyDetailPageFlow&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Assets</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//a[@id=&quot;PolicyDocumentsPageFlow&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Drag &amp; Drop Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//a[@id=&quot;PolicyAdminPageFlow&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Dates</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//a[@id=&quot;LogsPageFlow&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Event log</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Exception log</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//a[@id=&quot;PaymentsPageFlow&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Payment history</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=//a[@id=&quot;ReferralDetailPageFlow&quot; and @class=&quot;disable-enable-tab-selector pf-tab-disabled&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=//a[@id=&quot;Search&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//span[@id=&quot;gui-POLICYSEARCH-advancedsearch-showhide&quot;]/button[text()=&quot;+&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//tr[td/text()=&quot;ID&quot;]/td/input</td>
+	<td>111</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//tr[td/text()=&quot;Status&quot;]/td/select</td>
+	<td>label=Unused</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//tr[td/text()=&quot;Product&quot;]/td/select</td>
+	<td>label=AIL.Demo.LifePlus</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//tr[td/text()=&quot;Created&quot;]/td/table/tbody/tr/td/table/tbody/tr/td/input</td>
+	<td>1999-01-01</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//tr[td/text()=&quot;Quote&quot;]/td/table/tbody/tr/td/table/tbody/tr/td/input</td>
+	<td>1999-01-01</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//tr[td/text()=&quot;Inception&quot;]/td/table/tbody/tr/td/table/tbody/tr/td/input</td>
+	<td>1999-01-01</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//tr[td/text()=&quot;Expiry&quot;]/td/table/tbody/tr/td/table/tbody/tr/td/input</td>
+	<td>1999-01-01</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//tr[td/text()=&quot;Name&quot;]/td/input</td>
+	<td>Jon</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//tr[td/text()=&quot;Address&quot;]/td/input</td>
+	<td>1 St, EC1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//tr[td/text()=&quot;Email&quot;]/td/input</td>
+	<td>Jon@gmail.com</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//td/button[text()=&quot;Search&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>No Results Found</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=a[role~='menuitem'][href$='/logout']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTitle</td>
+	<td>Welcome - OpenUnderwriter</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

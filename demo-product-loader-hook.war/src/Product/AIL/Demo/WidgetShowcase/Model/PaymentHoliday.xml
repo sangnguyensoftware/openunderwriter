@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<paymentHoliday type="com.ail.financial.PaymentHoliday" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude"  xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Model-1.0.xsd">
+    <note />
+</paymentHoliday>

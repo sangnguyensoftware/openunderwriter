@@ -1,0 +1,30 @@
+<p>The string type supports the entry of a single line of
+	unformatted text (see note for multiple line formatted text support).
+	The format options supported by the string attribute affect the
+	rendering/validate in the follow ways:</p>
+<u>PageFlow</u>
+<pre>
+	&lt;sectionScroller [section scroller options]&gt;
+		&lt;question title="<i>title</i>" binding="<i>xpath binding</i>" /&gt;
+ 	&lt;/sectionScroller&gt;
+</pre>
+<ul>
+	<li><i>title</i> Title rendered to the left of the answer field.</li> 
+	<li><i>binding</i> xpath binding referring to an Attribute in the model to which this column is bound.</li>
+</ul>
+<u>Model</u>
+<pre>
+	&lt;attribute id="<i>id</i>" value="<i>value</i>" format="string,[min=<i>min length</i>],[max=<i>max length</i>],[size=<i>field size</i>],[pattern=<i>reg exp</i>]/&gt;
+</pre>
+<ul>
+	<li><i>min</i> Used during validation to define the minimum length
+		of string that will be accepted.</li>
+	<li><i>max</i> Used during validation to define the maximum length
+		of string that will be accepted.</li>
+	<li><i>size</i> Used during rendering to limit the size of the
+		field that will appear on the user interface</li>
+	<li><i>pattern</i> Used during validation, this option defines a
+		regular expression that the content of the string will be validated
+		against.</li>
+</ul>
+<hr/>

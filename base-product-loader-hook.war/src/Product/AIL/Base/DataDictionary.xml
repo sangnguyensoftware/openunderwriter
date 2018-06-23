@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataDictionary type="java:com.ail.core.data.DataDictionary" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/DataDictionary-1.0.xsd">
+
+	<!--
+		There are multiple ways of configuring data dictionary definitions.
+		1) If the definition is directly underneath dataDictionary then it will be added to the dictionary exactly as specified.
+		2) If the definition is below another definition then there is a parent child relationship. This relationship can go as deep as is required.
+			a) By default the parent definition name will be prepended to the child followed by a forward slash	to create the dictionary definition name
+				and the parent binding will be prepended to the child followed by a forward slash to create the dictionary definition binding, for example
+				'Address/1', 'Address/2', 'Address/3', 'Address/4' below.
+			b) If nameAbsolute is set to true the parent name will not be prepended to the child, for example 'Post Code' below.
+			c) In addition to a) and b), a separate dictionary entry will also be created to handle instances where the definition will need to be used in repeaters.
+				The parent definition name will be prepended to the child followed by a dot to create the dictionary definition name
+				and the parent binding will be not be prepended to the child so that the child binding remains relative to the parent, for example
+				'Address.1' binds to, 'Address.2', 'Address.3', 'Address.4', 'Address.Post Code' below.
+	 -->
+	<!-- 'Title' bound to 'proposer/title' -->
+	<!-- <definition name="Title" description="The title" binding="proposer/title" /> -->
+	<!-- 'First Name' bound to 'proposer/firstName' -->
+	<!-- <definition name="First Name" description="The first name" binding="proposer/firstName" /> -->
+	<!-- 'Surname' bound to 'proposer/surname' -->
+	<!-- <definition name="Last Name" description="The surname" binding="proposer/surname" /> -->
+	
+	<!-- 'Address' bound to 'proposer/address' -->
+	<!-- <definition name="Address" description="The Address" binding="proposer/address"> -->
+		<!-- 'Address/1' bound to 'proposer/address/line1' and 'Address.1' bound to 'line1' -->
+		<!-- <definition name="1" description="The address line 1" binding="line1" /> -->
+		<!-- 'Address/2' bound to 'proposer/address/line2' and 'Address.2' bound to 'line2' -->
+		<!-- <definition name="2" description="The address line 2" binding="line2" /> -->
+		<!-- 'Address/3' bound to 'proposer/address/line3' and 'Address.3' bound to 'line3' -->
+		<!-- <definition name="3" description="The address line 3" binding="line3" /> -->
+		<!-- 'Address/4' bound to 'proposer/address/line4' and 'Address.4' bound to 'line4' -->
+		<!-- <definition name="4" description="The address line 4" binding="line4" /> -->
+		<!-- 'Post Code' bound to 'proposer/address/postcode' and 'Address.Post Code' bound to 'postcode' -->
+		<!-- <definition name="Post Code" nameAbsolute="true" description="The address postcode" binding="postcode" /> -->
+	<!-- </definition> -->
+	
+	<!-- 'Mobile' bound to 'proposer/mobilephoneNumber' -->
+	<!-- <definition name="Mobile" description="The proposer mobile phone number" binding="proposer/mobilephoneNumber" /> -->
+	<!-- 'Email' bound to 'proposer/emailAddress' -->
+	<!-- <definition name="Email" description="The proposer email address" binding="proposer/emailAddress" /> -->
+
+    <definition name="policyNumber" description="polciy number" binding="policyNumber" />
+
+    <definition name="dateTimeNow" description="full current date and time" binding="c:format(c:getDateTime(),'yyyy-MM-dd HH:mm:ss')" />
+    <definition name="dateNowLetter" description="current date suitable for letter headings" binding="c:format(c:getDateTime(),'dd-MMM-yyyy')" />
+
+    <definition name="letterContent" description="letter/email content - recipient sender, custom content details" binding="attribute[id=$selectedDocumentType]" >
+	    <definition name="senderNameLetterFormal" description="full sender name" binding="attribute[id='senderFullName']/value" nameAbsolute="true" />
+	    <definition name="senderNameLetterInformal" description="informal format sender name" binding="attribute[id='senderShortName']/value" nameAbsolute="true" />
+	    <definition name="senderJobTitle" description="sender job title" binding="attribute[id='senderJobTitle']/value" nameAbsolute="true" />
+	    <definition name="senderSignature" description="sender signature image url" binding="attribute[id='senderSignatureUrl']/value" nameAbsolute="true" />
+	    <definition name="recipientNameLetterFormal" description="full recipient name" binding="attribute[id='recipientFullName']/value" nameAbsolute="true" />
+	    <definition name="recipientNameLetterInformal" description="informal format recipient name" binding="attribute[id='recipientShortName']/value" 	    />
+	    <definition name="customContent" description="html formatted custom content" binding="attribute[id='customContent']/value" nameAbsolute="true" />
+	</definition>
+    <definition name="recipientAddressLetter" description="informal format recipient name" binding="c:replace(attribute[id=$selectedDocumentType]/attribute[id='recipientAddress']/value, ', *', ',&#10;')" />
+    
+<!-- 
+memberFullName
+memberDOB
+memberOccupation
+
+senderDepartment
+
+AdviserFullName
+FirmName
+productName
+policyStartDate
+policyEndDate
+nextPremiumAmount
+nextPremiumCollectionDate
+weeklyBenefit
+deferredPeriod
+indexation
+claimLength
+? HigherPremuimPercentage ?
+? GIO ? 
+? documentName ?
+? cancelPendingDate ?
+
+monthlyBasePremiumAmount
+monthlyPremiumLoadingAmount
+monthlyPremiumAmount
+premiumCollectionDay
+
+latestPremiumHolidayStartDate
+latestPremiumHolidayEndDate
+ -->
+
+</dataDictionary>

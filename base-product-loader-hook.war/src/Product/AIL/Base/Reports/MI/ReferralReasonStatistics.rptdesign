@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.4.0.v201403101002 Build &lt;4.4.0.v20140311-1438></property>
+    <property name="units">in</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="layoutPreference">auto layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">72</property>
+    <parameters>
+        <scalar-parameter name="StartDate" id="205">
+            <text-property name="promptText">Enter Start Date</text-property>
+            <property name="valueType">static</property>
+            <property name="dataType">date</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript">BirtDateTime.addWeek(BirtDateTime.today(), -1)</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Custom</property>
+                <property name="pattern">yyyy-MM-dd</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="EndDate" id="206">
+            <text-property name="promptText">Enter End Date</text-property>
+            <property name="valueType">static</property>
+            <property name="dataType">date</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript">BirtDateTime.today()</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Custom</property>
+                <property name="pattern">yyyy-MM-dd</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="Product" id="213">
+            <text-property name="promptText">Select Product</text-property>
+            <property name="valueType">dynamic</property>
+            <property name="isRequired">true</property>
+            <property name="dataSetName">Data Set</property>
+            <expression name="valueExpr" type="javascript">dataSetRow["product"]</expression>
+            <expression name="labelExpr" type="javascript">dataSetRow["product"]</expression>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">%</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">list-box</property>
+            <property name="mustMatch">false</property>
+            <property name="fixedOrder">false</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="Broker" id="304">
+            <text-property name="promptText">Select Broker</text-property>
+            <property name="valueType">dynamic</property>
+            <property name="isRequired">true</property>
+            <property name="dataSetName">Data Set</property>
+            <expression name="valueExpr" type="javascript">dataSetRow["broker"]</expression>
+            <expression name="labelExpr" type="javascript">dataSetRow["broker"]</expression>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">%</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">list-box</property>
+            <property name="mustMatch">false</property>
+            <property name="fixedOrder">true</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="Test" id="305">
+            <text-property name="promptText">Test Quotes</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">true</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">false</value>
+            </simple-property-list>
+            <list-property name="selectionList">
+                <structure>
+                    <property name="value">true</property>
+                    <property name="label">Yes</property>
+                </structure>
+                <structure>
+                    <property name="value">false</property>
+                    <property name="label">No</property>
+                </structure>
+            </list-property>
+            <property name="paramType">simple</property>
+            <property name="controlType">radio-button</property>
+            <property name="fixedOrder">true</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="openunderwriter" id="40">
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>metadataBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledMetadataBidiFormatStr</name>
+                </ex-property>
+                <ex-property>
+                    <name>contentBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledContentBidiFormatStr</name>
+                </ex-property>
+            </list-property>
+            <property name="odaJndiName">java:jboss/datasources/AILBaseReportDS</property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="Data Set" id="41">
+            <property name="nullsOrdering">nulls lowest</property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">id_count</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">id_count</text-property>
+                    <text-property name="heading">id_count</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">quote_date</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">quote_date</text-property>
+                    <text-property name="heading">quote_date</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">broker</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">broker</text-property>
+                    <text-property name="heading">broker</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">status</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">status</text-property>
+                    <text-property name="heading">status</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">product</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">product</text-property>
+                    <text-property name="heading">product</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">reason</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">reason</text-property>
+                    <text-property name="heading">reason</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">test</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">test</text-property>
+                    <text-property name="heading">test</text-property>
+                </structure>
+            </list-property>
+            <list-property name="filter">
+                <structure>
+                    <property name="operator">between</property>
+                    <expression name="expr" type="javascript">row["quote_date"]</expression>
+                    <simple-property-list name="value1">
+                        <value>params["StartDate"].value</value>
+                    </simple-property-list>
+                    <expression name="value2">params["EndDate"].value</expression>
+                </structure>
+                <structure>
+                    <property name="operator">like</property>
+                    <expression name="expr" type="javascript">row["product"]</expression>
+                    <simple-property-list name="value1">
+                        <value>params["Product"].value</value>
+                    </simple-property-list>
+                </structure>
+                <structure>
+                    <property name="operator">like</property>
+                    <expression name="expr" type="javascript">row["broker"]</expression>
+                    <simple-property-list name="value1">
+                        <value>params["Broker"].value</value>
+                    </simple-property-list>
+                </structure>
+                <structure>
+                    <property name="operator">eq</property>
+                    <expression name="expr" type="javascript">row["test"]</expression>
+                    <simple-property-list name="value1">
+                        <value>params["Test"].value</value>
+                    </simple-property-list>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">id_count</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">quote_date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">broker</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">status</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">product</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">reason</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">test</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">openunderwriter</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">id_count</property>
+                    <property name="nativeName">id_count</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">quote_date</property>
+                    <property name="nativeName">quote_date</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">broker</property>
+                    <property name="nativeName">broker</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">status</property>
+                    <property name="nativeName">status</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">product</property>
+                    <property name="nativeName">product</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">reason</property>
+                    <property name="nativeName">reason</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">test</property>
+                    <property name="nativeName">test</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select 
+count(p.id) id_count,
+p.quote_date,
+p.broker,
+p.status,
+p.product,
+r.referral_reason reason,
+test
+from
+	pre_policy p, referral_reason r
+where status = 'REFERRED'
+	and p.policy_system_id = r.policy_system_id
+	and r.referral_reason is not null
+	
+group by p.broker, p.product, reason
+order by p.broker, p.product, reason;]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <styles>
+        <style name="report" id="4">
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">10pt</property>
+        </style>
+        <style name="crosstab-cell" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="6">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <page-footer>
+                <text id="3">
+                    <property name="contentType">html</property>
+                    <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                </text>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <grid id="275">
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">medium</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">medium</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">medium</property>
+            <column id="276"/>
+            <row id="277">
+                <cell id="278">
+                    <text-data id="274">
+                        <property name="fontSize">16pt</property>
+                        <property name="color">#4C4C4C</property>
+                        <property name="paddingTop">5pt</property>
+                        <property name="paddingBottom">1pt</property>
+                        <property name="textAlign">center</property>
+                        <expression name="valueExpr">"REFERRAL REASON STATISTICS REPORT"</expression>
+                        <property name="contentType">html</property>
+                    </text-data>
+                </cell>
+            </row>
+            <row id="279">
+                <cell id="280">
+                    <text-data id="283">
+                        <property name="fontSize">12pt</property>
+                        <property name="color">#4C4C4C</property>
+                        <property name="paddingTop">1pt</property>
+                        <property name="paddingBottom">1pt</property>
+                        <property name="textAlign">center</property>
+                        <expression name="valueExpr">Formatter.format(params["StartDate"].value,"MMM dd, yyyy") + " to " + Formatter.format(params["EndDate"].value,"MMM dd, yyyy")</expression>
+                        <property name="contentType">html</property>
+                    </text-data>
+                </cell>
+            </row>
+            <row id="281">
+                <cell id="282">
+                    <text-data id="284">
+                        <property name="fontSize">12pt</property>
+                        <property name="fontStyle">italic</property>
+                        <property name="color">#4C4C4C</property>
+                        <property name="paddingTop">1pt</property>
+                        <property name="paddingBottom">5pt</property>
+                        <property name="textAlign">center</property>
+                        <expression name="valueExpr">var broker = params["Broker"].value;
+var product = params["Product"].value;
+var isTest = params["Test"].value
+
+var paramString = "";
+
+if (broker &amp;&amp; broker != "%") {
+	paramString = paramString + "[Broker=" + broker + "] ";
+}
+
+if (product &amp;&amp; product != "%") {
+	paramString = paramString + "[Product=" + product + "] ";
+}
+
+if (isTest &amp;&amp; isTest == "true") {
+	paramString = paramString + "[Test=" + isTest + "] ";
+}
+paramString;</expression>
+                        <property name="contentType">html</property>
+                    </text-data>
+                </cell>
+            </row>
+        </grid>
+        <table name="pre_policy" id="43">
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">medium</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">medium</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">medium</property>
+            <property name="dataSet">Data Set</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">broker</property>
+                    <text-property name="displayName">broker</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["broker"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">quote_date</property>
+                    <text-property name="displayName">quote_date</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["quote_date"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">status</property>
+                    <text-property name="displayName">status</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["status"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">product</property>
+                    <text-property name="displayName">product</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["product"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">reason</property>
+                    <text-property name="displayName">reason</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["reason"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">id_count</property>
+                    <text-property name="displayName">id_count</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["id_count"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                
+            </list-property>
+            <property name="pageBreakInterval">0</property>
+            <column id="288">
+                <property name="repeat">1</property>
+            </column>
+            <column id="112">
+                <property name="repeat">1</property>
+            </column>
+            <column id="299">
+                <property name="repeat">1</property>
+            </column>
+            <column id="295">
+                <property name="repeat">1</property>
+            </column>
+            <header>
+                <row id="44">
+                    <property name="backgroundColor">#666666</property>
+                    <property name="fontWeight">bold</property>
+                    <property name="color">#CCCCCC</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">medium</property>
+                    <cell id="285">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">medium</property>
+                        <label id="289">
+                            <text-property name="text">Broker</text-property>
+                        </label>
+                    </cell>
+                    <cell id="65">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">medium</property>
+                        <label id="66">
+                            <text-property name="text">Product</text-property>
+                        </label>
+                    </cell>
+                    <cell id="296">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">medium</property>
+                        <label id="300">
+                            <text-property name="text">Reason</text-property>
+                        </label>
+                    </cell>
+                    <cell id="292">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">medium</property>
+                        <label id="301">
+                            <text-property name="text">Count</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="67">
+                    <property name="color">#4C4C4C</property>
+                    <list-property name="highlightRules">
+                        <structure>
+                            <property name="operator">eq</property>
+                            <property name="backgroundColor">#CCCCCC</property>
+                            <property name="color">#FFFFFF</property>
+                            <expression name="testExpr" type="javascript">row.__rownum % 2</expression>
+                            <simple-property-list name="value1">
+                                <value type="javascript">1</value>
+                            </simple-property-list>
+                        </structure>
+                    </list-property>
+                    <cell id="286">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">medium</property>
+                        <data id="291">
+                            <property name="resultSetColumn">broker</property>
+                        </data>
+                    </cell>
+                    <cell id="88">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">medium</property>
+                        <data id="89">
+                            <property name="resultSetColumn">product</property>
+                        </data>
+                    </cell>
+                    <cell id="297">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">medium</property>
+                        <data id="310">
+                            <property name="resultSetColumn">reason</property>
+                        </data>
+                    </cell>
+                    <cell id="293">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">medium</property>
+                        <data id="309">
+                            <property name="resultSetColumn">id_count</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="90">
+                    <cell id="287">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">medium</property>
+                    </cell>
+                    <cell id="101">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">medium</property>
+                    </cell>
+                    <cell id="298">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">medium</property>
+                    </cell>
+                    <cell id="294">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">medium</property>
+                    </cell>
+                </row>
+            </footer>
+        </table>
+    </body>
+</report>

@@ -1,0 +1,26 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-715 Add pceProductChangeEvent table" author="richard">
+        <sql dbms="mysql">
+            CREATE TABLE IF NOT EXISTS `pceProductChangeEvent` (
+              `pceUID` bigint(20) NOT NULL,
+              `pceAttribute` longtext,
+              `pceCreatedDate` datetime DEFAULT NULL,
+              `pceExternalSystemId` varchar(255) NOT NULL,
+              `pceForeignSystemId` varchar(255) DEFAULT NULL,
+              `pceLock` boolean NOT NULL,
+              `pceSerialVersion` bigint(20) NOT NULL,
+              `pceUpdatedDate` datetime DEFAULT NULL,
+              `pcePath` varchar(255) DEFAULT NULL,
+              `pceType` varchar(255) DEFAULT NULL,
+              PRIMARY KEY (`pceUID`),
+              UNIQUE KEY `pceExternalSystemId` (`pceExternalSystemId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

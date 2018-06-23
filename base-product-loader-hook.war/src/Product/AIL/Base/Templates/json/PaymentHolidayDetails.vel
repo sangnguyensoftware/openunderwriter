@@ -1,0 +1,164 @@
+## Copyright Applied Industrial Logic Limited 2012. All rights Reserved 
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 2 of the License, or (at your option) any later 
+## version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+## FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+## more details.
+##
+## You should have received a copy of the GNU General Public License along with
+## this program; if not, write to the Free Software Foundation, Inc., 51 
+## Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+##
+#####
+#set( $model = $args.ModelArgRet)
+#set( $pageElement = $args.PageElementArg )
+#set( $id = $args.RenderIdArg )
+#set( $title = ${pageElement.formattedTitle($args)} )
+#set( $dateFormat = '%1$tY-%1$tm-%1$td' )
+#set( $string = '' )
+##
+{
+	"type": "$pageElement.Class.SimpleName",
+	"id": "$id",
+	#if($title)"title": "$title",#end
+	#renderPaymentHolidays
+	#renderAddAction
+	#renderHint
+	#readOnly
+}
+##
+#macro(renderPaymentHolidays)
+	"paymentHolidays": [
+		#set( $today = $date.currentDate() )
+		#foreach($holiday in $model.PaymentHoliday)
+        	#if( ($pageElement.ShowCurrent && (!$holiday.EndDate || $holiday.EndDate.compareTo($today)>=0)) || ($pageElement.ShowHistory && ($holiday.EndDate && $holiday.EndDate.compareTo($today)<0)) )
+				#if( $velocityCount != 1),#end
+				{
+					"startDate": {
+						#set($encodedId="/paymentHoliday[$velocityCount]/#getId('startDate')")
+						"title": "$pageElement.i18n("i18n_payment_holiday_from_title")",
+						"value": "#formatDate($!{holiday.StartDate})",
+						"valueId": "${pageElement.encodeId($encodedId)}",
+						"format": {
+							"type": "date",
+							"pattern": "yyyy-MM-dd"
+	   					}
+	   					#if($pageElement.hasErrorMarker("startDate", $holiday))
+							,"error": "${pageElement.findError("startDate", $holiday, $pageElement)}"
+						#end
+					},
+					"endDate": {
+						#set($encodedId="/paymentHoliday[$velocityCount]/#getId('endDate')")
+						"title": "$pageElement.i18n("i18n_payment_holiday_to_title")",
+						"value": "#formatDate($!{holiday.EndDate})",
+						"valueId": "${pageElement.encodeId($encodedId)}",
+						"format": {
+							"type": "date",
+							"pattern": "yyyy-MM-dd",
+							"required": "no"
+						}
+	   					#if($pageElement.hasErrorMarker("endDate", $holiday))
+							,"error": "${pageElement.findError("endDate", $holiday, $pageElement)}"
+						#end
+					},
+					"duration": "${holiday.duration()}"
+
+	                #if( $pageElement.ShowNotes )
+                		,"noteDetails":#set($dummy = $pageElement.NoteDetails.renderResponse($holiday))
+	                #end					
+										
+					#if($pageElement.AddAndDeleteEnabled && !$pageElement.ReadOnly)
+						,"deleteOp": "op=${pageElement.Class.SimpleName}-delete:id=$id:row=${velocityCount}:immediate=true"
+					#end
+					#if($pageElement.hasErrorMarker("overlap", $holiday))
+						,"error": "${pageElement.findError("overlap", $holiday, $pageElement)}"
+					#end	
+
+			}
+			#end	
+		#end
+	]
+#end
+##
+#macro(renderPaymentHolidayTemplate) 
+,"newPaymentHolidayTemplate": {
+	"startDate": {
+		"title": "From",
+		"value": "",
+		"valueId": "${pageElement.encodeId('startDateId')}",
+		"format": {
+			"type": "date",
+			"pattern": "yyyy-MM-dd"
+		}
+	},
+	"endDate": {
+		"title": "To",
+		"value": "",
+		"valueId": "${pageElement.encodeId('endDateId')}",
+		"format": {
+		"type": "date",
+			"pattern": "yyyy-MM-dd",
+			"required": "no"
+		}
+	}
+},
+"newNoteTemplate": {
+    "questions": {
+            "title": {
+                "title": "Note title",
+                "valueId": "${pageElement.encodeId('titleId')}",
+                "value": "New Note Title",
+                "format": {
+                    "type": "string",
+                    "max": "255"
+                }
+            },
+            "body": {
+                "title": "Note body",
+                "valueId": "${pageElement.encodeId('bodyId')}",
+                "value": "New Note Body",
+                "clientHint": "textarea rows-4 cols-10",
+                "format": {
+                    "type": "string"
+                }
+            },
+            "label": {
+                "title" : "Label(s)",
+                "valueId": "${pageElement.encodeId('labelId')}",
+                "format": {
+                    "type": "string"
+                }
+            }
+  		}
+    }
+#end
+##
+#macro(renderAddAction)
+	#if($pageElement.AddAndDeleteEnabled && !$pageElement.ReadOnly)
+		,"addOp": "op=${pageElement.Class.SimpleName}-add:id=$id:immediate=true"
+	#end 
+#end
+##
+#macro(renderHint)
+    #if( $args.RenderHintArg )       
+        ,"clientHint": "$args.RenderHintArg"
+    #end
+#end
+##
+#macro(readOnly)
+    #if( $pageElement.ReadOnly )       
+        ,"readOnly": true 
+    #end
+#end
+##
+#macro(formatDate $date)
+#if($date)${string.format($dateFormat, $date)}#end
+#end
+##
+#macro(getId $name)$name#if($pageElement.ReadOnly)ReadOnly#end#end
+##

@@ -1,0 +1,107 @@
+.gui-title-text {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 16px;
+	text-transform: uppercase;
+	color: #333;
+}
+
+.gui-standard-text {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	color: #333;
+	margin-bottom: 0px !important;
+}
+
+.gui-cell-border {
+	border: 1px solid #e5e5e5;
+	webkit-border-radius: 2px;
+	moz-border-radius: 2px;
+	border-radius: 2px;
+}
+
+.gui-standard-cell {
+	vertical-align: top;
+	padding: 7px;
+}
+
+.gui-error-label {
+	color: red;
+}
+
+.gui-text-box {
+	margin: 0px !important;
+}
+
+.gui-button {
+	margin: 0px !important;
+}
+
+.gui-show-button {
+	background: white !important;
+	height: 22px;
+	width: 22px;
+	padding: 0 !important;
+}
+
+.gui-date-textbox {
+	width: 87px !important;
+	margin-bottom: 0px !important;
+}
+
+.gui-search-header-label {
+	padding-top: 22px;
+	padding-bottom: 12px;
+	padding-left: 0px;
+}
+
+.gui-highlight-result {
+	font-weight: bold1;
+	font-style: italic1;
+	color: lightgrey !important;
+}
+
+.gui-spacer {
+	height: 12px;
+	width: 3px;
+}
+
+.gui-button-to-link {
+  background-color: white !important;
+  text-decoration: underline !important;
+  border: none !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  border-spacing: 0 !important;
+  background: url("") !important;
+}
+
+gui-button-to-link:focus {
+  outline: none;
+}
+
+#gui-quicksearch-dialog {
+	height: 240px;
+	width: 380px;
+	margin: 10px;
+	margin-left: auto;
+    margin-right: auto;
+    width: 97%;
+}
+
+#gui-quicksearch-dialog-close-button {
+	height: 30px;
+	width: 370px;
+	margin-top: 20px;
+	margin-left: auto;
+    margin-right: auto;
+    width: 10%;
+}
+
+.gwt-ListBox {
+	margin-bottom: 0px !important;
+}
+
+
+
+
+

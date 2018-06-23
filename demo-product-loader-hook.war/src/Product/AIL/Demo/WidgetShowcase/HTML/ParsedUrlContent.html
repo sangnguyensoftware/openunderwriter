@@ -1,0 +1,18 @@
+<p>ParsedUrContent renders the content from a specified URL within
+	the page. Before being rendered, the content is parsed for embedded
+	JXPath expressions and the expressions evaluated against the Policy
+	being processed. The results of the evaluation inserted into the
+	content.</p>
+<p>Note: This element takes no special steps to ensure that the
+    content read is suitable for use within the PageFlow or in a portal
+    context.</p>
+<hr/>
+<p>For example, if the content returned included:</p>
+&nbsp;&nbsp;"The proposer's name is:
+&lt;b&gt;&#36;{/proposer/firstName}&lt;/b&gt;"
+<br />
+<br />
+<p>Then the rendered output might read:</p>
+&nbsp;&nbsp;"The proposer's name is:
+<b>${/proposer/firstName}</b>
+".

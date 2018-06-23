@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documentDefinition xsi:type="java:com.ail.core.document.model.DocumentDefinition" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+    <documentData>
+        <chapterData id="c1" title="Basic Details">
+            <blockData applicability="all" placement="body" title="Terms &amp; Conditions" border="true">
+                <urlData class="wording" title="Terms &amp; Conditions" url="product://localhost:8080/AIL/Demo/LifePlus/HTML/TermsAndConditions.html"/> 
+            </blockData>
+        </chapterData>
+    </documentData> 
+</documentDefinition>

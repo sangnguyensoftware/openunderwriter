@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>DocumentManager</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">SubjectivityManager</td></tr>
+</thead><tbody>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=resetPageflow</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectAndWait</td>
+	<td>name=selectedPage</td>
+	<td>label=PageSection</td>
+</tr>
+<!--Verify question-->
+<tr>
+	<td>verifyText</td>
+	<td>class=pf-section-title</td>
+	<td>Outer</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>class=pf-input-label</td>
+	<td>Question One</td>
+</tr>
+<!--Verify answer-->
+<tr>
+	<td>verifyText</td>
+	<td>class=pf-item-label</td>
+	<td>Answer One</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>class=pf-item-value</td>
+	<td>test two</td>
+</tr>
+<!--Verify button-->
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@value=&quot;Save&quot;]</td>
+	<td></td>
+</tr>
+<!--Verify parsed URL content-->
+<tr>
+	<td>verifyText</td>
+	<td>class=pf-parsed-url-content</td>
+	<td>Parsed URL content including references to attribute value: Absolute path to questionOne: test one Relative path to questionOne: test one</td>
+</tr>
+<!--Verify answer scroller-->
+<tr>
+	<td>waitForText</td>
+	<td>xpath=(//div[contains(@class,&quot;pf-answer-scroller&quot;)]//div[@class=&quot;pf-item-label&quot;])[1]</td>
+	<td>value a</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>xpath=(//div[contains(@class,&quot;pf-answer-scroller&quot;)]//div[@class=&quot;pf-item-label&quot;])[2]</td>
+	<td>value b</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>xpath=(//div[contains(@class,&quot;pf-answer-scroller&quot;)]//div[@class=&quot;pf-item-label&quot;])[3]</td>
+	<td>value a</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>xpath=(//div[contains(@class,&quot;pf-answer-scroller&quot;)]//div[@class=&quot;pf-item-label&quot;])[4]</td>
+	<td>value b</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>xpath=(//div[contains(@class,&quot;pf-answer-scroller&quot;)]//div[@class=&quot;pf-item-value&quot;])[1]</td>
+	<td>a one</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>xpath=(//div[contains(@class,&quot;pf-answer-scroller&quot;)]//div[@class=&quot;pf-item-value&quot;])[2]</td>
+	<td>b one</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>xpath=(//div[contains(@class,&quot;pf-answer-scroller&quot;)]//div[@class=&quot;pf-item-value&quot;])[3]</td>
+	<td>a two</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>xpath=(//div[contains(@class,&quot;pf-answer-scroller&quot;)]//div[@class=&quot;pf-item-value&quot;])[4]</td>
+	<td>b two</td>
+</tr>
+<!--Verify row scroller-->
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[@class='pf-row-scroller-header-title'])[1]</td>
+	<td>value a</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[@class='pf-row-scroller-header-title'])[2]</td>
+	<td>value b</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=Li9hc3NldFthc3NldFR5cGVJZD0nUGFnZVNlY3Rpb25Sb3dTY3JvbGxlckFzc2V0J11bMF0uL2F0dHJpYnV0ZVtpZD0nYSdd</td>
+	<td>a one</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=Li9hc3NldFthc3NldFR5cGVJZD0nUGFnZVNlY3Rpb25Sb3dTY3JvbGxlckFzc2V0J11bMV0uL2F0dHJpYnV0ZVtpZD0nYSdd</td>
+	<td>a two</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=Li9hc3NldFthc3NldFR5cGVJZD0nUGFnZVNlY3Rpb25Sb3dTY3JvbGxlckFzc2V0J11bMF0uL2F0dHJpYnV0ZVtpZD0nYidd</td>
+	<td>b one</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=Li9hc3NldFthc3NldFR5cGVJZD0nUGFnZVNlY3Rpb25Sb3dTY3JvbGxlckFzc2V0J11bMV0uL2F0dHJpYnV0ZVtpZD0nYidd</td>
+	<td>b two</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=//input[@class='pf-delete-button']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=//div[@class='pf-row-scroller']//input[@class='pf-add-button']</td>
+	<td></td>
+</tr>
+<!--Verify section scroller-->
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[@class='pf-section-scroller']//div[contains(@class,'pf-input-label')])[1]</td>
+	<td>value a</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=Li9hc3NldFthc3NldFR5cGVJZD0nUGFnZVNlY3Rpb25TZWN0aW9uU2Nyb2xsZXJBc3NldCddWzBdLi9hdHRyaWJ1dGVbaWQ9J2EnXQ</td>
+	<td>a one</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[@class='pf-section-scroller']//div[contains(@class,'pf-input-label')])[2]</td>
+	<td>value b</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=Li9hc3NldFthc3NldFR5cGVJZD0nUGFnZVNlY3Rpb25TZWN0aW9uU2Nyb2xsZXJBc3NldCddWzBdLi9hdHRyaWJ1dGVbaWQ9J2InXQ</td>
+	<td>b one</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[@class='pf-section-scroller']//div[contains(@class,'pf-input-label')])[3]</td>
+	<td>value a</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=Li9hc3NldFthc3NldFR5cGVJZD0nUGFnZVNlY3Rpb25TZWN0aW9uU2Nyb2xsZXJBc3NldCddWzFdLi9hdHRyaWJ1dGVbaWQ9J2EnXQ</td>
+	<td>a two</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//div[@class='pf-section-scroller']//div[contains(@class,'pf-input-label')])[4]</td>
+	<td>value b</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=Li9hc3NldFthc3NldFR5cGVJZD0nUGFnZVNlY3Rpb25TZWN0aW9uU2Nyb2xsZXJBc3NldCddWzFdLi9hdHRyaWJ1dGVbaWQ9J2InXQ</td>
+	<td>b two</td>
+</tr>
+<!--Verify question with details-->
+<tr>
+	<td>waitForText</td>
+	<td>name=Li9hdHRyaWJ1dGVbaWQ9J3F1ZXN0aW9uV2l0aERldGFpbE1haW4nXQ</td>
+	<td>exact:? No Yes</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>name=Li9hdHRyaWJ1dGVbaWQ9J3F1ZXN0aW9uV2l0aFN1YlNlY3Rpb25NYWluJ10</td>
+	<td>exact:? No Yes</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

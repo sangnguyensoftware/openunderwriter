@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="" />
+<title>Test two business types and quote doc</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Test two business types and quote doc</td></tr>
+</thead><tbody>
+<tr>
+	<td>setTimeout</td>
+	<td>300000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Get A Quote']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Proposer's Details</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>companyName</td>
+	<td>Clackton &amp; Son</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>address1</td>
+	<td>Test House</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>address2</td>
+	<td>Test Road</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>town</td>
+	<td>Testtown</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>county</td>
+	<td>Testingtonshire</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>postcode</td>
+	<td>CL1 2UK</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>title</td>
+	<td>label=Mr.</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>firstname</td>
+	<td>Jim</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>surname</td>
+	<td>Clackton</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>phone</td>
+	<td>0800 808080</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>email</td>
+	<td>client@ouwmail.co.uk</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>About The Proposer's Company</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>document.CompanyDetails.Li9hdHRyaWJ1dGVbaWQ9J2J1c2luZXNzJ10vYXR0cmlidXRlW2lkPSdnZW5lcmFsSW5zdXJhbmNlQnJva2VyJ10[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>document.CompanyDetails.Li9hdHRyaWJ1dGVbaWQ9J2J1c2luZXNzJ10vYXR0cmlidXRlW2lkPSdtb3J0Z2FnZUNvbXBhbnknXQ[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=Li9hdHRyaWJ1dGVbaWQ9J2ZpbmFuY2lhbFNlcnZpY2VzJ10</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>Li9hdHRyaWJ1dGVbaWQ9J21vcnRnYWdlV29yaydd</td>
+	<td>17</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>Li9hdHRyaWJ1dGVbaWQ9J2ZlZXNFc3RpbWF0ZWQnXQ</td>
+	<td>175000</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>Li9hdHRyaWJ1dGVbaWQ9J2luY2VwdGlvbkRhdGUnXQ</td>
+	<td>1/12/2008</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Li9hdHRyaWJ1dGVbaWQ9J3JldHJvYWN0aXZlRGF0ZUFwcGxpZWQnXQ</td>
+	<td>label=None - Unlimited</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Li9hdHRyaWJ1dGVbaWQ9J2xpbWl0T2ZJbmRlbW5pdHknXQ</td>
+	<td>label=€1,500,000.00</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Li9hdHRyaWJ1dGVbaWQ9J2xpbWl0T2ZJbmRlbW5pdHlXb3JkaW5nJ10</td>
+	<td>label=any one claim</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Next']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>The standard excess applicable</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Quote']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Your Quotation</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1,161.56</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Quit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>IBA/PIBA Professional Indemnity</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

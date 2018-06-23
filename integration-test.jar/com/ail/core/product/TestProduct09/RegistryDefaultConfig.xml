@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ This file defines a test product which will always decline.
+-->
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd">
+    <name>Configuration for Test Product 9</name>
+    <timeout>60000</timeout>
+    <who>factory</who>
+    <version>1.0</version>
+    <manager>com.ail.core.product.resetproduct.ResetProductService</manager>
+    <parentNamespace>com.ail.core.product.TestProduct04.Registry</parentNamespace>
+    
+    <types>
+        <service name="PolicyRule" key="com.ail.core.command.BeanShellAccessor" >
+            <parameter name="Script"><![CDATA[
+                import com.ail.financial.CurrencyAmount;
+                import com.ail.financial.Currency;
+                import com.ail.insurance.policy.*;
+                
+                /* get hold of the as */
+                as=args.getAssessmentSheetArgRet();
+                
+                /* add two lines - just to show that this rule has been run */
+                as.addFixedSum("dummyid1", "Loading", null, "total premium", new CurrencyAmount(0.0, Currency.GBP));
+                as.addDecline("dummyid2", "No reason", null);
+            ]]></parameter>
+        </service>
+
+        <type name="TestProduct09" key="com.ail.core.Type" builder="BeanShellBuilder">
+            <parameter name="Extends">TestProduct04</parameter>
+            <parameter name="Script"><![CDATA[
+                type=new com.ail.insurance.policy.Policy();
+                type.setProductTypeId("com.ail.core.product.TestProduct09");
+            ]]></parameter>
+        </type>
+    </types>
+</configuration>

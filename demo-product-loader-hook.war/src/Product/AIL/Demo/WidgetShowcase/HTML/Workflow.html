@@ -1,0 +1,55 @@
+<p>PageFlows provide a set of widgets which trigger the execution of
+	workflows.</p>
+
+<p>In this sample page workflows are attached to buttons to make
+	testing easier. However, it is probably more common to invoke them
+	conditionally on entry to, or exit from, a page.</p>
+
+<u>PageFlow</u>
+<p>Specific triggers are provided for common workflows (e.g. new
+	business referral). In general these do not require any additional
+	arguments:
+<p>
+<pre>
+    &lt;commandButtonAction label="..." destinationPageId="..." &gt;
+        &lt;triggerNewBusinessReferralWorkflow /&gt;
+    &lt;/commandButtonAction&gt;
+</pre>
+<p>A general trigger is provided to allow other supported workflows
+	to be triggered by name:</p>
+<pre>
+    &lt;commandButtonAction label="..." destinationPageId="..." &gt;
+        &lt;triggerNamedWorkflow workflowCommandName="<i>command name</i>" /&gt;
+    &lt;/commandButtonAction&gt;
+</pre>
+<ul>
+	<li><i>workflowCommandName</i> The name of the trigger command
+		(defined in the product's Registry.xml).</li>
+</ul>
+
+<u>More common usage</u>
+<p>The examples above show how to trigger a workflow directly from a
+	button on a page - i.e. the way that this page is setup. However, it is
+	more common to trigger them as the result of an event. The new business
+	referral workflow might, for example, be triggered automatically when
+	the referral page is displayed:</p>
+<pre>
+    &lt;questionPage id="Referral" title="Referral"&gt;
+        &lt;triggerNewBusinessReferralWorkflow when="onRenderResponse" /&gt;
+        ...
+    &lt;questionPage&gt;
+</pre>
+<p>A workflow can also be triggered conditionally:
+<p>
+<pre>
+    &lt;questionPage id="..." title="..."&gt;
+        &lt;triggerNewBusinessReferralWorkflow when="onRenderResponse" condition=""i:test(status[.='REFERRED'])"/&gt;
+        ...
+    &lt;questionPage&gt;
+</pre>
+<div class="pf-page-title">Using this test page</div>
+<p>To help in the testing of workflows, you can override the policy
+	number of the policy being used by this test by entering a string in
+	the field below and clicking "Apply Override Values". This will make it
+	easier to identify the workflows created when the "Trigger New Business
+	Referral Workflow" is used to trigger the actual workflow.<p>

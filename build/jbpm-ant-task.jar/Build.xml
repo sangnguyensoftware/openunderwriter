@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project default="build" name="openunderwriter:build/jbpm-ant-task.jar">
+  <import file="../../BuildSettings.xml" />
+
+  <target name="clean" description="delete everything that the build can generate">
+    <delete-jar-macro />
+  </target>
+
+  <target name="_build">
+    <compile-jar-macro merge-configs="no">
+      <javac-classpath/>
+    </compile-jar-macro>
+  </target>
+
+  <target name="build" description="compile (generate, copy, etc) all build outputs">
+    <antcall target="_build" />
+  </target>
+
+  <target name="setup" description="run all the one-time-only steps - like copying libs into place">
+  </target>
+
+  <target name="teardown" description="undo whatever setup did" depends="clean">
+  </target>
+
+  <target name="release" description="build and promote releasable artifacts">
+    <antcall target="teardown" />
+    <antcall target="setup" />
+    <antcall target="build" />
+  	<package-exploded-jar-macro />
+    <copy file="${output.dir}" todir="${buildlib.dir}" />
+  </target>
+</project>

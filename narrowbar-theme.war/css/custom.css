@@ -1,0 +1,485 @@
+@import "compass";
+
+@import url(custom_common.css);
+
+@import url(color_schemes/green.css);
+
+@import url(color_schemes/orange.css);
+
+/* ---------- Base styles ---------- */
+
+body {
+    background-color: #FFFFFF;
+    font-size: 13px;
+}
+
+a {
+    color: #5B677D;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #06C;
+    text-decoration: none;
+}
+
+hr, .separator {
+    border-color: #BFBFBF transparent #FFF;
+    border-style: solid;
+    border-width: 1px 0;
+}
+
+#wrapper {
+    background: none;
+    margin: 0 auto;
+    width: 1127px;
+    position: relative;
+}
+
+.ie6 #wrapper {
+    width: 90%;
+}
+
+#banner {
+    background-size: 100% 8px;
+    font-size: 1.2em;
+    height: auto;
+    margin-left: 10px;
+    margin-top: 0;
+    min-height: 90px;
+    position: relative;
+}
+
+#heading > h1 {
+    margin: 0;
+}
+
+#banner > div {
+    display: inline;
+    float: left;
+}
+
+.portlet-borderless-container {
+    background-color: #FFFFFF;
+    margin: 0 0;
+    min-height: 2.5em;
+    padding: 0;
+    position: relative;
+}
+
+.ie .portlet-borderless-container {
+    border: 1px solid #C8C9CA;
+}
+
+.site-title .site-name {
+    background: #555 url(../images/common/site_icon.png) no-repeat 15px 50%;
+    color: #FFF;
+    display: block;
+    float: right;
+    font-size: 1em;
+    font-weight: bold;
+    margin: 15px 0 0 20px;
+    padding: 7px 17px 7px 40px;
+    position: relative;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.page-template .site-title .site-name {
+    background-image: url(../images/common/page_template.png);
+}
+
+.site-template .site-title .site-name {
+    background-image: url(../images/common/site_template.png);
+}
+
+.company-site .site-title .site-name {
+    background-image: url(../images/common/folder.png);
+}
+
+.organization-site .site-title .site-name {
+    background-image: url(../images/common/organization_icon_white.png);
+}
+
+.user-site .site-title .site-name {
+    background-image: url(../images/common/user_icon_white.png);
+}
+
+.private-page .site-title .site-name:after {
+    background-image: url(../images/common/key_small.png);
+    content: '';
+    display: block;
+    height: 10px;
+    left: 24px;
+    position: absolute;
+    top: 50%;
+    width: 10px;
+}
+
+#skip-to-content:focus {
+    clip: rect(auto auto auto auto);
+    right: 0;
+    z-index: 200;
+}
+
+#sign-in {
+    display:none;
+}
+
+.ie6 #banner {
+    height: 1%;
+}
+
+.ie6 #banner h1.logo {
+    height: 1%;
+}
+
+/* ---------- Main navigation ---------- */
+
+#navigation {
+    display: none;
+}
+
+/* ---------- Portlet wrapper and icons ---------- */
+
+.portlet {
+    background-color: #EEF0F2;
+    border: 1px solid #C8C9CA;
+    margin: 0 0 10px;
+    padding: 3px;
+    text-align: left;
+}
+
+.portlet-topper {
+    background: #D4D4D4 url(@theme_image_path@/portlet/header_bg.png) repeat-x 0 0;
+    border: 1px solid;
+    border-color: #C8C9CA #9E9E9E #9E9E9E #C8C9CA;
+    font-size: 1.1em;
+}
+
+.portlet-title {
+    float: none;
+    font-weight: bold;
+    min-width: 50%;
+    padding: 5px;
+    text-shadow: 1px 1px #FFF;
+}
+
+.signed-in.controls-visible .portlet-title {
+    padding-right: 80px;
+}
+
+.lfr-portlet-title-editable {
+    margin-top: -4px;
+    z-index: 9999;
+}
+
+.ie .lfr-portlet-title-editable {
+    margin-top: -6px;
+}
+
+.lfr-portlet-title-editable-content {
+    padding: 0;
+}
+
+.ie .lfr-portlet-title-editable-content {
+    margin-top: 4px;
+}
+
+.portlet-icons {
+    float: none;
+}
+
+.portlet-icons .portlet-close-icon {
+    border-width: 0;
+}
+
+.page-maximized .portlet-icons {
+    font-size: 11px;
+}
+
+.portlet-icon-back {
+}
+
+.ie .portlet-title {
+    padding-bottom: 5px;
+}
+
+.ie6 .portlet-topper {
+    zoom: 1;
+}
+
+/* ---------- Footer ---------- */
+
+#footer {
+    text-align: center;
+    font-size: 0.8em;
+    clear: both;
+}
+
+/* ---------- Site breadcrumbs ---------- */
+
+.site-breadcrumbs {
+    margin: 0 0 5px;
+    width: auto;
+}
+
+.site-breadcrumbs ul {
+    background-color: #FFF;
+    border: 1px solid #DEDEDE;
+    border-color: #C0C2C5;
+    margin: 0;
+}
+
+.site-breadcrumbs li {
+    background-image: none;
+    margin-right: 0;
+    padding-left: 0.75em;
+    padding-right: 0;
+}
+
+.site-breadcrumbs li span {
+    background: url(@theme_image_path@/common/breadcrumbs.png) no-repeat 100% 50%;
+    display: block;
+    padding: 0.5em 15px 0.5em 0;
+}
+
+.site-breadcrumbs li span a {
+    text-decoration: none;
+}
+
+.site-breadcrumbs li.first a {
+    color: #369;
+    font-weight: bold;
+}
+
+.site-breadcrumbs li.last a {
+    color: #4B5567;
+    font-size: 1.3em;
+}
+
+.site-breadcrumbs .last {
+    font-size: 1em;
+    margin-top: 0;
+    padding-right: 0;
+}
+
+.site-breadcrumbs .last span {
+    background-image: none;
+    padding: 0;
+}
+
+/* ---------- Hudcrumbs ---------- */
+
+.lfr-hudcrumbs {
+    position: fixed;
+    top: 0;
+    z-index: 440;
+}
+
+.lfr-hudcrumbs ul {
+    background: #414445;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.lfr-hudcrumbs .breadcrumbs li a, .lfr-hudcrumbs .breadcrumbs li span {
+    color: #FFF;
+}
+
+.lfr-hudcrumbs li span {
+    background-image: url(@theme_image_path@/common/breadcrumbs_hud.png);
+}
+
+/* ---------- Misc. ---------- */
+
+.lfr-panel-container {
+    background-color: transparent;
+}
+
+.aui-combobox .aui-field-input {
+    padding: 4px 3px 3px;
+    font-size: 11px;
+    height: 15px;
+}
+
+.aui-combobox .aui-field {
+    float: left;
+    line-height: 0;
+}
+
+.lfr-portlet-title-editable-content .aui-field {
+    float: none;
+    display: inline;
+}
+
+/* ---------- Extras ---------- */
+
+#banner .site-name {
+    @include box-shadow(inset 0 0 5px rgba(0, 0, 0, 0.8), 1px 1px 1px #FFF);
+}
+
+.portlet-borderless-bar {
+    -moz-border-radius: 20px;
+    -moz-box-shadow: inset 0 1px 3px #000;
+    -webkit-border-radius: 20px;
+    -webkit-box-shadow: inset 0 1px 3px #000;
+    border-radius: 20px;
+    box-shadow: inset 0 1px 3px #000;
+}
+
+.portlet-topper {
+    -moz-box-shadow: 1px 1px 0 #FFF;
+    -webkit-box-shadow: 1px 1px 0 #FFF;
+    box-shadow: 1px 1px 0 #FFF;
+}
+
+#banner .site-name {
+    @include border-radius(4px);
+    @include box-shadow(inset 0 0 5px rgba(0, 0, 0, 0.8), 1px 1px 1px #FFF);
+}
+
+#navigation li.selected a {
+    /*-moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8);
+    -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8);*/
+    border-bottom: 3px solid #1D8412; 
+}
+
+.aui-combobox .aui-toolbar-first {
+    -moz-border-radius-topleft: 0;
+    -moz-border-radius-bottomleft: 0;
+    -webkit-border-top-left-radius: 0;
+    -webkit-border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/* ------- OpenUnderwriter theme specific overrides -------- */
+
+/* Start of application.css overrides */
+
+.aui-state-default {
+    background: #D4D4D4 url(../images/portlet/header_bg.png) 1 0 repeat-x;
+}
+
+.aui-menu-content, .lfr-menu-list ul {
+    background-color: #FFFFFF;
+}
+
+.aui-menugroup-content .aui-menu-label {
+    background: none repeat scroll 0 0 #F0F0F0;
+    border-bottom: 1px solid #1D8412;
+    color: #000000;
+    font-weight: normal;
+}
+
+.aui-menu-content a, .lfr-menu-list li .taglib-icon, .aui-menu-content .disabled, .lfr-actions .lfr-trigger, .lfr-actions .lfr-trigger strong {
+    font-weight: normal;
+    text-shadow: none;
+}
+
+/* Start of base.css overrides */
+
+body {
+    font-size: 13px;
+    font-family: 'Open Sans', arial, sans-serif;
+}
+
+ul.show-arrow {
+    overflow: hidden;
+}
+
+p {
+    color: rgb(102, 102, 102);
+}
+
+/* Start of custom_common.css overrides */
+
+.lfr-title-scope-selector {
+     -moz-border-radius-bottomleft: none; 
+     -webkit-border-bottom-left-radius: none; 
+     border-bottom-left-radius: none; 
+}
+
+.lfr-title-scope-selector {
+     -moz-border-radius-bottomright: none;
+     -webkit-border-bottom-right-radius: none; 
+     border-bottom-right-radius: none; 
+}
+
+.logo .current-site, #navigation, #navigation a, .portlet, .portlet-topper, .site-breadcrumbs ul, .aui-form-validator-message {
+     -moz-border-radius: none; 
+     -webkit-border-radius: none; 
+     border-radius: none; 
+}
+
+/* Start of dockbar.css overrides */
+
+.portlet-dockbar {
+    border-bottom-color: #1D8412;
+}
+
+.dockbar {
+    background-color: #FFF;
+    background-image: none;
+    font-size: 12px;
+    -webkit-box-shadow: 1px 1px 4px 0 #103010;
+    box-shadow: 1px 1px 4px 0 #103010;
+}
+
+.dockbar a {
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.pin-dockbar img {
+    height: 19px;
+    width: 16px;
+}
+
+.dockbar .add-content .menu-button span {
+    background-image: url(../images/dockbar/add.png);
+}
+
+/* Start of extras.css overrides */
+
+.journal-content-article {
+    font-size: 1.2em;
+    line-height: 1.4em;
+    margin: 5px;
+}
+
+/* Start of forms.css overrides */
+
+.textarea-tinymce {
+    background-image: url(../images/forms/input_shadow.png);
+    background-repeat: no-repeat;
+    padding: 5px 1px;
+    font: 13px Arial, Helvetica, Verdana, sans-serif;
+    border-style: none;
+}
+
+.mce-tinymce {
+    min-width: 250px;
+}
+
+.wiki-body {
+    font-size: 1.2em;
+}
+
+/* Column layout fixing */
+
+#column-1 {
+    margin-left: 0;
+    padding-left: 0;
+    width: 934px;
+}
+
+#column-2 {
+    margin-left: 0;
+    width: 178px;
+}
+
+#sign-in {
+    display: inline;
+    float: right;
+    padding-right:25px;
+}

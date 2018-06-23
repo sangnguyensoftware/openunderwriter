@@ -1,0 +1,136 @@
+<translations defaultLanguage="en" xsi:type="java:com.ail.core.language.Translations" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <translation language="en">
+    <element key="i18n_travel_detail_label">Get a quote:</element>
+    <element key="i18n_cover_detail_label">Cover detail:</element>
+    <element key="i18n_quote_options_label">Select a policy:</element>
+    <element key="i18n_proposer_details_label">Contact details:</element>
+    <element key="i18n_summary_label">Policy summary:</element>
+	<element key="i18n_view_quotation_label">View Quotation:</element>
+	<element key="i18n_referral_label">Referral:</element>
+    <element key="i18n_payment_details_label">Payment details:</element>
+    <element key="i18n_payment_failure_label">No payment:</element>
+    <element key="i18n_finish_label">Thank you:</element>
+
+	<element key="i18n_travellers_label">Travellers:</element>
+	<element key="i18n_cover_label">Include protection against:</element>
+	<element key="i18n_3_star_protection_label">3 Star Protection</element>
+	<element key="i18n_4_star_protection_label">4 Star Protection</element>
+	<element key="i18n_5_star_protection_label">5 Star Protection</element>
+	
+    <element key="i18n_policy_type_label">Policy Type:</element>
+    <element key="i18n_policy_type_error">Please select a policy type to continue.</element>
+    <element key="i18n_policy_type_single_trip_option">Single Trip</element>
+    <element key="i18n_policy_type_multi_trip_option">Annual Multi-Trip</element>
+    <element key="i18n_winter_sports_label">Include Winter Sports:</element>
+    <element key="i18n_winter_sports_error">Please indicate if winter sports cover is required.</element>
+    <element key="i18n_winter_sports_help">Select 'Yes' if you require cover to be provided for skiing, snowboarding, and/or other winter sports activities.</element>
+    <element key="i18n_destination_label">Destination:</element>
+    <element key="i18n_destination_error">Please select your travel destination(s).</element>
+    <element key="i18n_destination_help">
+United Kingdom: England, Northern Ireland, Scotland, Wales, The Isle of Man and the Channel Islands.&lt;br&gt;
+Europe: All of Europe, including all the countries to the west of the Ural Mountains, the Mediterranean Islands, the Canary Islands, Turkey, Madeira, the Azores and Iceland.&lt;br&gt;
+Worldwide excluding: USA, Canada and Caribbean.&lt;br&gt;
+Worldwide including USA, Canada and Caribbean: USA, Canada, all Caribbean Islands and all other countries.
+	</element>
+    <element key="i18n_destination_united_kingdom_option">United Kingdom</element>
+    <element key="i18n_destination_europe_option">Europe</element>
+    <element key="i18n_destination_world_wide_excluding_option">Worldwide excluding USA, Canada and Caribbean</element>
+    <element key="i18n_destination_world_wide_including_option">Worldwide including USA, Canada and Caribbean</element>
+    <element key="i18n_party_type_label">Party Type:</element>
+    <element key="i18n_party_type_error">Please select the type of group (or individual) to be covered.</element>
+    <element key="i18n_party_type_help">
+Individual&lt;br&gt;
+One person on the policy.&lt;br&gt;
+&lt;br&gt;
+Couple&lt;br&gt;
+An individual and his or her partner provided they live together. A partner would include a civil partner.&lt;br&gt;
+&lt;br&gt;
+Family&lt;br&gt;
+A couple provided they live together and their dependent children (which can include fostered or adopted children) who are 17 years of age or under at the date of buying this policy and are either in full time education or living with them;&lt;br&gt;
+Or:&lt;br&gt;
+A single parent and their dependent children (which can include fostered or adopted children) who are 17 years of age or under at the date of buying this policy and are either in full time education or living with them.&lt;br&gt;
+&lt;br&gt;
+Group&lt;br&gt;
+Up to 9 people. All members of the group must travel together.&lt;br&gt;
+&lt;br&gt;
+Number of Travellers (and ages): (All travellers must be travelling to the same destination for the same duration.)
+	</element>
+    <element key="i18n_party_type_individual_option">Individual</element>
+    <element key="i18n_party_type_couple_option">Couple</element>
+    <element key="i18n_party_type_family_option">Family</element>
+    <element key="i18n_party_type_group_option">Group</element>
+    <element key="i18n_party_type_individual_error">Individuals should detail a single adult traveller.</element>
+    <element key="i18n_party_type_couple_error">Couples should list two adult travellers.</element>
+    <element key="i18n_party_type_family_error">Family Groups should list up to two adults with one child, up to five travellers in total.</element>
+    <element key="i18n_party_type_group_error">Groups should list between two and nine adults and no children.</element>
+
+    <element key="i18n_first_name_label">first name:</element>
+    <element key="i18n_first_name_hint">first name</element>
+    <element key="i18n_first_name_error">Please enter the names to be included.</element>
+    <element key="i18n_first_name_help">The name of the individuals to be insured.</element>
+    <element key="i18n_last_name_label">surname:</element>
+    <element key="i18n_last_name_hint">surname</element>
+    <element key="i18n_last_name_error">Please enter the names to be included.</element>
+    <element key="i18n_last_name_help">The name of the individuals to be insured.</element>
+    <element key="i18n_age_label">age:</element>
+    <element key="i18n_age_hint">age</element>
+    <element key="i18n_age_error">Please enter the age of the individuals to be included.</element>
+    <element key="i18n_age_help">The age of the individuals to be insured.</element>
+	
+    <element key="i18n_medical_conditions_label">Any medical conditions:</element>
+    <element key="i18n_medical_conditions_error">Please indicate if anyone being covered has any medical conditions.</element>
+    <element key="i18n_medical_conditions_help">Select 'Yes' if anyone to be insured on this policy has any previous medical conditions.</element>
+    <element key="i18n_natural_catastrophe_cover_label">Natural catastrophe:</element>
+    <element key="i18n_natural_catastrophe_cover_error">Please indicate if cover for natural catastrophes is required.</element>
+    <element key="i18n_natural_catastrophe_cover_help">Select 'Yes' if you require protection against natural catastrophes.</element>
+    <element key="i18n_personal_accident_cover_label">Personal accident:</element>
+    <element key="i18n_personal_accident_cover_error">Please indicate if cover for personal accident is required.</element>
+    <element key="i18n_personal_accident_cover_help">Select 'Yes' if you require protection against personal accident.</element>
+    <element key="i18n_trip_cancellation_cover_label">Trip cancellation:</element>
+    <element key="i18n_trip_cancellation_cover_error">Please indicate if cover for trip cancellation is required.</element>
+    <element key="i18n_trip_cancellation_cover_help">Select 'Yes' if you require protection against trip cancellation.</element>
+    <element key="i18n_loss_of_personal_money_cover_label">Loss of personal money:</element>
+    <element key="i18n_loss_of_personal_money_cover_error">Please indicate if cover for loss of personal money is required.</element>
+    <element key="i18n_loss_of_personal_money_cover_help">Select 'Yes' if you require protection against loss of personal money.</element>
+    <element key="i18n_loss_of_personal_belongings_cover_label">Loss of personal belongings:</element>
+    <element key="i18n_loss_of_personal_belongings_cover_error">Please indicate if cover for loss of personal belongings is required.</element>
+    <element key="i18n_loss_of_personal_belongings_cover_help">Select 'Yes' if you require protection against loss of personal belongings.</element>
+
+    <element key="i18n_premium_label">Premium</element>
+    <element key="i18n_select_section_1_label">Buy</element>
+    <element key="i18n_select_section_2_label">Buy</element>
+    <element key="i18n_select_section_3_label">Buy</element>
+    <element key="i18n_cover_label">Cover</element>
+    <element key="i18n_cover_not_selected_label">-</element>
+    <element key="i18n_cover_not_included_label">-</element>
+    <element key="i18n_cover_included_label">included</element>
+    <element key="i18n_winter_sports_limit_label">Winter Sports:</element>
+    <element key="i18n_natural_catastrophe_limit_label">Natural Catastrophe:</element>
+    <element key="i18n_personal_accident_limit_label">Personal Accident:</element>
+    <element key="i18n_trip_cancellation_limit_label">Trip Cancellation:</element>
+    <element key="i18n_loss_of_personal_money_limit_label">Personal Money Loss:</element>
+    <element key="i18n_loss_of_personal_belongings_limit_label">Belongings Loss:</element>
+    <element key="i18n_medical_expenses_limit_label">Medical Expenses:</element>
+    <element key="i18n_personal_liability_limit_label">Personal Liability:</element>
+    <element key="i18n_cutting_your_trip_short_limit_label">Trip Cut Short:</element>
+    <element key="i18n_passport_and_travel_documents_limit_label">Passport &amp; Travel Docs:</element>
+    <element key="i18n_scheduled_airline_failure_limit_label">Scheduled Airline Failure:</element>
+    <element key="i18n_end_supplier_failure_limit_label">End Supplier Failure:</element>
+    <element key="i18n_concierge_service_limit_label">Concierge Service:</element>
+	
+    <element key="i18n_your_quotation_label">Your quotation:</element>
+    <element key="i18n_quote_label">Quote</element>
+    <element key="i18n_quote_ref_label">Your quote reference is:</element>	
+    <element key="i18n_tax_label">Insurance premium tax:</element>
+    <element key="i18n_broker_fee_label">Broker Fee:</element>
+
+
+    <element key="i18n_view_quotation_document_button_label">View Quotation Documentation</element>
+    <element key="i18n_view_certificate_document_button_label">View Policy Certificate</element>
+	
+  </translation>
+</translations>
+
+
+
+

@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <xs:element name="asset" type="Asset" />
+    <xs:element name="excess" type="Excess" />
+    <xs:element name="section" type="Section" />
+    <xs:element name="paymentHoliday" type="PaymentHoliday" />
+    <xs:element name="note" type="Note" />
+    <xs:element name="moneyProvision" type="MoneyProvision" />
+    <xs:element name="directDebit" type="DirectDebit" />
+    <xs:element name="paymentCard" type="PaymentCard" />
+    <xs:element name="claim" type="Claim" />
+    <xs:element name="clause" type="Clause" />
+    <xs:element name="reference" type="Reference" />
+    <xs:element name="partyRole" type="PartyRole" />
+    <xs:element name="partyRelationship" type="PartyRelationship" />
+    
+    <xs:element name="labels" type="Labels">
+        <xs:unique name="targetUniqueness">
+            <xs:selector xpath="labels" /> 
+            <xs:field xpath="@target" /> 
+        </xs:unique>
+    </xs:element>
+    
+    <xs:complexType name="Type">
+        <xs:sequence>
+            <xs:element name="attribute" type="Attribute" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="type" use="optional" type="xs:string" />
+        <xs:attribute name="systemId" use="optional" type="xs:integer" />
+        <xs:attribute name="externalSystemId" use="optional" type="xs:NCName" />
+        <xs:attribute name="serialVersion" use="optional" type="xs:integer" />
+        <xs:attribute name="lock" use="optional" type="xs:boolean" />
+        <xs:attribute name="foreignSystemId" use="optional" type="xs:string" />
+        <xs:attribute name="createdBy" use="optional" type="xs:integer" />
+        <xs:attribute name="createdDate" use="optional" type="xs:date" />
+        <xs:attribute name="updatedBy" use="optional" type="xs:integer" />
+        <xs:attribute name="updatedDate" use="optional" type="xs:date" />
+    </xs:complexType>
+
+    <xs:complexType name="CurrencyAmount">
+        <xs:attribute name="amount" use="required" type="xs:decimal" />
+        <xs:attribute name="currency" use="required" type="xs:string" />
+    </xs:complexType>
+
+    <xs:simpleType name="YesNo">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Yes" />
+            <xs:enumeration value="No" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="Attribute">
+        <xs:complexContent>
+            <xs:extension base="Type">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="value" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    </xs:choice>
+                </xs:sequence>
+                <xs:attribute name="id" use="required" type="xs:string" />
+                <xs:attribute name="value" use="optional" type="xs:string" />
+                <xs:attribute name="format" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:pattern
+                                value="(note|currency|string|number|date|choice|yesorno)[,;]?(size=([0-9]*))?[,;]?(type=[A-Za-z0-9_.]*)?[,;]?(slave=[A-Za-z0-9_.]*)?[,;]?(master=[A-Za-z0-9_.]*)?[,;]?(options=[^;]*)?[,;]?(min=[0-9.-]*)?[,;]?(max=[0-9.-]*)?[,;]?(required=(no|yes))?[,;]?(pattern=[^;]*)?" />
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="unit" use="optional" type="xs:string" />
+                <xs:attribute name="source" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Asset">
+        <xs:complexContent>
+            <xs:extension base="Type">
+                <xs:sequence>
+                    <xs:element name="asset" type="Asset" minOccurs="0" maxOccurs="unbounded" />
+                </xs:sequence>
+                <xs:attribute name="id" use="optional" type="xs:string" />
+                <xs:attribute name="assetTypeId" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Excess">
+        <xs:complexContent>
+            <xs:extension base="Type">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="title" type="xs:string" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="amount" type="CurrencyAmount" minOccurs="1" maxOccurs="1" />
+                        <xs:element name="assetId" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+                    </xs:choice>
+                </xs:sequence>
+                <xs:attribute name="id" use="optional" type="xs:string" />
+                <xs:attribute name="excessTypeId" use="optional" type="xs:string" />
+                <xs:attribute name="title" use="optional" type="xs:string" />
+                <xs:attribute name="deductible" use="optional" type="xs:boolean" />
+                <xs:attribute name="enabled" use="optional" type="xs:boolean" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Coverage">
+        <xs:complexContent>
+            <xs:extension base="Type">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="effectiveDate" type="xs:date" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="limit" type="CurrencyAmount" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="deductible" type="CurrencyAmount" minOccurs="0" maxOccurs="1" />
+                    </xs:choice>
+                </xs:sequence>
+                <xs:attribute name="id" use="optional" type="xs:string" />
+                <xs:attribute name="coverageTypeId" use="optional" type="xs:string" />
+                <xs:attribute name="enabled" use="optional" type="xs:boolean" />
+                <xs:attribute name="optional" use="optional" type="xs:boolean" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Section">
+        <xs:complexContent>
+            <xs:extension base="Type">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="assetId" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+                        <xs:element name="uninsuredAssetId" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+                        <xs:element name="coverage" type="Coverage" minOccurs="0" maxOccurs="unbounded" />
+                    </xs:choice>
+                </xs:sequence>
+                <xs:attribute name="id" use="optional" type="xs:string" />
+                <xs:attribute name="sectionTypeId" use="optional" type="xs:string" />
+                <xs:attribute name="excluded" use="optional" type="YesNo" />
+                <xs:attribute name="included" use="optional" type="YesNo" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Note">
+        <xs:complexContent>
+            <xs:extension base="Type">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="title" type="xs:string" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="body" type="xs:string" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="type" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="PaymentHoliday">
+        <xs:complexContent>
+            <xs:extension base="Type">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="startDate" type="xs:date" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="endDate" type="xs:date" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="note" type="Note" minOccurs="0" maxOccurs="unbounded" />
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:simpleType name="FinancialFrequency">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="UNDEFINED" />
+            <xs:enumeration value="WEEKLY" />
+            <xs:enumeration value="BIWEEKLY" />
+            <xs:enumeration value="MONTHLY" />
+            <xs:enumeration value="BIMONTHLY" />
+            <xs:enumeration value="QUARTERLY" />
+            <xs:enumeration value="SEMESTERLY" />
+            <xs:enumeration value="YEARLY" />
+            <xs:enumeration value="ONE_TIME" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="MoneyProvisionStatus">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="NEW" />
+            <xs:enumeration value="REQUESTED" />
+            <xs:enumeration value="AUTHORISED" />
+            <xs:enumeration value="CANCELLED" />
+            <xs:enumeration value="COMPLETE" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="MoneyProvisionPurpose">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="PREMIUM" />
+            <xs:enumeration value="ARREARS" />
+            <xs:enumeration value="CLAIM" />
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="PaymentMethodStatus">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="PENDING" />
+            <xs:enumeration value="APPROVED" />
+            <xs:enumeration value="DECLINED" />
+            <xs:enumeration value="REVOKED" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:group name="PaymentMethodTypesGroup">
+        <xs:sequence>
+            <xs:choice>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="directDebit" type="DirectDebit" />
+                    <xs:element name="eWAY" type="Eway" />
+                    <xs:element name="orange" type="Orange" />
+                    <xs:element name="paymentCard" type="PaymentCard" />
+                    <xs:element name="payPal" type="PayPal" />
+                    <xs:element name="sagePay" type="SagePay" />
+                    <xs:element name="stripe" type="Stripe" />
+                </xs:choice>
+            </xs:choice>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:complexType name="PaymentMethod">
+        <xs:complexContent>
+            <xs:extension base="Type">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="id" type="xs:string" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="status" type="PaymentMethodStatus"  minOccurs="0" maxOccurs="1"/>
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="DirectDebit">
+        <xs:complexContent>
+            <xs:extension base="PaymentMethod">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="accountNumber" type="xs:string" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="sortCode" type="xs:string"  minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="name" type="xs:string"  minOccurs="0" maxOccurs="1"/>
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="Eway">
+        <xs:complexContent>
+            <xs:extension base="PaymentMethod"/>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="Orange">
+        <xs:complexContent>
+            <xs:extension base="PaymentMethod">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="PaymentCard">
+        <xs:complexContent>
+            <xs:extension base="PaymentMethod">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="cardHoldersName" type="xs:string" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="cardNumber" type="xs:string"  minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="issueNumber" type="xs:string"  minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="issuer" type="xs:string" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="startDate" type="xs:date"  minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="expiryDate" type="xs:date"  minOccurs="0" maxOccurs="1"/>
+                    </xs:choice>
+                </xs:sequence>
+             </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="PayPal">
+        <xs:complexContent>
+            <xs:extension base="PaymentMethod"/>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="SagePay">
+        <xs:complexContent>
+            <xs:extension base="PaymentMethod"/>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="Stripe">
+        <xs:complexContent>
+            <xs:extension base="PaymentMethod"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="MoneyProvision">
+        <xs:complexContent>
+            <xs:extension base="Type">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="paymentMethod" type="PaymentMethod" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="amount" type="CurrencyAmount" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="paymentsStartDate" minOccurs="0" maxOccurs="1" type="xs:date" />
+                        <xs:element name="paymentsEndDate" minOccurs="0" maxOccurs="1" type="xs:date" />
+                        <xs:element name="number" minOccurs="0" maxOccurs="1" type="xs:int" />
+                        <xs:element name="description" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="frequency" minOccurs="0" maxOccurs="1" type="FinancialFrequency" />
+                        <xs:element name="status" minOccurs="0" maxOccurs="1" type="MoneyProvisionStatus" />
+                        <xs:element name="day" minOccurs="0" maxOccurs="1" type="xs:int" />
+                        <xs:element name="purpose" minOccurs="0" maxOccurs="1" type="MoneyProvisionPurpose" />
+                        <xs:element name="paymentId" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="saleId" minOccurs="0" maxOccurs="1" type="xs:string" />
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:simpleType name="ClaimStatus">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="OPEN" />
+            <xs:enumeration value="ENQUIRY" />
+            <xs:enumeration value="NOTIFIED" />
+            <xs:enumeration value="FORM_RECEIVED" />
+            <xs:enumeration value="IN_ASSESSMENT" />
+            <xs:enumeration value="REJECTED" />
+            <xs:enumeration value="IN_PAYMENT" />
+            <xs:enumeration value="CLOSED" />
+            <xs:enumeration value="REOPEN" />
+            <xs:enumeration value="CLOSED" />
+            <xs:enumeration value="REOPEN" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="RecoveryStatus">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="OPEN" />
+            <xs:enumeration value="CLOSED" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:group name="ContactSystemTypesGroup">
+        <xs:sequence>
+            <xs:choice>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="address" type="Address" />
+                    <xs:element name="emailAddress" type="EmailAddress" />
+                    <xs:element name="phoneNumber" type="PhoneNumber" />
+                </xs:choice>
+            </xs:choice>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:complexType name="ContactSystem">
+        <xs:complexContent>
+            <xs:extension base="Type">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="primary" minOccurs="0" maxOccurs="1" type="xs:boolean" />
+                        <xs:element name="startDate" minOccurs="0" maxOccurs="1" type="xs:date" />
+                        <xs:element name="endDate" minOccurs="0" maxOccurs="1" type="xs:date" />
+                        <xs:element name="type" minOccurs="0" maxOccurs="1" type="xs:string" />
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="EmailAddress">
+        <xs:complexContent>
+            <xs:extension base="ContactSystem">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="emailAddress" minOccurs="1" maxOccurs="1" type="xs:string" />
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="PhoneNumber">
+        <xs:complexContent>
+            <xs:extension base="ContactSystem">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="phoneNumber" minOccurs="1" maxOccurs="1" type="xs:string" />
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="Address">
+        <xs:complexContent>
+            <xs:extension base="ContactSystem">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="line1" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="line2" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="line3" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="line4" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="line5" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="town" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="county" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="country" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="postcode" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="fullAddress" minOccurs="0" maxOccurs="1" type="xs:string" />
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:simpleType name="ContactPreference">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="POST" />
+            <xs:enumeration value="EMAIL" />
+            <xs:enumeration value="TELEPHONE" />
+            <xs:enumeration value="MOBILE" />
+            <xs:enumeration value="SMS" />
+            <xs:enumeration value="PORTAL" />
+            <xs:enumeration value="UNDEFINED" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="Party">
+        <xs:complexContent>
+            <xs:extension base="Type">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="partyId" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="legalName" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="note" minOccurs="0" maxOccurs="unbounded" type="Note" />
+                        <xs:element name="contactPreference" minOccurs="0" maxOccurs="1" type="ContactPreference" />
+                        <xs:element name="partyRelationship" minOccurs="0" maxOccurs="unbounded" type="PartyRelationship" />
+                        <xs:group ref="PaymentMethodTypesGroup" />
+                        <xs:group ref="ContactSystemTypesGroup" />
+                    </xs:choice>
+                </xs:sequence>
+                <xs:attribute name="id" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="PartyRelationship">
+        <xs:complexContent>
+            <xs:extension base="Type">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="party" minOccurs="1" maxOccurs="1" type="Party" />
+                    </xs:choice>
+                </xs:sequence>
+                <xs:attribute name="id" use="optional" type="xs:string" />
+                <xs:attribute name="startDate" use="optional" type="xs:date" />
+                <xs:attribute name="endDate" use="optional" type="xs:date" />
+                <xs:attribute name="relationship" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="PartyRole">
+        <xs:complexContent>
+            <xs:extension base="Type">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="party" minOccurs="1" maxOccurs="1" type="Party" />
+                    </xs:choice>
+                </xs:sequence>
+                <xs:attribute name="id" use="optional" type="xs:string" />
+                <xs:attribute name="startDate" use="optional" type="xs:date" />
+                <xs:attribute name="endDate" use="optional" type="xs:date" />
+                <xs:attribute name="role" use="optional" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:simpleType name="RecoveryType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="NON_CASH" />
+            <xs:enumeration value="SUBROGATION" />
+            <xs:enumeration value="SUBROGATION_SURETY" />
+            <xs:enumeration value="SUBROGATION_FIDELITY" />
+            <xs:enumeration value="DEDUCTIBLE_RETURN" />
+            <xs:enumeration value="CONTRIBUTION_FROM_THIRD_PARTY" />
+            <xs:enumeration value="CONTRIBUTION_FROM_INSURED" />
+            <xs:enumeration value="SUBROGATION_SECOND_INJURY_FUND" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="PaymentType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SUBROGATION_LEGAL" />
+            <xs:enumeration value="SUBROGATION_CONSULTANT" />
+            <xs:enumeration value="SUBROGATION_COURT_EXPENSES" />
+            <xs:enumeration value="ADR_EXPENSES" />
+            <xs:enumeration value="SUBROGATION_OTHER" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="ClaimRecovery">
+        <xs:complexContent>
+            <xs:extension base="Type">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="reason" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="recoveredFrom" minOccurs="0" maxOccurs="1" type="Party" />
+                        <xs:element name="recoveryType" minOccurs="0" maxOccurs="1" type="RecoveryType" />
+                        <xs:element name="paymentType" minOccurs="0" maxOccurs="1" type="PaymentType" />
+                        <xs:element name="recoveredDate" minOccurs="0" maxOccurs="1" type="xs:date" />
+                        <xs:element name="amount" minOccurs="0" maxOccurs="1" type="CurrencyAmount" />
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ClaimSection">
+        <xs:complexContent>
+            <xs:extension base="Type">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="claimRecovery" minOccurs="0" maxOccurs="unbounded" type="ClaimRecovery" />
+                        <xs:element name="estimatedReserve" minOccurs="0" maxOccurs="1" type="CurrencyAmount" />
+                        <xs:element name="totalRecovered" minOccurs="0" maxOccurs="1" type="CurrencyAmount" />
+                        <xs:element name="outstandingClaim" minOccurs="0" maxOccurs="1" type="CurrencyAmount" />
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Claim">
+        <xs:complexContent>
+            <xs:extension base="Type">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="status" minOccurs="1" maxOccurs="1" type="ClaimStatus" />
+                        <xs:element name="recoveryStatus" minOccurs="0" maxOccurs="1"  type="RecoveryStatus" />
+                        <xs:element name="claimNumber" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="section" minOccurs="0" maxOccurs="unbounded" type="ClaimSection" />
+                        <xs:element name="asset" minOccurs="0" maxOccurs="unbounded" type="Asset" />
+                        <xs:element name="note" minOccurs="0" maxOccurs="unbounded" type="Note" />
+                        <xs:element name="subrogationPotential" minOccurs="0" maxOccurs="1" type="xs:boolean" />
+                        <xs:element name="subrogationWaiver" minOccurs="0" maxOccurs="1" type="xs:boolean" />
+                        <xs:element name="paid" minOccurs="0" maxOccurs="1" type="xs:boolean" />
+                        <xs:element name="litigationFlag" minOccurs="0" maxOccurs="1" type="xs:boolean" />
+                        <xs:element name="adrFlag" minOccurs="0" maxOccurs="1" type="xs:boolean" />
+                        <xs:element name="totalEstimatedRecovery" minOccurs="0" maxOccurs="unbounded" type="CurrencyAmount" />
+                        <xs:element name="totalRecovered" minOccurs="0" maxOccurs="unbounded" type="CurrencyAmount" />
+                        <xs:element name="outstandingReserve" minOccurs="0" maxOccurs="unbounded" type="CurrencyAmount" />
+                        <xs:element name="estimatedReserve" minOccurs="0" maxOccurs="unbounded" type="CurrencyAmount" />
+                        <xs:element name="subrogationReserve" minOccurs="0" maxOccurs="unbounded" type="CurrencyAmount" />
+                        <xs:element name="salvageReserve" minOccurs="0" maxOccurs="unbounded" type="CurrencyAmount" />
+                        <xs:element name="deductableReserve" minOccurs="0" maxOccurs="unbounded" type="CurrencyAmount" />
+                        <xs:element name="contributionReserve" minOccurs="0" maxOccurs="unbounded" type="CurrencyAmount" />
+                        <xs:element name="outstandingTotal" minOccurs="0" maxOccurs="unbounded" type="CurrencyAmount" />
+                        <xs:element name="owningUser" minOccurs="0" maxOccurs="unbounded" type="xs:long" />
+                        <xs:element name="startDate" minOccurs="0" maxOccurs="1" type="xs:date" />
+                        <xs:element name="endDate" minOccurs="0" maxOccurs="1" type="xs:date" />
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="Label">
+        <xs:complexContent>
+            <xs:extension base="Type">
+                <xs:attribute name="text" use="optional" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>The text of the label. This may be the actual text or an i18n key.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="discriminator" use="optional" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>A discriminator value which PageFlows may use to constrain the labels made available to the user.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="condition" use="optional" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>A xpath expression which must evaluate to true (or non-null) for the labels to be made available to the user.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="Labels">
+        <xs:complexContent>
+            <xs:extension base="Type">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="label" minOccurs="0" maxOccurs="unbounded" type="Label" />
+                        <xs:element name="labels" minOccurs="0" maxOccurs="unbounded"  type="Labels" />
+                    </xs:choice>
+                </xs:sequence>
+                <xs:attribute name="target" use="optional" type="xs:string" >
+                    <xs:annotation>
+                        <xs:documentation>A regular expression describing the fully qualified class names of object to which this label set applies.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="discriminator" use="optional" type="xs:string" >
+                    <xs:annotation>
+                        <xs:documentation>A discriminator value which PageFlows may use to constrain the labels made available to the user.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="condition" use="optional" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>A xpath expression which must evaluate to true (or non-null) for the labels to be made available to the user.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:simpleType name="ClauseType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="CONDITION" />
+            <xs:enumeration value="EXCLUSION" />
+            <xs:enumeration value="EXTENSION" />
+            <xs:enumeration value="GUARENTEE" />
+            <xs:enumeration value="SUBJECTIVITY" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="Clause">
+        <xs:complexContent>
+            <xs:extension base="Type">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="title" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="text" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="relatesTo" minOccurs="0" maxOccurs="1" type="Reference" />
+                    </xs:choice>
+                </xs:sequence>
+                <!-- 
+                <xs:attribute name="type" use="optional" type="ClauseType" />
+                 -->
+                <xs:attribute name="createDate" use="optional" type="xs:date" />
+                <xs:attribute name="startDate" use="optional" type="xs:date" />
+                <xs:attribute name="endDate" use="optional" type="xs:date" />
+                <xs:attribute name="reminderDate" use="optional" type="xs:date" />
+                <xs:attribute name="manuscript" use="optional" type="xs:boolean" />
+                <xs:attribute name="reference" use="optional" type="xs:string" />
+                <xs:attribute name="advisory" use="optional" type="xs:boolean" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Reference">
+        <xs:attribute name="type" use="required" type="xs:string" />
+        <xs:attribute name="refId" use="required" type="xs:string" />
+    </xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<version serialVersion='0' lock='false' xsi:type='java:com.ail.core.Version' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+   <source>Peach and mint</source>
+   <state>state</state>
+   <date>14/10/2002</date>
+   <author>T.S.Elliot</author>
+   <comment>The apples are sweet</comment>
+   <copyright>Copyright us.</copyright>
+   <version>1.0</version>
+   <attribute id='one' value='valueone' format='string'/>
+   <attribute id='two' value='valuetwo' format='string'/>
+</version>
+   

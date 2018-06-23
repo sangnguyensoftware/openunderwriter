@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>Test Quote, Save, Requote, Confirm And Pay</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Test Quote, Save, Requote, Confirm And Pay</td></tr>
+</thead><tbody>
+<tr>
+	<td>setTimeout</td>
+	<td>300000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>L2Fzc2V0L2F0dHJpYnV0ZVtpZD0ndmFsdWVPZkdvb2RzJ10</td>
+	<td>2,000.00</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nZGVzdGluYXRpb24nXQ</td>
+	<td>label=UK</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>L2Fzc2V0L2F0dHJpYnV0ZVtpZD0nbW9kZU9mVHJhbnNwb3J0J10</td>
+	<td>label=Road</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Quote&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Your Quotation: £100.00</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Save&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>class=pf-page-title</td>
+	<td>Quotation Saved</td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@value=&quot;Requote&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@value=&quot;Requote&quot;])[last()]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>About the shipping</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Quote&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Your Quotation:</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Save&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Quotation Saved</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextNotPresent</td>
+	<td>could not resolve</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@value='Confirm and Pay'])[last()]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>title</td>
+	<td>label=Mr.</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>firstname</td>
+	<td>Jim</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>surname</td>
+	<td>Clu</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>surname</td>
+	<td>Clackton</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>address1</td>
+	<td>Test Hall</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>address2</td>
+	<td>Chicken Lane</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>town</td>
+	<td>Testtown</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>county</td>
+	<td>Testingshire</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>postcode</td>
+	<td>CL19 3UK</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>phone</td>
+	<td>0800 123321</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>mobile</td>
+	<td>01321 1223321</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>email</td>
+	<td>client@ouwmail.co.uk</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Next&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Payment Details</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>cardNumber</td>
+	<td>1234123412341234</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>startMonth</td>
+	<td>01</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>startYear</td>
+	<td>20</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>expiryMonth</td>
+	<td>01</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>expiryYear</td>
+	<td>21</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>issueNumber</td>
+	<td>01</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>cardHoldersName</td>
+	<td>Mr. Clackton</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>confirm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Next&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Thank you</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value=&quot;Finish&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Shipping Quotation</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

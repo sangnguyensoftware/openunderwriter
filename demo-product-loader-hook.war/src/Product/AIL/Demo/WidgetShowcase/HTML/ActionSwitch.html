@@ -1,0 +1,56 @@
+<p>Select and execute one of a number of actions in a switch style
+    statement.</p>
+<p>Based on either the result of an xpath evaluation or the output
+    of a command, an ActionSwitch will execute the action or actions that
+    match.</p>
+<u>Pageflow</u>
+<pre>
+    &lt;actionSwitch [binding="<i>binding</i>"] [commandName="<i>command</i>"] &gt;
+        &lt;action id='case 1' ... />
+        &lt;action id='case 2' ... />
+        &lt;action id='...' ... />
+        &lt;action id='default' ... />
+    &lt;actionSwitch /&gt;
+</pre>
+<ul>
+    <li><i>binding</i> An xpath expression selecting a value from the
+        model object.</li>
+    <li><i>commandName</i> A command selecting a value.</li>
+</ul>
+<u>Examples</u>
+<ol>
+    <li>If "/status" evaluates to "APPLICATION" or "ON_RISK" then the
+        PageFlow advances to the appropriate page. If it evaluates to anything
+        else, or fails to evaluate at all, then the PageFlow advances to an
+        error page. <pre>
+    &lt;actionSwitch binding="/status" &gt;
+        &lt;pageForwardAction id='APPLICATION' destinationPageId="application page" />
+        &lt;pageForwardAction id='ON_RISK' destinationPageId="on risk page" />
+        &lt;pageForwardAction id='default' destinationPageId="error page" />
+    &lt;actionSwitch /&gt;
+</pre>
+    </li>
+    <li>The GetPathCommand command is executed. If it "returns" "TURN
+        LEFT" or "TURN RIGHT" then the PageFlow advances to the appropriate
+        page. If it returns anything else then the PageFlow advances to
+        StraightOnPage". <pre>
+    &lt;actionSwitch commandName="GetPathCommand" &gt;
+        &lt;pageForwardAction id='TURN LEFT' destinationPageId="LeftPage" />
+        &lt;pageForwardAction id='TURN RIGHT' destinationPageId="RightPage" />
+        &lt;pageForwardAction id='default' destinationPageId="StraightOnPage" />
+    &lt;actionSwitch /&gt;
+</pre> An example GetPathCommand service implementation: <pre>import com.ail.pageflow.ExecutePageActionService.ExecutePageActionArgument;
+
+public class GetPathService {
+    public static void invoke(ExecutePageActionArgument args) throws PreconditionException {
+        if (model.getDragonsToTheRightOfMe()) {
+            args.setSelectedSwitchIdRet("TURN LEFF");
+        }
+        else if (model.getDragonsToTheLeftOfMe()) {
+            args.setSelectedSwitchIdRet("TURN RIGHT");
+        }
+    }
+}</pre>
+    </li>
+</ol>
+<hr />

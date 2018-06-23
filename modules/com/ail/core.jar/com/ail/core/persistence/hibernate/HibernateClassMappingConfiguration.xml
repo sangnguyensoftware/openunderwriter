@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='utf-8'?> 
+<!DOCTYPE hibernate-configuration PUBLIC 
+    "-//Hibernate/Hibernate Configuration DTD 3.0//EN" 
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd"> 
+
+<hibernate-configuration>
+    
+    <session-factory>
+        <mapping class="com.ail.core.Attribute" />
+        <mapping class="com.ail.core.ForeignSystemReference" />
+        <mapping class="com.ail.core.Note" />
+        <mapping class="com.ail.core.PageVisit" />
+        <mapping class="com.ail.core.Reference" />
+        <mapping class="com.ail.core.Type" />
+        <mapping class="com.ail.core.Version" />
+        <mapping class="com.ail.core.audit.envers.Revision" /> 
+        <mapping class="com.ail.core.document.Document" /> 
+        <mapping class="com.ail.core.document.DocumentContent" /> 
+        <mapping class="com.ail.core.document.DocumentPlaceholder" /> 
+        <mapping class="com.ail.core.document.DocumentRequest" /> 
+        <mapping class="com.ail.core.key.UniqueKey" /> 
+        <mapping class="com.ail.core.logging.ServiceRequestRecord" />
+        <mapping class="com.ail.core.product.ProductChangeEvent" />
+        <mapping class="com.ail.core.product.ProductUpgradeLog" />
+        <mapping class="com.ail.financial.CurrencyAmount" />
+        <mapping class="com.ail.financial.DirectDebit" />
+        <mapping class="com.ail.financial.Eway" />
+        <mapping class="com.ail.financial.IWinPay" />
+        <mapping class="com.ail.financial.MoneyProvision" />
+        <mapping class="com.ail.financial.Orange" />
+        <mapping class="com.ail.financial.PaymentCard" />
+        <mapping class="com.ail.financial.PaymentHoliday" /> 
+        <mapping class="com.ail.financial.PaymentMethod" />
+        <mapping class="com.ail.financial.PaymentRecord" />
+        <mapping class="com.ail.financial.PaymentSchedule" />
+        <mapping class="com.ail.financial.PayPal" />
+        <mapping class="com.ail.financial.SagePay" />
+        <mapping class="com.ail.financial.Stripe" />
+        <mapping class="com.ail.financial.ledger.Account" />
+        <mapping class="com.ail.financial.ledger.AccountingPeriod" />
+        <mapping class="com.ail.financial.ledger.Balance" />
+        <mapping class="com.ail.financial.ledger.Journal" />
+        <mapping class="com.ail.financial.ledger.JournalLine" />
+        <mapping class="com.ail.financial.ledger.Ledger" />
+        <mapping class="com.ail.insurance.claim.Claim" /> 
+        <mapping class="com.ail.insurance.claim.ClaimRecovery" /> 
+        <mapping class="com.ail.insurance.claim.ClaimSection" /> 
+        <mapping class="com.ail.insurance.policy.AssessmentSheet" /> 
+        <mapping class="com.ail.insurance.policy.Asset" /> 
+        <mapping class="com.ail.insurance.policy.Broker" /> 
+        <mapping class="com.ail.insurance.policy.Clause" /> 
+        <mapping class="com.ail.insurance.policy.CommercialProposer" /> 
+        <mapping class="com.ail.insurance.policy.Coverage" /> 
+        <mapping class="com.ail.insurance.policy.PersonalProposer" /> 
+        <mapping class="com.ail.insurance.policy.Policy" /> 
+        <mapping class="com.ail.insurance.policy.Section" /> 
+        <mapping class="com.ail.party.Address" /> 
+        <mapping class="com.ail.party.ContactSystem" /> 
+        <mapping class="com.ail.party.EmailAddress" /> 
+        <mapping class="com.ail.party.Party" /> 
+        <mapping class="com.ail.party.PartyRelationship" /> 
+        <mapping class="com.ail.party.PartyRole" /> 
+        <mapping class="com.ail.party.Person" /> 
+        <mapping class="com.ail.party.PhoneNumber" /> 
+        <mapping class="com.ail.party.Organisation" />
+        <mapping class="com.ail.util.DateOfBirth" /> 
+    </session-factory>
+    
+</hibernate-configuration> 

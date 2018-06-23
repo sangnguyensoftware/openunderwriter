@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>PaymentMethodDetails</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">PaymentMethodDetails</td></tr>
+</thead><tbody>
+<tr>
+	<td>setTimeout</td>
+	<td>300000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=resetPageflow</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectAndWait</td>
+	<td>name=selectedPage</td>
+	<td>label=PaymentMethodDetails</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Direct Debit Details</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Bank Name</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=L3BheW1lbnRNZXRob2RbMV0vYmFua05hbWU</td>
+	<td>HSBC</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Branch Name</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=L3BheW1lbnRNZXRob2RbMV0vYnJhbmNoTmFtZQ</td>
+	<td>Canary Wharf</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Account Name</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=L3BheW1lbnRNZXRob2RbMV0vbmFtZQ</td>
+	<td>Tester</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Sort Code</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=L3BheW1lbnRNZXRob2RbMV0vc29ydENvZGU</td>
+	<td>01-02-03</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Account Number</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=L3BheW1lbnRNZXRob2RbMV0vYWNjb3VudE51bWJlcg</td>
+	<td>87706054</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Payment Card Details</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Card Issuer</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=L3BheW1lbnRNZXRob2RbMl0vaXNzdWVy</td>
+	<td>MASTERCARD</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Card Number</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=L3BheW1lbnRNZXRob2RbMl0vY2FyZE51bWJlcg</td>
+	<td>9284 2839 2938 4829</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Card Holder Name</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=L3BheW1lbnRNZXRob2RbMl0vY2FyZEhvbGRlcnNOYW1l</td>
+	<td>Tester Test</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Issue Number</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Start Date</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Expiry Date</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=L3BheW1lbnRNZXRob2RbMl0vZXhwaXJ5RGF0ZQ</td>
+	<td>31/12/30</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Security Code</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=L3BheW1lbnRNZXRob2RbMl0vc2VjdXJpdHlDb2Rl</td>
+	<td>000</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Add Payment Method</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Payment Method Type</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=YWRkUGF5bWVudE1ldGhvZA</td>
+	<td>DirectDebit</td>
+</tr>
+<tr>
+	<td>clickAt</td>
+	<td>id=add-paymentmethod</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>name=L3BheW1lbnRNZXRob2RbM10vYmFua05hbWU</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAt</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//div[@class=&quot;pf-input-error&quot; and text()=&quot;required&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L3BheW1lbnRNZXRob2RbM10vYmFua05hbWU</td>
+	<td>Barclays</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L3BheW1lbnRNZXRob2RbM10vYnJhbmNoTmFtZQ</td>
+	<td>Sheffield</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L3BheW1lbnRNZXRob2RbM10vbmFtZQ</td>
+	<td>Tester</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L3BheW1lbnRNZXRob2RbM10vc29ydENvZGU</td>
+	<td>99-88-77</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L3BheW1lbnRNZXRob2RbM10vYWNjb3VudE51bWJlcg</td>
+	<td>98765432</td>
+</tr>
+<tr>
+	<td>clickAt</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>//div[@class=&quot;pf-input-error&quot; and text()=&quot;required&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAt</td>
+	<td>id=delete-2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>name=L3BheW1lbnRNZXRob2RbM10vYmFua05hbWU</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=YWRkUGF5bWVudE1ldGhvZA</td>
+	<td>PaymentCard</td>
+</tr>
+<tr>
+	<td>clickAt</td>
+	<td>id=add-paymentmethod</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>name=L3BheW1lbnRNZXRob2RbM10vaXNzdWVy</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAt</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//div[@class=&quot;pf-input-error&quot; and text()=&quot;required&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=L3BheW1lbnRNZXRob2RbM10vaXNzdWVy</td>
+	<td>VISA</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L3BheW1lbnRNZXRob2RbM10vY2FyZE51bWJlcg</td>
+	<td>1324567890123456</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L3BheW1lbnRNZXRob2RbM10vY2FyZEhvbGRlcnNOYW1l</td>
+	<td>Tester</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L3BheW1lbnRNZXRob2RbM10vaXNzdWVOdW1iZXI</td>
+	<td>0</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L3BheW1lbnRNZXRob2RbM10vc3RhcnREYXRl</td>
+	<td>01/01/16</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L3BheW1lbnRNZXRob2RbM10vZXhwaXJ5RGF0ZQ</td>
+	<td>01/01/18</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=L3BheW1lbnRNZXRob2RbM10vc2VjdXJpdHlDb2Rl</td>
+	<td>987</td>
+</tr>
+<tr>
+	<td>clickAt</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>//div[@class=&quot;pf-input-error&quot; and text()=&quot;required&quot;]</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

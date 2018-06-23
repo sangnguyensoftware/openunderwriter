@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd">
+  <name>FreightPlus product configuration</name>
+  <timeout>-1</timeout>
+  <who>Applied Industrial Logic</who>
+  <version>1.0</version>
+
+  <manager>com.ail.core.product.resetproduct.ResetProductService</manager>
+  <parentNamespace>AIL.Base.Registry</parentNamespace>
+
+  <types>
+    <service name="AssessPolicyRiskRule" builder="CachingClassBuilder" key="com.ail.core.command.DroolsDecisionTableAccessor" >
+      <!-- uncomment the following parameter to get a full dump of the rules (drl) and rule facts written to -->
+      <!-- the console during risk assessment -->
+      <!-- <parameter name="LoggingIndicatorAsString">FULL</parameter> -->
+      <parameter name="Url">~/Rules/PolicyRating.xls</parameter>
+    </service>
+
+    <service name='AssessPaymentOptionsService' builder='CachingClassBuilder' key='com.ail.core.command.JaninoAccessor'>
+      <parameter name="Url">~/JavaServices/AssessPaymentOptionsService.java</parameter>
+    </service>
+
+    <command name="AssessSectionRisk/Section" key="com.ail.insurance.quotation.AssessSectionRiskCommandImpl">
+      <!-- There are no risk assessment rules at the section level for this product, all risk assessment --> 
+      <!-- is done at the policy level. The NullService has the effect of saying 'do nothing'. -->
+      <parameter name="Service">com.ail.core.NullService</parameter>
+    </command>
+
+    <!-- All taxes for this product are built into the base rates, so do nothing when we are asked to calculate tax -->
+    <command name="CalculatePolicyTax" key="com.ail.insurance.quotation.CalculatePolicyTaxCommandImpl">
+      <parameter name="Service">com.ail.core.NullService</parameter>
+    </command>
+    
+    <command name="AssessPaymentOptions" key="com.ail.pageflow.ExecutePageActionCommandImpl">
+      <parameter name="Service">AssessPaymentOptionsService</parameter>
+    </command>
+        
+    <type name="Policy" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Policy">
+      <parameter name="extends">super.Policy</parameter>
+      <parameter name="Url">~/Model/Policy.xml</parameter>
+    </type>
+
+    <type name="QuotationPageFlow" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.PageFlow">
+      <parameter name="extends">super.QuotationPageFlow</parameter>
+      <parameter name="Url">~/PageFlows/QuotationPageFlow.xml</parameter>
+    </type>
+
+    <type name="QuotationDocument" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.core.document.model.DocumentDefinition">
+      <parameter name="extends">super.QuotationDocument</parameter>
+      <parameter name="Url">~/Documents/QuotationDocument.xml</parameter>
+    </type>
+
+    <type name="Countries" builder="CastorXMLBuilder" singleInstance="true" key="com.ail.pageflow.util.Choice">
+      <parameter name="Url">~/Lists/Countries.xml</parameter>
+    </type>
+  </types>
+</configuration>

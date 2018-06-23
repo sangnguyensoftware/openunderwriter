@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+  <info organisation="com.itext.itextpdf" module="itextpdf" />
+  <dependencies>
+    <dependency org="com.itextpdf" name="itextpdf" rev="5.1.2" />
+    <dependency org="com.itextpdf.tool" name="xmlworker" rev="1.1.0" />
+  </dependencies>
+</ivy-module>

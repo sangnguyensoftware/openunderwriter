@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>PaymentOptionSelector</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">PaymentOptionSelector</td></tr>
+</thead><tbody>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=resetPageflow</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectAndWait</td>
+	<td>name=selectedPage</td>
+	<td>label=NoteDetails</td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//input[@id='add']</td>
+	<td></td>
+</tr>
+<!--Add new note 1-->
+<tr>
+	<td>click</td>
+	<td>xpath=//input[@id='add']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//div[@class='pf-note-details-type']//select</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>xpath=//div[@class='pf-note-details-type']//select</td>
+	<td>label=Other</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=//div[@class='pf-note-details-title']//input</td>
+	<td>Test note title</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=//div[@class='pf-note-details-body']//textarea</td>
+	<td>Test note body. Test note body. Test note body. Test note body. Test note body. Test note body. Test note body. Test note body. Test note body. Test note body. Test note body. Test note body. Test note body. Test note body. </td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//input[@value=&quot;Save&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//div[@class=&quot;pf-note-details-dates&quot; and contains(text(), &quot;Created&quot;)]</td>
+	<td></td>
+</tr>
+<!--Verify note 1-->
+<tr>
+	<td>verifySelectedLabel</td>
+	<td>xpath=//div[@class='pf-note-details-type']//select</td>
+	<td>Other</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>xpath=//div[@class='pf-note-details-title']//input</td>
+	<td>Test note title</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=//div[@class='pf-note-details-body']//textarea[contains(text(),&quot;Test note body&quot;)]</td>
+	<td></td>
+</tr>
+<!--Add new note 2-->
+<tr>
+	<td>click</td>
+	<td>xpath=//input[@id='add']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=(//div[@class='pf-note-details-type']//select)[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>xpath=(//div[@class='pf-note-details-type']//select)[2]</td>
+	<td>label=Non-disclosure</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//div[@class='pf-note-details-title']//input)[2]</td>
+	<td>Test note title for note two</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//div[@class='pf-note-details-body']//textarea)[2]</td>
+	<td>Test note two body.</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//input[@value=&quot;Save&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=(//div[@class=&quot;pf-note-details-dates&quot; and contains(text(), &quot;Created&quot;)])[2]</td>
+	<td></td>
+</tr>
+<!--Verify note 2-->
+<tr>
+	<td>verifySelectedLabel</td>
+	<td>xpath=(//div[@class='pf-note-details-type']//select)[2]</td>
+	<td>Non-disclosure</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>xpath=(//div[@class='pf-note-details-title']//input)[2]</td>
+	<td>Test note title for note two</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=(//div[@class='pf-note-details-body']//textarea)[2][contains(text(),&quot;Test note two body.&quot;)]</td>
+	<td></td>
+</tr>
+<!--Delete note 1-->
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@id='delete'])[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>xpath=//div[@class='pf-note-details-body']//textarea[contains(text(),&quot;Test note body&quot;)]</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

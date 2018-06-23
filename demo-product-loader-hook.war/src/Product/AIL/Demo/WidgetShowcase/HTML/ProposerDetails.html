@@ -1,0 +1,25 @@
+<p>The ProposerDetails widget displays and collects information
+	about a person or organisation.</p>
+<p>The widget has two distinct modes: Personal and Commercial. It
+	switches between them automatically depending on the type of party
+	object associated with the current Policy as a proposer.</p>
+<u>Pageflow</u>
+<pre>&lt;proposerDetails [mandatoryAddressFields="<i>field regular expression</i>"]/&gt;
+</pre>
+<ul>
+	<li><i>mandatoryAddressFields</i> Define which address fields
+		should be considered mandatory. A regular expression describes the
+		fields by reference to their names: "address1", "address2",
+		"address3", "address4", "town", "county", "country",
+		"postcode". The default is "address1|postcode".</li>
+</ul>
+<u>Examples</u>
+<p>Display details appropriate to the type of proposer found in the
+	current policy.</p>
+<pre>&lt;proposerDetails /&gt;</pre>
+
+<p>Display details appropriate to the type of proposer found in the
+	current policy with three mandatory address fields.</p>
+<pre>&lt;proposerDetails mandatoryAddressFields="address1|town|postcode"/&gt;</pre>
+
+<hr />

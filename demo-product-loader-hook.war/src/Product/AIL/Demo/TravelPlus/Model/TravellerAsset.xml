@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- repeatable max 9 -->  
+<asset assetTypeId="TravellerAsset" xsi:type="java:com.ail.insurance.policy.Asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <attribute id="age" value="" format="number"/>
+    <attribute id="firstName" value="" format="string"/>
+    <attribute id="lastName" value="" format="string"/>
+	<attribute id="address" format="note">
+		<attribute id="line1" value="" format="string"/>
+		<attribute id="line2" value="" format="string"/>
+		<attribute id="line3" value="" format="string"/>
+		<attribute id="line4" value="" format="string"/>
+		<attribute id="line5" value="" format="string"/>
+		<attribute id="town" value="" format="string"/>
+		<attribute id="county" value="" format="string"/>
+		<attribute id="postcode" value="" format="string"/>
+		<attribute id="country" value="" format="string"/>
+	</attribute>
+</asset>

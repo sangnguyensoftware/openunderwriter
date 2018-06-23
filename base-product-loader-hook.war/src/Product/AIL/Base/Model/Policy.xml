@@ -1,0 +1,5 @@
+<quotation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="java:com.ail.insurance.policy.Policy"  xmlns:xi="http://www.w3.org/2001/XInclude">
+
+    <status xsi:type="java:java.lang.String">UNUSED</status>
+
+</quotation>

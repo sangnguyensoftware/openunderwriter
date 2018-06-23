@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xsi:noNamespaceSchemaLocation="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>TestProduct default config</name>
+    <timeout>600000</timeout>
+    <who>factory</who>
+    <version>$Revision: 1.4 $</version>
+
+    <types>
+
+        <type name="BeanShellPolicy" builder="BeanShellBuilder" key="com.ail.insurance.policy.Policy">
+            <parameter name="Script"><![CDATA[
+import com.ail.insurance.policy.*;
+import com.ail.party.*;
+
+policyHolder=new Person();
+policyHolder.setFirstName("Peter");
+policyHolder.setSurname("Policyholder");
+
+policy=new Policy();
+policy.setPolicyHolder(policyHolder);
+
+type=policy;
+          ]]></parameter>
+        </type>
+
+        <type name="CastorXMLPolicy" builder="CastorXMLBuilder" key="com.ail.insurance.policy.Policy">
+            <parameter name="Script"><![CDATA[
+<policy xsi:type="java:com.ail.insurance.policy.Policy" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <policyHolder xsi:type="java:com.ail.party.Person">
+        <firstName>Peter</firstName>
+        <surname>Policyholder</surname>
+    </policyHolder>
+</policy>
+          ]]></parameter>
+        </type>
+    </types>
+</configuration>

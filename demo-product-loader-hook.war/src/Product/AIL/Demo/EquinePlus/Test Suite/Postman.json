@@ -1,0 +1,1907 @@
+{
+	"info": {
+		"name": "EquinePlus",
+		"_postman_id": "f242443d-15d4-14f2-0d37-a015091695c4",
+		"description": "Postman test suite for the OpenUnderwriter EquinePlus demo product.\n\nIncludes tests for:\n\nPageflow permissions services\nWorkflow services.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PageflowPermissions",
+			"description": "",
+			"item": [
+				{
+					"name": "1. Create Permission",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "adam@openunderwriter.org",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "adam",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRhbUBvcGVudW5kZXJ3cml0ZXIub3JnOmFkYW0="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/pageflow/permissions/CanInsureHorses/createPermission",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"pageflow",
+								"permissions",
+								"CanInsureHorses",
+								"createPermission"
+							]
+						},
+						"description": "Creates a permission on the system.\n\nIn this case creates a CanInsureHorses permission.\n\nAt this stage no users or roles actually have access to it.\n\nTests only for a 200 response."
+					},
+					"response": []
+				},
+				{
+					"name": "2. Invoke Pageflow No Permissions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Can view the Welcome page\"] = responseBody.has(\"Equine Plus - Online Horse Insurance\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "adam@openunderwriter.org",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "adam",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic am9Ab3BlbnVuZGVyd3JpdGVyLm9yZzpqbw=="
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/pageflow/QuotationPageFlow/product/AIL.Demo.EquinePlus/page/Welcome",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"pageflow",
+								"QuotationPageFlow",
+								"product",
+								"AIL.Demo.EquinePlus",
+								"page",
+								"Welcome"
+							]
+						},
+						"description": "Invokes a pageflow where there are no permissions, so there should be no restrictions in viewing.\n\nIn this case the Welcome page in the QuotationPageflow on the AIL.Demo.EquinePlus product.\n\nNot sending any authorisation as it should not be needed.\n\nTests for a 200 response and the page title of 'Equine Plus - Online Horse Insurance' in the response body."
+					},
+					"response": []
+				},
+				{
+					"name": "3. Set Permissions for Pageflow",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "adam@openunderwriter.org",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "adam",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRhbUBvcGVudW5kZXJ3cml0ZXIub3JnOmFkYW0="
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/pageflow/permissions/CanInsureHorses/pageflow/QuotationPageFlow/product/AIL.Demo.EquinePlus/page/Welcome/setPermissions",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"pageflow",
+								"permissions",
+								"CanInsureHorses",
+								"pageflow",
+								"QuotationPageFlow",
+								"product",
+								"AIL.Demo.EquinePlus",
+								"page",
+								"Welcome",
+								"setPermissions"
+							]
+						},
+						"description": "Sets a permission on a Page.\n\nIn this case sets permissions to CanInsureHorses on the Welcome page in the QuotationPageflow on the AIL.Demo.EquinePlus product.\n\nTests for a 200 response."
+					},
+					"response": []
+				},
+				{
+					"name": "4 Get Permissions for Pageflow",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Has CanInsureHorses permission\"] = responseBody.has(\"CanInsureHorses\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "adam@openunderwriter.org",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "adam",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRhbUBvcGVudW5kZXJ3cml0ZXIub3JnOmFkYW0="
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/pageflow/permissions/pageflow/QuotationPageFlow/product/AIL.Demo.EquinePlus/page/Welcome/getPermissions",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"pageflow",
+								"permissions",
+								"pageflow",
+								"QuotationPageFlow",
+								"product",
+								"AIL.Demo.EquinePlus",
+								"page",
+								"Welcome",
+								"getPermissions"
+							]
+						},
+						"description": "Checks to see what permissions a particular page has.\n\nIn this case what permissions are on the Welcome page in the QuotationPageflow on the AIL.Demo.EquinePlus product.\n\nTests for a 200 response and for CanInsureHorses in the response body."
+					},
+					"response": []
+				},
+				{
+					"name": "5. Invoke Pageflow Permissions No Permission",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Underwriter cannot view the Welcome page\"] = responseBody.has(\"Equine Plus - Online Horse Insurance\") === false;"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "jo@openunderwriter.org",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "jo",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic am9Ab3BlbnVuZGVyd3JpdGVyLm9yZzpqbw=="
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/pageflow/QuotationPageFlow/product/AIL.Demo.EquinePlus/page/Welcome",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"pageflow",
+								"QuotationPageFlow",
+								"product",
+								"AIL.Demo.EquinePlus",
+								"page",
+								"Welcome"
+							]
+						},
+						"description": "Invokes a pageflow where there are permissions set but the user does not have permission.\n\nIn this case the Welcome page in the QuotationPageflow on the AIL.Demo.EquinePlus product where the permissions are set to CanInusreHorses and the user is an Underwriter without that permission.\n\nTests for a 200 response and the page title of 'Equine Plus - Online Horse Insurance' missing in the response body."
+					},
+					"response": []
+				},
+				{
+					"name": "6. Give Permission to Role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "adam@openunderwriter.org",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "adam",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRhbUBvcGVudW5kZXJ3cml0ZXIub3JnOmFkYW0="
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/pageflow/permissions/CanInsureHorses/role/Underwriter/givePermission",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"pageflow",
+								"permissions",
+								"CanInsureHorses",
+								"role",
+								"Underwriter",
+								"givePermission"
+							]
+						},
+						"description": "Gives a previously created permission to a user role.\nIf the permission does not yet exist then it will not be given.\n\nIn this case gives the Underwriter role the CanInsureHorses permission.\n\nTests only for a 200 response."
+					},
+					"response": []
+				},
+				{
+					"name": "7. Get All Permissions for Role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Underwriter has CanInsureHorses permission\"] = responseBody.has(\"CanInsureHorses\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "adam@openunderwriter.org",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "adam",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRhbUBvcGVudW5kZXJ3cml0ZXIub3JnOmFkYW0="
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/pageflow/permissions/role/Underwriter/getPermissions",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"pageflow",
+								"permissions",
+								"role",
+								"Underwriter",
+								"getPermissions"
+							]
+						},
+						"description": "Gets a list of permissions for a role.\n\nIn this case we test to see if the CanInsureHorses permission is in the list of roles for an Underwriter.\n\nTests for a 200 response and if the role has the CanInsureHorses permission."
+					},
+					"response": []
+				},
+				{
+					"name": "8. Role Has Permission True",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Underwriter has CanInsureHorses permission\"] = responseBody === \"true\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "adam@openunderwriter.org",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "adam",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRhbUBvcGVudW5kZXJ3cml0ZXIub3JnOmFkYW0="
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/pageflow/permissions/CanInsureHorses/role/Underwriter/hasPermission",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"pageflow",
+								"permissions",
+								"CanInsureHorses",
+								"role",
+								"Underwriter",
+								"hasPermission"
+							]
+						},
+						"description": "Checks to see if a role has a particular permission.\n\nIn this case does an Underwriter have CanInsureHorses permission.\n\nTests for a 200 response and for true in the response body."
+					},
+					"response": []
+				},
+				{
+					"name": "9. Invoke Pageflow Permissions And Permission",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Underwriter can view the Welcome page\"] = responseBody.has(\"Equine Plus - Online Horse Insurance\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "jo@openunderwriter.org",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "jo",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic am9Ab3BlbnVuZGVyd3JpdGVyLm9yZzpqbw=="
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/pageflow/QuotationPageFlow/product/AIL.Demo.EquinePlus/page/Welcome",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"pageflow",
+								"QuotationPageFlow",
+								"product",
+								"AIL.Demo.EquinePlus",
+								"page",
+								"Welcome"
+							]
+						},
+						"description": "Invokes a pageflow where there are permissions set and the user has permission.\n\nIn this case the Welcome page in the QuotationPageflow on the AIL.Demo.EquinePlus product where the permissions are set to CanInusreHorses and the user is an Underwriter with that permission.\n\nTests for a 200 response and the page title of 'Equine Plus - Online Horse Insurance' in the response body."
+					},
+					"response": []
+				},
+				{
+					"name": "10. Remove Permission from Role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "adam@openunderwriter.org",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "adam",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRhbUBvcGVudW5kZXJ3cml0ZXIub3JnOmFkYW0="
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/pageflow/permissions/CanInsureHorses/role/Underwriter/removePermission",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"pageflow",
+								"permissions",
+								"CanInsureHorses",
+								"role",
+								"Underwriter",
+								"removePermission"
+							]
+						},
+						"description": "Removes a permission from a user role.\n\nIn this case removes the CanInsureHorses permission from the Underwriter.\n\nTests for a 200 response only."
+					},
+					"response": []
+				},
+				{
+					"name": "11. Role Has Permission False",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Underwriter does not have CanInsureHorses permission\"] = responseBody === \"false\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "adam@openunderwriter.org",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "adam",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRhbUBvcGVudW5kZXJ3cml0ZXIub3JnOmFkYW0="
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/pageflow/permissions/CanInsureHorses/role/Underwriter/hasPermission",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"pageflow",
+								"permissions",
+								"CanInsureHorses",
+								"role",
+								"Underwriter",
+								"hasPermission"
+							]
+						},
+						"description": "Checks to see if a role has a particular permission.\n\nIn this case does an Underwriter have CanInsureHorses permission.\n\nTests for a 200 response and for false in the response body."
+					},
+					"response": []
+				},
+				{
+					"name": "12. Invoke Pageflow Permissions No Permission 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Underwriter cannot view the Welcome page\"] = responseBody.has(\"Equine Plus - Online Horse Insurance\") === false;"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "jo@openunderwriter.org",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "jo",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic am9Ab3BlbnVuZGVyd3JpdGVyLm9yZzpqbw=="
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/pageflow/QuotationPageFlow/product/AIL.Demo.EquinePlus/page/Welcome",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"pageflow",
+								"QuotationPageFlow",
+								"product",
+								"AIL.Demo.EquinePlus",
+								"page",
+								"Welcome"
+							]
+						},
+						"description": "Invokes a pageflow where there are permissions set but the user does not have permission.\n\nIn this case the Welcome page in the QuotationPageflow on the AIL.Demo.EquinePlus product where the permissions are set to CanInusreHorses and the user is an Underwriter without that permission.\n\nTests for a 200 response and the page title of 'Equine Plus - Online Horse Insurance' missing in the response body."
+					},
+					"response": []
+				},
+				{
+					"name": "13. Set Permissions for Pageflow 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "adam@openunderwriter.org",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "adam",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRhbUBvcGVudW5kZXJ3cml0ZXIub3JnOmFkYW0="
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/pageflow/permissions//pageflow/QuotationPageFlow/product/AIL.Demo.EquinePlus/page/Welcome/setPermissions",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"pageflow",
+								"permissions",
+								"",
+								"pageflow",
+								"QuotationPageFlow",
+								"product",
+								"AIL.Demo.EquinePlus",
+								"page",
+								"Welcome",
+								"setPermissions"
+							]
+						},
+						"description": "Sets a permission on a Page.\n\nIn this case sets permissions to empty on the Welcome page in the QuotationPageflow on the AIL.Demo.EquinePlus product.\n\nTests for a 200 response."
+					},
+					"response": []
+				},
+				{
+					"name": "14. Invoke Pageflow No Permissions 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Underwriter has CanInsureHorses permission\"] = responseBody.has(\"Equine Plus - Online Horse Insurance\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic am9Ab3BlbnVuZGVyd3JpdGVyLm9yZzpqbw=="
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/pageflow/QuotationPageFlow/product/AIL.Demo.EquinePlus/page/Welcome",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"pageflow",
+								"QuotationPageFlow",
+								"product",
+								"AIL.Demo.EquinePlus",
+								"page",
+								"Welcome"
+							]
+						},
+						"description": "Invokes a pageflow where there are no permissions, so there should be no restrictions in viewing.\n\nIn this case the Welcome page in the QuotationPageflow on the AIL.Demo.EquinePlus product.\n\nNot sending any authorisation as it should not be needed.\n\nTests for a 200 response and the page title of 'Equine Plus - Online Horse Insurance' in the response body."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Workflow",
+			"description": "A set of tests to run through the workflow functionality as much as possible. It:\n\nCreates a policy and sets its id in the global variables.\n\nStarts the PolicyStatusExample workflow which checks to see if the policy is in SUBMITTED status. If not, the workflow then creates a user task waiting for a signal of policy status change.\n\nGets the details of the PolicyStatusExample workflow instance from jBPM and sets its id in the global variables.\n\nGets the details of the task associated with the PolicyStatusExample workflow instance from jBPM and sets its id and description in the global variables.\n\nCalls a service to expand any substition variables in the task description.\n\nGets the default or specified pageflow for the task.\n\nCalls a service to set the policy status to SUBMITTED.\n\nSignals the PolicyStatusExample workflow instance to tell it the policy status is updated. The PolicyStatusExample will then get the status from the policy, see it is SUBMITTED, and set it to ON_RISK as well as setting the policyNumber to something like the quotation number.\n\nCalls a service to check that the policy status is ON_RISK.\n\nStarts the GenerateDocumentExample workflow to generate a Policy document on the policy.\n\nStarts the ContactExample workflow to send a message to the PersonalProposer of the policy.",
+			"item": [
+				{
+					"name": "1. Create a policy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"tests[\"success\"] = jsonData.success === true;",
+									"",
+									"pm.environment.set(\"policyId\", jsonData.policyId);"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "adam@openunderwriter.org",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "adam",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"client\": {\n\t\t\"title\" : \"Mr.\",\n\t\t\"firstname\" : \"Jim\",\n\t\t\"lastname\" : \"Clackton\",\n\t    \"address_1\" : \"Test Hall\",\n\t    \"address_2\" : \"Chicken Lane\",\n\t    \"town\" : \"Testtown\",\n\t    \"county\" : \"Testingshire\",\n\t    \"postcode\" : \"CL19 3UK\",\n\t    \"phone\" : \"0800 123321\",\n\t    \"mobile\" : \"07321 1223321\",\n\t    \"email\" : \"jim.clackton@ouwmail.co.uk\"\n\t},\n\t\"horse\": {\n\t\t\"name\" : \"Mr. Ed\",\n\t\t\"ageDescription\" : \"3 years\",\n\t\t\"gender\" : \"Gelding\",\n\t\t\"colour\" : \"Dapple Grey\",\n\t\t\"height\" : \"10.2\",\n\t\t\"freezeBrand\" : \"A91332\",\n\t\t\"passport\" : \"CL123421P\",\n\t\t\"owned\" : \"Owned by you\",\n\t\t\"dateBought\" : \"01/12/2014\",\n\t\t\"currentValue\" : \"5000.00\",\n\t\t\"typeOfUse\" : \"Class 1\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/product/AIL.Demo.EquinePlus/CreatePolicy",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"product",
+								"AIL.Demo.EquinePlus",
+								"CreatePolicy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Start Workflow - PolicyStatusExample",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"tests[\"success\"] = jsonData.success === true;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"caseType\" : \"policy\",\n\t\"workflowId\" : \"ail.sample.PolicyStatusExample\",\n\t\"abortExisting\" : \"true\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/policy/{{policyId}}/StartWorkflow",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"policy",
+								"{{policyId}}",
+								"StartWorkflow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Get Workflow Details jBPM",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"setTimeout(function(){}, 2000);"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = pm.response.json();",
+									"",
+									"var responseProcessInstanceId = jsonData.historyLogList[0]['org.kie.services.client.serialization.jaxb.impl.audit.JaxbVariableInstanceLog']['process-instance-id'];",
+									"tests[\"processInstanceId > 0\"] = responseProcessInstanceId !== null && responseProcessInstanceId > 0;",
+									"pm.environment.set(\"processInstanceId\", responseProcessInstanceId);",
+									"",
+									"var responseExternalId = jsonData.historyLogList[0]['org.kie.services.client.serialization.jaxb.impl.audit.JaxbVariableInstanceLog']['external-id'];",
+									"tests[\"jBPMExternalId is ail:sample-workflows:1.0\"] = responseExternalId !== null && responseExternalId === \"ail:sample-workflows:1.0\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "katie@openunderwriter.org",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "katie",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic a2F0aWVAb3BlbnVuZGVyd3JpdGVyLm9yZzprYXRpZQ=="
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/jbpm-console/rest/history/variable/policyId/value/{{policyId}}",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"jbpm-console",
+								"rest",
+								"history",
+								"variable",
+								"policyId",
+								"value",
+								"{{policyId}}"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "4. Get Task ID and Description jBPM",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = pm.response.json();",
+									"",
+									"var responseTaskId = jsonData.taskSummaryList[0].id;",
+									"tests[\"taskId > 0\"] = responseTaskId !== null && responseTaskId > 0;",
+									"pm.environment.set(\"taskId\", responseTaskId);",
+									"postman.setGlobalVariable(\"taskId\", responseTaskId);",
+									"",
+									"var responseTaskDescription = jsonData.taskSummaryList[0].description;",
+									"tests[\"taskDescription is not null\"] = responseTaskDescription !== null;",
+									"pm.environment.set(\"taskDescription\", responseTaskDescription);"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "katie@openunderwriter.org",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "katie",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic a2F0aWVAb3BlbnVuZGVyd3JpdGVyLm9yZzprYXRpZQ=="
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/jbpm-console/rest/task/query?status=Ready&processInstanceId={{processInstanceId}}",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"jbpm-console",
+								"rest",
+								"task",
+								"query"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "Ready",
+									"equals": true
+								},
+								{
+									"key": "processInstanceId",
+									"value": "{{processInstanceId}}",
+									"equals": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "5. VariableExpansion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"tests[\"success\"] = jsonData.success === true;",
+									"",
+									"var expandedComment = jsonData.expandedStrings[0];",
+									"",
+									"tests[\"expandedComment is not null\"] = expandedComment !== null;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept-Charset",
+								"value": "UTF-8"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"variableStrings\" : [\n\t\t\"{{taskDescription}}\"\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/product/AIL.Base/VariableExpansion",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"product",
+								"AIL.Base",
+								"VariableExpansion"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "6. PageflowForTask",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"setTimeout(function(){}, 2000);"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"tests[\"success\"] = jsonData.success === true;",
+									"",
+									"pm.test(\"responseAction is a pageflow\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"/pageflow/\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"taskId\" : \"{{taskId}}\",\n\t\"content\" : false\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/product/AIL.Base/PageflowForTask",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"product",
+								"AIL.Base",
+								"PageflowForTask"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "7. SetData - Status SUBMITTED",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"setTimeout(function(){}, 2000);"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"tests[\"success\"] = jsonData.success === true;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"caseType\": \"policy\",\n\t\"caseId\": \"{{policyId}}\",\n\t\"dataDirectoryId\": \"statusAsString\",\n\t\"value\": \"SUBMITTED\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/policy/{{policyId}}/SetData",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"policy",
+								"{{policyId}}",
+								"SetData"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "8. Signal Workflow - PolicyStatusExample",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"tests[\"success\"] = jsonData.success === true;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"signalName\" : \"StatusSignal\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/policy/{{policyId}}/SignalWorkflow",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"policy",
+								"{{policyId}}",
+								"SignalWorkflow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "9. GetData - Status",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"setTimeout(function(){}, 2000);"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"tests[\"success\"] = jsonData.success === true;",
+									"tests[\"ON_RISK\"] = jsonData.data === \"ON_RISK\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"caseType\": \"policy\",\n\t\"caseId\": \"{{policyId}}\",\n\t\"dataDirectoryId\": \"statusAsString\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/policy/{{policyId}}/GetData",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"policy",
+								"{{policyId}}",
+								"GetData"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "10. Start Workflow - GenerateDocumentExample - Policy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"tests[\"success\"] = jsonData.success === true;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"caseType\" : \"policy\",\n\t\"workflowId\": \"ail.sample.GenerateDocumentExample\",\n\t\"attributes\": [\n\t\t{\n\t\t\t\"name\": \"templateName\",\n\t\t\t\"value\": \"QuotationDocument\"\n\t\t\t\n\t\t}\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/policy/{{policyId}}/StartWorkflow",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"policy",
+								"{{policyId}}",
+								"StartWorkflow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "11. Start Workflow - ContactExample - PersonalProposer",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"setTimeout(function(){}, 2000);"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"tests[\"success\"] = jsonData.success === true;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"caseType\": \"policy\",\n\t\"workflowId\": \"ail.sample.ContactExample\",\n\t\"attributes\": [\n\t\t{\n\t\t\t\"name\": \"party\",\n\t\t\t\"value\": \"proposer\"\n\t\t},\n\t\t{\n\t\t\t\"name\" : \"message\",\n\t\t\t\"value\" : \"Welcome to Horse Insurance!\"\n\t\t}\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/policy/{{policyId}}/StartWorkflow",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"policy",
+								"{{policyId}}",
+								"StartWorkflow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "12. Start Workflow - WorkkflowTaskExample to ContactExample - Client",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"setTimeout(function(){}, 2000);"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"tests[\"success\"] = jsonData.success === true;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"caseType\" : \"policy\",\n\t\"workflowId\": \"ail.sample.WorkflowTaskExample\",\n\t\"attributes\": [\n\t\t{\n\t\t\t\"name\": \"productName\",\n\t\t\t\"value\": \"AIL.Demo.EquinePlus\"\n\t\t\t\n\t\t}\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/policy/{{policyId}}/StartWorkflow",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"policy",
+								"{{policyId}}",
+								"StartWorkflow"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pageflow",
+			"description": "",
+			"item": [
+				{
+					"name": "1. Create a policy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"tests[\"success\"] = jsonData.success === true;",
+									"",
+									"pm.environment.set(\"policyId\", jsonData.policyId);"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "adam@openunderwriter.org",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "adam",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"client\": {\n\t\t\"title\" : \"Mr.\",\n\t\t\"firstname\" : \"Jim\",\n\t\t\"lastname\" : \"Clackton\",\n\t    \"address_1\" : \"Test Hall\",\n\t    \"address_2\" : \"Chicken Lane\",\n\t    \"town\" : \"Testtown\",\n\t    \"county\" : \"Testingshire\",\n\t    \"postcode\" : \"CL19 3UK\",\n\t    \"phone\" : \"0800 123321\",\n\t    \"mobile\" : \"07321 1223321\",\n\t    \"email\" : \"jim.clackton@ouwmail.co.uk\"\n\t},\n\t\"horse\": {\n\t\t\"name\" : \"Mr. Ed\",\n\t\t\"ageDescription\" : \"3 years\",\n\t\t\"gender\" : \"Gelding\",\n\t\t\"colour\" : \"Dapple Grey\",\n\t\t\"height\" : \"10.2\",\n\t\t\"freezeBrand\" : \"A91332\",\n\t\t\"passport\" : \"CL123421P\",\n\t\t\"owned\" : \"Owned by you\",\n\t\t\"dateBought\" : \"01/12/2014\",\n\t\t\"currentValue\" : \"5000.00\",\n\t\t\"typeOfUse\" : \"Class 1\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/product/AIL.Demo.EquinePlus/CreatePolicy",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"product",
+								"AIL.Demo.EquinePlus",
+								"CreatePolicy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. QuotationPageflowJSON",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"tests[\"success\"] = jsonData.success === true;",
+									"",
+									"var colourOptionsURL = jsonData.page.elements[0].elements[3].format.optionsURL;",
+									"",
+									"tests[\"got colour optionsURL\"] = colourOptionsURL !== null && colourOptionsURL.indexOf(\"name=HorseColour\") > 0;",
+									"",
+									"pm.environment.set(\"colourOptionsURL\", colourOptionsURL);"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "adam@openunderwriter.org",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "adam",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"type": "any"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/pageflow/QuotationPageFlow/policy/{{policyId}}/page/HorseDetails",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"pageflow",
+								"QuotationPageFlow",
+								"policy",
+								"{{policyId}}",
+								"page",
+								"HorseDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. GetChoiceOptions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"tests[\"success\"] = jsonData.success === true;",
+									"",
+									"var options = jsonData.options;",
+									"",
+									"tests[\"got multiple options\"] = options && options.length >= 26;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"variableStrings\" : [\n\t\t\"{{taskDescription}}\"\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{colourOptionsURL}}",
+							"host": [
+								"{{colourOptionsURL}}"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

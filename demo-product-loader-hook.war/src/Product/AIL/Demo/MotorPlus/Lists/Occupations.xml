@@ -1,0 +1,20 @@
+<choice id="Occupations" xsi:type="java:com.ail.pageflow.util.Choice" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <choice name="?"/>
+    <choice name="Accountant"/>
+    <choice name="Commercial Travellers"/>
+    <choice name="Construction Site Worker"/>
+    <choice name="Doctor"/>
+    <choice name="Driving tuition"/>
+    <choice name="Hotel Worker"/>
+    <choice name="Members of Armed Forces"/>
+    <choice name="Motor Sportsman"/>
+    <choice name="Nurse"/>
+    <choice name="Office Worker"/>
+    <choice name="Policeman"/>
+    <choice name="Racing and Gambling"/>
+    <choice name="Restaurant Staff"/>
+    <choice name="Student"/>
+    <choice name="Travelling Showman"/>
+    <choice name="Unemployed"/>
+    <choice name="Other"/>
+</choice>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <list-property name="configVars">
+        <structure>
+            <property name="name">__isdisplay__StartDate_205_0</property>
+            <property name="value">2014-07-27</property>
+        </structure>
+        <structure>
+            <property name="name">__isdisplay__EndDate_206_1</property>
+            <property name="value">2014-10-27</property>
+        </structure>
+        <structure>
+            <property name="name">__isdisplay__Product_213_2</property>
+            <property name="value">%</property>
+        </structure>
+        <structure>
+            <property name="name">EndDate_206_3</property>
+            <property name="value">2014-10-27</property>
+        </structure>
+        <structure>
+            <property name="name">EndDate_206_type_</property>
+            <property name="value">date</property>
+        </structure>
+        <structure>
+            <property name="name">Product_213_4</property>
+            <property name="value">%</property>
+        </structure>
+        <structure>
+            <property name="name">Product_213_type_</property>
+            <property name="value">string</property>
+        </structure>
+        <structure>
+            <property name="name">Product_213_expr_</property>
+            <property name="value">dataSetRow["product"]</property>
+        </structure>
+        <structure>
+            <property name="name">StartDate_205_5</property>
+            <property name="value">2014-07-27</property>
+        </structure>
+        <structure>
+            <property name="name">StartDate_205_type_</property>
+            <property name="value">date</property>
+        </structure>
+    </list-property>
+</report>

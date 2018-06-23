@@ -1,0 +1,43 @@
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="OU-1015 Migrate party contact data" author="richard">
+        <executeCommand os="Linux" executable="../bin/liquibase-exec.sh">
+            <arg value="OU-1015 Migrate party contact data.bsh"/>
+        </executeCommand>
+        <executeCommand os="Mac OS X" executable="../bin/liquibase-exec.sh">
+            <arg value="OU-1015 Migrate party contact data.bsh"/>
+        </executeCommand>
+        <executeCommand os="Windows XP" executable="../bin/liquibase-exec.bat">
+            <arg value="OU-1015 Migrate party contact data.bsh"/>
+        </executeCommand>
+    </changeSet>
+
+    <changeSet id="OU-1015 Drop redundant columns" author="richard">
+        <sql dbms="mysql">
+            ALTER TABLE parParty
+                DROP COLUMN parCountry,
+                DROP COLUMN parCounty,
+                DROP COLUMN parFullAddress,
+                DROP COLUMN parLine1,
+                DROP COLUMN parLine2,
+                DROP COLUMN parLine3,
+                DROP COLUMN parLine4,
+                DROP COLUMN parLine5,
+                DROP COLUMN parPostcode,
+                DROP COLUMN parTown,
+                DROP COLUMN parEmailAddress,
+                DROP COLUMN parMobilephoneNumber,
+                DROP COLUMN parTelephoneNumber,
+                DROP COLUMN parClaimTelephoneNumber,
+                DROP COLUMN parPaymentTelephoneNumber,
+                DROP COLUMN parPolicyEmailAddress,
+                DROP COLUMN parQuoteEmailAddress,
+                DROP COLUMN parQuoteTelephoneNumber;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

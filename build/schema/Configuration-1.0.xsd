@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <xs:element name="configuration" type="Configuration" />
+
+    <xs:complexType name="Configuration">
+        <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1" />
+                <xs:element name="timeout" type="xs:integer" minOccurs="1" maxOccurs="1" />
+                <xs:element name="who" type="xs:string" minOccurs="1" maxOccurs="1" />
+                <xs:element name="version" type="xs:string" minOccurs="1" maxOccurs="1" />
+                <xs:element name="manager" type="xs:string" minOccurs="0" maxOccurs="1" />
+                <xs:element name="parentNamespace" minOccurs="0" maxOccurs="1" type="xs:string" />
+                <xs:element name="group" minOccurs="0" maxOccurs="unbounded" type="Group" />
+                <xs:element name="parameter" minOccurs="0" maxOccurs="unbounded" type="Parameter" />
+                <xs:element name="builders" minOccurs="0" maxOccurs="1" type="Builders" />
+                <xs:element name="types" minOccurs="0" maxOccurs="1" type="Types" />
+                <xs:element name="XMLMapping" minOccurs="0" maxOccurs="1" type="XMLMapping" />
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Group">
+        <xs:complexContent>
+            <xs:extension base="Component">
+                <xs:sequence>
+                    <xs:element name="parameter" minOccurs="0" maxOccurs="unbounded" type="Parameter" />
+                    <xs:element name="group" minOccurs="0" maxOccurs="unbounded" type="Group" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Builders">
+        <xs:sequence>
+            <xs:element name="builder" maxOccurs="unbounded" type="Builder" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Builder">
+        <xs:complexContent>
+            <xs:extension base="Group">
+                <xs:attribute name="factory" use="required" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Types">
+        <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="service" type="Service" />
+                <xs:element name="command" type="Command" />
+                <xs:element name="type" type="Type" />
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- In Java the Service class extends Type, not Group as here. However, XSD doesn't allow an attribute to be overridden with another of the same name but different type. The 'key' attribute would 
+        fall foul of this limitation, so Group is extended instead. -->
+    <xs:complexType name="Service">
+        <xs:complexContent>
+            <xs:extension base="Group">
+                <xs:attribute name="builder" use="optional" type="availableBuilders" />
+                <xs:attribute name="key" use="required" type="availableAccessors" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Command">
+        <xs:complexContent>
+            <xs:extension base="Type" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Type">
+        <xs:complexContent>
+            <xs:extension base="Group">
+                <xs:attribute name="builder" use="optional" type="availableBuilders" />
+                <xs:attribute name="key" use="optional" type="xs:string" />
+                <xs:attribute name="singleInstance" use="optional" type="xs:boolean" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Parameter">
+        <xs:complexContent mixed="true">
+            <xs:extension base="Component">
+                <xs:sequence>
+                    <xs:any minOccurs="0" processContents="skip" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="XMLMapping">
+        <xs:sequence>
+            <xs:element name="definition" minOccurs="1" maxOccurs="1" type="XMLMappingDefinition" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="XMLMappingDefinition" mixed="true">
+        <xs:sequence>
+            <xs:any minOccurs="0" processContents="skip" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Component">
+        <xs:attribute name="name" use="required" type="xs:string" />
+    </xs:complexType>
+
+    <xs:simpleType name="availableBuilders">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="XSLTBuilder" />
+            <xs:enumeration value="CastorXMLBuilder" />
+            <xs:enumeration value="BeanShellBuilder" />
+            <xs:enumeration value="ClassBuilder" />
+            <xs:enumeration value="CachingClassBuilder" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="availableAccessors">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="com.ail.core.command.BeanShellAccessor" />
+            <xs:enumeration value="com.ail.core.command.ClassAccessor" />
+            <xs:enumeration value="com.ail.core.command.DroolsAccessor" />
+            <xs:enumeration value="com.ail.core.command.DroolsDecisionTableAccessor" />
+            <xs:enumeration value="com.ail.core.command.EJBAccessor" />
+            <xs:enumeration value="com.ail.core.command.JaninoAccessor" />
+            <xs:enumeration value="com.ail.core.command.JavaScriptAccessor" />
+            <xs:enumeration value="com.ail.core.command.JavaAccessor" />
+            <xs:enumeration value="com.ail.core.command.JMSAccessor" />
+            <xs:enumeration value="com.ail.core.command.QuickRulesAccessor" />
+            <xs:enumeration value="com.ail.core.command.VelocityAccessor" />
+            <xs:enumeration value="com.ail.core.command.WebServiceAccessor" />
+            <xs:enumeration value="com.ail.core.command.XSLTAccessor" />
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

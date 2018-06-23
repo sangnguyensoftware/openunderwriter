@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <list-property name="configVars">
+        <structure>
+            <property name="name">__isdisplay__StartDate_205_0</property>
+            <property name="value">2014-07-27</property>
+        </structure>
+        <structure>
+            <property name="name">__isdisplay__EndDate_206_1</property>
+            <property name="value">2014-10-27</property>
+        </structure>
+        <structure>
+            <property name="name">__isdisplay__Broker_217_2</property>
+            <property name="value">%</property>
+        </structure>
+        <structure>
+            <property name="name">__isdisplay__Product_218_3</property>
+            <property name="value">%</property>
+        </structure>
+        <structure>
+            <property name="name">__isdisplay__SortBy_215_4</property>
+            <property name="value">Quote Date</property>
+        </structure>
+        <structure>
+            <property name="name">__isdisplay__SortDir_216_5</property>
+            <property name="value">DESC</property>
+        </structure>
+        <structure>
+            <property name="name">SortDir_216_6</property>
+            <property name="value">DESC</property>
+        </structure>
+        <structure>
+            <property name="name">SortDir_216_type_</property>
+            <property name="value">string</property>
+        </structure>
+        <structure>
+            <property name="name">EndDate_206_7</property>
+            <property name="value">2014-10-27</property>
+        </structure>
+        <structure>
+            <property name="name">EndDate_206_type_</property>
+            <property name="value">date</property>
+        </structure>
+        <structure>
+            <property name="name">Product_218_8</property>
+            <property name="value">%</property>
+        </structure>
+        <structure>
+            <property name="name">Product_218_type_</property>
+            <property name="value">string</property>
+        </structure>
+        <structure>
+            <property name="name">Product_218_expr_</property>
+            <property name="value">dataSetRow["product"]</property>
+        </structure>
+        <structure>
+            <property name="name">StartDate_205_9</property>
+            <property name="value">2014-07-27</property>
+        </structure>
+        <structure>
+            <property name="name">StartDate_205_type_</property>
+            <property name="value">date</property>
+        </structure>
+        <structure>
+            <property name="name">Broker_217_10</property>
+            <property name="value">%</property>
+        </structure>
+        <structure>
+            <property name="name">Broker_217_type_</property>
+            <property name="value">string</property>
+        </structure>
+        <structure>
+            <property name="name">Broker_217_expr_</property>
+            <property name="value">dataSetRow["broker"]</property>
+        </structure>
+        <structure>
+            <property name="name">SortBy_215_11</property>
+            <property name="value">quote_date</property>
+        </structure>
+        <structure>
+            <property name="name">SortBy_215_type_</property>
+            <property name="value">string</property>
+        </structure>
+    </list-property>
+</report>

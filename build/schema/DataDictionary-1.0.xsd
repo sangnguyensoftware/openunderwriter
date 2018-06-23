@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <xs:element name="dataDictionary" type="DataDictionary" />
+
+    <xs:complexType name="DataDictionary">
+        <xs:sequence>
+            <xs:element name="definition" minOccurs="0" maxOccurs="unbounded" type="Definition" />
+        </xs:sequence>
+        <xs:attribute name="type" type="xs:string" />
+    </xs:complexType>
+
+    <xs:complexType name="Definition">
+        <xs:sequence>
+            <xs:element name="definition" minOccurs="0" maxOccurs="unbounded" type="Definition" />
+        </xs:sequence>
+        <xs:attribute name="name" use="required" type="xs:string" />
+        <xs:attribute name="nameAbsolute" use="optional" type="xs:boolean" />
+        <xs:attribute name="description" use="optional" type="xs:string" />
+        <xs:attribute name="binding" use="required" type="xs:string" />
+    </xs:complexType>
+
+</xs:schema>

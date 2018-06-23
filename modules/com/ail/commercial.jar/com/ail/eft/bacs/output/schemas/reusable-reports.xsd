@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0">
+	<xs:include schemaLocation="address.xsd"/>
+	<xs:include schemaLocation="reusable-types.xsd"/>
+	<!--
+==========================================================
+Voca reusable-reports Heritage format schema
+Copyright Voca Limited. All rights reserved.
+
+Related Documentation: PN5485 & PN6336 
+==========================================================
+ -->
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+     Voca reusable-reports Heritage schema V2.0
+     Created 21/01/2004
+     Last Updated 05/01/2006
+     Copyright Voca Limited. All rights reserved.
+     See Voca Specification document PN5485
+	Changes:
+	2.0:  relax date attributes on 'UserFileInformation' and 'DaySectionRecord' elements to accomodate  '"^^-^^-^^' if the report does not have a valid datre syntax
+    </xs:documentation>
+	</xs:annotation>
+	<!-- for input-report -->
+	<xs:element name="InputReport">
+		<xs:annotation>
+			<xs:documentation>NewBACS Input Report</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Header"/>
+				<xs:element ref="AddresseeInformation" minOccurs="0"/>
+				<xs:element ref="Message" minOccurs="0"/>
+				<xs:element ref="Submission"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="InputUserFile">
+		<xs:annotation>
+			<xs:documentation>Input User File</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="UserFileInformation"/>
+				<xs:element ref="DaySection"/>
+				<xs:element ref="Errors" minOccurs="0"/>
+				<xs:element ref="InputReportSummary" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- input-report-errors -->
+	<xs:element name="Errors">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Error" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="TotalNumberOfErrors" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Error">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ErrorItem" maxOccurs="unbounded"/>
+				<xs:element ref="ErrorMessage" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="type" type="xs:NMTOKEN" use="optional" fixed="REJECTED"/>
+			<!-- REJECTED  is a valid token -->
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ErrorItem">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="OriginatingAccount"/>
+				<xs:element ref="DestinationAccount"/>
+			</xs:sequence>
+			<xs:attribute name="errorCode" type="xs:string" use="optional"/>
+			<xs:attribute name="errorItemType" type="xs:string" use="required"/>
+			<xs:attribute name="reference" type="xs:string" use="optional"/>
+			<xs:attribute name="transactionCode" type="xs:string" use="required"/>
+			<xs:attribute name="currency" type="CurrencyType" use="required"/>
+			<xs:attribute name="valueOf" type="ValueType" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ErrorMessage">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="MessageLine" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="type" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TotalNumberOfErrors">
+		<xs:complexType>
+			<xs:attribute name="amendedRecords" type="xs:integer" use="required"/>
+			<xs:attribute name="returnedRecords" type="xs:integer" use="required"/>
+			<xs:attribute name="rejectedRecords" type="xs:integer" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<!-- input-report-summary -->
+	<xs:element name="InputReportSummary">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="AccountTotals" minOccurs="0"/>
+				<xs:element ref="Adjustments" minOccurs="0"/>
+				<xs:element ref="AgreementOfFileTotals"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="AccountTotals">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="AccountTotal" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="AccountTotal">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="CreditEntry" minOccurs="0"/>
+				<xs:element ref="DebitEntry" minOccurs="0"/>
+				<xs:element ref="CreditContraEntry" minOccurs="0"/>
+				<xs:element ref="DebitContraEntry" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="number" type="xs:string" use="required"/>
+			<xs:attribute name="sortCode" type="xs:string" use="optional"/>
+			<xs:attribute name="type" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CreditEntry" type="AccountTotalEntryType"/>
+	<xs:element name="DebitEntry" type="AccountTotalEntryType"/>
+	<xs:element name="CreditContraEntry" type="AccountTotalEntryType"/>
+	<xs:element name="DebitContraEntry" type="AccountTotalEntryType"/>
+	<xs:complexType name="AccountTotalEntryType">
+		<xs:sequence>
+			<xs:element ref="AcceptedRecords"/>
+			<xs:element ref="RejectedRecords"/>
+			<xs:element ref="TotalsRecords" minOccurs="0"/>
+			<xs:element ref="UserTrailerTotals" minOccurs="0"/>
+			<xs:element ref="AdjustmentRecords" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="AcceptedRecords" type="AmountSummaryType"/>
+	<xs:element name="RejectedRecords" type="AmountSummaryType"/>
+	<xs:element name="TotalsRecords" type="AmountSummaryType"/>
+	<xs:element name="UserTrailerTotals" type="AmountSummaryType"/>
+	<xs:element name="AdjustmentRecords" type="AmountSummaryType"/>
+	<xs:complexType name="AmountSummaryType">
+		<xs:attribute name="numberOf" type="xs:integer" use="required"/>
+		<xs:attribute name="currency" type="CurrencyType" use="optional"/>
+		<xs:attribute name="valueOf" type="ValueType" use="required"/>
+	</xs:complexType>
+	<xs:element name="Adjustments">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Adjustment" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Adjustment">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="OriginatingAccount"/>
+				<xs:element ref="DestinationAccount"/>
+			</xs:sequence>
+			<xs:attribute name="accountType" type="xs:string" use="required"/>
+			<xs:attribute name="reference" type="xs:string" use="optional"/>
+			<xs:attribute name="transactionCode" type="xs:string" use="required"/>
+			<xs:attribute name="currency" type="CurrencyType" use="required"/>
+			<xs:attribute name="valueOf" type="ValueType" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OriginatingAccount" type="AccountType"/>
+	<xs:element name="DestinationAccount" type="AccountType"/>
+	<xs:element name="AgreementOfFileTotals">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="CreditEntry"/>
+				<xs:element ref="DebitEntry"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- for withdrawal-reports -->
+	<xs:element name="WithdrawalReport">
+		<xs:annotation>
+			<xs:documentation>NewBACS Withdrawal Report</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Header"/>
+				<xs:element ref="AddresseeInformation" minOccurs="0"/>
+				<xs:element ref="Message" minOccurs="0"/>
+				<xs:element ref="Submission"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="WithdrawalUserFile">
+		<xs:complexType>
+			<xs:all>
+				<xs:element ref="UserFileInformation"/>
+				<xs:element name="Account" type="AccountType" minOccurs="0"/>
+				<xs:element ref="DaySection"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<!-- for arrival-report -->
+	<xs:element name="ArrivalReport">
+		<xs:annotation>
+			<xs:documentation>Comment describing your root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Header"/>
+				<xs:element ref="AddresseeInformation" minOccurs="0"/>
+				<xs:element ref="Message" minOccurs="0"/>
+				<xs:element ref="Submission"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ArrivalUserFile">
+		<xs:annotation>
+			<xs:documentation>Comment describing your root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:all>
+				<xs:element ref="UserFileInformation"/>
+				<xs:element ref="DaySection"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<!-- The attributes for Credit / Debit Items and Contras -->
+	<xs:attributeGroup name="ItemAndContraAttributes">
+		<xs:attribute name="numberOf" type="xs:integer" use="required"/>
+		<xs:attribute name="currency" type="CurrencyType" use="optional"/>
+		<xs:attribute name="valueOf" type="ValueType" use="required"/>
+	</xs:attributeGroup>
+	<!-- Credit item -->
+	<xs:element name="Credit">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Contra" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attributeGroup ref="ItemAndContraAttributes"/>
+		</xs:complexType>
+	</xs:element>
+	<!-- Debit item -->
+	<xs:element name="Debit">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Contra" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attributeGroup ref="ItemAndContraAttributes"/>
+		</xs:complexType>
+	</xs:element>
+	<!-- Contra record -->
+	<xs:element name="Contra">
+		<xs:complexType>
+			<xs:attributeGroup ref="ItemAndContraAttributes"/>
+		</xs:complexType>
+	</xs:element>
+	<!-- Day Section records -->
+	<xs:element name="DaySectionRecord">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Credit"/>
+				<xs:element ref="Debit"/>
+			</xs:sequence>
+			<xs:attribute name="dayRef" type="xs:string" use="optional"/>
+			<xs:attribute name="recordDate" type="UserInputDate" use="optional"/>
+			<xs:attribute name="processingDate" type="xs:date" use="optional"/>
+			<!-- this is as provided by the customer - and so may contain any arbitrary string - hence the deafult display representation is relevant here  -->
+		</xs:complexType>
+	</xs:element>
+	<!-- Totals for a day section -->
+	<xs:element name="Totals">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Credit"/>
+				<xs:element ref="Debit"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- Header info for report -->
+	<xs:element name="Header">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ProducedOn"/>
+				<xs:element ref="ProcessingDate"/>
+			</xs:sequence>
+			<xs:attribute name="reportType" type="xs:string" use="required"/>
+			<xs:attribute name="reportNumber" type="xs:integer" use="required"/>
+			<xs:attribute name="batchNumber" type="xs:integer" use="optional"/>
+			<xs:attribute name="reportSequenceNumber" type="xs:string" use="optional"/>
+			<xs:attribute name="userNumber" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<!-- Message can have many message lines -->
+	<xs:element name="Message">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="MessageLine" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="MessageLine" type="xs:string"/>
+	<!-- ProducedOn equates to Printed on field in printed report -->
+	<xs:element name="ProducedOn">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="date" type="xs:date" use="required"/>
+					<xs:attribute name="time" type="xs:time" use="required"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<!-- Processing Date -->
+	<xs:element name="ProcessingDate">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="date" type="xs:date" use="required"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<!-- Submission -->
+	<xs:element name="Submission">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="SubmissionInformation"/>
+				<xs:element ref="UserFile" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="submissionLevelErrorMessage" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<!-- Submission Information -->
+	<xs:element name="SubmissionInformation">
+		<xs:complexType>
+			<xs:attribute name="submissionReferenceNumber" type="xs:string" use="optional"/>
+			<xs:attribute name="media" type="xs:string" use="optional"/>
+			<xs:attribute name="bureauName" type="xs:string" use="optional"/>
+			<xs:attribute name="volumeSerialNumber" type="xs:string" use="required"/>
+			<xs:attribute name="bureauSponsor" type="xs:string" use="optional"/>
+			<xs:attribute name="bureauNumber" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<!-- UserFile -->
+	<xs:element name="UserFile">
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="InputUserFile"/>
+				<xs:element ref="WithdrawalUserFile"/>
+				<xs:element ref="ArrivalUserFile"/>
+			</xs:choice>
+			<xs:attribute name="fileLevelMessage" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<!-- User File Information -->
+	<xs:element name="UserFileInformation">
+		<xs:complexType>
+			<xs:attribute name="userNumber" type="xs:string" use="required"/>
+			<xs:attribute name="userName" type="xs:string" use="optional"/>
+			<xs:attribute name="userFileNumber" type="xs:string" use="required"/>
+			<xs:attribute name="sequenceNumber" type="xs:string" use="optional"/>
+			<xs:attribute name="fileCurrency" type="CurrencyType" use="required"/>
+			<xs:attribute name="uhl1WorkCode" type="xs:string" use="required"/>
+			<xs:attribute name="uhl1ProcessingDate" type="UserInputDate" use="optional"/>
+			<xs:attribute name="fileReferenceNumber" type="xs:string" use="optional"/>
+			<xs:attribute name="userSponsor" type="xs:string" use="optional"/>
+			<!--  this is as provided by the customer - and so may contain any arbitrary string - hence the deafult display representation is relevant here  -->
+		</xs:complexType>
+	</xs:element>
+	<!-- Day Section -->
+	<xs:element name="DaySection">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="DaySectionRecord" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="Totals" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="daySectionLevelErrorMessage" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="UserInputDate">
+		<xs:annotation>
+			<xs:documentation>
+			  When a date may also be the formatted character string for example ^^-^^-^^ 
+	      </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

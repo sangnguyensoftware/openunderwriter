@@ -1,0 +1,7 @@
+<translations defaultLanguage="en" xsi:type="java:com.ail.core.language.Translations" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <translation language="en">
+        <element key="i18n_document_template_claim_form">Claim Form</element>
+        <element key="i18n_document_template_change_of_address_form">Change of Address</element>
+        <element key="i18n_document_template_bespoke_letter">Bespoke Letter</element>
+    </translation>
+</translations>

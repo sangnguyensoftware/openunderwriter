@@ -1,0 +1,1 @@
+document.getElementById('section-2').innerHTML='<b>Inserted by <i>url</i> PageScript';

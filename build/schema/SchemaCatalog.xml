@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE catalog PUBLIC "-//OASIS//DTD Entity Resolution XML Catalog V1.0//EN" "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd">
+
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <system systemId="http://www.appliedindustriallogic.com/schemas/Configuration-1.0.xsd" uri="Configuration-1.0.xsd"/>
+    <system systemId="http://www.appliedindustriallogic.com/schemas/Model-1.0.xsd" uri="Model-1.0.xsd"/>
+    <system systemId="http://www.appliedindustriallogic.com/schemas/DocumentData.xsd" uri="DocumentData.xsd"/>
+    <system systemId="http://www.appliedindustriallogic.com/schemas/PageFlow-1.0.xsd" uri="PageFlow-1.0.xsd"/>
+    <system systemId="http://www.appliedindustriallogic.com/schemas/PageFlow-1.1.xsd" uri="PageFlow-1.1.xsd"/>
+    <system systemId="http://www.appliedindustriallogic.com/schemas/Content.xsd" uri="Content.xsd"/>
+    <system systemId="http://www.appliedindustriallogic.com/schemas/DataDictionary-1.0.xsd" uri="DataDictionary-1.0.xsd"/>
+</catalog>
