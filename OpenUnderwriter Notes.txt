@@ -1,0 +1,122 @@
+https://github.com/sangnguyensoftware/openunderwriter
+
+ [copy] Copying D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\standalone\deployments\openunderwriter-theme.war\images\arrows\02_right.png
+ to D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\standalone\deployments\narrowbar-theme.war\images\arrows\02_right.png
+
+[copy] Copying D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\standalone\deployments\openunderwriter-theme.war\images\arrows\02_down.png
+ to D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\standalone\deployments\ghana-theme.war\images\arrows\02_down.png
+  
+[copy] Copying D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\standalone\deployments\openunderwriter-theme.war\images\arrows\01_plus.png
+ to D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\standalone\deployments\greentree-theme.war\images\arrows\01_plus.png
+ 
+[copy] Copying D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\standalone\deployments\openunderwriter-theme.war\js\main.js
+ to D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\standalone\deployments\narrowbar-theme.war\js\main.js
+ 
+[copy] Copying D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\standalone\deployments\openunderwriter-theme.war\js\main.js
+ to D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\standalone\deployments\greentree-theme.war\js\main.js
+ 
+[copy] Copying D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\standalone\deployments\openunderwriter-theme.war\templates\portal_normal.vm
+ to D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\standalone\deployments\narrowbar-theme.war\templates\portal_normal.vm
+ 
+[copy] Copying 2 files to D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\standalone\deployments\ghana-theme.war\WEB-INF\classes
+
+'sass.docroot.dir=D:\OpenUnderwriter\openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/ghana-theme.war/'
+'sass.portal.common.dir=D:\OpenUnderwriter\openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/ROOT.war/html/css/common'
+
+D:\OpenUnderwriter\openunderwriter\database
+D:\OpenUnderwriter\openunderwriter/target/openunderwriter-community-developer.build/bin/update-scripts
+
+
+Setting project property: target.dir -> D:\OpenUnderwriter\openunderwriter/target
+Setting project property: liferay.dir -> D:\OpenUnderwriter\openunderwriter/target/liferay-portal-6.2-ce-ga6
+Setting project property: jboss.dir -> D:\OpenUnderwriter\openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1
+Setting project property: deploy.dir -> D:\OpenUnderwriter\openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments
+Setting project property: test.dir -> D:\OpenUnderwriter\openunderwriter/target/test
+Setting project property: test.reports.dir -> D:\OpenUnderwriter\openunderwriter/target/test/reports
+Setting project property: buildlib.dir -> D:\OpenUnderwriter\openunderwriter/build/lib
+Setting project property: bootlib.dir -> D:\OpenUnderwriter\openunderwriter/build/boot
+Setting project property: tmp.dir -> D:\OpenUnderwriter\openunderwriter/target/tmp
+
+D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\modules\com\paypal
+
+===============================================================================================================
+'D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\modules\com\ail\core\main\annotation-4.5.jar;D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\modules\com\liferay\portal\main\mysql.jar;D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\modules\com\ail\core\main\core.jar;D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\modules\com\ail\insurance\main\insurance.jar'
+     [java] 'com.ail.insurance.actuarial.DataGenerator'
+     [java] '-q'
+     [java] 'com.mysql.jdbc.Driver'
+     [java] 'jdbc:mysql://localhost/OU_trunk_trunk_DWH_AIL_Base_DataSource_Master_Motor'
+     [java] 'root'
+     [java] ''
+
+ [java] 'D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\modules\com\ail\core\main\annotation-4.5.jar;D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\modules\com\liferay\portal\main\mysql.jar;D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\modules\com\ail\core\main\core.jar;D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\modules\com\ail\insurance\main\insurance.jar'
+     [java] 'com.ail.insurance.policy.DataGenerator'
+     [java] '-q'
+     [java] 'com.mysql.jdbc.Driver'
+     [java] 'jdbc:mysql://localhost/OU_trunk_trunk_DWH_AIL_Base_Report'
+     [java] 'root'
+     [java] ''
+
+'D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\modules\com\ail\core\main\annotation-4.5.jar;D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\modules\com\liferay\portal\main\mysql.jar;D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\modules\com\ail\core\main\core.jar;D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\modules\com\ail\insurance\main\insurance.jar'
+'com.ail.insurance.actuarial.DataGenerator'
+'-q'
+'com.mysql.jdbc.Driver'
+'jdbc:mysql://localhost/OU_trunk_trunk_DWH_AIL_Base_DataSource_Master_Motor'
+'root'
+''
+
+	 
+============================================================================================================================================================
+Technical stack:
+
+liferay.util.version -> 6.2.5
+liferay.version -> 6.2-ce-ga6
+env.MYSQL_HOME -> C:\Program Files\MySQL\MySQL Server 5.7
+java.runtime.version -> 1.8.0_171-b11
+jboss.version -> 7.1.1
+gwt.version -> 2.6.0
+ant.version -> Apache Ant(TM) version 1.10.3 compiled on March 24 2018
+D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\modules\org\spring\spring-context
+D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\modules\org\hibernate
+=> D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\modules\javax\persistence\api\main\hibernate-jpa-2.0-api-1.0.1.Final.jar
+=> hibernate-core-4.1.12.Final.jar
+
+D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\modules\org\jboss\resteasy\resteasy-jaxrs 
+D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\modules\org\drools D:\OpenUnderwriter\openunderwriter\build\lib\drools-persistence-jpa-6.1.0.Final.jar
+D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\modules\org\velocity (D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\modules\org\velocity\main\velocity-1.7-javadoc.jar)
+D:\OpenUnderwriter\openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\modules\com\itext\itextpdf\main\itextpdf-5.1.2-javadoc.jar
+
+
+=======
+setup notes:
+  <import file="../../../../../../BuildSettings.xml" />
+  
+  <import file="D:/OpenUnderwriter/openunderwriter/BuildSettings.xml" />
+  
+${ou.home}
+=> D:/OpenUnderwriter/openunderwriter/BuildSettings.xml
+  <import file="${basedir}/../BuildSettings.xml" />
+  
+  
+=======
+
+     [exec] 22/06/18 16:49:38,698 INFO  [stdout] (http-127.0.0.1-127.0.0.1-8080-4) 16:49:38,698 WARN  [http-127.0.0.1-127.0.0.1-8080-4][ThemeLocalServiceImpl:156] No theme found for specified theme id welcome_WAR_welcometheme. Returning the default theme.
+     [exec] 22/06/18 16:49:38,707 INFO  [stdout] (http-127.0.0.1-127.0.0.1-8080-4) 16:49:38,707 WARN  [http-127.0.0.1-127.0.0.1-8080-4][ThemeLocalServiceImpl:156] No theme found for specified theme id welcome_WAR_welcometheme. Returning the default theme.
+     [exec] 22/06/18 16:49:55,288 INFO  [com.ail.core.command.CommandServerBean] (Thread-29 (HornetQ-client-global-threads-1436220990)) Message (id=ID:370f60a0-763c-11e8-833d-a44cc87b16ba) requeued due to exception: com.ail.core.PostconditionException: Failed to send email to peter@ouwmail.co.uk. javax.mail.MessagingException: Could not connect to SMTP host: ouwmail.co.uk, port: 25;
+     [exec]   nested exception is:
+     [exec] 	java.net.ConnectException: Connection timed out: connect
+	 
+============================== 
+penunderwriter\base-product-loader-hook.war\src\Product\AIL\Base\Registry.xml
+    <group name="SMTPServerProperties">
+        <parameter name="mail.smtp.host">smtp.gmail.com</parameter>
+        <parameter name="mail.smtp.port">465</parameter>
+        <parameter name="mail.smtp.auth">true</parameter>
+        <parameter name="mail.smtp.user">system</parameter>
+        <parameter name="mail.smtp.password">system</parameter>
+    </group>
+	
+
+peter@ouwmail.co.uk to sangnguyensoftware@gmail.com	 
+
+Log file: \openunderwriter\target\liferay-portal-6.2-ce-ga6\jboss-7.1.1\standalone\log\server.log
+

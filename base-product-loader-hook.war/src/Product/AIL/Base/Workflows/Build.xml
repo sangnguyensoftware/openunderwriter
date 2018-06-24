@@ -5,7 +5,7 @@
 		the version number in versionBase/versionScheduled in this build file, and the jbpm-deployment-id in the product Config.xml -->
 
 <project default="build" name="Product:AIL.Base.Workflows" basedir=".">
-	<import file="D:/OpenUnderwriter/openunderwriter/BuildSettings.xml" />
+	<import file="../../../../../../BuildSettings.xml" />
 
 	<property name="groupId" value="ail" />
 	

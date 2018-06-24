@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project default="upload" name="Product:AIL.Base">
-  <import file="D:/OpenUnderwriter/openunderwriter/BuildSettings.xml" />
+  <import file="../../../../../BuildSettings.xml" />
 
   <target name="upload" description="Upload product content">
     <upload-product-content-macro src="." dest="/Product/AIL/Base" />

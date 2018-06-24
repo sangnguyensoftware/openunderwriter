@@ -33,7 +33,7 @@
 	<classpathentry kind="src" path="workflow-identity.jar"/>
 	<classpathentry kind="src" output="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/workflow.war_WEB-INF/classes" path="workflow.war/WEB-INF/src"/>
 	<classpathentry excluding="Build.xml|Ivy.xml|src/|src/Product/AIL/Base/JavaServices/|src/Product/AIL/Base/Services/|src/|src/Product/AIL/Base/JavaServices/" kind="src" path="base-product-loader-hook.war"/>
-	<classpathentry excluding="Build.xml|Ivy.xml|src/" kind="src" path="demo-product-loader-hook.war"/>
+	<classpathentry excluding="Build.xml|Ivy.xml|src/|src/" kind="src" path="demo-product-loader-hook.war"/>
 	<classpathentry kind="src" output="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/openquote-theme.war" path="openunderwriter-theme.war"/>
 	<classpathentry kind="src" output="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/greentree-theme.war" path="greentree-theme.war"/>
 	<classpathentry kind="src" output="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/bluestone-theme.war" path="bluestone-theme.war"/>
@@ -45,282 +45,418 @@
 			<attribute name="optional" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="demo-product-loader-hook.war/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/hamcrest/main/hamcrest-library-1.3.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/hamcrest/main/hamcrest-library-1.3-sources.jar">
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/hamcrest/main/hamcrest-library-1.3.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/hamcrest/main/hamcrest-library-1.3-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/hamcrest/main/hamcrest-library-1.3-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/hamcrest/main/hamcrest-core-1.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/test/lib/junit-4.12.jar" sourcepath="/Users/richarda/.m2/repository/junit/junit/4.12/junit-4.12-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/test/lib/mockito-all-1.10.19.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/test/lib/powermock-api-mockito-1.6.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/test/lib/powermock-api-support-1.6.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/test/lib/powermock-core-1.6.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/test/lib/powermock-module-junit4-1.6.3.jar" sourcepath="/Users/richarda/.m2/repository/org/powermock/powermock-module-junit4/1.6.3/powermock-module-junit4-1.6.3-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/test/lib/powermock-module-junit4-common-1.6.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/test/lib/powermock-reflect-1.6.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/hamcrest/main/hamcrest-core-1.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/test/lib/junit-4.12.jar" sourcepath="/Users/richarda/.m2/repository/junit/junit/4.12/junit-4.12-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/test/lib/mockito-all-1.10.19.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/test/lib/powermock-api-mockito-1.6.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/test/lib/powermock-api-support-1.6.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/test/lib/powermock-core-1.6.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/test/lib/powermock-module-junit4-1.6.3.jar" sourcepath="/Users/richarda/.m2/repository/org/powermock/powermock-module-junit4/1.6.3/powermock-module-junit4-1.6.3-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/test/lib/powermock-module-junit4-common-1.6.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/test/lib/powermock-reflect-1.6.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="build/lib/truezip-driver-file-7.7.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="build/lib/truezip-driver-zip-7.7.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="build/lib/truezip-file-7.7.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="build/lib/truezip-kernel-7.7.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="build/lib/commons-compress-1.4.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/bin/client/jboss-client.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/liferay/portal/main/mysql.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/liferay/portal/main/portal-service.jar" sourcepath="C:/Tools/liferay-portal-src-6.2-ce-ga6/portal-service/src"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/liferay/portal/main/portlet.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/javax/annotation/api/main/jboss-annotations-api_1.1_spec-1.0.0.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/javax/ejb/api/main/jboss-ejb-api_3.1_spec-1.0.1.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/javax/jms/api/main/jboss-jms-api_1.1_spec-1.0.0.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/javax/mail/api/main/mail-1.4.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/javax/servlet/api/main/jboss-servlet-api_3.0_spec-1.0.0.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/httpcomponents/main/httpclient-4.1.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/httpcomponents/main/httpcore-4.1.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/xalan/main/serializer-2.7.1.jbossorg-1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/xalan/main/xalan-2.7.1.jbossorg-1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/jboss/as/web/main/jbossweb-7.0.13.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/jboss/ejb3/main/jboss-ejb3-ext-api-2.0.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/jboss/ws/api/main/jbossws-api-1.0.0.GA.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/jboss/vfs/main/jboss-vfs-3.1.0.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/ROOT.war/WEB-INF/lib/bnd.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/javax/servlet/jsp/api/main/jboss-jsp-api_2.2_spec-1.0.0.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/jaxen/main/jaxen-1.1.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/javax/activation/api/main/activation-1.1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/ail/gwtui/main/guava-18.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/ail/gwtui/main/guava-gwt-18.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/ail/gwtui/main/gwt-dev-2.6.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/ail/gwtui/main/gwt-servlet-2.6.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/ail/gwtui/main/gwt-user-2.6.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/javax/persistence/api/main/hibernate-jpa-2.0-api-1.0.1.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/hibernate/main/hibernate-core-4.1.12.Final.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/hibernate/main/hibernate-core-4.1.12.Final-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/hibernate/main/hibernate-commons-annotations-4.0.1.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/hibernate/main/hibernate-entitymanager-4.1.12.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/hibernate/main/hibernate-infinispan-4.1.12.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/dom4j/main/dom4j-1.6.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/jboss/as/web/main/jboss-as-web-7.1.1.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/javax/ws/rs/api/main/jboss-jaxrs-api_1.1_spec-1.0.0.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/jboss/resteasy/resteasy-jaxrs/main/resteasy-jaxrs-2.3.2.Final.jar" sourcepath="/Users/richarda/.m2/repository/org/jboss/resteasy/resteasy-jaxrs/2.3.2.Final/resteasy-jaxrs-2.3.2.Final-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/codehaus/jackson/jackson-core-asl/main/jackson-core-asl-1.9.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/codehaus/jackson/jackson-mapper-asl/main/jackson-mapper-asl-1.9.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/test/lib/jpdfunit-1.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/jboss/resteasy/resteasy-multipart-provider/main/resteasy-multipart-provider-2.3.2.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/ail/pubnub/main/pubnub-3.7.10.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/ail/pubnub/main/json-20090211.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/ail/stripe/main/stripe-java-2.6.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/test/lib/pdfbox-1.8.7.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/test/lib/fontbox-1.8.7.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/javax/transaction/api/main/jboss-transaction-api_1.1_spec-1.0.0.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/ail/ehcache/main/ehcache-3.2.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/slf4j/jcl-over-slf4j/main/jcl-over-slf4j-1.6.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/antlr/main/antlr-2.7.7.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/antlr-3.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/antlr-runtime-3.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/jxpath/main/commons-jxpath-1.3.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/jxpath/main/commons-jxpath-1.3-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/drools-compiler-5.4.0.Final.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/drools-compiler-5.4.0.Final-sources.jar">
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/bin/client/jboss-client.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/liferay/portal/main/mysql.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/liferay/portal/main/portal-service.jar" sourcepath="C:/Tools/liferay-portal-src-6.2-ce-ga6/portal-service/src"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/liferay/portal/main/portlet.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/javax/annotation/api/main/jboss-annotations-api_1.1_spec-1.0.0.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/javax/ejb/api/main/jboss-ejb-api_3.1_spec-1.0.1.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/javax/jms/api/main/jboss-jms-api_1.1_spec-1.0.0.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/javax/mail/api/main/mail-1.4.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/javax/servlet/api/main/jboss-servlet-api_3.0_spec-1.0.0.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/httpcomponents/main/httpclient-4.1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/httpcomponents/main/httpcore-4.1.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/xalan/main/serializer-2.7.1.jbossorg-1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/xalan/main/xalan-2.7.1.jbossorg-1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/jboss/as/web/main/jbossweb-7.0.13.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/jboss/ejb3/main/jboss-ejb3-ext-api-2.0.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/jboss/ws/api/main/jbossws-api-1.0.0.GA.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/jboss/vfs/main/jboss-vfs-3.1.0.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/ROOT.war/WEB-INF/lib/bnd.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/javax/servlet/jsp/api/main/jboss-jsp-api_2.2_spec-1.0.0.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/jaxen/main/jaxen-1.1.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/javax/activation/api/main/activation-1.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/ail/gwtui/main/guava-18.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/ail/gwtui/main/guava-gwt-18.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/ail/gwtui/main/gwt-dev-2.6.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/ail/gwtui/main/gwt-servlet-2.6.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/ail/gwtui/main/gwt-user-2.6.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/javax/persistence/api/main/hibernate-jpa-2.0-api-1.0.1.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/hibernate/main/hibernate-core-4.1.12.Final.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/hibernate/main/hibernate-core-4.1.12.Final-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/hibernate/main/hibernate-commons-annotations-4.0.1.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/hibernate/main/hibernate-entitymanager-4.1.12.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/hibernate/main/hibernate-infinispan-4.1.12.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/dom4j/main/dom4j-1.6.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/jboss/as/web/main/jboss-as-web-7.1.1.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/javax/ws/rs/api/main/jboss-jaxrs-api_1.1_spec-1.0.0.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/jboss/resteasy/resteasy-jaxrs/main/resteasy-jaxrs-2.3.2.Final.jar" sourcepath="/Users/richarda/.m2/repository/org/jboss/resteasy/resteasy-jaxrs/2.3.2.Final/resteasy-jaxrs-2.3.2.Final-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/codehaus/jackson/jackson-core-asl/main/jackson-core-asl-1.9.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/codehaus/jackson/jackson-mapper-asl/main/jackson-mapper-asl-1.9.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/test/lib/jpdfunit-1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/jboss/resteasy/resteasy-multipart-provider/main/resteasy-multipart-provider-2.3.2.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/ail/pubnub/main/pubnub-3.7.10.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/ail/pubnub/main/json-20090211.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/ail/stripe/main/stripe-java-2.6.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/test/lib/pdfbox-1.8.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/test/lib/fontbox-1.8.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/javax/transaction/api/main/jboss-transaction-api_1.1_spec-1.0.0.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/ail/ehcache/main/ehcache-3.2.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/slf4j/jcl-over-slf4j/main/jcl-over-slf4j-1.6.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/antlr/main/antlr-2.7.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/antlr-3.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/antlr-runtime-3.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/jxpath/main/commons-jxpath-1.3.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/jxpath/main/commons-jxpath-1.3-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/drools-compiler-5.4.0.Final.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/drools-compiler-5.4.0.Final-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/drools-compiler-5.4.0.Final-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/drools-core-5.4.0.Final.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/drools-core-5.4.0.Final-sources.jar">
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/drools-core-5.4.0.Final.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/drools-core-5.4.0.Final-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/drools-core-5.4.0.Final-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/drools-decisiontables-5.4.0.Final.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/drools-decisiontables-5.4.0.Final-sources.jar">
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/drools-decisiontables-5.4.0.Final.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/drools-decisiontables-5.4.0.Final-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/drools-decisiontables-5.4.0.Final-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/drools-jsr94-5.4.0.Final.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/drools-jsr94-5.4.0.Final-sources.jar">
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/drools-jsr94-5.4.0.Final.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/drools-jsr94-5.4.0.Final-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/drools-jsr94-5.4.0.Final-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/drools-templates-5.4.0.Final.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/drools-templates-5.4.0.Final-sources.jar">
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/drools-templates-5.4.0.Final.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/drools-templates-5.4.0.Final-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/drools-templates-5.4.0.Final-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/jsr94-1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/jxl-2.6.10.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/knowledge-api-5.4.0.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/knowledge-internal-api-5.4.0.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/mvel2-2.1.0.drools16.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/org.osgi.compendium-1.4.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/org.osgi.core-1.4.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/protobuf-java-2.4.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/quartz-1.6.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/stax-api-1.0-2.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/stringtemplate-3.2.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/xerces/main/xercesImpl-2.9.1-jbossas-1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/xmlpull-1.1.3.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/xpp3_min-1.1.4c.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/xstream-1.4.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/beanutils/main/commons-beanutils-1.8.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/collections/main/commons-collections-3.2.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/digester/main/commons-digester-1.8.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/digester/main/commons-digester-1.8-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/lang/main/commons-lang-2.6.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/validator/main/commons-validator-1.3.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/codehaus/castor/main/castor-xml-ail-1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/avalon-framework-api-4.3.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/avalon-framework-impl-4.3.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-awt-util-1.6-1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-bridge-1.6-1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-css-1.6-1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-dom-1.6-1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-ext-1.6-1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-extension-1.6-1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-gui-util-1.6-1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-gvt-1.6-1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-parser-1.6-1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-script-1.6-1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-svg-dom-1.6-1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-transcoder-1.6-1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-util-1.6-1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-xml-1.6-1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/io/main/commons-io-2.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/fop-0.93.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/jdom/main/jdom-1.1.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/velocity/main/velocity-1.7.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/velocity/main/velocity-1.7-sources.jar">
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/jsr94-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/jxl-2.6.10.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/knowledge-api-5.4.0.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/knowledge-internal-api-5.4.0.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/mvel2-2.1.0.drools16.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/org.osgi.compendium-1.4.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/org.osgi.core-1.4.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/protobuf-java-2.4.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/quartz-1.6.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/stax-api-1.0-2.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/stringtemplate-3.2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/xerces/main/xercesImpl-2.9.1-jbossas-1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/xmlpull-1.1.3.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/xpp3_min-1.1.4c.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/xstream-1.4.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/beanutils/main/commons-beanutils-1.8.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/collections/main/commons-collections-3.2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/digester/main/commons-digester-1.8.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/digester/main/commons-digester-1.8-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/lang/main/commons-lang-2.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/validator/main/commons-validator-1.3.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/codehaus/castor/main/castor-xml-ail-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/avalon-framework-api-4.3.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/avalon-framework-impl-4.3.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-awt-util-1.6-1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-bridge-1.6-1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-css-1.6-1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-dom-1.6-1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-ext-1.6-1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-extension-1.6-1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-gui-util-1.6-1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-gvt-1.6-1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-parser-1.6-1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-script-1.6-1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-svg-dom-1.6-1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-transcoder-1.6-1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-util-1.6-1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/batik-xml-1.6-1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/io/main/commons-io-2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/fop-0.93.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/jdom/main/jdom-1.1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/velocity/main/velocity-1.7.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/velocity/main/velocity-1.7-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/velocity/main/velocity-1.7-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/velocity/main/velocity-tools-2.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/velocity/main/werken-xpath-0.9.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/xmlgraphics-commons-1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/net/sourceforge/saxon/main/saxon-8.7.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/net/sourceforge/saxon/main/saxon-dom-8.7.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/spring/spring-context/main/spring-aop-4.1.7.RELEASE.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/spring/spring-context/main/spring-beans-4.1.7.RELEASE.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/spring/spring-context/main/spring-context-4.1.7.RELEASE.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/spring/spring-context/main/spring-core-4.1.7.RELEASE.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/spring/spring-context/main/spring-expression-4.1.7.RELEASE.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/itext/itextpdf/main/bcmail-jdk15-1.46.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/itext/itextpdf/main/bcprov-jdk15-1.46.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/itext/itextpdf/main/bctsp-jdk15-1.46.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/itext/itextpdf/main/itextpdf-5.1.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/log4j/main/log4j-1.2.16.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/beanshell/main/bsh-2.0b5.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/slf4j/main/slf4j-api-1.6.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/google/lambdaj/main/lambdaj-2.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/cglib/main/cglib-nodep-2.2.2.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/cglib/main/cglib-nodep-2.2.2-sources.jar">
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/velocity/main/velocity-tools-2.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/velocity/main/werken-xpath-0.9.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/fop/main/xmlgraphics-commons-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/net/sourceforge/saxon/main/saxon-8.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/net/sourceforge/saxon/main/saxon-dom-8.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/spring/spring-context/main/spring-aop-4.1.7.RELEASE.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/spring/spring-context/main/spring-beans-4.1.7.RELEASE.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/spring/spring-context/main/spring-context-4.1.7.RELEASE.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/spring/spring-context/main/spring-core-4.1.7.RELEASE.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/spring/spring-context/main/spring-expression-4.1.7.RELEASE.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/itext/itextpdf/main/bcmail-jdk15-1.46.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/itext/itextpdf/main/bcprov-jdk15-1.46.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/itext/itextpdf/main/bctsp-jdk15-1.46.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/itext/itextpdf/main/itextpdf-5.1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/log4j/main/log4j-1.2.16.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/beanshell/main/bsh-2.0b5.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/slf4j/main/slf4j-api-1.6.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/google/lambdaj/main/lambdaj-2.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/cglib/main/cglib-nodep-2.2.2.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/cglib/main/cglib-nodep-2.2.2-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/cglib/main/cglib-nodep-2.2.2-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/codec/main/commons-codec-1.9.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/httpclient/main/commons-httpclient-3.1.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/httpclient/main/commons-httpclient-3.1-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/reflections/main/gson-1.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/google/guava/main/guava-11.0.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/objensis/main/objenesis-2.1.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/objensis/main/objenesis-2.1-sources.jar">
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/codec/main/commons-codec-1.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/httpclient/main/commons-httpclient-3.1.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/apache/commons/httpclient/main/commons-httpclient-3.1-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/reflections/main/gson-1.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/google/guava/main/guava-11.0.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/objensis/main/objenesis-2.1.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/objensis/main/objenesis-2.1-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/objensis/main/objenesis-2.1-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/reflections/main/reflections-0.9.8.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/reflections/main/reflections-0.9.8-sources.jar">
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/reflections/main/reflections-0.9.8.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/reflections/main/reflections-0.9.8-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/reflections/main/reflections-0.9.8-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/ecj-4.4.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/auth0/java-jwt/main/java-jwt-3.1.0.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/auth0/java-jwt/main/java-jwt-3.1.0-sources.jar">
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/drools/main/ecj-4.4.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/auth0/java-jwt/main/java-jwt-3.1.0.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/auth0/java-jwt/main/java-jwt-3.1.0-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/auth0/java-jwt/main/java-jwt-3.1.0-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/jresesarch/google-rfc-2445/main/org.jresearch.google-rfc-2445-1.0.9.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/jresesarch/google-rfc-2445/main/org.jresearch.google-rfc-2445-1.0.9-sources.jar">
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/jresesarch/google-rfc-2445/main/org.jresearch.google-rfc-2445-1.0.9.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/jresesarch/google-rfc-2445/main/org.jresearch.google-rfc-2445-1.0.9-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/jresesarch/google-rfc-2445/main/org.jresearch.google-rfc-2445-1.0.9-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/paypal/main/paypal-core-1.4.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/paypal/main/rest-api-sdk-0.7.1.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/paypal/main/rest-api-sdk-0.7.1-sources.jar">
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/paypal/main/paypal-core-1.4.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/paypal/main/rest-api-sdk-0.7.1.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/paypal/main/rest-api-sdk-0.7.1-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/paypal/main/rest-api-sdk-0.7.1-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/sagepay/main/sagepay-api-1.2.2.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/sagepay/main/sagepay-util-nodep-1.4.0.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/jbpm-console.war/runtime/drools-core-6.1.0.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/jbpm-console.war/runtime/kie-api-6.1.0.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/javax/enterprise/api/main/cdi-api-1.0-SP4.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/jbpm-console.war/runtime/jbpm-kie-services-6.1.0.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/jbpm-console.war/runtime/jbpm-shared-services-6.1.0.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/jbpm-console.war/runtime/jbpm-flow-6.1.0.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/jbpm-console.war/runtime/kie-internal-6.1.0.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/jbpm-console.war/runtime/jbpm-audit-6.1.0.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/picketbox/main/picketbox-4.0.7.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/jbpm-console.war/runtime/jbpm-workitems-6.1.0.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/janino/main/commons-compiler-3.0.7.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/janino/main/janino-3.0.7.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/janino/main/janino-3.0.7-sources.jar">
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/sagepay/main/sagepay-api-1.2.2.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/sagepay/main/sagepay-util-nodep-1.4.0.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/jbpm-console.war/runtime/drools-core-6.1.0.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/jbpm-console.war/runtime/kie-api-6.1.0.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/javax/enterprise/api/main/cdi-api-1.0-SP4.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/jbpm-console.war/runtime/jbpm-kie-services-6.1.0.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/jbpm-console.war/runtime/jbpm-shared-services-6.1.0.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/jbpm-console.war/runtime/jbpm-flow-6.1.0.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/jbpm-console.war/runtime/kie-internal-6.1.0.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/jbpm-console.war/runtime/jbpm-audit-6.1.0.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/picketbox/main/picketbox-4.0.7.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/jbpm-console.war/runtime/jbpm-workitems-6.1.0.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/janino/main/commons-compiler-3.0.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/janino/main/janino-3.0.7.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/janino/main/janino-3.0.7-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/janino/main/janino-3.0.7-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/joda/time/main/joda-time-1.6.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/hibernate/envers/main/hibernate-envers-4.1.12.Final.jar" sourcepath="C:/Workspaces/ou/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/hibernate/envers/main/hibernate-envers-4.1.12.Final-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/github/ffpojo/main/ffpojo-1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/joda/time/main/joda-time-1.6.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/hibernate/envers/main/hibernate-envers-4.1.12.Final.jar" sourcepath="C:/Workspaces/ou/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/hibernate/envers/main/hibernate-envers-4.1.12.Final-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/github/ffpojo/main/ffpojo-1.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="build/lib/annotation-4.5.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/itext/itextpdf/main/xmlworker-1.1.0.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/itext/itextpdf/main/xmlworker-1.1.0-sources.jar">
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/itext/itextpdf/main/xmlworker-1.1.0.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/itext/itextpdf/main/xmlworker-1.1.0-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/com/itext/itextpdf/main/xmlworker-1.1.0-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/javassist/main/javassist-3.22.0-GA.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/javassist/main/javassist-3.22.0-GA-sources.jar">
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/javassist/main/javassist-3.22.0-GA.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/javassist/main/javassist-3.22.0-GA-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/org/javassist/main/javassist-3.22.0-GA-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.converter-1.0.6.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.converter-1.0.6-sources.jar">
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.converter-1.0.6.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.converter-1.0.6-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.converter-1.0.6-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.converter.docx.xwpf-1.0.6.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.converter.docx.xwpf-1.0.6-sources.jar">
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.converter.docx.xwpf-1.0.6.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.converter.docx.xwpf-1.0.6-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.converter.docx.xwpf-1.0.6-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.core-1.0.6.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.core-1.0.6-sources.jar">
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.core-1.0.6.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.core-1.0.6-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.core-1.0.6-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.document-1.0.6.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.document-1.0.6-sources.jar">
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.document-1.0.6.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.document-1.0.6-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.document-1.0.6-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.document.docx-1.0.6.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.document.docx-1.0.6-sources.jar">
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.document.docx-1.0.6.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.document.docx-1.0.6-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.document.docx-1.0.6-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.itext.extension-1.0.6.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.itext.extension-1.0.6-sources.jar">
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.itext.extension-1.0.6.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.itext.extension-1.0.6-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.itext.extension-1.0.6-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.template-1.0.6.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.template-1.0.6-sources.jar">
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.template-1.0.6.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.template-1.0.6-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.template-1.0.6-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.template.velocity-1.0.6.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.template.velocity-1.0.6-sources.jar">
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.template.velocity-1.0.6.jar" sourcepath="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.template.velocity-1.0.6-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/openunderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/fr.opensagres.xdocreport.template.velocity-1.0.6-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/itext-2.1.7.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/ooxml-schemas-1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/org.apache.poi.xwpf.converter.core-1.0.6.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/org.apache.poi.xwpf.converter.pdf-1.0.6.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/org.apache.poi.xwpf.converter.xhtml-1.0.6.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/oro-2.0.8.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/poi-3.10-FINAL.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/poi-ooxml-3.10-FINAL.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/stax-api-1.0.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/xmlbeans-2.3.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/itext-2.1.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/ooxml-schemas-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/org.apache.poi.xwpf.converter.core-1.0.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/org.apache.poi.xwpf.converter.pdf-1.0.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/org.apache.poi.xwpf.converter.xhtml-1.0.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/oro-2.0.8.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/poi-3.10-FINAL.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/poi-ooxml-3.10-FINAL.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/stax-api-1.0.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/OpenUnderwriter/target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/modules/fr/opensagres/xdocreport/main/xmlbeans-2.3.0.jar"/>
+	<classpathentry kind="lib" path="build/lib/activation-1.1-sources.jar"/>
+	<classpathentry kind="lib" path="build/lib/activation-1.1.jar"/>
+	<classpathentry kind="lib" path="build/lib/aether-api-1.13.1.jar"/>
+	<classpathentry kind="lib" path="build/lib/aether-util-1.13.1.jar"/>
+	<classpathentry kind="lib" path="build/lib/annotations-2.0.1.jar"/>
+	<classpathentry kind="lib" path="build/lib/ant-1.8.4.jar"/>
+	<classpathentry kind="lib" path="build/lib/ant-launcher-1.8.4.jar"/>
+	<classpathentry kind="lib" path="build/lib/ant-optional-1.5.1.jar"/>
+	<classpathentry kind="lib" path="build/lib/avalon-framework-4.1.5.jar"/>
+	<classpathentry kind="lib" path="build/lib/bcprov-jdk16-1.46.jar"/>
+	<classpathentry kind="lib" path="build/lib/bsf-2.3.0.jar"/>
+	<classpathentry kind="lib" path="build/lib/bsh-2.0b5-javadoc.jar"/>
+	<classpathentry kind="lib" path="build/lib/bsh-2.0b5-sources.jar"/>
+	<classpathentry kind="lib" path="build/lib/bsh-2.0b5.jar"/>
+	<classpathentry kind="lib" path="build/lib/commons-beanutils-1.4.jar"/>
+	<classpathentry kind="lib" path="build/lib/commons-beanutils-core-1.7.0.jar"/>
+	<classpathentry kind="lib" path="build/lib/commons-codec-1.6.jar"/>
+	<classpathentry kind="lib" path="build/lib/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="build/lib/commons-discovery-0.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="build/lib/commons-discovery-0.2-sources.jar"/>
+	<classpathentry kind="lib" path="build/lib/commons-discovery-0.2.jar"/>
+	<classpathentry kind="lib" path="build/lib/commons-httpclient-3.1-sources.jar"/>
+	<classpathentry kind="lib" path="build/lib/commons-httpclient-3.1.jar"/>
+	<classpathentry kind="lib" path="build/lib/commons-jxpath-1.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="build/lib/commons-jxpath-1.1.jar"/>
+	<classpathentry kind="lib" path="build/lib/commons-lang-2.3.jar"/>
+	<classpathentry kind="lib" path="build/lib/commons-logging-1.1.3-javadoc.jar"/>
+	<classpathentry kind="lib" path="build/lib/commons-logging-1.1.3-sources.jar"/>
+	<classpathentry kind="lib" path="build/lib/commons-logging-1.1.3.jar"/>
+	<classpathentry kind="lib" path="build/lib/commons-net-1.1.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="build/lib/commons-net-1.1.0.jar"/>
+	<classpathentry kind="lib" path="build/lib/drools-compiler-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/drools-core-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/drools-decisiontables-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/drools-jsr94-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/drools-karaf-features-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/drools-osgi-integration-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/drools-persistence-jpa-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/drools-pmml-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/drools-reteoo-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/drools-rhq-plugin-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/drools-scorecards-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/drools-templates-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/drools-verifier-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="build/lib/httpclient-4.3.6-javadoc.jar"/>
+	<classpathentry kind="lib" path="build/lib/httpclient-4.3.6-sources.jar"/>
+	<classpathentry kind="lib" path="build/lib/httpclient-4.3.6.jar"/>
+	<classpathentry kind="lib" path="build/lib/httpcore-4.3.3.jar"/>
+	<classpathentry kind="lib" path="build/lib/httpmime-4.3.6-javadoc.jar"/>
+	<classpathentry kind="lib" path="build/lib/httpmime-4.3.6-sources.jar"/>
+	<classpathentry kind="lib" path="build/lib/httpmime-4.3.6.jar"/>
+	<classpathentry kind="lib" path="build/lib/jargs-1.0.jar"/>
+	<classpathentry kind="lib" path="build/lib/jbpm-ant-task-1.2.jar"/>
+	<classpathentry kind="lib" path="build/lib/jbpm-audit-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/jbpm-bpmn2-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/jbpm-executor-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/jbpm-flow-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/jbpm-flow-builder-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/jbpm-human-task-audit-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/jbpm-human-task-core-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/jbpm-human-task-jpa-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/jbpm-human-task-workitems-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/jbpm-kie-services-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/jbpm-persistence-jpa-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/jbpm-runtime-manager-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/jbpm-shared-services-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/jbpm-test-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/jbpm-workitems-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/jcl-over-slf4j-1.6.4.jar"/>
+	<classpathentry kind="lib" path="build/lib/jdom-b8.jar"/>
+	<classpathentry kind="lib" path="build/lib/jersey-apache-client4-1.12.jar"/>
+	<classpathentry kind="lib" path="build/lib/jersey-client-1.12.jar"/>
+	<classpathentry kind="lib" path="build/lib/jsch-0.1.50-javadoc.jar"/>
+	<classpathentry kind="lib" path="build/lib/jsch-0.1.50-sources.jar"/>
+	<classpathentry kind="lib" path="build/lib/jsch-0.1.50.jar"/>
+	<classpathentry kind="lib" path="build/lib/jsp-api-2.0-20040521.jar"/>
+	<classpathentry kind="lib" path="build/lib/junit-4.12-javadoc.jar"/>
+	<classpathentry kind="lib" path="build/lib/junit-4.12-sources.jar"/>
+	<classpathentry kind="lib" path="build/lib/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="build/lib/jzlib-1.0.7.jar"/>
+	<classpathentry kind="lib" path="build/lib/kie-api-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/kie-aries-blueprint-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/kie-camel-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/kie-ci-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/kie-internal-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/kie-maven-plugin-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/kie-services-client-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/kie-services-jaxb-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/kie-services-remote-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/kie-spring-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/knowledge-api-6.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="build/lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="build/lib/logkit-1.0.1.jar"/>
+	<classpathentry kind="lib" path="build/lib/maven-model-3.0.4.jar"/>
+	<classpathentry kind="lib" path="build/lib/mockito-all-1.10.19-javadoc.jar"/>
+	<classpathentry kind="lib" path="build/lib/mockito-all-1.10.19-sources.jar"/>
+	<classpathentry kind="lib" path="build/lib/mockito-all-1.10.19.jar"/>
+	<classpathentry kind="lib" path="build/lib/mysql-connector-java-5.1.24-sources.jar"/>
+	<classpathentry kind="lib" path="build/lib/mysql-connector-java-5.1.24.jar"/>
+	<classpathentry kind="lib" path="build/lib/nexus-client-core-2.2.jar"/>
+	<classpathentry kind="lib" path="build/lib/nexus-rest-api-model-2.2.jar"/>
+	<classpathentry kind="lib" path="build/lib/nexus-staging-ant-tasks-1.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="build/lib/nexus-staging-ant-tasks-1.1-sources.jar"/>
+	<classpathentry kind="lib" path="build/lib/nexus-staging-ant-tasks-1.1.jar"/>
+	<classpathentry kind="lib" path="build/lib/opensaml-1.0.1.jar"/>
+	<classpathentry kind="lib" path="build/lib/oro-2.0.7.jar"/>
+	<classpathentry kind="lib" path="build/lib/plexus-utils-3.0.jar"/>
+	<classpathentry kind="lib" path="build/lib/protobuf-java-2.4.1.jar"/>
+	<classpathentry kind="lib" path="build/lib/qdox-1.6-javadoc.jar"/>
+	<classpathentry kind="lib" path="build/lib/qdox-1.6-sources.jar"/>
+	<classpathentry kind="lib" path="build/lib/qdox-1.6.jar"/>
+	<classpathentry kind="lib" path="build/lib/sardine-5.8-javadoc.jar"/>
+	<classpathentry kind="lib" path="build/lib/sardine-5.8-sources.jar"/>
+	<classpathentry kind="lib" path="build/lib/sardine-5.8.jar"/>
+	<classpathentry kind="lib" path="build/lib/security-rest-model-2.8.2.jar"/>
+	<classpathentry kind="lib" path="build/lib/servlet-api-2.4-20040521.jar"/>
+	<classpathentry kind="lib" path="build/lib/sisu-charger-1.1.jar"/>
+	<classpathentry kind="lib" path="build/lib/slf4j-api-1.6.4.jar"/>
+	<classpathentry kind="lib" path="build/lib/slf4j-jdk14-1.6.4.jar"/>
+	<classpathentry kind="lib" path="build/lib/spice-zapper-1.1.jar"/>
+	<classpathentry kind="lib" path="build/lib/truezip-driver-zip-7.7.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="build/lib/truezip-driver-zip-7.7.1-sources.jar"/>
+	<classpathentry kind="lib" path="build/lib/truezip-file-7.7.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="build/lib/truezip-file-7.7.1-sources.jar"/>
+	<classpathentry kind="lib" path="build/lib/truezip-kernel-7.7.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="build/lib/truezip-kernel-7.7.1-sources.jar"/>
+	<classpathentry kind="lib" path="build/lib/xercesImpl-2.11.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="build/lib/xercesImpl-2.11.0-sources.jar"/>
+	<classpathentry kind="lib" path="build/lib/xercesImpl-2.11.0.jar"/>
+	<classpathentry kind="lib" path="build/lib/xml-apis-2.11.0.jar"/>
+	<classpathentry kind="lib" path="build/lib/xmlpull-1.1.3.1.jar"/>
+	<classpathentry kind="lib" path="build/lib/xmlsec-1.2.1.jar"/>
+	<classpathentry kind="lib" path="build/lib/xpp3_min-1.1.4c.jar"/>
+	<classpathentry kind="lib" path="build/lib/xstream-1.4.2.jar"/>
 	<classpathentry kind="output" path="target/liferay-portal-6.2-ce-ga6/jboss-7.1.1/standalone/deployments/product-content-loader-hook.war/WEB-INF/classes"/>
 </classpath>
